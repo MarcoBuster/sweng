@@ -19,3 +19,6 @@ permalink: /:year/:title
 # Build settings
 markdown: kramdown
 exclude: ["README.md"]
+
+plugins:
+  - jekyll-toc
