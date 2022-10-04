@@ -247,4 +247,18 @@
             font-size: 18px;
         }
     }
+
+    /* Markdown definitions */
+    dt {
+        font-weight: bold;
+        display: block;
+    }
+    dl {
+        font-size: .9rem;
+    }
+    dd {
+        font-size: .9rem;
+        margin-left: 2em;
+    }
+
 }
