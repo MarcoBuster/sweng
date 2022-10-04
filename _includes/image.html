@@ -1,0 +1,17 @@
+{% assign smallest = resized | sort: 'width' | first %}
+
+<div class="responsive-image" align="center" style="margin-bottom: 15px">
+    <img class="responsive-image__placeholder" src="{{ site.baseurl }}/{{ smallest.path }}">
+    <div class="responsive-image__delayed" data-src="{{ site.baseurl }}/assets/resized/{width}/{{ original.basename }}"></div>
+</div>
+
+<script>
+    $(document).ready(() => {
+        new Imager('.responsive-image__delayed', {
+            availableWidths: [{{ resized | map: 'width' | join: ', ' }}],
+            onImagesReplaced: function() {
+                $('.responsive-image__placeholder').hide()
+            }
+        });
+    });
+</script>
