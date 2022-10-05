@@ -54,9 +54,19 @@ Ma __quale è il target__? Mi chiedo le seguenti domande:
 - Ci sono problemi anche di __dimensioni__ del software. Alcuni sono fatti da milioni di righe di codice e migliaia di _'anni uomo'_ (somma del tempo impiegato da tutte le persone che lavorano al progetto) investiti. Lo sviluppo software non è più una cosa piccola. 
 - La __malleabilità__ del software porta al moltiplicarsi di versioni e evoluzioni, siccome il target può variare nel tempo.
 
+### Requisiti e specifiche
+- I __requesiti__ sono quello che il cliente vuole. Spesso sono cambiati in corso d'opera oppure sono espressi in modo sbagliato. È necessaria un'interazione continua. 
+- Le __specifiche__ sono ciò che è stato formalizzato dal programmatore (se i requisiti sono stati espressi in modo non corretto anche le specifiche risulteranno inesatte).
+
 ## Qualità del software
 
-Un software di qualità deve soddisfare le caratteristiche di __correttezza__, __affidabilità__ e __robustezza__.
+Le qualità del prodotto si dividono in due tipi:
+- __qualità esterne__: qualità che vengono colte dal cliente;
+- __qualità interne__: qualità che vengono esclusivamente colte dallo sviluppatore.
+
+Le qualità interne influenzano molto le qualità esterne (per esempio se ho un codice ottimizzato ed efficiente, il mio software produrrà i risultati più velocemente).
+
+Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b> e <b><i>"farmi diventare ricco"</i></b>.
 
 <table style="margin-bottom: 20px">
 <thead>
@@ -99,42 +109,51 @@ Un software di qualità deve soddisfare le caratteristiche di __correttezza__, _
     <tr>
         <th>Prestazioni</th>
         <td>
-            test
+            Ad ogni software è richiesto un certo livello di prestazioni. L'efficienza è una qualità interna e misura come il software utilizza le risorse del computer. La performance d'altro canto è invece una qualità esterna ed è basata sui requisiti dell'utente. La performance ha effetto sull'usabilità.
+        </td>
+    </tr>
+    <tr>
+        <th>Verificabilità</th>
+        <td>
+            Un software è verificabile se le sue proprietà sono verificabili facilmente. La verifica può essere fatta con metodi formali o informali, come il testing.
+        </td>
+    </tr>
+    <tr>
+        <th rowspan="2"><i>Farmi diventare ricco</i></th>
+        <th>Riusabilità</th>
+        <td>
+            Con la proprietà di riusabilità, utilizziamo un prodotto per costruire - anche con modifiche minori - un altro prodotto.
+        </td>
+    </tr>
+    <tr>
+        <th>Manutenibilità</th>
+        <td>
+            Per <i>manutenzione software</i> si intendono tutte le modifiche apportate al software dopo il rilascio iniziale.
+            Questa proprietà può essere vista come due proprietà separate:
+            <ul style="margin-bottom: 0;">
+                <li><b>Riparabilità</b>: un software è riparabile se i suoi difetti possono essere corretti con una quantità di lavoro ragionevole.</li>
+                <li><b>Evolvibilità</b>: indica la capacità del software di poter evolvere aggiugendo funzionalità. È importante considerare questo aspetto fin dall'inizio: studi rilevano come l'evolvibilità decresce con il passare delle release.</li>
+            </ul>
         </td>
     </tr>
 </tbody>
 </table>
 
+#### Leggi rilevanti
 
-#### Correttezza
+__Prima legge di R.Glass__. 
+> La mancanza di requisiti è la prima causa del fallimento di un progetto.
 
-- Il software deve __funzionare__.
-    - Se fa quello che è stato chiesto (rispetta le specifiche) allora è __corretto__.
-        - I __requesiti__ sono quello che il cliente vuole. Spesso sono cambiati in corso d'opera oppure sono espressi in modo sbagliato. È necessaria un'interazione continua. 
-        - Le __specifiche__ sono ciò che è stato formalizzato dal programmatore (se i requisiti sono stati espressi in modo non corretto anche le specifiche risulteranno inesatte).
-         > __Prima legge di R.Glass__. La mancanza di requisiti è la prima causa del fallimento di un progetto.
-	- Mi devo _poter fidare_: il software deve essere __affidabile__.
-    - Non deve fare male: deve essere __innocuo__ (safety) e __robusto__ anche per requisiti non espressamente richiesti. 
-- Il software deve essere __bello__. Cosa vuol dire bello?
-    - Facile da usare (__usabilità__). 
-        > __Legge di Nielsen-Norman__. L'usabilità è misurabile.
-        - Si possono fare degli esperimenti (le grandi aziende lo fanno) per testare e quantificare l'usabilità del software, con degli umani. Alcune metriche possono essere il tempo per svolgere un task, la frequenza di errori, ecc...
-    - Veloce (__efficienza nell'uso delle risorse__). Deve essere efficiente nello spazio e nel tempo (e anche in altre dimensioni).
-    - Pulito (__verificabilità__). Deve essere leggibile, rendendo semplice dimostrare che il software è corretto.
-- Il software deve ___"farmi diventare ricco"___. 
-    - Non rifare cose già fatte (__riusabilità__). È meglio _"non reinventare la ruota"_ e riutilizzare componenti, in questo modo è possibile evitare delle spese inutili. 
-        > __Legge di McIlroy__. Riutilizzare il software permette di incrementare la produttività e la qualità.
-        - È importante però _come_ viene riutilizzato il software, ne va comunque garantita la correttezza.
-    - Semplificare gli interventi post consegna (__manutenibilità__). La manutenzione è qualunque intervento dopo aver consegnato il software. Gli interventi possono essere di diverso tipo:
-        - correzione degli errori (__riparabilità__);
-        - estensione dei requisiti, nuove situazioni (__evolvibilità__).
-        - >__Leggi di M. Lehman__. Un sistema che viene utilizzato cambierà. Un sistema che evolve incrementa la sua complessita a meno che non evolva appositamente per ridurla.
+__Legge di Nielsen-Norman__. 
+> L'usabilità è misurabile.
 
-Le qualità del prodotto si dividono in due tipi:
-- __qualità esterne__: qualità che vengono colte dal cliente;
-- __qualità interne__: qualità che vengono esclusivamente colte dallo sviluppatore.
+__Legge di McIlroy__. 
+> Riutilizzare il software permette di incrementare la produttività e la qualità.
 
-Le qualità interne influenzano molto le qualità esterne (per esempio se ho un codice ottimizzato ed efficiente, il mio software produrrà i risultati più velocemente).
+__Leggi di M. Lehman__. 
+> Un sistema che viene utilizzato cambierà. 
+
+> Un sistema che evolve incrementa la sua complessita a meno che non evolva appositamente per ridurla.
 
 ### Qualità del processo
 > Un progetto è di qualità se segue un buon processo.
