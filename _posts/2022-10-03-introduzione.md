@@ -2,7 +2,6 @@
 layout: post
 title: "[01] Introduzione"
 date:   2022-10-03 14:30:00 +0200
-author: "Daniele Ceribelli"
 toc: true
 ---
 
@@ -56,7 +55,7 @@ Ma __quale è il target__? Mi chiedo le seguenti domande:
 - La __malleabilità__ del software porta al moltiplicarsi di versioni e evoluzioni, siccome il target può variare nel tempo.
 
 ### Processo di sviluppo di un software
-- Esiste la convinzione che un progetto è di qualità se segue un certo processo.
+- Esiste la convinzione che un progetto è di qualità se segue a un buono processo.
 
 Cosa significa di __qualità__?
 - Il software deve __funzionare__.
@@ -74,7 +73,7 @@ Cosa significa di __qualità__?
     - Pulito (__verificabilità__). Deve essere leggibile, rendendo semplice dimostrare che il software è corretto.
 - Il software deve ___"farmi diventare ricco"___. 
     - Non rifare cose già fatte (__riusabilità__). È meglio _"non reinventare la ruota"_ e riutilizzare componenti, in questo modo è possibile evitare delle spese inutili. 
-        > __Legge di McIlroy__. Riutilizzare il softeare permette di incrementare la produttività e la qualità.
+        > __Legge di McIlroy__. Riutilizzare il software permette di incrementare la produttività e la qualità.
         - È importante però _come_ viene riutilizzato il software, ne va comunque garantita la correttezza.
     - Semplificare gli interventi post consegna (__manutenibilità__). La manutenzione è qualunque intervento dopo aver consegnato il software. Gli interventi possono essere di diverso tipo:
         - correzione degli errori (__riparabilità__);
@@ -84,8 +83,8 @@ Cosa significa di __qualità__?
 Un software che possiede queste tre caratteristiche si dice di __qualità__.
 
 Le qualità del prodotto si dividono in due tipi:
-- Qualità esterne: qualità che viene colta dal cliente.
-- Qualità interne: qualità che viene esclusivamente vista dallo sviluppatore.
+- __qualità esterne__: qualità che vengono colte dal cliente;
+- __qualità interne__: qualità che vengono esclusivamente colte dallo sviluppatore.
 
 Le qualità interne hanno un influenza sulle qualità esterne (per esempio se ho un codice ottimizzato ed efficiente, il mio software produrrà i risultati più velocemente).
 
@@ -97,16 +96,16 @@ Sappiamo che il prodotto è influenzato dal processo che viene utilizzato per sv
 Anche un processo deve funzionare, essere essere bello e farmi diventare ricco, ma dobbiamo interpretare queste parole in maniera differente.
 
 Quali caretteristiche ha un processo di qualità?
-- [funzionare] Deve resistere agli imprevisti (__robustezza__). Se un programmatore manca, gli altri possono sopperire oppure la conoscenza è centralizzata in solo una o poche persone? oppure un altro imprevisto può essere anche il caso in cui le specifiche cambiano. 
-    - Ci sono delle certificazioni che misurano la robustezza di alcuni processi aziendali (__CMM__ capability maturity model). Vengono considerate per esempio nei bandi pubblici.
-- [essere bello] Deve essere veloce (__produttività__). È una metrica difficile da misurare; si può erroneamente fare contando il numero di linee di codice o la quantità di _mesi uomo_ (ci sono attività non parallelizzabili - come la gravidanza). Entrambe sono metriche pericolose, nel senso che non ci permettono di misurare effettivamente la produttività di un processo (la quantità di mesi uomo posso fornirla a posteriori, a lavoro finito, ma non a priori).
-- [farmi diventare ricco] Cogliere l'attimo (__tempismo__). Ovvero il processo mi deve permettere di arrivare per primo sul mercato con un certo prodotto, in modo tale da essere il primo a rispondere ad una certa necessità. Una strategia di marketing è creare _"hype"_ attorno al software, nonostante in mano si ha solo una parte o proprio niente (_vaporware_). Consegnare man mano è spesso conveniente per _"far abituare"_ il cliente al software, queto modello di sviluppo è detto __incrementale__ (esempio compilatore ada). Cogliere l'attimo è molto difficile a causa dei frequenti cambi di requisiti.
+- [FUNZIONARE] Deve resistere agli imprevisti (__robustezza__). Se un programmatore manca, gli altri possono sopperire oppure la conoscenza è centralizzata in solo una o poche persone? oppure un altro imprevisto può essere anche il caso in cui le specifiche cambiano. 
+    - Ci sono delle certificazioni che misurano la robustezza di alcuni processi aziendali (__CMM: Capability Maturity Model__). Vengono considerate per esempio nei bandi pubblici.
+- [ESSERE BELLO] Deve essere veloce (__produttività__). È una metrica difficile da misurare; si può erroneamente fare contando il numero di linee di codice o la quantità di _mesi uomo_ (ci sono attività non parallelizzabili - come la gravidanza). Entrambe sono metriche pericolose, nel senso che non ci permettono di misurare effettivamente la produttività di un processo (la quantità di mesi uomo posso fornirla a posteriori, a lavoro finito, ma non a priori).
+- [FARMI DIVENTARE RICCO] Cogliere l'attimo (__tempismo__). Ovvero il processo mi deve permettere di arrivare per primo sul mercato con un certo prodotto, in modo tale da essere il primo a rispondere ad una certa necessità. Una strategia di marketing è creare _"hype"_ attorno al software, nonostante in mano si ha solo una parte o proprio niente (_vaporware_). Consegnare man mano è spesso conveniente per _"far abituare"_ il cliente al software, queto modello di sviluppo è detto __incrementale__ (esempio: compilatore ADA). Cogliere l'attimo è molto difficile a causa dei frequenti cambi di requisiti.
 
 # Il processo di produzione del software
 Inanzitutto occorre riconoscere che:
 - produrre software __non è _solo_ scrivere codice__ (alla Programmazione I);
-- bisogna risolvere i __problemi di comunicazione__, tra tutti le diverse figure in gioco (tra sviluppatori, tra progettista e sviluppatori, ecc).
-- bisogna essere __rigorosi__, anche se è una cosa molto difficile in quanto essere rigorosi in quanto l'essere rigorisi ha lati positivi e negativi. la rigorisità può facilitare la comprensione di ciò che bisogna fare, ma essere rigorosi implica molta fatica, oppure viceversa.
+- bisogna risolvere i __problemi di comunicazione__ tra tutte le diverse figure in gioco (tra sviluppatori, tra progettista e sviluppatori, ecc).
+- bisogna essere __rigorosi__, anche se può essere difficile. Ci sono lati positivi e negativi: la rigorisità può facilitare la comprensione di ciò che bisogna fare ma essere rigorosi implica molta fatica, e viceversa.
     > __Ipotesi di Bauer-Zemanek__: Metodi formali riducono in maniera significativa gli errori di progettazione, oppure permettono di eliminarli e risolverli prima.
     
     trovare gli errori prima della fase di sviluppo permette di facilitarne la risoluzione e di risparmiare sia tempo che soldi.
