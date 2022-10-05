@@ -58,7 +58,7 @@ Ma __quale è il target__? Mi chiedo le seguenti domande:
 - I __requesiti__ sono quello che il cliente vuole. Spesso sono cambiati in corso d'opera oppure sono espressi in modo sbagliato. È necessaria un'interazione continua. 
 - Le __specifiche__ sono ciò che è stato formalizzato dal programmatore (se i requisiti sono stati espressi in modo non corretto anche le specifiche risulteranno inesatte).
 
-## Qualità del software
+# Qualità
 
 Le qualità del prodotto si dividono in due tipi:
 - __qualità esterne__: qualità che vengono colte dal cliente;
@@ -66,12 +66,14 @@ Le qualità del prodotto si dividono in due tipi:
 
 Le qualità interne influenzano molto le qualità esterne (per esempio se ho un codice ottimizzato ed efficiente, il mio software produrrà i risultati più velocemente).
 
+## Qualità del software
+
 Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b> e <b><i>"farmi diventare ricco"</i></b>.
 
 <table style="margin-bottom: 20px">
 <thead>
     <tr>
-        <th>Il software deve...</th>
+        <th>Un software deve...</th>
         <th>Qualità</th>
         <th>Descrizione</th>
     </tr>
@@ -155,7 +157,7 @@ __Leggi di M. Lehman__.
 
 > Un sistema che evolve incrementa la sua complessita a meno che non evolva appositamente per ridurla.
 
-### Qualità del processo
+## Qualità del processo
 > Un progetto è di qualità se segue un buon processo.
 
 Sappiamo che il prodotto è influenzato dal processo che viene utilizzato per svilupparlo, di conseguenza possiamo parlare anche di  __qualità del processo__.
@@ -163,10 +165,40 @@ Sappiamo che il prodotto è influenzato dal processo che viene utilizzato per sv
 Anche un processo deve funzionare, essere essere bello e farmi diventare ricco, ma dobbiamo interpretare queste parole in maniera differente.
 
 Quali caretteristiche ha un processo di qualità?
-- [FUNZIONARE] Deve resistere agli imprevisti (__robustezza__). Se un programmatore manca, gli altri possono sopperire oppure la conoscenza è centralizzata in solo una o poche persone? oppure un altro imprevisto può essere anche il caso in cui le specifiche cambiano. 
-    - Ci sono delle certificazioni che misurano la robustezza di alcuni processi aziendali (__CMM: Capability Maturity Model__). Vengono considerate per esempio nei bandi pubblici.
-- [ESSERE BELLO] Deve essere veloce (__produttività__). È una metrica difficile da misurare; si può erroneamente fare contando il numero di linee di codice o la quantità di _mesi uomo_ (ci sono attività non parallelizzabili - come la gravidanza). Entrambe sono metriche pericolose, nel senso che non ci permettono di misurare effettivamente la produttività di un processo (la quantità di mesi uomo posso fornirla a posteriori, a lavoro finito, ma non a priori).
-- [FARMI DIVENTARE RICCO] Cogliere l'attimo (__tempismo__). Ovvero il processo mi deve permettere di arrivare per primo sul mercato con un certo prodotto, in modo tale da essere il primo a rispondere ad una certa necessità. Una strategia di marketing è creare _"hype"_ attorno al software, nonostante in mano si ha solo una parte o proprio niente (_vaporware_). Consegnare man mano è spesso conveniente per _"far abituare"_ il cliente al software, queto modello di sviluppo è detto __incrementale__ (esempio: compilatore ADA). Cogliere l'attimo è molto difficile a causa dei frequenti cambi di requisiti.
+
+<table style="margin-bottom: 20px">
+<thead>
+    <tr>
+        <th>Un processo deve...</th>
+        <th>Qualità</th>
+        <th>Descrizione</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <th rowspan="1"><i>Funzionare</i></th>
+        <th>Robustezza</th>
+        <td markdown="span">
+            Un processo deve poter resistere agli imprevisti, come la mancanza improvvisa di personale o al cambiamento delle specifiche.
+            Esistono certificazioni (**CMM: Capability Maturity Model**) che valutano la robustezza di alcuni processi aziendali; vengono per esempio considerate nei bandi pubblici.
+        </td>
+    </tr>
+    <tr>
+        <th rowspan="1"><i>Essere bello</i></th>
+        <th>Produttività</th>
+        <td markdown="span">
+            La produttività di un team è molto meno della somma della produttività individuale dei suoi componenti. È una metrica difficile da misurare: conteggi come il numero di linee codice o la quantità di _tempo-uomo_ non sono buoni; per esempio, la gravidanza umana non è un'attività parallelizzabile.
+        </td>
+    </tr>
+    <tr>
+        <th rowspan="1"><i>Farmi diventare ricco</i></th>
+        <th>Tempismo</th>
+        <td markdown="span">
+            Un processo deve consegnare il prodotto nei tempi stabiliti, in modo da rispettare i tempi del mercato. È spesso conveniente la tecnica dello *sviluppo incrementale*, ovvero la consegna frequente di parti sempre più grandi del prodotto (esempio: compilatore ADA). 
+        </td>
+    </tr>
+</tbody>
+</table>
 
 # Il processo di produzione del software
 Inanzitutto occorre riconoscere che:
