@@ -54,10 +54,60 @@ Ma __quale è il target__? Mi chiedo le seguenti domande:
 - Ci sono problemi anche di __dimensioni__ del software. Alcuni sono fatti da milioni di righe di codice e migliaia di _'anni uomo'_ (somma del tempo impiegato da tutte le persone che lavorano al progetto) investiti. Lo sviluppo software non è più una cosa piccola. 
 - La __malleabilità__ del software porta al moltiplicarsi di versioni e evoluzioni, siccome il target può variare nel tempo.
 
-### Processo di sviluppo di un software
-- Esiste la convinzione che un progetto è di qualità se segue a un buono processo.
+## Qualità del software
 
-Cosa significa di __qualità__?
+Un software di qualità deve soddisfare le caratteristiche di __correttezza__, __affidabilità__ e __robustezza__.
+
+<table style="margin-bottom: 20px">
+<thead>
+    <tr>
+        <th>Il software deve...</th>
+        <th>Qualità</th>
+        <th>Descrizione</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <th rowspan="3"><i>Funzionare</i></th>
+        <th>Correttezza</th>
+        <td>
+            Un software è corretto se soddisfa la specifica dei suoi <i>requisiti funzionali</i>.
+        </td>
+    </tr>
+    <tr>
+        <th>Affidabilità</th>
+        <td>
+            È molto difficile perseverare la correttezza, in quanto è una proprietà assoluta e <i>"matematica"</i>.
+            L'affidabilità è invece relativa: un software può essere affidabile (o <i>dependable</i>)
+            nonostante contenga pochi errori.
+        </td>
+    </tr>
+    <tr>
+        <th>Robustezza</th>
+        <td>
+            Un software è robusto se si comporta in modo accettabile anche in circostanze non previste nella specifica dei requisiti.
+        </td>
+    </tr>
+    <tr>
+        <th rowspan="3"><i>Essere bello</i></th>
+        <th>Usabilità</th>
+        <td>
+            Un software è usabile (o <i>user-friendly</i>) se i suoi utenti lo ritengono facile da utilizzare.
+            Si possono fare degli esperimenti (le grandi aziende lo fanno) per testare e quantificare l’usabilità del software, con degli umani.
+        </td>
+    </tr>
+    <tr>
+        <th>Prestazioni</th>
+        <td>
+            test
+        </td>
+    </tr>
+</tbody>
+</table>
+
+
+#### Correttezza
+
 - Il software deve __funzionare__.
     - Se fa quello che è stato chiesto (rispetta le specifiche) allora è __corretto__.
         - I __requesiti__ sono quello che il cliente vuole. Spesso sono cambiati in corso d'opera oppure sono espressi in modo sbagliato. È necessaria un'interazione continua. 
@@ -80,17 +130,15 @@ Cosa significa di __qualità__?
         - estensione dei requisiti, nuove situazioni (__evolvibilità__).
         - >__Leggi di M. Lehman__. Un sistema che viene utilizzato cambierà. Un sistema che evolve incrementa la sua complessita a meno che non evolva appositamente per ridurla.
 
-Un software che possiede queste tre caratteristiche si dice di __qualità__.
-
 Le qualità del prodotto si dividono in due tipi:
 - __qualità esterne__: qualità che vengono colte dal cliente;
 - __qualità interne__: qualità che vengono esclusivamente colte dallo sviluppatore.
 
-Le qualità interne hanno un influenza sulle qualità esterne (per esempio se ho un codice ottimizzato ed efficiente, il mio software produrrà i risultati più velocemente).
+Le qualità interne influenzano molto le qualità esterne (per esempio se ho un codice ottimizzato ed efficiente, il mio software produrrà i risultati più velocemente).
 
-Ciò che è stato appena descritto è la __qualità del prodotto__, esiste però anche la qualità del processo. 
+### Qualità del processo
+> Un progetto è di qualità se segue un buon processo.
 
-## Qualità del processo
 Sappiamo che il prodotto è influenzato dal processo che viene utilizzato per svilupparlo, di conseguenza possiamo parlare anche di  __qualità del processo__.
 
 Anche un processo deve funzionare, essere essere bello e farmi diventare ricco, ma dobbiamo interpretare queste parole in maniera differente.
@@ -113,11 +161,11 @@ Inanzitutto occorre riconoscere che:
 
 Per modellare un ciclo di vita del software, devo:
 - identificare le varie attività necessarie, e successivamente un avolta definite occorre:
-    - deciderne le precedenze temporali
-    - chi le deve fare
+    - deciderne le precedenze temporali;
+    - chi le deve fare.
 - bisogna porsi due domande:
-	- cosa devo fare adesso?
-	- fino a quando?
+    - cosa devo fare adesso?
+    - fino a quando?
 rispondere a queste domande in determinati  momenti ci permette di definire i vari modelli di ciclo di vita del software. (non molto chiara questa parte, sistemare con gli altri)
 
 ## Studio di fattibilità
