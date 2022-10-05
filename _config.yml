@@ -22,3 +22,14 @@ exclude: ["README.md"]
 
 plugins:
   - jekyll-toc
+  - jekyll-responsive-image
+
+# responsive-image settings
+responsive_image:
+  template: _includes/image.html
+  sizes:
+    - width: 320
+    - width: 480
+    - width: 800
+  base_path: assets
+  output_path_format: assets/resized/%{width}/%{basename}
