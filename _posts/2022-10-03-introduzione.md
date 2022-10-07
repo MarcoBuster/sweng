@@ -275,9 +275,14 @@ Durante questa fase occorre quindi:
 - __identificare i patterns__, ovvero problemi comuni a cui è già stata trovata una soluzione generale giudicata come _"bella"_ dalla comunità (e che verrà studiata più avanti nel corso). I pattern favoriscono alcune qualità, com il design.
 
 ### Programmazione e test di unità
-- Le _scatole nere_ (ovvero i moduli o oggetti definiti nella fase di progettazione) vengono effettivamente realizzate e testate in modo tale che si controlli la correttezza dei diversi componenti (test di unità del singolo componente). Non sempre il testing si fa durante lo sviluppo del componente, molte volte si testa tutto alla fine, ma è pericoloso perchè come detto prima scoprire un problema alla fine è più oneroso da risolvere. 
-- I singoli moduli vengono testati indipendentemente anche se non è una cosa così immediata in quanto alcuni tipi di funzioni possono richiedere altre funzioni non ancora create (degli __stub__, cioè dei moduli fittizzi di cui componente testato necessita), oppure possono richiedere dei __driver__, ovvero delle situazioni su cui applicare il modulo che sto testando. Per esempio se bisogna testare una funzione di ordinamento si necessita di qualcosa da ordinare (driver) e magari deve utilizzare una funzione di ricerca non ancora creata (stub) per funzionare. Esistono dei framework che facilitano questa operazione aiutando il programmatore.
-- __Output__: un insieme di moduli separati sviluppati indipendentemente con un'interfaccia concordata e singolarmente verificati.
+In questa fase le _"scatole nere"_ - i moduli o oggetti definiti al punto precedente - vengono realizzate e per ognuna di esse vengono definiti dei __test unitari__ che ne mostrano la correttezza.
+Non sempre il testing si fa durante lo sviluppo del componente, molte volte viene fatto alla fine. Questa usanza è pericolosa perché scoprire un problema alla fine è molto più oneroso da risolvere.
+
+I singoli moduli vengono testati indipendentemente, anche se alcune funzioni da cui dipendono non sono ancora sono state implementate: una tecnica è usare moduli fittizzi (___stub___) che ne emulano le funzionalità.
+I moduli ___driver___ invece forniscono una situazione su cui applicare il modulo che sto testando.
+Nei linguaggi più utilizzati esistono framework che facilitano le suddette operazioni al programmatore.
+
+L'obiettivo di questa fase è avere un __insieme di moduli__ separati __sviluppati indipendentemente__ con un'interfaccia concordata e __singolarmente verificati__.
 
 ### Integrazione e test di sistema
 Questi moduli però devono riuscire a produrre un risultato sperato collaborando insieme, che non è sempre scontato, per fare ciò sostituisco stub e driver con componenti reali costituendo un sistema sempre più grande fino ad ottenere il risultato richiesto. Questi tipi di test sono chiamati __test di integrazione__.
