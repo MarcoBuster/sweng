@@ -201,79 +201,98 @@ Quali caretteristiche ha un processo di qualità?
 </table>
 
 # Il processo di produzione del software
-Inanzitutto occorre riconoscere che:
-- produrre software __non è _solo_ scrivere codice__ (alla Programmazione I);
-- bisogna risolvere i __problemi di comunicazione__ tra tutte le diverse figure in gioco (tra sviluppatori, tra progettista e sviluppatori, ecc).
-- bisogna essere __rigorosi__, anche se può essere difficile. Ci sono lati positivi e negativi: la rigorisità può facilitare la comprensione di ciò che bisogna fare ma essere rigorosi implica molta fatica, e viceversa.
+Il processo che seguiamo per costruire, consegnare, installare ed evolvere il prodotto software, dall'idea fino alla consegna e al ritiro finale del sistema, è chiamato __processo di produzione software__.
+
+Inanzitutto occorre riconoscere diverse problematiche.
+- I __requisiti__ possono cambiare spesso.
+- Produrre software __non è _solo_ scrivere codice__ (alla Programmazione I).
+- Bisogna risolvere i __problemi di comunicazione__ tra tutte le diverse figure in gioco (tra sviluppatori, tra progettista e sviluppatori, ecc).
+- Bisogna essere __rigorosi__, anche se può essere difficile. Ci sono lati positivi e negativi: la rigorisità può facilitare la comprensione di ciò che bisogna fare ma essere rigorosi implica molta fatica, e viceversa.
     > __Ipotesi di Bauer-Zemanek__: Metodi formali riducono in maniera significativa gli errori di progettazione, oppure permettono di eliminarli e risolverli prima.
     
-    trovare gli errori prima della fase di sviluppo permette di facilitarne la risoluzione e di risparmiare sia tempo che soldi.
-- ci sono __tanti aspetti__ da considerare, uno alla volta. Per parlare di aspetti diversi ho bisogno di metodi comunicazione diversi, che interessano ruoli diversi in tempi diversi (__Aspected Oriented Programming__).
+    Trovare gli errori prima della fase di sviluppo permette di facilitarne la risoluzione e di risparmiare sia tempo che soldi.
+- Ci sono __tanti aspetti__ da considerare, uno alla volta. Per parlare di aspetti diversi ho bisogno di metodi comunicazione diversi, che interessano ruoli diversi in tempi diversi (__Aspected Oriented Programming__).
 
 Per modellare un ciclo di vita del software, devo:
-- identificare le varie attività necessarie, e successivamente un avolta definite occorre:
+- __identificare le varie attività necessarie__ e quindi:
     - deciderne le precedenze temporali;
     - chi le deve fare.
 - bisogna porsi due domande:
     - cosa devo fare adesso?
     - fino a quando?
-rispondere a queste domande in determinati  momenti ci permette di definire i vari modelli di ciclo di vita del software. (non molto chiara questa parte, sistemare con gli altri)
 
-## Studio di fattibilità
-- Permette di definire meglio un problema, considerando anche il mercato e i concorrenti, oltre al fatto si essere in grado o meno di affrontare il problema.
-- Occore studiare i diversi scenari di realizzazione, scegliendo:
+Rispondere a queste domande in determinati momenti ci permette di definire i vari modelli di ciclo di vita del software. (non molto chiara questa parte, sistemare con gli altri).
+
+## Il modello _code-and-fix_
+Inizialmente, nell'ambito dello sviluppo software è stato adottato il modello _code-and-fix_ che consisteva nei seguenti passi:
+1. scrivi il codice;
+2. sistemalo per eliminare errori, migliorare funzionalità o aggiungere nuove funzionalità.
+
+Questo modello è risultato pesantemente inefficace in gruppi di lavoro complessi, specialmente qunado il cliente non era più lo sviluppatore stesso ma utenti con poca dimestichezza con i computer.
+
+## Le fasi del ciclo di vita del software
+
+### Studio di fattibilità
+Lo studio di fattibilità è l'attività volta prima che il processo di sviluppo inizi, per decidere se dovrebbe iniziare _in toto_.
+L'__obiettivo__ è quello di produrre un __documento in linguaggio naturale__ presentante diversi scenari con soluzioni alternative, con una discussione sui trade-off in termini di benefici e costi attesi.
+
+Più specificatamente, il documento include:
+- uno studio di diversi scenari di realizzazione, scegliendo:
     - le architetture e l'hardware necessario;
     - se sviluppare in proprio oppure subappaltare ad altri.
-- Stima dei costi, tempi di sviluppo, risorse necessarie e benfici delle varie soluzioni.
-- Spesso è difficile fare un'analisi approfondita, a causa del poco tempo o di costi troppo elevati, quindi:
-    - spesso viene commissionata all'esterno.
-    - si hanno dei limiti di tempo stringenti e quindi non è possibile fare un analisi approfondita
-- L'__output__ dello studio di fattibilità è un documento in linguaggio naturale. questo documento che ti guida per capire se affrontare il progetto oppure no, e utilizzando quale approccio. (questo approccio è composto da scelte che nel tempo possono variare, siccome ciò si affronta in un momento iniziale della progettazione).
+- stima dei costi, tempi di sviluppo, risorse necessarie e benfici delle varie soluzioni.
 
-## Analisi e specifica dei requisiti
-- Questa fase serve per __comprendere__ meglio il __dominio applicativo__ (dialogo tra cliente e controparte tecnica).
-- Identificare gli __stakeholders__ (tutte le figure interessate al progetto, non sono figure omogenee, possono andare dal manager fino alla segretaria).
-- Capire quali sono le funzionalità richieste. 
-    - La domanda principare in questa fase dobbiamo capire __COSA__ ci viene chiesto, e non il __COME__. Al cliente non interessano i componenti o i lati architetturali del programmatore.
-- Le specifiche sono quindi dal __punto di vista del cliente__ al quale non interessano i dettagli implementativi.
-- Definire quali __altre qualità__ sono richieste (_"la centrale non deve esplodere"_ non è un dettaglio implementativo, è un requisito).
-- Stabilire un __dizionario comune__ (tra cliente e sviluppatore) può far parte della specifica.
-- L'__output__ è un _documento di specifica_, che è:
-    - un documento contrattuale approvato dal committente;
-    - la base, il punto di partenza per il lavoro di design e verifica;
-    - importante sia un documento formale per evitare contestazioni contrattuali e ambiguità (questo costa però).
-- Un altro output può essere anche il __manuale utente__, ovvero la vista esterna (di fatto ciò che il cliente vuole vedere alla fine, stando attenti a evitare dettagli implementativi) del sistema da progettare. 
-- Nel documento di specifica deve essere presente anche un __piano di test__, una collezione di collaudi che certificano la correttezza (se ciò che è stato progettato passa questi test allora il lavoro viene pagato, altrimenti il progetto non viene accettato; infatti vengono chiamati anche test di accettazione). A differenza di lavori di ingegneria civile dove il collaudo è straight-forward (un ponte che può reggere 10 tonnellate ne regge anche 5, una cosa simile non è fattibile nell'ingegneria del software) nell'ingegneria del software è molto difficile collaudare tutti i casi.
+È spesso difficile fare un'analisi approfondita, a causa del poco tempo o di costi troppo elevati: spesso viene commissionata esternamente.
+
+### Analisi e specifica dei requisiti
+L'analisi e specifica dei requisiti è l'attività più critica e fondamentale del processo di produzione del software.
+L'obiettivo è la stesura di un ___documento di specifica___ <!-- ... -->.
+
+
+In questa fase i progettisti devono:
+- comprendere il __dominio applicativo__ del prodotto, dialogando con il cliente e la controparte tecnica;
+- identificare gli __stakeholders__, ovvero tutte le figure interessate al progetto. Non sono figure omogenee, può essere il _top manager_ fino al segretario;
+- capire quali sono le __funzionalità richieste__: la domanda più importante che deve porsi il programmatore è il _cosa_ non il _come_: al cliente non interessano gli aspetti tecnici e le scelte architetturali interne del programmatore. Le __specifiche__ vanno quindi viste dal punto di vista del cliente.
+- stabilire un __dizionario comune__ tra cliente e sviluppatore che può anche far parte della specifica;
+- definire __altre qualità__ eventualmente richieste: per esempio, _"la centrale non deve esplodere_ non è un dettaglio implementativo, ma un requisito. Queste altre qualità si dicono __requisiti non funzionali__.
+
+Lo scopo del _documento di specifica_ è duplice: da una parte, deve essere analizzato e approvato da __tutti gli stakeholders__ in modo da verificare il soddisfacimento delle aspettative del cliente e dall'altra è usato dai programmatori per sviluppare una soluzione che le soddisfi.
+È un documento contrattuale e deve essere scritto formalmente per evitare contestazioni contrattuali e ambiguità.
+
+Deve essere presente anche un __piano di test__, ovvero una collezione di collaudi che certificano la correttezza del lavoro: se questi test hanno esito positivo il lavoro viene pagato, altrimenti il progetto non viene accettato. A differenza dei lavori di ingegneria civile dove il collaudo è diretto, nell'ingegneria del software è molto difficile collaudare tutti i casi e gli stati possibili.
+
+Un altro output di questa fase può essere anche il __manuale utente__, ovvero la _"vista esterna"_ (ciò che il cliente vuole vedere, evitando i dettagli implementativi) del sistema da progettare.
 
 > __Legge di David__: Il valore dei modelli che rappresentano il software da diversi punti di vista dipendono dal punto di vista preso (assunto) ma non c'è nussuna vista che è la migliore per un unico scopo.
 
-## Progettazione (Design)
-- Risponde alla seguente domanda: come le specifiche precedentemente trovate possano essere realizzate in maniera opportuna?
-- Si definisce l'architettura del sistema:
-    - scelta di un'__architettura software di riferimento__;
-	- __scomposizione__ in moduli o oggetti quelli che sono gli incarichi: object oriented design, non necessariamente object oriented programming;
-    - __identificazione di patterns__: problemi comuni a cui si trovata una soluzuine generale molto "bella", nel senso che valorizza certe qualità (ovviamente non tutte, come visto prima ci sono qualità non ottenibili se ce ne sono già presente altre, esempio: se il mio codice è ottimizzato magari ho dovuto renderlo illeggibile). i patterns scelgono appunto alcune qualità da favorire. qui stiamo parlando di riutilizzo di scelte di design.
-- __Output__: documento di specifica del progetto con diversi linguaggi e con le diverse viste.
+### Progettazione (design)
+Il _design_ è l'attività attraverso la quale gli sviluppatore software strutturano l'applicazione a diversi livelli di dettaglio.
+Lo scopo di questa fase è quello di scrivere un __documento di specifica di progetto__ contenente la descrizione dell'architettura software (i divesri linguaggi e viste). 
 
-## Programmazione e test di unità
+Durante questa fase occorre quindi:
+- scegliere un'__architettura software di riferimento__;
+- __scomporre__ in moduli o oggetti gli incarichi e i ruoli: _object oriented design_, non necessariamente object oriented programming;
+- __identificare i patterns__, ovvero problemi comuni a cui è già stata trovata una soluzione generale giudicata come _"bella"_ dalla comunità (e che verrà studiata più avanti nel corso). I pattern favoriscono alcune qualità, com il design.
+
+### Programmazione e test di unità
 - Le _scatole nere_ (ovvero i moduli o oggetti definiti nella fase di progettazione) vengono effettivamente realizzate e testate in modo tale che si controlli la correttezza dei diversi componenti (test di unità del singolo componente). Non sempre il testing si fa durante lo sviluppo del componente, molte volte si testa tutto alla fine, ma è pericoloso perchè come detto prima scoprire un problema alla fine è più oneroso da risolvere. 
 - I singoli moduli vengono testati indipendentemente anche se non è una cosa così immediata in quanto alcuni tipi di funzioni possono richiedere altre funzioni non ancora create (degli __stub__, cioè dei moduli fittizzi di cui componente testato necessita), oppure possono richiedere dei __driver__, ovvero delle situazioni su cui applicare il modulo che sto testando. Per esempio se bisogna testare una funzione di ordinamento si necessita di qualcosa da ordinare (driver) e magari deve utilizzare una funzione di ricerca non ancora creata (stub) per funzionare. Esistono dei framework che facilitano questa operazione aiutando il programmatore.
 - __Output__: un insieme di moduli separati sviluppati indipendentemente con un'interfaccia concordata e singolarmente verificati.
 
-## Integrazione e test di sistema
+### Integrazione e test di sistema
 Questi moduli però devono riuscire a produrre un risultato sperato collaborando insieme, che non è sempre scontato, per fare ciò sostituisco stub e driver con componenti reali costituendo un sistema sempre più grande fino ad ottenere il risultato richiesto. Questi tipi di test sono chiamati __test di integrazione__.
 Ci sono due approcci per farlo:
 - top down
 - bottom up
 
-## Manutenzione
+### Manutenzione
 - Ci sono diversi tipi di manutenzione:
     - __Correttiva__
     - __Adattiva__: abbiamo visto prima la evolvibilità.
     - __Perfettiva__: migliorare certi componenti senza modificare aspetti esterni ma migliorando aspetti interni al programma. Serve per migliorare in futuro. 
 - __Output__: un prodotto migliore
 
-## Altre attività
+### Altre attività
 - __Documentazione__: può essere vista come attività trasversale; di solito è un'attività snobbata e procastinata, anche perché le specifiche cambiano. Ci sono delle figure che si occupano di questo diverse dal programmatore, è pericoloso in quanto possono esserci problemi di comunicazione (l'addetto potrebbe non capire ciò che il programmatore ha creato). 
 - __Verifica e controllo qualità__: anche questa pratica andrebbe fatta passo passo e non tutta alla fine.
 - __Gestione del processo__: gestione incentivi (premi di produzione), responsabilità, formazione del personale, eccetera. 
