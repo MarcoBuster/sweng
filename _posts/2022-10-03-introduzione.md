@@ -285,22 +285,32 @@ Nei linguaggi più utilizzati esistono framework che facilitano le suddette oper
 L'obiettivo di questa fase è avere un __insieme di moduli__ separati __sviluppati indipendentemente__ con un'interfaccia concordata e __singolarmente verificati__.
 
 ### Integrazione e test di sistema
-Questi moduli però devono riuscire a produrre un risultato sperato collaborando insieme, che non è sempre scontato, per fare ciò sostituisco stub e driver con componenti reali costituendo un sistema sempre più grande fino ad ottenere il risultato richiesto. Questi tipi di test sono chiamati __test di integrazione__.
-Ci sono due approcci per farlo:
-- top down
-- bottom up
+In questa fase i moduli singolarmente implementati e testati vengono __integrati__ insieme, che in alcuni modelli (come nello sviluppo incrementale) viene accorpata alla precedente.
 
-### Manutenzione
-- Ci sono diversi tipi di manutenzione:
-    - __Correttiva__
-    - __Adattiva__: abbiamo visto prima la evolvibilità.
-    - __Perfettiva__: migliorare certi componenti senza modificare aspetti esterni ma migliorando aspetti interni al programma. Serve per migliorare in futuro. 
-- __Output__: un prodotto migliore
+Nei test, i moduli _stub_ e _driver_ vengono sostituiti con i componenti reali formando un sistema sempre più grande fino ad ottenere il risultato richiesto.
+I test di questo tipo vengono detti __test di integrazione__. 
+
+L'integrazione può essere adottata seguendo un approccio _top down_ o _bottom up_. La fase finale è l'___alpha testing___, ovvero il testing del sistema in condizioni realistiche.
+
+### Consegna, installazione e manutenzione
+Dopo aver completato lo sviluppo, il software deve essere __consegnato__ ai clienti. Prima di consegnarlo a tutti, si seleziona un gruppo di utenti per raccogliere ulteriore feedback; questa fase è chiamata ___beta testing___.
+
+L'__installazione__ (deployment) definisce il _run-time_ fisico dell'architettura del sistema. Per esempio, un servizio di rete potrebbe necessitare di apparecchiatura server da installare e particolari configurazioni.
+
+Infine, la __manutenzione__ può essere definita come l'insieme delle attività finalizzate a modificare il sistema dopo essere stato consegnato al cliente. La manutenzione può essere di tipo:
+- __correttivo__: sistemare errori nel sistema;
+- __adattivo__: vedere il concetto di _evolvibilità_.
+- __perfettivo__: si tratta di migliorare certi aspetti interni al programma senza modificare gli aspetti esterni. Serve per migliorare la futura manutenzione riducendo il debito tecnico.
+
+Il __costo__ della manutenzione concorre al costo del software in una misura spesso superiore al 60%.
+
+L'_output_ di questa fase è un __prodotto migliore__.
 
 ### Altre attività
-- __Documentazione__: può essere vista come attività trasversale; di solito è un'attività snobbata e procastinata, anche perché le specifiche cambiano. Ci sono delle figure che si occupano di questo diverse dal programmatore, è pericoloso in quanto possono esserci problemi di comunicazione (l'addetto potrebbe non capire ciò che il programmatore ha creato). 
-- __Verifica e controllo qualità__: anche questa pratica andrebbe fatta passo passo e non tutta alla fine.
+- __Documentazione__: può essere vista come attività trasversale. Per esempio, un documento di specificazione contenente diagrammi UML e una descrizione narrativa che spiega le motivazione dietro certe decisioni può essere il risultato principale della fase di progettazione.
+È un'attività spesso procastina, perché le specifiche possono cambiare spesso. In alcuni gruppi esistono delle figure che si occupano di questa attività, anche se può essere pericoloso: non tutti possono capire ciò che il programmatore ha creato.
+- __Verifica e controllo qualità__ (Quality Assurance): mella maggiorparte dei casi, la verifica è svolta attraverso review e ispezioni. L'obiettivo è anticipare il prima possibile la scoperta e la sistemazione degli errori in modo da evitare di consegnare sistemi difettosi. Andrebbe fatta costantemente e non tutta alla fine.
 - __Gestione del processo__: gestione incentivi (premi di produzione), responsabilità, formazione del personale, eccetera. 
-- __Gestione delle configurazioni__: relazioni inter-progettuali. Ci potrebbero essere parti di libreria condivise tra più progetti che vorrebbero modificare la libreria stessa, e sono da gestire questi casi.
+- __Gestione delle configurazioni__: relazioni inter-progettuali. Sono da gestire i casi in cui parti di libreria vengono condivise tra più progetti che vorrebbero modificare la libreria stessa.
 
 Tutte queste diverse attività saranno specificate successivamente entrando nel dettaglio.
