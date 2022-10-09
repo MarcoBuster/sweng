@@ -32,8 +32,8 @@ toc: true
 # Introduzione 
 
 ## Storia 
-- Negli anni '50 e '60 si è colta la necessità di superare metodi di produzione artigianale. Il cliente e il programmatore coincidevano e i programmi erano prettamente matematici, ma comunque si vedevano i primi problemi.
-- Negli anni '70, si iniziano a pensare a dei metodi, dei processi e a degli strumenti che potessero migliorare e ___"assicurare"___ la __qualità del software__.
+- Negli anni '50 e '60 si è colta la necessità di superare i metodi di produzione artigianale. Il cliente e il programmatore coincidevano e i programmi erano prettamente matematici, ma comunque si vedevano i primi problemi.
+- Negli anni '70 si iniziano a pensare a dei metodi, dei processi e a degli strumenti che potessero migliorare e ___"assicurare"___ la __qualità del software__.
 
 ## Approccio ingegneristico
 1. __Target__: obbiettivo da raggiungere.
@@ -63,7 +63,7 @@ Cosa significa di __qualità__?
         - I __requesiti__ sono quello che il cliente vuole. Spesso sono cambiati in corso d'opera oppure sono espressi in modo sbagliato. È necessaria un'interazione continua. 
         - Le __specifiche__ sono ciò che è stato formalizzato dal programmatore (se i requisiti sono stati espressi in modo non corretto anche le specifiche risulteranno inesatte).
          > __Prima legge di R.Glass__. La mancanza di requisiti è la prima causa del fallimento di un progetto.
-	- Mi devo _poter fidare_: il software deve essere __affidabile__.
+	- Mi devo _poter fidare_: il software deve essere __affidabile__. Correttezza e affidabilità sono due aspetti differenti: un software corretto è anche un software affidabile, ma non vale il viceversa.
     - Non deve fare male: deve essere __innocuo__ (safety) e __robusto__ anche per requisiti non espressamente richiesti. 
 - Il software deve essere __bello__. Cosa vuol dire bello?
     - Facile da usare (__usabilità__). 
