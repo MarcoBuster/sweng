@@ -117,7 +117,10 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
     <tr>
         <th>Verificabilità</th>
         <td>
-            Un software è verificabile se le sue proprietà sono verificabili facilmente. La verifica può essere fatta con metodi formali o informali, come il testing.
+            Un software è verificabile se le sue proprietà sono verificabili facilmente: è importante essere in grado di poter verificare la correttezza e la performance di un programma. 
+            La verifica può essere fatta con metodi formali o informali, come il testing.
+            È considerata una qualità interna, ma alcune volte può diventare una qualità esterna. 
+            Per esempio, in alcuni ambiti in cui la sicurezza è critica, il cliente può chiedere la verificabilità di certe proprietà.
         </td>
     </tr>
     <tr>
