@@ -48,11 +48,14 @@ Ma __quale è il target__? Mi chiedo le seguenti domande:
 - Quali qualità ha il software?
 
 ### Problemi principali
-- Di solito il problema più grande sono le __persone__. Il programmatore non è il cliente e questo crea __problemi di comunicazione__. 
-    - Il cliente e il programmatore sono esperti di domini diversi: l'informatico è esperto di informatica, ma il cliente può essere esperto di altri campi (come biologia, finanza, ecc...).
-    - Ci sono anche problemi di comunicazione tra sviluppatori. 
-- Ci sono problemi anche di __dimensioni__ del software. Alcuni sono fatti da milioni di righe di codice e migliaia di _'anni uomo'_ (somma del tempo impiegato da tutte le persone che lavorano al progetto) investiti. Lo sviluppo software non è più una cosa piccola. 
-- La __malleabilità__ del software porta al moltiplicarsi di versioni e evoluzioni, siccome il target può variare nel tempo.
+Il problema più grande dell'ingegneria del software sono le __persone__. 
+L'obiettivo della disciplina è principalmente risolvere i __problemi di comunicazione__, che possono essere:
+- tra il __programmatore__ e il __cliente__: sono esperti di domini diversi ed è difficile comprendersi;
+- tra un __programmatore__ e altri __programmatori__.
+
+Un altro problema sono le __dimensioni__ del software, che possono raggiungere valori molto elevati in termini di milioni di righe di codice e migliaia di _"anni uomo"_. Lo sviluppo software non è più piccolo e domestico.
+
+Il software è inoltre __facilmente malleabile__: il moltiplicarsi di versioni, evoluzioni e variazioni di target può variare nel tempo.
 
 ### Requisiti e specifiche
 - I __requesiti__ sono quello che il cliente vuole. Spesso sono cambiati in corso d'opera oppure sono espressi in modo sbagliato. È necessaria un'interazione continua. 
