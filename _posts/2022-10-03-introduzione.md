@@ -219,15 +219,15 @@ Inanzitutto occorre riconoscere diverse problematiche.
     Trovare gli errori prima della fase di sviluppo permette di facilitarne la risoluzione e di risparmiare sia tempo che soldi.
 - Ci sono __tanti aspetti__ da considerare, uno alla volta. Per parlare di aspetti diversi ho bisogno di metodi comunicazione diversi, che interessano ruoli diversi in tempi diversi (__Aspected Oriented Programming__).
 
-Per modellare un ciclo di vita del software, devo:
-- __identificare le varie attività necessarie__ e quindi:
-    - deciderne le precedenze temporali;
-    - chi le deve fare.
-- bisogna porsi due domande:
-    - cosa devo fare adesso?
-    - fino a quando?
+Per modellare un ciclo di vita del software, occorre __identificare le varie attività necessarie__ e quindi:
+- deciderne le precedenze temporali;
+- chi le deve fare.
 
-Rispondere a queste domande in determinati momenti ci permette di definire i vari modelli di ciclo di vita del software. (non molto chiara questa parte, sistemare con gli altri).
+In particolare, ci si pone due domande:
+- cosa devo fare adesso?
+- fino a quando?
+
+L'ingegneria del software ci dice quali sono le fasi necessarie per sviluppare un software: non è solo coding. Rispondere a queste domande in determinati momenti ci permette di definire i vari modelli di ciclo di vita del software.
 
 ## Il modello _code-and-fix_
 Inizialmente, nell'ambito dello sviluppo software è stato adottato il modello _code-and-fix_ che consisteva nei seguenti passi:
