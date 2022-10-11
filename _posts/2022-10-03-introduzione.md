@@ -62,7 +62,7 @@ Per fare fronte ai problemi sopracitati si sviluppano allora una serie di proces
 
 Le qualità interne influenzano molto le qualità esterne (per esempio se ho un codice ottimizzato ed efficiente, il mio software produrrà i risultati più velocemente). Prima di vedere quali siano le proprietà auspicabili in un software, però, facciamo un'importante distinzione a livello terminologico tra __requisiti e specifiche__:
 - I __requisiti__ sono quello che il cliente vuole che il software faccia. Spesso sono cambiati in corso d'opera oppure sono espressi in modo sbagliato, per cui è necessaria un'interazione continua. 
-- Le __specifiche__ sono ciò che è stato formalizzato dal programmatore a partire dai requisiti: si tratta di una definizione più rigorosa di che cosa dovrà fare il software. Si noti però che se i requisiti sono stati espressi in modo non corretto anche le specifiche risulteranno inesatte (vd. <a href=#g1>G1</a>).
+- Le __specifiche__ sono ciò che è stato formalizzato dal programmatore a partire dai requisiti: si tratta di una definizione più rigorosa di che cosa dovrà fare il software. Si noti però che se i requisiti sono stati espressi in modo non corretto anche le specifiche risulteranno inesatte (vd. <a href="#g1">G1</a>).
 
 Fatta questa doverosa distinzione, vediamo quali sono le qualità che un software dovrebbe idealmente possedere.
 
@@ -104,7 +104,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         <th>Usabilità</th>
         <td>
             Un software è usabile (o <i>user-friendly</i>) se i suoi utenti lo ritengono facile da utilizzare.
-            Si possono fare degli esperimenti (le grandi aziende lo fanno) per testare e quantificare l’usabilità del software ponendolo di fronte a dei soggetti umani (vd. <a href=#nn23>NN23</a>).
+            Si possono fare degli esperimenti (le grandi aziende lo fanno) per testare e quantificare l’usabilità del software ponendolo di fronte a dei soggetti umani (vd. <a href="#nn23">NN23</a>).
         </td>
     </tr>
     <tr>
@@ -126,7 +126,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         <th>Riusabilità</th>
         <td>
             Le componenti del software che costruiamo dovrebbero essere il più riutilizzabili possibile così da risparmiare tempo in futuro: ciò può essere fatto non legandole troppo allo specifico contesto applicativo del software che stiamo sviluppando.
-            Con la proprietà di riusabilità, utilizziamo un prodotto per costruire - anche con modifiche minori - un altro prodotto (vd. <a href=#mi15>MI15</a>).
+            Con la proprietà di riusabilità, utilizziamo un prodotto per costruire - anche con modifiche minori - un altro prodotto (vd. <a href="#mi15">MI15</a>).
         </td>
     </tr>
     <tr>
@@ -136,7 +136,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
             Questa proprietà può essere vista come due proprietà separate:
             <ul style="margin-bottom: 0;">
                 <li><b>Riparabilità</b>: un software è riparabile se i suoi difetti possono essere corretti con una quantità di lavoro ragionevole.</li>
-                <li><b>Evolvibilità</b>: indica la capacità del software di poter evolvere aggiugendo funzionalità. È importante considerare questo aspetto fin dall'inizio: studi rilevano come l'evolvibilità decresce con il passare delle release (vd. <a href=#l27-28>L27-28</a>).</li>
+                <li><b>Evolvibilità</b>: indica la capacità del software di poter evolvere aggiugendo funzionalità. È importante considerare questo aspetto fin dall'inizio: studi rilevano come l'evolvibilità decresce con il passare delle release (vd. <a href="#l27-28">L27-28</a>).</li>
             </ul>
         </td>
     </tr>
@@ -145,19 +145,19 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
 
 ### Leggi rilevanti
 
-<a id=g1></a>
+<a id="g1"></a>
 __Prima legge di R.Glass (G1)__. 
 > La mancanza di requisiti è la prima causa del fallimento di un progetto.
 
-<a id=nn23></a>
+<a id="nn23"></a>
 __Legge di Nielsen-Norman (NN23)__.
 > L'usabilità è misurabile.
 
-<a id=mi15></a>
+<a id="mi15"></a>
 __Legge di McIlroy (MI15)__. 
 > Riutilizzare il software permette di incrementare la produttività e la qualità.
 
-<a id =l27-28></a>
+<a id="l27-28"></a>
 __Leggi di M. Lehman (L27-28)__. 
 > Un sistema che viene utilizzato cambierà. 
 
