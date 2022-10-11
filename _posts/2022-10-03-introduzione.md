@@ -47,11 +47,14 @@ Ma __che cosa si intede per target__? Gli obiettivi da raggiungere possono esser
 - Quali qualità deve avere il software?
 
 ### Problemi principali
-Vediamo allora questo punto alcuni dei problemi che possono insorgere durante lo sviluppo di software:
-- Di solito il problema più grande sono le __persone__: programmatore e cliente sono due entità molto diverse e questo può creare __problemi di comunicazione__. Innanzitutto, infatti, il cliente e il programmatore sono esperti di domini diversi: l'informatico sa come sviluppare del buon software, ma può non capirci niente del campo applicativo del programma che sta scrivendo per il cliente, che è invece esperto in tale campo (es. biologia, finanza, ecc...).
-    - Ci sono anche problemi di comunicazione tra sviluppatori. 
-- Ci sono problemi anche di __dimensioni__ del software. Alcuni sono fatti da milioni di righe di codice e migliaia di _'anni uomo'_ (somma del tempo impiegato da tutte le persone che lavorano al progetto) investiti. Lo sviluppo software non è più una cosa piccola. 
-- La __malleabilità__ del software porta al moltiplicarsi di versioni e evoluzioni, siccome il target può variare nel tempo.
+Il problema più grande dell'ingegneria del software sono le __persone__. 
+L'obiettivo della disciplina è principalmente risolvere i __problemi di comunicazione__, che possono essere:
+- tra il __programmatore__ e il __cliente__: sono esperti di domini diversi ed è difficile comprendersi;
+- tra un __programmatore__ e altri __programmatori__.
+
+Un altro problema sono le __dimensioni__ del software, che possono raggiungere valori molto elevati in termini di milioni di righe di codice e migliaia di _"anni uomo"_. Lo sviluppo software non è più piccolo e domestico.
+
+Il software è inoltre __facilmente malleabile__: il moltiplicarsi di versioni, evoluzioni e variazioni di target può variare nel tempo.
 
 ### Requisiti e specifiche
 - I __requesiti__ sono quello che il cliente vuole. Spesso sono cambiati in corso d'opera oppure sono espressi in modo sbagliato. È necessaria un'interazione continua. 
@@ -116,7 +119,10 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
     <tr>
         <th>Verificabilità</th>
         <td>
-            Un software è verificabile se le sue proprietà sono verificabili facilmente. La verifica può essere fatta con metodi formali o informali, come il testing.
+            Un software è verificabile se le sue proprietà sono verificabili facilmente: è importante essere in grado di poter verificare la correttezza e la performance di un programma. 
+            La verifica può essere fatta con metodi formali o informali, come il testing.
+            È considerata una qualità interna, ma alcune volte può diventare una qualità esterna. 
+            Per esempio, in alcuni ambiti in cui la sicurezza è critica, il cliente può chiedere la verificabilità di certe proprietà.
         </td>
     </tr>
     <tr>
@@ -212,15 +218,15 @@ Inanzitutto occorre riconoscere diverse problematiche.
     Trovare gli errori prima della fase di sviluppo permette di facilitarne la risoluzione e di risparmiare sia tempo che soldi.
 - Ci sono __tanti aspetti__ da considerare, uno alla volta. Per parlare di aspetti diversi ho bisogno di metodi comunicazione diversi, che interessano ruoli diversi in tempi diversi (__Aspected Oriented Programming__).
 
-Per modellare un ciclo di vita del software, devo:
-- __identificare le varie attività necessarie__ e quindi:
-    - deciderne le precedenze temporali;
-    - chi le deve fare.
-- bisogna porsi due domande:
-    - cosa devo fare adesso?
-    - fino a quando?
+Per modellare un ciclo di vita del software, occorre __identificare le varie attività necessarie__ e quindi:
+- deciderne le precedenze temporali;
+- chi le deve fare.
 
-Rispondere a queste domande in determinati momenti ci permette di definire i vari modelli di ciclo di vita del software. (non molto chiara questa parte, sistemare con gli altri).
+In particolare, ci si pone due domande:
+- cosa devo fare adesso?
+- fino a quando?
+
+L'ingegneria del software ci dice quali sono le fasi necessarie per sviluppare un software: non è solo coding. Rispondere a queste domande in determinati momenti ci permette di definire i vari modelli di ciclo di vita del software.
 
 ## Il modello _code-and-fix_
 Inizialmente, nell'ambito dello sviluppo software è stato adottato il modello _code-and-fix_ che consisteva nei seguenti passi:
@@ -232,7 +238,7 @@ Questo modello è risultato pesantemente inefficace in gruppi di lavoro compless
 ## Le fasi del ciclo di vita del software
 
 ### Studio di fattibilità
-Lo studio di fattibilità è l'attività volta prima che il processo di sviluppo inizi, per decidere se dovrebbe iniziare _in toto_.
+Lo studio di fattibilità è l'attività svolta prima che il processo di sviluppo inizi, per decidere se dovrebbe iniziare _in toto_.
 L'__obiettivo__ è quello di produrre un __documento in linguaggio naturale__ presentante diversi scenari con soluzioni alternative, con una discussione sui trade-off in termini di benefici e costi attesi.
 
 Più specificatamente, il documento include:
@@ -265,13 +271,13 @@ Un altro output di questa fase può essere anche il __manuale utente__, ovvero l
 > __Legge di David__: Il valore dei modelli che rappresentano il software da diversi punti di vista dipendono dal punto di vista preso (assunto) ma non c'è nussuna vista che è la migliore per un unico scopo.
 
 ### Progettazione (design)
-Il _design_ è l'attività attraverso la quale gli sviluppatore software strutturano l'applicazione a diversi livelli di dettaglio.
+Il _design_ è l'attività attraverso la quale gli sviluppatori software strutturano l'applicazione a diversi livelli di dettaglio.
 Lo scopo di questa fase è quello di scrivere un __documento di specifica di progetto__ contenente la descrizione dell'architettura software (i divesri linguaggi e viste). 
 
 Durante questa fase occorre quindi:
 - scegliere un'__architettura software di riferimento__;
 - __scomporre__ in moduli o oggetti gli incarichi e i ruoli: _object oriented design_, non necessariamente object oriented programming;
-- __identificare i patterns__, ovvero problemi comuni a cui è già stata trovata una soluzione generale giudicata come _"bella"_ dalla comunità (e che verrà studiata più avanti nel corso). I pattern favoriscono alcune qualità, com il design.
+- __identificare i patterns__, ovvero problemi comuni a cui è già stata trovata una soluzione generale giudicata come _"bella"_ dalla comunità (e che verrà studiata più avanti nel corso). I pattern favoriscono alcune qualità, come il design.
 
 ### Programmazione e test di unità
 In questa fase le _"scatole nere"_ - i moduli o oggetti definiti al punto precedente - vengono realizzate e per ognuna di esse vengono definiti dei __test unitari__ che ne mostrano la correttezza.
@@ -307,8 +313,8 @@ L'_output_ di questa fase è un __prodotto migliore__.
 
 ### Altre attività
 - __Documentazione__: può essere vista come attività trasversale. Per esempio, un documento di specificazione contenente diagrammi UML e una descrizione narrativa che spiega le motivazione dietro certe decisioni può essere il risultato principale della fase di progettazione.
-È un'attività spesso procastina, perché le specifiche possono cambiare spesso. In alcuni gruppi esistono delle figure che si occupano di questa attività, anche se può essere pericoloso: non tutti possono capire ciò che il programmatore ha creato.
-- __Verifica e controllo qualità__ (Quality Assurance): mella maggiorparte dei casi, la verifica è svolta attraverso review e ispezioni. L'obiettivo è anticipare il prima possibile la scoperta e la sistemazione degli errori in modo da evitare di consegnare sistemi difettosi. Andrebbe fatta costantemente e non tutta alla fine.
+È un'attività spesso procastinare, perché le specifiche possono cambiare spesso. In alcuni gruppi esistono delle figure che si occupano di questa attività, anche se può essere pericoloso: non tutti possono capire ciò che il programmatore ha creato.
+- __Verifica e controllo qualità__ (Quality Assurance): nella maggior parte dei casi, la verifica è svolta attraverso review e ispezioni. L'obiettivo è anticipare il prima possibile la scoperta e la sistemazione degli errori in modo da evitare di consegnare sistemi difettosi. Andrebbe fatta costantemente e non tutta alla fine.
 - __Gestione del processo__: gestione incentivi (premi di produzione), responsabilità, formazione del personale, eccetera. 
 - __Gestione delle configurazioni__: relazioni inter-progettuali. Sono da gestire i casi in cui parti di libreria vengono condivise tra più progetti che vorrebbero modificare la libreria stessa.
 
