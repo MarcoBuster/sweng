@@ -239,7 +239,7 @@ Questo modello è risultato pesantemente inefficace in gruppi di lavoro compless
 ## Le fasi del ciclo di vita del software
 
 ### Studio di fattibilità
-Lo studio di fattibilità è l'attività volta prima che il processo di sviluppo inizi, per decidere se dovrebbe iniziare _in toto_.
+Lo studio di fattibilità è l'attività svolta prima che il processo di sviluppo inizi, per decidere se dovrebbe iniziare _in toto_.
 L'__obiettivo__ è quello di produrre un __documento in linguaggio naturale__ presentante diversi scenari con soluzioni alternative, con una discussione sui trade-off in termini di benefici e costi attesi.
 
 Più specificatamente, il documento include:
@@ -272,13 +272,13 @@ Un altro output di questa fase può essere anche il __manuale utente__, ovvero l
 > __Legge di David__: Il valore dei modelli che rappresentano il software da diversi punti di vista dipendono dal punto di vista preso (assunto) ma non c'è nussuna vista che è la migliore per un unico scopo.
 
 ### Progettazione (design)
-Il _design_ è l'attività attraverso la quale gli sviluppatore software strutturano l'applicazione a diversi livelli di dettaglio.
+Il _design_ è l'attività attraverso la quale gli sviluppatori software strutturano l'applicazione a diversi livelli di dettaglio.
 Lo scopo di questa fase è quello di scrivere un __documento di specifica di progetto__ contenente la descrizione dell'architettura software (i divesri linguaggi e viste). 
 
 Durante questa fase occorre quindi:
 - scegliere un'__architettura software di riferimento__;
 - __scomporre__ in moduli o oggetti gli incarichi e i ruoli: _object oriented design_, non necessariamente object oriented programming;
-- __identificare i patterns__, ovvero problemi comuni a cui è già stata trovata una soluzione generale giudicata come _"bella"_ dalla comunità (e che verrà studiata più avanti nel corso). I pattern favoriscono alcune qualità, com il design.
+- __identificare i patterns__, ovvero problemi comuni a cui è già stata trovata una soluzione generale giudicata come _"bella"_ dalla comunità (e che verrà studiata più avanti nel corso). I pattern favoriscono alcune qualità, come il design.
 
 ### Programmazione e test di unità
 In questa fase le _"scatole nere"_ - i moduli o oggetti definiti al punto precedente - vengono realizzate e per ognuna di esse vengono definiti dei __test unitari__ che ne mostrano la correttezza.
@@ -314,8 +314,8 @@ L'_output_ di questa fase è un __prodotto migliore__.
 
 ### Altre attività
 - __Documentazione__: può essere vista come attività trasversale. Per esempio, un documento di specificazione contenente diagrammi UML e una descrizione narrativa che spiega le motivazione dietro certe decisioni può essere il risultato principale della fase di progettazione.
-È un'attività spesso procastina, perché le specifiche possono cambiare spesso. In alcuni gruppi esistono delle figure che si occupano di questa attività, anche se può essere pericoloso: non tutti possono capire ciò che il programmatore ha creato.
-- __Verifica e controllo qualità__ (Quality Assurance): mella maggiorparte dei casi, la verifica è svolta attraverso review e ispezioni. L'obiettivo è anticipare il prima possibile la scoperta e la sistemazione degli errori in modo da evitare di consegnare sistemi difettosi. Andrebbe fatta costantemente e non tutta alla fine.
+È un'attività spesso procastinare, perché le specifiche possono cambiare spesso. In alcuni gruppi esistono delle figure che si occupano di questa attività, anche se può essere pericoloso: non tutti possono capire ciò che il programmatore ha creato.
+- __Verifica e controllo qualità__ (Quality Assurance): nella maggior parte dei casi, la verifica è svolta attraverso review e ispezioni. L'obiettivo è anticipare il prima possibile la scoperta e la sistemazione degli errori in modo da evitare di consegnare sistemi difettosi. Andrebbe fatta costantemente e non tutta alla fine.
 - __Gestione del processo__: gestione incentivi (premi di produzione), responsabilità, formazione del personale, eccetera. 
 - __Gestione delle configurazioni__: relazioni inter-progettuali. Sono da gestire i casi in cui parti di libreria vengono condivise tra più progetti che vorrebbero modificare la libreria stessa.
 
