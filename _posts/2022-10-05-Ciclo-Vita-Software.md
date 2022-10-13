@@ -85,6 +85,7 @@ Tutti i modelli visti per ora ricadono perlopiù nell'ambito descrittivo, mentre
 </table>
 
 ## Modello a V (denti di pesce cane)
+
 {% responsive_image path: assets/02_v-model.png %}
 
 Dal modello a cascata nascono poi numerose varianti che cercano di risolverne i vari problemi: tra queste spicca per rilevanza il __modello a V__, che introduce fondamentalmente una __più estesa fase di testing__.
@@ -98,67 +99,72 @@ Volendo formalizzare, le due nuove attività introdotte sono dunque:
 
 # Modelli iterativi
 
+Osservando il modello a cascata e le sue varianti ci si è ben presto resi conto che la stringente sequenzialità delle fasi costituiva un grosso limite non conciliabile con la flessibilità richiesta dallo sviluppo software e con la naturale mutevolezza dei requisiti imposti dal cliente. Si inizia dunque a pensare di permettere agli sviluppatori di _ripetere_ alcune fasi più di una volta, ciclando su di esse fino a ottenere un prodotto soddisfacente: nascono così i primi __modelli interativi__.
+
 ## Modello a cascata con singola retroazione
 
 {% responsive_image path: 'assets/02_waterfall-retroazione.png' %}
 
-Una fase può portare modifiche nella fase precedente (__iterazione__). 
-Per esempio, posso _iterare_ tra _Codifica_ e _Testing_ fino a consegnare il prodotto.
+Uno dei primi modelli iterativi è in realtà una variante del modello a cascata, in cui si permette di fare un'unico salto indietro; a parire da una fase si può cioè __ritornare alla fase precedente__: così, per esempio, si può _iterare_ tra _Codifica_ e _Testing_ fino a consegnare il prodotto.
 
-Anche in questo modello non si può tornare indietro dalla consegna, quindi eseguire attività di manutenzione.
+Anche in questo modello non si può però tornare indietro dalla consegna per eseguire attività di manutenzione; inoltre, l'introduzione di un'iterazione rende molto __più difficile pianificare__ il lavoro e monitorarne l'avanzamento: si tratta questa di una caratteristica condivisa da molti modelli iterativi.
 
 ## Modello a fontana
 
 {% responsive_image path: 'assets/02_fountain-model.png' %}
 
-È stato ideato nel 1993. 
-In un qualunque momento se ci sono errori si torna indietro ripartendo dall'inizio (_software pool_) e ricontrollando tutte le fasi precedenti. 
+Nel 1993 nasce, in contrapposizione al modello a cascata, il cosiddetto __modello a fontana__, che amplia il concetto di iterazione permettendo in qualunque momento di __tornare alla fase iniziale__: se ci si accorge della presenza di errori si torna indietro all'inizio (_software pool_) e si ricontrollano tutte le fasi precedenti. Ovviamente questo non implica buttare tutto il lavoro già fatto, quanto piuttosto risolvere l'errore con un approccio che parta innanzitutto dalla modifica dei requisiti (se possibile), delle specifiche e solo dopo del codice, evitando di rattoppare solo quest'ultimo alla bell'e meglio come nel modello _code-and-fix_.
 
-È il primo modello in cui sono previste delle azioni dopo la consegna (la __manutenzione__).
-Nell'ultima fase (_programma in uso_) ci sono ancora due strade: manutenzione ed evoluzione. 
-La consegna del prodotto non è quindi più l'atto finale, ma solo un altro step del processo: concetto di __versione incrementale__.
+Il modello a fontana è inoltre il primo in cui sono previste delle azioni dopo la consegna; dopo l'ultima fase (_programma in uso_), infatti, si aprono ancora due strade: __manutenzione ed evoluzione__. La consegna del prodotto non è quindi più l'atto finale, ma solo un altro step del processo: ecco quindi che si aprono le porte ad una __visione incrementale__ dello sviluppo software, che approfondiremo nel prossimo paragrafo.
+
+Anche qui si perdono purtroppo le garanzie sui tempi di sviluppo: una volta ritornato all'inizio per sistemare un errore non è infatti affatto detto che riuscirò a ritornare alla fase da cui sono partito, ma potrei imbattermi in altri errori durante le fasi precedenti costringendomi a iterare su di esse più di una volta.
 
 # Modelli incrementali
 
-Un modello incrementale è un particolare modello iterativo in cui in una delle nelle iterazioni è inclusa la consegna.
+Un modello incrementale è un particolare modello iterativo in cui nelle iterazioni è inclusa anche la consegna: questo permette di sviluppare il software a poco a poco, rilasciandone di volta in volta parti e componenti che costruiscano _incrementalmente_ il programma finito.
 
-Si può parlare quindi di:
+Si noti la differenza tra incrementale e iterativo; si può parlare infatti di:
+
 - __implementazione iterativa__: dopo aver raccolto le specifiche e aver progettato il sistema, _iterativamente_ sviluppo i componenti, li integro nel prodotto finale, quindi consegno.
-- __sviluppo incrementale__: l'iteratività interessa tutte le fase, comprese quelle di specifiche e realizzazione.  
+- __sviluppo incrementale__: l'iteratività interessa tutte le fasi, comprese quelle di specifiche e realizzazione.  
 
 Lo sviluppo incrementale riconosce la criticità della variabilità delle richieste e la integra nel processo. 
-La manutenzione non è quindi più una particolarità ma è vista come normali richieste di correzioni perfettamente integrate nel modello.
+La manutenzione non è quindi più una particolarità ma è vista come normale e perfettamente integrata nel modello: in tal senso, la richiesta di una nuova feature o la correzione di un errore generano gli stessi step di sviluppo.
 
-## Modelli prototipali
-Un particolare modello incrementale è quello protitipale. In questo modello viene introdotto il concetto di __protitipi usa e getta__ (_throw away_). 
+## Modello prototipale
+Un particolare modello incrementale è quello protitipale: in questo modello viene introdotto il concetto di __protitipi usa e getta__ (_throw away_), interi programmi che vengono costruiti e poi vengono buttati via.
 
-Lo scopo del prototipo __non è consegnare__ un prodotto finito, ma __ricevere feedback__ dal cliente per essere sicuri di aver compreso a pieno i suoi requisiti.
+Lo scopo del prototipo __non è consegnare__ un prodotto finito, ma __ricevere feedback__ dal cliente per essere sicuri di aver compreso a pieno i suoi requisiti, oppure testare internamente un'idea o uno strumento. Per questo motivo tali prototipi vengono costruiti fregandosene di correttezza, pulizia del codice, leggibilità eccetera.
+I protitipi possono dunque essere:
 
-La tentazione può essere quella di consegnare il prodotto finito, ma c'è il __rischio__ enorme di dover mantenere poi in futuro software non mantenibile, illeggibile e con altissimo debito tecnico.
+- __pubblici__: per capire meglio i requisiti del cliente (vd. <a href="#b3">L3</a>);
+- __privati__: per esplorare nuovi strumenti, linguaggi, scelte per problemi difficili; inoltre, molto spesso una volta programmata una soluzione si capisce anche meglio il problema (_"do it twice"_).
 
-I protitipi possono essere:
-- __pubblici__: per capire meglio i requisiti del cliente;
-- __privati__: per esplorare nuovi strumenti, linguaggi, scelte per problemi difficili.
+La tentazione coi prototipi pubblici può essere quella di consegnarli come prodotto finito, ma c'è il __rischio__ enorme di dover mantenere poi in futuro software non mantenibile, illeggibile e con altissimo debito tecnico.
 
-__Legge di Bohem__
+<a id="b3"></a>
+__Legge di Bohem (L3)__
 > La propotipizzazione riduce gli errori di analisi dei requisiti e di design, specialmente per le interfacce utente.
 
 ## I problemi dei modelli incrementali
 
-Viene complicato il lavoro di planning: bisogna pianificare tutte le iterazioni e lo stato di avanzamento è meno visibile.
-Ad ogni iterazione, dobbiamo rimetere mano a ciò che è stato fatto: il processo può non convergere.
+Come già detto nessun modello è perfetto, e anche i modelli incrementali soffrono di alcuni problemi.
 
-Ma cosa è un'iterazione, quanto dura? Ci sono diversi rischi:
+Viene innanzitutto __complicato il lavoro di planning__: bisogna pianificare tutte le iterazioni e lo stato di avanzamento è meno visibile; inoltre, la ripetizione di alcune fasi richiede di avere sempre sul posto gli esperti in grado di eseguirle.
+Ad ogni iterazione, poi, dobbiamo rimettere mano a ciò che è stato fatto, in un processo che potrebbe non convergere mai a una versione finale.
+
+Ma cosa è un'iterazione, e quanto dura? Tagliare verticalmente sulle funzionalità non è infatti facile, soprattutto considerando che quando si consegna il prodotto esso dev'essere funzionante con tutti i layer necessari ed essere al contempo pensato per poter crescere con successivi attaccamenti. Ci sono dunque diversi rischi:
+
 - voler aggiungere troppe funzionalità nella prima iterazione;
-- overhead dovuto a troppe iterazioni: per esempio, Microsoft Office 2020 e 2019 vengono sviluppati contemporaneamente;
-- avere un eccessivo overlapping tra le iterazioni: non si ha tempo di aver feedback dell'utente.
+- overhead dovuto a troppe iterazioni;
+- avere un eccessivo overlapping tra le iterazioni: non si ha tempo di recepire il feedback dell'utente (es. Microsoft Office 2020 e 2019 vengono sviluppati contemporaneamente).
 
 ### Pinball Life-Cycle
 {% responsive_image path: 'assets/02_pinball-life-cycle.png' %}
 
-Il _"modello meme"_ Pinball Life-Cycle estremizza queste problematiche: l'ordine in cui faccio le attività è casuale, incoltrollabile.
+Il _"modello meme"_ del Pinball Life-Cycle, creato da Ambler come critica ai modelli incrementali, estremizza queste problematiche: l'ordine in cui faccio le attività è casuale, incoltrollabile. Qualunque passo è possibile dopo qualunque altro, e non si possono imporre vincoli temporal: il processo è __non misurabile__.
 
-Qualunque passo è possibile, non vengono imposti vincoli temporali. Il processo è __non misurabile__.
+Si tratta ovviamente di una visione eccessivamente pessimistica, ma spesso nelle aziende non specializzate l'iter di sviluppo assomiglia effettivamente a questo.
 
 ## Modelli trasformazionali
 {% responsive_image path: 'assets/02_transformational-models.png' %}
@@ -219,7 +225,7 @@ Per migliorare il modo in cui sviluppiamo il software, dobbiamo dare più import
 - La __collaborazione con il cliente__ è più importante del contratto.
 - __Rispondere al cambiamento__ è più importante che seguire un piano.
 
-LIBRO: Agile! Bertrand Meyer
+> LIBRO: __Agile!__ di Bertrand Meyer
 
 ## Lean Software
 Nasce da Toyota: l'obiettivo è __ridurre gli sprechi__ / la spazzatura: i sottoprodotti che non vengono consegnati (testing, ...) potrebbero essere ignorati.
