@@ -55,7 +55,7 @@ Anche noi utilizziamo il modello a cascata solo come paragone negativo, e in gen
 
 Tutti i modelli visti per ora ricadono perlopiù nell'ambito descrittivo, mentre i modelli AGILE che vedremo più avanti tendono ad essere più di tipo prescrittivo.
 
-### Modello a cascata: pro e contro
+### Riassunto pro e contro
 
 <table style="margin-bottom: 20px">
     <thead>
@@ -67,14 +67,14 @@ Tutti i modelli visti per ora ricadono perlopiù nell'ambito descrittivo, mentre
     <tbody>
         <tr>
             <td>
-                <ul>
+                <ul style="margin-top: 15px">
                     <li>Document-based</li>
                     <li>Buona suddivisione dei compiti</li>
                     <li>Semplice pianificazione dei tempi</li>
                 </ul>
             </td>
             <td>
-                <ul>
+                <ul style="margin-top: 15px">
                     <li>Rigidità</li>
                     <li>Congelamento dei sottoprodotti</li>
                     <li>Monoliticità</li>
