@@ -261,4 +261,17 @@
         margin-left: 2em;
     }
 
+    /* Table stuff */
+    th, td {
+        padding: 4px;
+        border: 1px solid;
+    }
+    th {
+        text-align: center;
+    }
+    table {
+        border-collapse: collapse;
+        border: 1px solid;
+        width: 100%;
+    }
 }
