@@ -1,20 +1,3 @@
-
-## Approccio
-### 1) planning game
-viene fatta all'inizio dell'iterazione, serve per congelare quella parte di requisiti che verranno fatti dalle successive 2 settimane (tempo scelto dal manager)
-si inizia dalle user stories ovvero una versione infoemale e semplificata dei casi d'uso di UML.
-lo scopo del planning game è capire quali di queste storie faranno parte del lavoro da fare nelle prossime settimane -> ci deve essere un certo bilanciamento tra priorità commerciali e valutazione tecniche.
-il cliente fa parte del team e farà parte di tuttei le parti del progetto, non solo nel plannning game.
-il cliente prepara delle carte con un identificativo, una breve frase che descrive uno scenario d'uso, uno o più casi di test che fungono da test di accettazione ed infine il valore che attribuisce il cliente a questa cosa da fare.
-
-il __team__ di sviluppatori invece stima il tempo necessario per soddisfare la richiesta
-coraggio e miglioramento continuo? spiega sta cringiata
-
-il manager sulla base di queste info decide quali schede verranno implementate alla prossima iterazione
-
-come si fa la stima da parte del team?
-- le stime sono molto differenti (ore vs giorni) -> ci si deve mettere d'accordo per trovare una tempistica comune che vada bene per tutti
-- le stime sono quasi uniformi ma molto alte -> se già so che non farò in tempo allora il valore è nullo, allora come faccio? si può fare uno __split__ della storia, ovvero si suddivide la carta in modo da rendere più facile il lavoro
 - se non c'è accordo nelle stime ma sono simili? cosa si fa? -> si deve arrivare ad un accordo, la stima non è del singolo.
 
 problemi nelle stime condivise:
@@ -169,22 +152,24 @@ L'extreme programming fornisce una serie di pratiche per poter garantire tutto c
 È l'attività che viene fatta all'inizio dell'iterazione e serve per "congelare" il sottoinsieme di requisiti sul quale il team lavorerà per le prossime ~2 settimane.
 
 Si inizia da dalle richieste del cliente, ovvero le _user stories_, una versione semplificata degli _use case_ degli UML; hanno come soggetto sempre un ruolo specifico nell'azienda del cliente.
-Lo scopo del planning game è determinare quali funzionalità saranno presenti nel prossimo rilasio, combinando priorità commerciali e valutazioni tecniche, questo richiede una collaborazione con il cliente.
+Lo scopo del planning game è determinare quali funzionalità saranno presenti nel prossimo rilasio, combinando priorità commerciali e valutazioni tecniche, questo richiede una collaborazione con il cliente, che come vedremo sarà in loco (in scrum si introduce un "product owner portavoce del cliente").
 
 #### Procedura
 <!-- immagine scheda -->
-1. All'inizio il cliente prepara le carte. In ogni carta c'è:
+1. All'inizio il cliente prepara le carte, che sono piccole in modo da non scrivere tanto. In ogni carta c'è:
 - un identificativo;
 - una breve descrizione che descrive uno scenario d'uso;
-- un caso di test che funge da test d'accettazione;
-- il valore di business che ha per lui.
-2. Il team di sviluppatori stima il tempo necessitario: ognuno dà la propria stima. Un sviluppatore prende il ruolo di _tracker_ e si impegna a tracciare.
-3. Il manager quindi sulla base di queste informazioni decide quali schede verranno implementate alla prossima iterazione.
+- un caso di test che funge da test d'accettazione (in sostanza un esempio, possono essere anche un paio, un caso posiitvo e uno negativo);
+- il valore di business che ha per il cliente.
+2. Il team di sviluppatori stima il tempo necessitario: ognuno dà la propria stima. Sul retro della carte si tiene un resoconto di ciò che si è fatto. Un sviluppatore prende il ruolo di _tracker_ e si impegna a tracciare lo stato di avanzamento durante le due settimane (per esempio quante feature fatte, quanti bug segnalati, ecc).
+3. Il manager quindi sulla base di queste informazioni decide quali schede verranno implementate alla prossima iterazione. Le varie funzionalità rappresentate nelle carte in teoria sono indipendenti, quindi il manager per compiere queste scelte calcola il valore fratto tempo stimato e ordina le carte, in questo modo può scegliere meccanicamente le schede da utilizzare durante l'iterazione (in realtà compie dei ragionamenti, quindi non è un'operazione così meccanica).
 
 ### Le stime
-Le stime sono fatte da parte del team, composto da persone diverse possono essere...
-- __molto differenti__ (ore vs giorni): in questo caso, è possibile che la carta non sia descritta o compresa correttamente; bisogna dialogare;
-- quasi uniformi, ma __molto alte__: potrebbe essere che la storia sia troppo ampia;
+Le stime sono fatte da parte del team, composto da persone diverse chee quindi faranno stime diverse. Questo è dato anche dall'esperienza del team, lo svilupatore junior può non essere in grado di dare una stima siccome è alle prime armi, o comunque stimerà un tempo maggiore rispetto ad uno sviluppatore esperto, ma in ogni caso è tenuto anche lui a dare un'opinione.
+
+possiamo avere stime:
+- __molto differenti__ (ore vs giorni): in questo caso, è possibile che la carta non sia descritta o compresa correttamente; bisogna raggiungere un accordo siccome se uno sviluppatore stima poche ore e un altro qualche giorno abbiamo dei problemi. Se viene deciso che il tempo per una data scheda è di qualche ora e viene assegnato allo sviluppatore che aveva fatto una stima più alta allora si troverà in difficoltà nel portare a termine il compito. in conclusione è necessario trovare un punto di incontro.
+- quasi uniformi, ma __molto alte__: potrebbe essere che la storia sia troppo ampia. Se alla fine dell'iterazione no ho portato a termine il lavoro prefissato è come se non l'avessi fatto, e quindi il suo valore è zero (anche se magari era stato completato all'80%), perchè il cliente non lo avrà alla fine dell'iterazione. Questo concetto è molto importante nelle tecniche agili. Per ovviare a questo problema si può fare lo __splitting__ delle carte, ovvero scomponiamo una carta in più carte in modo da scomporre il problema.
 - non c'è accordo ma __sono simili__: non bisogna prendere la più bassa, alta o la media. Secondo XP bisogna arrivare ad un accordo in modo tale che chiunque nel team si riconosca nella stima effettuata.
 
 I problemi sono:
