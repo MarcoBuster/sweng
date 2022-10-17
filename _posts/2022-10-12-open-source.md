@@ -67,3 +67,44 @@ Ci sono diverse ditte in cui il software non è il prodotto, ma una __tecnologia
 - i competitor hanno accesso allo stesso software? Se Amazon usa il sistema di raccomandazione venduto anche a Feltrinelli allora non conviene.
 
 Se la risposta a una delle due domande è no, perché dovrei tenermi il software per me? Renderlo open source sparpaglia i costi. L'open source porta valore.
+
+## Confronto
+
+...
+
+## An empirical study of open-source and closed-source software products
+
+È stato fatto uno studio che confronta progetti open e closed. 
+Copiare tabelllina nel paper.
+
+## Sfide che si amplificano
+L'integrazione del software, nel modello a cascata era una fase circoscritta e a sé stante.
+
+Microsoft ha ipotizzato uno schema che sembra molto innovativo: _Stabylize & Synchronize_.
+Durante il giorno ci sono gli sviluppatori che lavorano sul proprio pezzo di codice in cui erano responsabile; ogni notte il software veniva quindi ricompilato da zero. 
+La mattina dopo se la compilazione falliva si trovava il responsabile e lo si puniva.
+Altrimenti, ogni giorno avevano la "versione migliore possibile" di Windows.
+
+Nel modello XP l'integrazione viene eseguita più volte al giorno, escludendosi a vicenda (solo un accesso alla macchina per volta).
+
+Nell'open source l'integrazione viene eseguita continuamente e senza coordinazione a priori.
+
+### Team
+Nell'open source, inoltre, ci sono problemi con il team.
+Bisogna decidere come comunicare, come tenersi uniti, come coordinarsi e anche come ottenere nuove collaborazioni.
+
+Ci sono degli strumenti di supporto che vengono utilizzati.
+
+Per la comunicazione c'è:
+- in generale internet
+- forum, per tenere la community unita e rispondere dubbi ai nuovi utenti
+
+Inoltre, ci sono strumenti per la sincronizzazione del lavoro e di versioning per codice e documentazione.
+
+Automatizzazione della build: deve essere facile (addirittura banale) poter compilare il codice e ricreare l'ambiente di sviluppo omogeneo per tutti. 
+
+Bug tracking: è importante 'educare' il reporter dei bug e avere un sistema e un posto accessibile a tutti per vedere se sono state già inviate, e per organizzarle.
+Anche la segnalazione d'errore avrà il suo "ciclo di vita". 
+
+
+
