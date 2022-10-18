@@ -6,44 +6,60 @@ toc: true
 ---
 # Open source
 
-## Cattedrale e bazaar
-__The Cathedral and the Bazaar (Raymond)__
+## __The Cathedral and the Bazaar__
 
-> Every good work of software starts by scratching a developer's personal itch.
+Raymond descrive nel suo [articolo](http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/) due analogie, relative al modo di costruire un software opensource:
+- la __cattedrale__: c'è un progettista che è responsabile dei lavori;
+- il __bazaar__: ognuno lavora per sé.
 
-Chiede ad amici o colleghi cosa sono sull'argomento.
+Dal suo articolo abbiamo estratto alcune frasi importanti.
 
-Si cercano pareri..
+### Frasi
 
-Le persone interessate che intendono spendere delle risorse (il proprio tempo libero) danno via a un progetto informale.
+> Ogni buon lavoro software inizia dalla frenesia personale del singolo sviluppatore
 
-Un progetto open source nasce quando viene messo a disposizione il codice. 
-È più facile coinvolgere più persone se il progetto pubblicato presenta errori, perché la comunità vorrà sistemare gli errori. 
+Lo sviluppatore ha un problema e chiede ad amici o colleghi cosa sono sull'argomento.
+Alcuni hanno lo stesso problema o problemi simili, ma nessuno ha una soluzione.
+
+Le persone interessate cominciano a scambiarsi pareri e conoscenze sull'argomento. 
+Coloro che intendono spendere delle risorse (di fatto il proprio tempo libero) per risolvere il rpoblema danno il via ad un progetto informale.
+I membri del progetto lavorano al problema fino a che non raggiungono dei risultati presentabili.
+
+Il progetto open source nasce quando __viene messo a disposizione il codice sorgente__.
+È più facile coinvolgere più persone se il progetto pubblicato presenta errori, perché la comunità (principalemnte composta da sviluppatori) vorrà sistemare gli errori. 
 
 I membri del progetto lavorano al problema fino a che non raggiungono dei risultati presentabili.
 Ci deve essere interazione tra vecchi e nuovi membri del gruppo.
 
-### Frasi dal libro
-
 > Se dai a tutti il codice sorgente, ognuno di essi diventa un tuo ingegnere
 
-...
+Ci sono tanti ruoli utili per portare avanti il progetto ricoperti da persone non necessariamente con competenze informatiche, come la segnalazione di bachi o la moderazione di contenuti nella comunità.
+
+D'altro canto, il rilascio del codice sorgente permette agli utenti sviluppatori di contribuire al progetto, offrendo una possibilità in più.
 
 > Se ci sono abbastanza occhi [che cercano errori], gli errori diventano di poco conto
 
-...
+Più sono le persone capaci a controllare il mio codice più gli errori si trovano e si risolvono più facilmente.
 
 > Se tratti i tuoi beta-tester come se fossero la tua risorsa più importante, essi risponderanno diventando la tua risorsa più importante
 
-...
-
 > Quando hai perso interesse in un programma, l'ultimo tuo dovere è passarlo a un successore competente
 
-...
+Spesso questa cosa non viene fatta, e il programma muore.
+Occorre trovare qualcuno perché un programma in uso dovrà necessariamente cambiare ed evolvere in futuro.
 
-### tabella
+## Confronto tra modelli
 
-mettere tabella roba con traditional / agile / open source / commento.
+| Cosa | Tradizionale | Agile | Open source |
+|------|--------------|-------|-------------|
+| __Documentazione__ | La documentazione è enfatizzata come il mezzo di controllo della qualità e come un mezzo di gestione. | La documentazione è de-enfatizzata. | Tutti i manufatti di sviluppo sono globalmente disponibili, compresi il codice e la documentazione. |
+| __Requirements__ | Gli analisti traducono le necessità dell'utente in specifiche software. | Gli utenti fanno parte del team. | Gli sviluppatori spesso sono anche gli utenti. |
+| __Assegnamento dello staff__ | Gli sviluppatori sono assegnati ad un unico progetto. | Gli sviluppatori sono assegnati ad un unico progetto. | Gli sviluppatori tipicamente lavorano su più progetti con diversi livelli di partecipazione |
+| __Revisione del codice__ | La revisione del codice è ampiamente accettata ma raramente eseguita. | La _pair programming_ introduce una forma di revisione del codice. | La revisione del codice è una necessità ed è praticata quasi universalmente. |
+| __Tempi di rilascio__ | Tanti features in poche, grandi rilasci. | Rilascia presto, rilascia spesso. | Gerarchia dei tipi di rilasci: _notturni_ (compilazione giornaliera dal branch master), sviluppo e stabili. | 
+| __Organizzazione__ | I team sono gestiti dall'alto. | I team sono auto organizzati. | I contributori individuali decidono per sé. |
+| __Testing__ | Il testing è gestito dallo staff di _Quality Assurance_ (QA), che segue le attività di sviluppo | Il testing è parte integrante dello  sviluppo (TDD). | Il testing e la QA possono essere svolti da tutti da tutti gli sviluppatori. |
+| __Distribuzione del lavoro__ | Parti differenti della codebase sono assegnate a persone differenti | Chiunque può modificare qualsiasi parte della codebase | Chiunque può modificare qualsiasi parte della codebase, ma solo i _committer_ possono renderla ufficiale. |
 
 ## Care and Feeding of FOSS
 
