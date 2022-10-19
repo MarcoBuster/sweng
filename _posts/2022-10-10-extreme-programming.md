@@ -1,45 +1,3 @@
-- se non c'è accordo nelle stime ma sono simili? cosa si fa? -> si deve arrivare ad un accordo, la stima non è del singolo.
-
-problemi nelle stime condivise:
-- si perde molto tempo
-- Effetto ancora -> sistema
-
-##### Stime agili: planning poker
-vengono presentate brevemente le carte senza fare nessun riferimeto allo sforzo (per evitare l'effetto ancora), e il team può fare domande richieste e chiarimenti.
-ogni componente del team sceglie una carta del poker rappresentante la prima stima.
-si evita l'effetto ancora in quanto devo fare la prima stima senza basarmi su quella di altri.
-nel caso in cui non si arriva ad una conclusione chi ha messo il voto piu alto e piu basso possono parlare per un minuto. questa parte deve essere molto veloce.
-ma che unità di misura do hai valori scelti? -> si scegie ???
-
-#### Team estimation game
-i developer si mettono in fila e si fa una pila con le storie e si mette la prima carta che viene messa sul tavolo. il primo dev di turno pesca una carta e decide se è piu facile, più difficile o uguale a quella sul tavono
-il successivo decide se pescare e fare come il primo oppure spiego il  motivo e sposto una carta esistente in un altra posizione
-
-finisci
-
-seonda fase: ci si mette ancora in coda davanti al tavolo e si etichetta la difficoltà delle carte
-
-terza fase ...
-
-### 2. Brevi cicli di rilascio
-Per ridurre i rischi la vita e lo sviluppo dell'applicazione sono scanditi dai rilasci di versioni del prodotto funzionanti
-devono essere comunque rilasci significativi
-
-### 3. uso di una metafora
-utilizzare delle metafore per parlare di cose tecniche facilita la comprensione anche da parte del cliente
-
-### 4. semplicità di progetto
-
-
-
-
-
-
-
-
-
-
-
 ---
 layout: post
 title: "[03] eXtreme programming"
@@ -68,7 +26,7 @@ questa cosa va fatta con una cadenza frequente, ogni 2-10 minutii: compiti sempl
 
 Quindi prima faccio qualche piccolo progresso (increment) e poi lo semplifico (semplify)
 
-È necessario passare per quel passaggio intermedio (la bozza menzionata al punto 2 dell'elenco precendete) perchè in questo modo una volta che abbiamo una base funzionante sicuramente nella fase di refactoring ciò che ho fatto continuerà a funzionare (non si torna al rosso). Se scrivessimo direttamente il codice in "bella" impiegheremmo molto piùtempo e magari alla fine non abbiamo neanche un codice funzionante (siccome implementare del codice gestendo ogni particolare fin da subito al meglio ècomplesso ed è facile commettere errori).
+È necessario passare per quel passaggio intermedio (la bozza menzionata al punto 2 dell'elenco precendete) perchè in questo modo una volta che abbiamo una base funzionante sicuramente nella fase di refactoring ciò che ho fatto continuerà a funzionare (non si torna al rosso). Se scrivessimo direttamente il codice in "bella" impiegheremmo molto più tempo e magari alla fine non abbiamo neanche un codice funzionante (siccome implementare del codice gestendo ogni particolare fin da subito al meglio ècomplesso ed è facile commettere errori).
 
 Perchè il TDD è una tecnica di progettazione?
 - spesso capita di scrivere codice difficilmente testabile; scrivere il test prima e il codice dopo aiuta a progettare prodotti _test-first_;
@@ -170,23 +128,27 @@ Le stime sono fatte da parte del team, composto da persone diverse chee quindi f
 possiamo avere stime:
 - __molto differenti__ (ore vs giorni): in questo caso, è possibile che la carta non sia descritta o compresa correttamente; bisogna raggiungere un accordo siccome se uno sviluppatore stima poche ore e un altro qualche giorno abbiamo dei problemi. Se viene deciso che il tempo per una data scheda è di qualche ora e viene assegnato allo sviluppatore che aveva fatto una stima più alta allora si troverà in difficoltà nel portare a termine il compito. in conclusione è necessario trovare un punto di incontro.
 - quasi uniformi, ma __molto alte__: potrebbe essere che la storia sia troppo ampia. Se alla fine dell'iterazione no ho portato a termine il lavoro prefissato è come se non l'avessi fatto, e quindi il suo valore è zero (anche se magari era stato completato all'80%), perchè il cliente non lo avrà alla fine dell'iterazione. Questo concetto è molto importante nelle tecniche agili. Per ovviare a questo problema si può fare lo __splitting__ delle carte, ovvero scomponiamo una carta in più carte in modo da scomporre il problema.
-- non c'è accordo ma __sono simili__: non bisogna prendere la più bassa, alta o la media. Secondo XP bisogna arrivare ad un accordo in modo tale che chiunque nel team si riconosca nella stima effettuata.
+- non c'è accordo ma __sono simili__: non bisogna prendere la più bassa, alta o la media. Secondo XP bisogna arrivare ad un accordo in modo tale che chiunque nel team si riconosca nella stima effettuata, la stima non è del singolo.
 
-I problemi sono:
-- perdita di tempo per troppa comunicazione;
-- effetto àncora (anchoring effect): settare delle aspettative porta ad ancorarsi intorno ad esse.
+La fase di stima dei tempi si porta dietro diverse problematiche, tra cui:
+- perdita di tempo per accordarsi su ciò che si dovrà fare (troppa comunicazione);
+- effetto àncora (anchoring effect): effetto che si verifica quando le persone devono assegnare un valore ad una quantità ignota, se questo viene fatto, tutte le stime successive del valore saranno fatte in riferimento al primo valore deciso. Nel nostro caso quando il team si riunisce per fare delle stime e il primo membro da la sua opinione, tutte le stime successive saranno fatte in confronto alla prima stima fatta. Il cervello unano tende a ragionare in questo modo.
 
 #### [Planning poker](https://en.wikipedia.org/wiki/Planning_poker)
-<!-- immagine planning poker -->
+
 {% responsive_image path: assets/03_planning-poker.jpg %}
 
-Vengono presentate brevemente le carte, il team può fare domande chiedere chiarimenti e discutere per chiararire assunzioni e rischi.
-
-Ogni componente sceglie una carta del poker per rappresentare la propria stima. Le carte vengono girate contemporaneamente, la prima stima è _blind_: si evita l'effetto ancora.
-
-Dopo ogni giro di carte, solo chi ha messo la stima più bassa e la più alta parlano (per ~1 minuto) e si ripetono le votazioni. Dopo poche votazioni si converge.
+Vengono presentate brevemente le carte con attenzione a non fare riferimento alle tempistiche in modo da non creare subito l'effetto àncora, successivamente il team può fare domande, chiedere chiarimenti e discutere per chiararire assunzioni e rischi.
+Dopodichè ogni componente sceglie una carta del poker per rappresentare la propria stima. Le carte vengono girate contemporaneamente in modo da evitare l'effetto ancora, quindi la prima stima è _blind_. Ci sono anche delle carte particolari, ovvero:
+- il punto di domanda indica che non si è in grado di dare una stima
+- la tazza di caffè indica che la riunione è andata troppo per le lunghe e è necessaria una pausa.
+Dopo ogni giro di carte, solo chi ha fatto la stima più bassa e la più alta parlano (per ~1 minuto) per motivare la propria scelta in modo da cercare di trovare un punto in comune. Successivamente tutti fatanno una nuova stima e solitamente le votazioni convergono (non sempre, a volte ci vogliono più "giri" di votazione).
+Sulle carte usate dal team per fare la stima ci sono dei numeri che rappresentano i tempi stimati per quel task, l'unità di misura di questi numeri può essere scelta prima o dopo aver trovato un acordo. Queste unità di misuta possono variare, può essere ore, giorni, pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni,e dopo c'è una pausa).
+Ovviamente non si può pretendere si lavorare delle ore senza alcune distrazioni, quindi in queste stime si considera uno __slacl time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
 
 #### [Team Estimation Game](https://agilelearninglabs.com/2012/05/how-to-play-the-team-estimation-game/)
+Metodo un po più complesso, si compone in 3 fasi, e alla base si ha un confronto tra i diversi task da fare.
+È facile dire che un task è più facile di un altro, ma il difficile è capire di quanto, quindi il cercare di splittare in fasi questa cosa di dover dare un valore al task considerandone sempre di più difficili può aiutare a fare una buona stima.
 
 ##### PRIMA FASE
 {% responsive_image path: assets/03_team-estimation-1.jpg %}
@@ -194,50 +156,79 @@ Dopo ogni giro di carte, solo chi ha messo la stima più bassa e la più alta pa
 Si fa una pila con le storie e si mette la prima carta al centro del tavolo. I developer si mettono in fila:
 - il primo della fila prende una carta della pila, la rilegge (ad alta voce) e la posiziona a sinistra (più semplice), a destra (più complicata) o sotto (equivalente).
 - il prossimo developer può:
-    - prendere una nuova carta della pipla e posizionarla secondo le stesse regole (può anche distanziare due file e metterla in mezzo tra le due);
-    - spostare una carta precedentemente posizionata (commentando la motivazione della sua azione).
+    - prendere una nuova carta della pipa e posizionarla secondo le stesse regole (può anche distanziare due file e metterla in mezzo tra le due);
+    - spostare una carta precedentemente posizionata (commentando la motivazione della sua azione), ovviamente può succedere che venga rispostata nella sua posizione originale ma si punta a trovare un accordo sulla difficoltà della carta (il task).
+
+A questo punto abbiamo le carte disposte sul tavolo in colonne di difficoltà comparabile, ordinate dalla meno difficile (sinistra) alla più difficile (destra).
+Usando questa tecnica abbiamo evitato anche l'effetto àncora, o per lo abbiamo ma diverso (molto più lieve), siccome le stime sono relative, non abbiamo un valore preciso che può influenzare gli altri. A differenza del planning poker posso tornare sulle mie decisioni e quindi ho un continuo adattamento e ripensamento delle stime, grazie al fatto che sono stime relative (e no valori specifici).
 
 ##### SECONDA FASE
+Ora si cerca di quantificare le distanze tra le carte.
+
 {% responsive_image path: assets/03_team-estimation-2.jpg %}
 
-Ci si mette di nuovo in coda davanti al tavolo; il nuovo mazzo è il planning poker ordinato e si reiterano le operazioni precedenti.
+Ci si mette di nuovo in coda davanti al tavolo con il mazzo di carte del planning poker (uno solo, non uno per persona), e si cerca di etichettare le colonne in base alle difficoltà.
+
+Si posiziona la prima carta (solitamente si parte da 2 perchè magari nella prossima iterazione può esserci qualcosa di ancora più facile) sopra la prima colonna.
+Il primo sviluppatore prende il valore successivo e lo posiziona sulla prima colonna che pensa abbia quel valore (rispetto al 2), oppure lo posiziona tra due colonne se pensa che sia un valore di difficoltà intermedio tra le due.
+Gli sviluppatori successivi invece possono fare due cose:
+- prende una carta dal mazzo e la posiziona secondo le regole di prima (la prima colonna che pensa abbia quel valore di difficoltà)
+- Spostare una carta con un valore precedentemente posizionata, commentando la motivazione dello spostamento
+- nel caso in cui non ci siano più carte nella pila e non vuole spostare altre carte, lo svuluppatore può passare.
+
+È possibile avere delle carte in cui sopra non c'è nessun numero, queste saranno assimilate alla colonna alla loro sinistra, e avremo una situaione di questo tipo
+
+<!-- {% responsive_image path: assets/fine-seconfa-fase-estimation-game.jpg %} -->
+
 
 ##### TERZA FASE
+Si stima il tempo in ore/uomo di una delle carte più semplici e successivamente si calcolano tutte le colonne in proporzione alla prima.
+Ma questa fase è davvero cosi utile? nella pratica si è visto che non è una utile valutare tutto il lavoro fatto in ore/uomo, anche perchè con il passare del tempo la taratura può variare.
+Possiamo allora prendere tutte le carte portate a termine e assegnamogli un valore, questa cosa si chiama __velocity__.
 
 #### Velocity
-La capacità (osservata) di completare lavori da parte del team.
-Non può essere usata per dare premi, per confrontare team diversi o punire in caso di diminuzione.
-
+La capacità osservata (quindi alla fine dell'osservazione) di qunato sono riuscito a fare in termini di complessità astratta.
+Se per esempio sono riuscito a fare 50 punti nella iterazione appena finita, posso prefissarmi di fare almento 50 punti nell'iterazione successiva.
+La Velocity non può essere usata per dare premi, per confrontare team diversi o punire in caso di diminuzione, però si adatta al modo diverso degli sviluppatori di gestire le stime e anche al fatto che ho una tendenza a sottostimare le diverse carte.
 Se aggiungo una persona lascio questa metrica inizialmente invariata, per la formazione; se la rimuovo ci sarà una perdita di produttività.
+ La Velocity non deve considerare le storie lasciate incompiute, quindi anche se l'ho completata al 90% devo considerarla come se non l'avessi fatta.
+Inoltre non deve essere imposta, nel senso che se la velocity di un team è x non deve essere aumentata per produrre come un altro team.
+Acnhe qui abbiamo lo slack time visto nel planning poker.
 
-Sostituisce la necessità di rimappare unità ideali in tempi assoluti.
-...
-
-Lo slack time è il tempo aggiunto ... riguarda domanda aceti.
+Esiste un movimento chiamato no estimates, che evita tutta questa parte delle stime, ma dall'esperienza di bellettini si vede che funziona in generale per team molto maturi che sono in grado di guidare il ciente a formulare storie simili intermini di difficoltà, questo perchè tutti hanno una misura standard per le storie.
 
 ## 2. Brevi cicli di rilascio
-Per ridurre i rischi, la vita e lo sviluppo dell'applicazione sono scanditi dai rilasci di dversioni del prodotto funzionanti. Di solito uno ogni due settimane.
+Per ridurre i rischi, la vita e lo sviluppo dell'applicazione sono scanditi dai rilasci di dversioni del prodotto funzionanti. Di solito uno ogni due settimane (come abbiamo visto in scram con il freez, ma con un tempo di rilascio minore). Dobbiamo avere il tempo per sviluppare qualcosa di concreto, e il cliente per poter pensare alle richieste che ha fatto e pensare se ha bisogno di modifiche.
 
 ## 3. Uso di una metafora
-Definire un nuovo vocabolario con cui parlare con l'utente (tecnica _non informatica_) ma anche ai nuovi venuti.
+Definire un nuovo vocabolario con cui parlare con l'utente (tecnica _non informatica_) ma anche ai nuovi sviluppatori.
 Serve per permettere una nominazione di classi e metodi omogenei e fornire una vista d'insieme.
+Siccome non c'è una vera documentazione in XP, possiamo usare queste metafore come una vista d'insieme, quindi sostituisce in parte l'architettura del sistema, e fa capire gli elementi fondametali, il loro scopo e le relazioni fra loro. ... non chiaro, sistema
 
 ## 4. Semplicità di progetto
-Massimizzare il lavoro da non fare. KISS: Keep It Simple, Stupid.
+chiamata anche l'arte di massimizzare il lavoro non fatto, o da non fare, infatti non è necessario riscrivere cose già esistenti e consolidate. uno slogan tipico è KISS: Keep It Simple, Stupid.
+Questo punto si contrappone al Design for change che viene visto come un appesantimento inutile, perchè una feature che aggiungiamo può essere scartata dal cliente, e quindi abbiamo perso tempo inutilmente.
 
 ## 5. Testing
-- I clienti scrivono i test funzionali per aumentare la loro fiducia nel programmi.
+- I clienti scrivono i test di accettazione (o funzionali) sulle schede per aumentare la loro fiducia nel programmi.
 - I programmatori scrivono i test di unità perché la fiducia nel codice diventi parte del programma stesso.
 
-Il testing è molto importante nell'XP: ha il ruolo di _"rete di protezione"_ in tutte le varie fasi.
+Nell'XP ogni aspetto viene massimizzato, ma in particolare il testing viene esasperato di più perchè molto importante siccome molti altri aspetti si basano su di esso. Possiamo dire quindi che ha il ruolo di _"rete di protezione"_ in tutte le varie fasi, ogni volta che faccio qualcosa posso verificarla tramite i test.
 
-Nei sistemi legacy si procede passo passo.
+Il testing aiuta molto anche quando non si parte da 0 con il programma, per esempio quando il lavoro è proprio modificare un programma proprietario precedentemente sviluppato.
+Può essere che non sia stato sviluppato in modalità agile e quindi non sono presenti test, a questo punto se devo fare alcune modifice prima scrivo i test e successivamente modifico il codice in modo da non causare problemi.
+
+Un'altra cosa importante è che i test devono coprire tutte le righe di codice.
 
 ## 6. Refactoring
 Non bisogna avere paura di apportare modifiche che semplificano il progetto: bisogna avere coraggio.
 
-Il refactoring è un'operazione che modifica il software ma non modifica le funzionalità. Serve ad eliminare l'entropia che si creerebbe con le continue modifiche aggiunte.
-L'obiettivo è eliminare l'entropia con le continue modifiche e aggiunte.
+Il refactoring è un'operazione che modifica il software __ma non modifica le funzionalità__, quindi tocchiamo solo proprietà interne.
+L'obiettivo è eliminare l'entropia con le continue modifiche e aggiunte. ??
+
+Deve essere graduale e continua in modo da poter aggiungere funzionalità in maniera più semplice.
+
+Se una parte di codice non viene stimolato dai test non è utile ai fini della soluzione, al massimo posso aggiungere dei test per gestire dei casi specifici, se no posso togliere le parti di codice non richiamate dai test.
 
 ## 7. Programmazione a coppie
 Aiuta:
