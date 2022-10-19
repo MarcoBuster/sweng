@@ -203,7 +203,7 @@ Per ridurre i rischi, la vita e lo sviluppo dell'applicazione sono scanditi dai 
 ## 3. Uso di una metafora
 Definire un nuovo vocabolario con cui parlare con l'utente (tecnica _non informatica_) ma anche ai nuovi sviluppatori.
 Serve per permettere una nominazione di classi e metodi omogenei e fornire una vista d'insieme.
-Siccome non c'è una vera documentazione in XP, possiamo usare queste metafore come una vista d'insieme, quindi sostituisce in parte l'architettura del sistema, e fa capire gli elementi fondametali, il loro scopo e le relazioni fra loro. ... non chiaro, sistema
+Siccome non c'è una vera documentazione in XP, possiamo usare queste metafore come una vista d'insieme, quindi sostituisce in parte l'architettura del sistema, e fa capire gli elementi fondametali, il loro scopo e le relazioni fra loro. <!-- da scrivere meglio, non chiaro -->
 
 ## 4. Semplicità di progetto
 chiamata anche l'arte di massimizzare il lavoro non fatto, o da non fare, infatti non è necessario riscrivere cose già esistenti e consolidate. uno slogan tipico è KISS: Keep It Simple, Stupid.
@@ -224,7 +224,7 @@ Un'altra cosa importante è che i test devono coprire tutte le righe di codice.
 Non bisogna avere paura di apportare modifiche che semplificano il progetto: bisogna avere coraggio.
 
 Il refactoring è un'operazione che modifica il software __ma non modifica le funzionalità__, quindi tocchiamo solo proprietà interne.
-L'obiettivo è eliminare l'entropia con le continue modifiche e aggiunte. ??
+L'obiettivo è eliminare l'entropia con le continue modifiche e aggiunte. <!-- da scrivere meglio -->
 
 Deve essere graduale e continua in modo da poter aggiungere funzionalità in maniera più semplice.
 
