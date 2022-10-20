@@ -231,12 +231,12 @@ Deve essere graduale e continua in modo da poter aggiungere funzionalità in man
 Se una parte di codice non viene stimolato dai test non è utile ai fini della soluzione, al massimo posso aggiungere dei test per gestire dei casi specifici, se no posso togliere le parti di codice non richiamate dai test.
 
 ## 7. Programmazione a coppie
-Aiuta:
-- Ad avere un controllo continuo delle regole di XP
-- L'inserimento di nuovo personale e la sua formazione
-- Ottenere una _proprietà colettiva_ (conoscenza osmotica)
-- Il refactoring
+È una tecnica che può portare dei vantaggi, anche se il manager può non rendersi subito conto, infatti paga due persone e una delle due guarda l'altro lavorare, ma non è cosi.
 
-Una domanda che si potrebbe porre il management è: ma dimezzare le persone che scrivono il codice non dimezza la produttività del team?
-<!-- riassumere pippone -->
->>>>>>> marco/03-appunti
+I punti a favore sono:
+- Ci si controlla a vicenda su ogni aspetto (codice, rispetto delle regole, idee)
+- Uno attua le cose, l'altro pensa a ciò che bisogna fare subito dopo, quindi la seconda persona pensa a come fare refactoring
+- Ad avere un controllo continuo delle regole di XP
+- L'inserimento di nuovo personale e la sua formazione, al posto di mettere quelli nuovi a studiare libri interi lasciati a se stessi, vengono affiancati a persone che stanno lavorando e quindi può essere istruito guardando gli altri lavorare e dialogando.
+- Ottenere una _proprietà colettiva_ (conoscenza osmotica), quindi quando programmo con un altra persona posso conoscere il codice scritto dall'altro. Un altro punto importante sono i commenti naif, ovvero quelli fatti dai programmatori junior, sono importanti perchè molto spesso i programmatori esperti devono ripensare a delle cose basilari che danno per scontato, e può succedere che trovino parti di codice che potevano essere scritte meglio o addirittura tolte.
+- Dimenzzare le persone dimezzano la produttività? no, è stimato che la produttività sia una volta e mezzo in più, che comunque sarebbe una perdita. Ma degli studi pongono una domanda, la produttività calcolata puntualmente è davvero sensata da calcolare? no perchè sul lungo (quindi sull'iertazione) ciò che sembrava meno produttivo in realtà lo è di più. Questo perchè una persona da sola deve fare il lavoro, poi passare molto tempo a verificarlo e ricontrollarlo, mentre nella programmazione a coppie questa cosa si verifica costantemente e quindi la parte sul refactoring sarà più leggera perchè in parte già svolta (questa tecnica si chiama __ispezioe del codice__).
