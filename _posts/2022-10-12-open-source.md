@@ -61,32 +61,43 @@ Occorre trovare qualcuno perché un programma in uso dovrà necessariamente camb
 | __Testing__ | Il testing è gestito dallo staff di _Quality Assurance_ (QA), che segue le attività di sviluppo | Il testing è parte integrante dello  sviluppo (TDD). | Il testing e la QA possono essere svolti da tutti da tutti gli sviluppatori. |
 | __Distribuzione del lavoro__ | Parti differenti della codebase sono assegnate a persone differenti | Chiunque può modificare qualsiasi parte della codebase | Chiunque può modificare qualsiasi parte della codebase, ma solo i _committer_ possono renderla ufficiale. |
 
+<p><!-- ugly spacer --></p>
+
 ## Care and Feeding of FOSS
 
-Questa è la fase delle idee nel mondo FOSS:
+Craig James [descrive](https://web.archive.org/web/20081015010505/http://www.moonviewscientific.com/essays/software_lifecycle.htm) il ciclo di vita di un software FOSS (Free and Open Source Software) come una sequenza delle seguenti fasi:
 
-1. __Invention__: qualcuno ha un'idea e la implementa facendola funzionare;
-2. __Expansion and Innovation__: il mondo si accorge dell'invenzione e la tecnologia inizia a espandersi;
-3. __Consolidation__: alcuni progetti iniziano ad uscire fuori dominando gli altri. Alcuni progetti vengono assorbiti da altri o falliscono;
-4. __Maturity__: il mercato si riduce a solo un piccolo insieme di prodotti. È difficile o impossibile entrare nel mercato. In questa fase le specifiche dell'idea sono chiare;
+1. __Invenzione__: qualcuno ha un'idea e la implementa facendola funzionare. 
+Dal momento in cui l'idea viene resa pubblica, c'è una grossa esplosione di idee finanziata dalle aziende che cercano di competere sugli altri prodotti.
+2. __Expansion and Innovation__: il mondo si accorge dell'invenzione e la tecnologia inizia a espandersi.
+Le aziende si 'rincorrono' a vicenda cercando di aggiungere più funzioni possibili.
+In questa fase non è un momento buono per far nascere un progetto open source: un piccolo gruppo non riesce a prevalere sulle grandi aziende, e le specifiche non sono ancora ben definite; il rischio è implementare funzioni inutili. 
+3. __Consolidamento__: alcuni progetti iniziano ad uscire fuori dominando gli altri. 
+Alcuni progetti vengono assorbiti da altri o falliscono - diminusice quindi complessivamente il numero di player.
+4. __Maturity__: il problema e le specifiche sono ora ben chiare e consolidate. Per un prodotto commerciale è difficile entrare nel mercato, ma per uno open source pian piano è possibile, sfruttando i vantaggi del monodo open source tra cui sicurezza e flessibilità.
 5. __FOSS Domination__: il prodotto opensource raggiunge / sorpassa e diventa dominante nel mercato;
 6. __The FOSS era__: _"alla fine ci sarà solo il mondo open source"_.
 
 ## The Emerging Economic Paradigm Of Open Source
 
-Perché le ditte pagano per l'open source? 
+Perché le aziende investono in open source? 
 
-Ci sono diverse ditte in cui il software non è il prodotto, ma una __tecnologia abilitante essenziale__.
+In diverse aziende il software non è il prodotto, ma una __tecnologia abilitante essenziale__.
+Per esempio Amazon sviluppa molto software per il sito di e-commerce ma non vende il sito di e-commerce; la scrittura di codice è un _costo_ non il prodotto su cui guadagnare.
 
-È importante dal punto di vista economico distinguire i casi di tecnologia __differenziante__ o __non differenziante__:
-- il cliente si accorge degli effetti del software? Per esempio, le persone si accorge dell'esistenza del sistema di raccomandazione dei libri di Amazon
+Dal punto di vista economico è importante stabilire se la tecnologia dà un vantaggio competitivo (è __differenziante__ o __non differenziate__). 
+Per fare ciò possiamo rispondere alle seguenti domande:
+- il cliente si accorge degli effetti del software? Per esempio, le persone si accorge dell'esistenza del sistema di raccomandazione dei libri di Amazon;
 - i competitor hanno accesso allo stesso software? Se Amazon usa il sistema di raccomandazione venduto anche a Feltrinelli allora non conviene.
 
-Se la risposta a una delle due domande è no, perché dovrei tenermi il software per me? Renderlo open source sparpaglia i costi. L'open source porta valore.
+Se la risposta a una delle due domande è no, perché dovrei tenermi il software per me? 
+Renderlo open source sparpaglia i costi e porta valore.
 
-## Confronto
+### Confronto tra paradigmi
 
-...
+{% responsive_image path: 'assets/04_confronto.png' %}
+
+Come si può notare dalla tabella, non tutti i paradigmi proteggono il vantaggio competitivo, con differenze dal punto di vista del cliente e del produttore.
 
 ## An empirical study of open-source and closed-source software products
 
