@@ -240,3 +240,65 @@ I punti a favore sono:
 - L'inserimento di nuovo personale e la sua formazione, al posto di mettere quelli nuovi a studiare libri interi lasciati a se stessi, vengono affiancati a persone che stanno lavorando e quindi può essere istruito guardando gli altri lavorare e dialogando.
 - Ottenere una _proprietà colettiva_ (conoscenza osmotica), quindi quando programmo con un altra persona posso conoscere il codice scritto dall'altro. Un altro punto importante sono i commenti naif, ovvero quelli fatti dai programmatori junior, sono importanti perchè molto spesso i programmatori esperti devono ripensare a delle cose basilari che danno per scontato, e può succedere che trovino parti di codice che potevano essere scritte meglio o addirittura tolte.
 - Dimenzzare le persone dimezzano la produttività? no, è stimato che la produttività sia una volta e mezzo in più, che comunque sarebbe una perdita. Ma degli studi pongono una domanda, la produttività calcolata puntualmente è davvero sensata da calcolare? no perchè sul lungo (quindi sull'iertazione) ciò che sembrava meno produttivo in realtà lo è di più. Questo perchè una persona da sola deve fare il lavoro, poi passare molto tempo a verificarlo e ricontrollarlo, mentre nella programmazione a coppie questa cosa si verifica costantemente e quindi la parte sul refactoring sarà più leggera perchè in parte già svolta (questa tecnica si chiama __ispezioe del codice__).
+
+## 8. proprietà collettiva
+L'extreme programming ha cercato di mettere insieme proprietà già esistenti che funzionavano, di fatto non ha inventato niente di nuovo.
+Proprietà collettiva significa che il codice non è di una persona sola ma del team, quindi la responsabilità del codice appaertiene a ogni il team, anche se non lo si conosce tutto alla stessa maniera. Di conseguenza tutti sono autorizzati a metterci mano qualcosa non va, anche a parti che magari ha scritto qualche altro membro.
+Durante il lavoro succedera spesso di cambiare coppia, magari anche più volte al giorno e per diversi motivi, per esempio nessuno dei due ha una profonda conoscienza della parte di codice che stanno trattando, oppure perchè il task da fare non si addice alle competenze della coppia. In ogni caso il continuo riferirsi al team e non al singolo è importatnissimo nell'XP.
+
+## 9. Integrazione continua
+Nell'ottica di avere feedback rapidi è necessario fare l'integrazione spesso, anche più volte al giorno, e questo non significa fare i test di unità e poi alla fine integrare tutti in una bottasola, ma intergrare man mano. Questo perchè è frequente il caso in cui ogni parte è stata testata singolarmente e funziona, ma quando tutti i pezzi vengono messi insieme per formare il prodotto finale qualcosa non funziona, per questo motivo integrando man mano è possibile risolvere meglio questi problemi (questo funziona in ogni campo non solo nello sviluppo software).
+Nello sviluippo software queste intergazioni vengono fatte cosi frequentemente che dopo lo sviluppo anche di una piccola feature è compito della coppia andare ad integrarla nella macchina di riferimento per. Questa macchina di riferimento è una macchina a cui si accede in maniera __esclusiva__ che serve per integrare tutti i lavori delle diverse coppie; questa sequenzialità nell'uso della macchina la si deve garantire anche nel caso in cui ci si acceda da remoto, questo si fa grazie ad un token.
+Il completamento di una use sotry si ha quidi dopo aver integrato la feature, aver testato il suo funzionamento (test di integrazione) e aver mostrato al cliente il risultato della macchina complessiva dopo l'integrazione.
+La macchina è sempre in una situazione monotona creascente per quanto riguarda le funzionalità (io posso andare a rimuovere cose dalla macchina, è per questo che parlo di crescita delle funzionalità e non delle componenti della macchina in se). Inoltre ogni volta che vado ad integrare una parte devo sempre produrre un qualcosa di consegnabile all'utente.
+Un altra motivazione importante della continua integrazione è che se devo integrare qualcosa nella macchina e un'altra coppia prima di me ha aggiunto una parte che non integrava da molto tempo, la probabilità che la macchina funzioni dopo la mia aggiunta è molto bassa, al contrario se tutti integrano molto spesso le probabilità saranno sicuramente molto più alte. Se una coppia non riesce ad integrare bloccherà anche tutte le altre che non possono andare avanti con le use story, quindi sarà necessario che quella coppia rinunci, ritorni sulla sua macchina e cerchi di risolvere li (tutte le coppie hanno una loro macchina su cui testano prima di farlo su quella comune).
+
+## 10. Settimana di 40 ore
+Il mestiere dello sviluppatore ha sempre avuto dei ritmi dettati un po dalle consegne, questo causa dei problemi come per esempio se lavoro di più renderò sicuramente di meno, inoltre porta a stress e frustrazione. Nell'XP si cerca di evitare queste situazioni in modo da avere una resa migliore, avere maggior soddisfazione nel lavorare nel team o nell'azienda, avere meno problemi fuori dal lavoro (tante volte questo eccessivo lavoro può causare problemi familiari) e inoltre abbassa la probabilità per l'azienda di perdere dipendenti. Purtroppo però il mestiere dello sviluppatore non è meccanico e molto spesso si vuole portare a termine quello che si sta facendo perchè magari si è quasi alla soluzione, inoltre si continua a pensare a come risolvere dei problemi anche fuori dall'orario lavorativo.
+
+## 11. Cliente sul posto
+Fino ad ora abbiamo visto le motivazioni a favore del cliente per cui vengono messe delle persone sul posto dove si sviluppa il progetto, ovvero perchè cosi può essere sicuro che stiamo lavorando per lui e per verificare come procede il progetto. Ma perchè a noi fa comodo avere il cliente sul posto?
+È fondamentale avere il cliente sul posto in modo date da avere qualcuno a cui chiedere in caso di specifiche poco chiare, infatti noi abbiamo a disposizione solo le use story che non sempre sono chiare, quindi avere il cliente a nostra disposizione (lui può comunque continuare a lavorare per la sua azienda, ma noi abbiamo la priorità) ci permette di fargli domande per chiarire i punti delle specifiche, è come avere una documentazione vivente.
+Quindi questo punto è fondamentale, e nel caso in cui il cliente sul posto non sia disponibile dobbiamo trovare degli escamotage per far si di avere comunque un punto di riferimento, però non sarà sicuramente come avere il cliente nel team.
+Anche avere il cliente sul posto ha dei limiti in realtà, infatti dobbiamo avere una persona che riesca ad essere rappresentativo di tutti gli stakeholders.
+Il cliente durante le iterazioni può creare delle altre storie che nell'iterazione successiva potrà inserire nel planning game, e in più è disponibile anche nel caso in cui vogliamo che faccia dei test funzionali.
+
+## 12. Standard di codifica
+È necessario avere delle regole che specificano come va scritto il codice, con delle convenzioni comuni, questo per aumentare la comunicazione anche attraverso il codice.
+Vengono utilizzati dei tool per garantire queste convenzioni in modo date da non avere membri del team che non le rispettino, oppure questi strumenti possono anche fare un'autocorrezione del codice per far si che rispetti gli standard.
+Inoltre avere uno standard di codifica aiuta:
+- il refactoring
+- la programmazione a coppie
+- le proprietà collettive
+
+## 13. Just rules
+Definiamo ora questa tredicesima regola "non canonica" che è stata aggiunta da alcuni.
+Nel caso in cui non si voglia seguire una regola deve esser fatto da tutto il team, e non solo dal singolo o dalla coppia, e poi alla fine dell'iterazione si fa un resoconto di come sono andate le cose e se nell'iterazione successiva sia il caso di reintrodurre la regola oppure no. In questo resoconto si può anche decidere di sospendere delle regole se si pensa che per il team non siano necessarie o non vadano bene, e successivamente possono essere reintrodotte. In conclusione si possono effettuare questo tipo di test per trovare il giusto equilibrio, e questa ultima regola mostra anche che l'XP non è una tecnica cosi rigida e rigorosa. Questo punto però non è condiviso da tutti e una motivazione la si può trovare nel fatto che tutti i punti sono interconnessi tra loro, e quindio non è possibile studiarli singolarmente senza considerate anche gli altri perchè non avrebbero senso in quanto hanno una forte dipendenza l'una dall'altra (non a caso nei punti sopra si può notare come si influenzino a vicenda).
+
+## Proviamo a raggruppare i punti nei 4 elementi del modello a cascata
+Non è un raggruppanmento oggettivo in quanto i diversi punti hanno tante sfaccetature, però un possibile raggruppamento potrebbe essere:
+
+- __Requirements__:
+    - I clienti fanni parte del team di sviluppo -> sono requirements viventi
+    - Consegne incrementali e pianificazioni continue -> c'è un'evoluzione del progetto
+- __Design__
+    - Una metafora come visione unificante di un progetto
+    - Refactoring -> il refactoring è design puro, attività molto utile per rendere possibile l'evolvibilità del software
+    - Presumere la semplicità
+- __Code__
+    - Programmazione a coppie
+    - proprietà collettiva
+    - Integrazione continua
+    - Standard di codifica
+- __Test__
+    - Test di unità continuo (da scriversi prima del codice)
+    - test funzionale scritto dagli utenti
+
+Spike -> Sono dei prototipi, questa tecnica è utilizzata anche nell'XP per capire se ho compreso le specifiche, la tencnologia da utilizzare, e per capire come approcciarmi ai componenti esterni con cui devo dialogare. Questi prototipi vengono fatti, mostrati al cliente e poi vengono buttati.
+
+## E la documentazione?
+La documentazione cartacea non è necessaria, il cliente e il compagno di peer programming lo sono, ma sopratutto è nel codice senza commenti (perchè usanto questo approccio dell'extreme programming i commenti nel codice non sono utilizzati), questo perchè abbiamo due cose fondamentali nel codice che sostituiscono la documentazione:
+- I test di unità che sono delle specifiche eseguibili, infatti li scrivo prima di fare il codice (prima dico cosa voglio tramite il test).
+- Il continuo refactoring consente di avere un codice estremamente leggibile, questo permette di non avere bisogno dei commenti (quindi i commenti non si mettono perchè non si deve sentierne il bisogno in quanto il refactoring ci semplifica la comprensione del codice). Però scrivere cose semplici tramite il refactoring in modo che si capiscano senza bisogno di commenti è molto complesso.
+
+CRC card -> sono un altro modo 
