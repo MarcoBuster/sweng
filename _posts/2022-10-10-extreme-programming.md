@@ -301,4 +301,37 @@ La documentazione cartacea non è necessaria, il cliente e il compagno di peer p
 - I test di unità che sono delle specifiche eseguibili, infatti li scrivo prima di fare il codice (prima dico cosa voglio tramite il test).
 - Il continuo refactoring consente di avere un codice estremamente leggibile, questo permette di non avere bisogno dei commenti (quindi i commenti non si mettono perchè non si deve sentierne il bisogno in quanto il refactoring ci semplifica la comprensione del codice). Però scrivere cose semplici tramite il refactoring in modo che si capiscano senza bisogno di commenti è molto complesso.
 
-CRC card -> sono un altro modo 
+### CRC cards (sistema)
+CRC card (class responsability and collaboration card) -> sono un altro modo per dire i metodi che rendo disponibile a chi è esterno (collaborazione) e i miei segreti cioè gli attributi e lo stato che inglobo dentro di me (responsabilità).
+Sono nate in ambiente didattico per spiegare l'object orientation, ma ora sono utilizzate da alciuni team agile per discutere di design, e il modo di utilizzarle è simile a quello del planning game.
+Aiutano a chiarire l'idea su una qualche parte del sistema, ma non persistono, dopo che sono state usate vengono butate.
+
+## Quando non utilizzare agile
+Back non esclude mai la possibilità di utilizzare agile, lui diceva che si può provare ad utilizzare questo approccio sempre (anche se in realtà non è sempre possibile "provare"), basta che vengano rispettati i 12 punti elencati sopra.
+Quindi agile non si può usare quando:
+- Siamo in ambienti che non permettono di applicare i 12 punti -> per esempio quando si lavora con il team dislocato in luoghi differenti
+- Quando abbiamo barriere di tipo manageriale, ovvero team troppo numerosi
+- barriere tecnologiche, ovvero se abbiamo l'obbligo di utilizzare una macchina specifica condivisa da tutte le coppie per i test, e questo ostacola lìintegrazione continua.
+- Ci sono troppi stakeholders diversi in contrasto tra di loro.
+- Sistemi in cui la consegna incrementale non ha senso -> per esempio una centrale nuclere non posso consegnarla pezzo per pezzo.
+
+## Critiche all-extreme programming
+Alcune critiche all'extreme programming fatte da meyer
+- Sottovalutazione dell'up-front, ovvero la sottovalutazione dell'approccio in cui penso al design prima di iniziare. Questa cosa nell'extreme programming non si verifica, infatti si inizia chiedendo al cliente di scrivere delle use story per l'iterazione che si sta per fare.
+- Sopravalutazione delle use stories, ovvero le use stories devono essere ben chiare e definite fin da subito
+- Mancata evidenziazione della dipendenza tra uses stories. Noi abbiamo detto che le use stories devono essere indipendenze, però nel design classico si ha una vista che chiarisce tutte le dipendenze tra i diversi punti del sistema da realizzare.
+- TDD può portare ad una visione troppo ristretta
+- Cross functional team, ovvero se i team sono troppo disomogenei (ovvero quando ci tante singole figure specializzate in un campo e queste devono collaborare in coppia) ci possono essere dei problemi.
+
+Tutti questi punti cercano di evidenziare la mancanza di approfondimento e chiarezza dell'extreme programming su alcuni aspetti dell'approccio ad un lavoro fornito da un cliente.
+Qui i punti sono solo enunciati, se si vuole approfondire c'è il libro di meyer.
+
+## Mesi uomo
+I manager pensano che la stima del tempo in mesi uomo sia graficata come un ramo di iperbole, ovvero che possibile aumentare il nuermo di uomini per diminuire il tempo stimato senza considerare i tempi di overhead, ovvero tutto il tempo impiegato per la comunicazione e tutto ciò che non è l'implementazione. Questo ovviamente non è vero, i mesi uomo non sono una metrica valida, sono utili solo a posteriori per capire se un certo approccio ad un problema si è dimostrato valido.
+Nella realtà all'aumentare delle persone aumenta il bisogno di comunicare.
+C'è anche il caso in cui all'aumentare delle persone il tempo di consegna non cambia, questo si verifica quando il lavoro è strettamente sequenziale e non paralelizzabile (esempio gravidanza).
+Infine nel software abbiamo un caso ancora differente, ovvero abbiamo un numero ideale di persone, dopodichè le persone in più causano solo confusione e rallentano i tempi a causa della comunicazione. Il nuemro può essere grande però, dipende dall'entità del progetto (esempio space shuttle).
+In generale nelle metodologie agili se il team è più grande di 8-10 persone inizia a non funzionare più, e questo può essere visto come un caso in cui l'extreme programming non va utilizzato, ovvero (sistema questa parte, da 01:05:00 a 01:07:00 della videolezione 4 parte, successivamente sempre nella videolezione ci sono i riferimenti ai vari libri).
+
+<!-- {% responsive_image path: assets/03_grafico-mesi-uomo-sfotware.jpg %} -->
+
