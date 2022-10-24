@@ -20,7 +20,7 @@ Il signifcato di questa espressione è di fare prima il test e poi passi molto p
 Il "mantra" del TDD è __red__, __green__, __refactor__, infatti:
 
 - ogni volta che devo aggiungere qualcosa faccio prima il test che fallisce (<span style="Color: red">rosso</span>)
-- poi lo faccio diventare <span style="Color: red">verde</span> il prima possibile, ovvero scrivo il codice nel modo corretto il prima possibile (quasi come se fosse nua bozza) cosi facendo il test diventa verde. in questo modo ho sempre un feedback di quello che faccio
+- poi lo faccio diventare <span style="Color: green">verde</span> il prima possibile, ovvero scrivo il codice nel modo corretto il prima possibile (quasi come se fosse nua bozza) cosi facendo il test diventa verde. in questo modo ho sempre un feedback di quello che faccio
 - refactoring -> fattorizzare, riorganizzare e riscrivere il codice in modo da renderlo migliore (in questa fase dobbiamo rimanere in uno stato verde).
 questa cosa va fatta con una cadenza frequente, ogni 2-10 minutii: compiti semplici.
 
