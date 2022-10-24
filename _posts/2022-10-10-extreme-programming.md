@@ -178,8 +178,7 @@ Gli sviluppatori successivi invece possono fare due cose:
 
 È possibile avere delle carte in cui sopra non c'è nessun numero, queste saranno assimilate alla colonna alla loro sinistra, e avremo una situaione di questo tipo
 
-<!-- {% responsive_image path: assets/fine-seconfa-fase-estimation-game.jpg %} -->
-
+{% responsive_image path: assets/03_fine-seconda-fase-estimation-game.jpg %}
 
 ##### TERZA FASE
 Si stima il tempo in ore/uomo di una delle carte più semplici e successivamente si calcolano tutte le colonne in proporzione alla prima.
@@ -332,6 +331,3 @@ Nella realtà all'aumentare delle persone aumenta il bisogno di comunicare.
 C'è anche il caso in cui all'aumentare delle persone il tempo di consegna non cambia, questo si verifica quando il lavoro è strettamente sequenziale e non paralelizzabile (esempio gravidanza).
 Infine nel software abbiamo un caso ancora differente, ovvero abbiamo un numero ideale di persone, dopodichè le persone in più causano solo confusione e rallentano i tempi a causa della comunicazione. Il nuemro può essere grande però, dipende dall'entità del progetto (esempio space shuttle).
 In generale nelle metodologie agili se il team è più grande di 8-10 persone inizia a non funzionare più, e questo può essere visto come un caso in cui l'extreme programming non va utilizzato, ovvero (sistema questa parte, da 01:05:00 a 01:07:00 della videolezione 4 parte, successivamente sempre nella videolezione ci sono i riferimenti ai vari libri).
-
-<!-- {% responsive_image path: assets/03_grafico-mesi-uomo-sfotware.jpg %} -->
-
