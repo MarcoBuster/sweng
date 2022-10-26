@@ -39,7 +39,7 @@ Perché lo faccio?
 2. __Design pattern__: sono sia un vocabolario da usare sia una scelta tecnica. Soluzioni generali a problemi ricorrenti.
 3. Principi (come _solid_).
 
-### Terminologia preliminari
+## Terminologia preliminari
 - __Object Orientation__. Un ... si dice object oriented se supporta:
     - ereditarietà: è possibile descrivere una classe come differenza da un'altra classe;
     - polimorfismo: può assumere diverse forme;
@@ -79,7 +79,7 @@ I due scopi fondamnetali sono:
 > Solo ciò che è nascosto può essere cambiato liberamente e senza pericoli.
 > ~ Parnas [L8] <!-- mangio fai la tua cosa carina -->                                                                      
 
-## Principio _Tell-Don't-Ask_
+### Principio _Tell-Don't-Ask_
 
 Non chiedere i dati, ma dì cosa vuoi che faccia sui dati.
 L'obiettivo è cercare di minimizzare i getter studiando cosa ci facciamo con il valore ritornato e definendo funzioni opportune.
@@ -120,3 +120,100 @@ class Card {
     }
 }
 ```
+
+### Contract based vs programmazione difensiva
+
+- Contract based: assumo che chi mi ha chiamato rispetti il contratto che abbiamo stabilito (esempio: precondizioni).
+- Prorgammazione difensiva: controllo le precodinzioni
+
+```java
+public interface CardSource {
+    /**
+     * @return The next available card.
+     * @pre !isEmpty()
+     */
+    Card draw();
+
+    /**
+     * @return True if there is no card in the source.
+     */
+    boolean isEmpty();
+}
+```
+
+### Loose coupling
+
+Capacità di un identificatore di variabile/parametro di accettare oggetti in realtà di forme diverse, a patto che siano dei suoi sottotipi.
+
+```java
+Deck deck = new Deck();
+
+CardSource source = deck;
+
+List<Card> cards;
+cards = drawCards(deck, 5);
+```
+
+### Indirittezze
+
+Ogni volta che si aggiunge un'interfaccia, si ha un'indirettezza quindi una perdita di performance. 
+Nella stragrande maggioranza dei casi i vantaggi di generalizzare superano le perdite di performance.
+
+### Collegamento dinamico e _extensibility_
+
+```java
+public static List<Card> drawCards(CardSource cardSource, int number) {
+    List<Card> result = new ArrayList<>();
+    for (int i = 0; i < number && !cardSouce.isEmpty(); i++) {
+        result.add(cardSource.draw());
+    }
+    return result;
+}
+```
+
+Solo al momento del runtime si saprà il _runtime type_ della variabile cardSource.
+Il compilatore non sa a tempo di compilazione quale metodo `draw()' dovrà chiamare.
+
+Questo concetto permette quindi di __chiamare codice _non ancora scritto___, permettendo l'estensibilità.
+
+#### Esempio in Java con shuffle
+
+```java
+public class Deck {
+    private List<Card> cards = new ArrayList<>();
+
+    public void shuffle() {
+        Collections.shuffle(cards);
+    }
+}
+```
+
+`cards` (il tipo `List`) implementa `Shuffable`.
+
+Un altro esempio è l'interfaccia `Comparable`.
+
+```java
+public interface Comparable<T> {
+    public int compareTo(T o);
+}
+```
+```java
+// Definizione Collections.sort
+public static <T extends Comparable<? super T>> void sort(List<T> list);
+```
+
+## UML
+
+- Se qualcosa è in _corsivo_ significa che è astratto, non ancora implementato o un'interfaccia.
+- Se qualcosa è <u>sottolineato</u> significa che il metodo o attributo è statico
+
+### Frecce
+- __tratteggiate__: relazione tra classi di __dipendenza__. Il codice scritto nella prima classe dipende dalla seconda.
+- __diamanate__: relazione tra istanze di classe di __aggregazione__. Un istanza della prima contiene da N a M istanze della seconda.
+<!-------- da rividere ---------------------------->
+Il concetto di aggregazione è in mezzo tra quelli di:
+    - __associazione__: un _professore_ insegna a più _studenti_. Il professore non è definito dai studenti che insegna (freccia senza rombo);
+    - __aggregazione__: un _corso_ ha certe _ore_ di lezione (freccia con rombo bianco).
+    - __composizione__: un _motore_ compone un aereo (freccia con rombo nero).
+- __tratteggiata grossa bianca__: implementazione
+
