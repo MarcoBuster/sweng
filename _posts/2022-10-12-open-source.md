@@ -6,7 +6,7 @@ toc: true
 ---
 # Open source
 
-## __The Cathedral and the Bazaar__
+## _The Cathedral and the Bazaar_
 
 Raymond descrive nel suo [articolo](http://www.catb.org/~esr/writings/cathedral-bazaar/cathedral-bazaar/) due analogie, relative al modo di costruire un software opensource:
 - la __cattedrale__: c'è un progettista che è responsabile dei lavori;
@@ -63,7 +63,7 @@ Occorre trovare qualcuno perché un programma in uso dovrà necessariamente camb
 
 <p><!-- ugly spacer --></p>
 
-## Care and Feeding of FOSS
+## _Care and Feeding of FOSS_
 
 Craig James [descrive](https://web.archive.org/web/20081015010505/http://www.moonviewscientific.com/essays/software_lifecycle.htm) il ciclo di vita di un software FOSS (Free and Open Source Software) come una sequenza delle seguenti fasi:
 
@@ -78,7 +78,13 @@ Alcuni progetti vengono assorbiti da altri o falliscono - diminusice quindi comp
 5. __FOSS Domination__: il prodotto opensource raggiunge / sorpassa e diventa dominante nel mercato;
 6. __The FOSS era__: _"alla fine ci sarà solo il mondo open source"_.
 
-## The Emerging Economic Paradigm Of Open Source
+## Open Source vs Closed Source
+
+{% responsive_image path: 'assets/04_confronto.png' %}
+
+Come si può notare dalla tabella, non tutti i paradigmi proteggono il vantaggio competitivo, con differenze dal punto di vista del cliente e del produttore.
+
+### _The Emerging Economic Paradigm Of Open Source_
 
 Perché le aziende investono in open source? 
 
@@ -93,45 +99,39 @@ Per fare ciò possiamo rispondere alle seguenti domande:
 Se la risposta a una delle due domande è no, perché dovrei tenermi il software per me? 
 Renderlo open source sparpaglia i costi e porta valore.
 
-### Confronto tra paradigmi
+### _An empirical study of open-source and closed-source software products_
 
-{% responsive_image path: 'assets/04_confronto.png' %}
+È stato fatto uno [studio](https://www.researchgate.net/publication/3188403_An_empirical_study_of_open-source_and_closed-source_software_products) 
+che confronta la qualità del codice open source e closed source. 
 
-Come si può notare dalla tabella, non tutti i paradigmi proteggono il vantaggio competitivo, con differenze dal punto di vista del cliente e del produttore.
+{% responsive_image path: 'assets/04_empirical-study.png' %}
 
-## An empirical study of open-source and closed-source software products
-
-È stato fatto uno studio che confronta progetti open e closed. 
-Copiare tabelllina nel paper.
-
-## Sfide che si amplificano
+### Integrazione
 L'integrazione del software, nel modello a cascata era una fase circoscritta e a sé stante.
 
 Microsoft ha ipotizzato uno schema che sembra molto innovativo: _Stabylize & Synchronize_.
-Durante il giorno ci sono gli sviluppatori che lavorano sul proprio pezzo di codice in cui erano responsabile; ogni notte il software veniva quindi ricompilato da zero. 
-La mattina dopo se la compilazione falliva si trovava il responsabile e lo si puniva.
-Altrimenti, ogni giorno avevano la "versione migliore possibile" di Windows.
+Durante il giorno gli sviluppatori lavorano sul proprio pezzo di codice in cui sono responsabili; di notte il software viene ricompilato da zero. 
+La mattina dopo, si potevano avere due possibilità:
+- la compilazione falliva, il responsabile veniva trovato e _"punito"_;
+- la compilazione aveva successo, il software integrato è quindi nella _"versione migliore possibile"_.
 
 Nel modello XP l'integrazione viene eseguita più volte al giorno, escludendosi a vicenda (solo un accesso alla macchina per volta).
 
 Nell'open source l'integrazione viene eseguita continuamente e senza coordinazione a priori.
 
 ### Team
-Nell'open source, inoltre, ci sono problemi con il team.
-Bisogna decidere come comunicare, come tenersi uniti, come coordinarsi e anche come ottenere nuove collaborazioni.
+Nell'open source, inoltre, ci sono problemi con la gestione del team.
+Occorre decidere come comunicare, tenersi uniti, coordinarsi e ottenere nuove collaborazioni.
 
-Ci sono degli strumenti di supporto che vengono utilizzati.
+Per comunicare si utilizza di solito:
+- in generale __internet__: si potrebbe dire che senza internet non potrebbe esistere l'open source;
+- __forum__, per tenere la community unita e rispondere dubbi ai nuovi utenti.
 
-Per la comunicazione c'è:
-- in generale internet
-- forum, per tenere la community unita e rispondere dubbi ai nuovi utenti
+Inoltre, ci sono strumenti per la sincronizzazione del lavoro e di versioning per codice e documentazione (come __git__).
 
-Inoltre, ci sono strumenti per la sincronizzazione del lavoro e di versioning per codice e documentazione.
+Deve essere facile (addirittura banale) poter compilare il codice e ricreare l'ambiente di sviluppo omogeneo per tutti; 
+si utilizzano quindi strumenti di __automatizzazione delle build__ (come i __Makefile__).
 
-Automatizzazione della build: deve essere facile (addirittura banale) poter compilare il codice e ricreare l'ambiente di sviluppo omogeneo per tutti. 
-
-Bug tracking: è importante 'educare' il reporter dei bug e avere un sistema e un posto accessibile a tutti per vedere se sono state già inviate, e per organizzarle.
+È importante _educare_ i reporter dei bug e avere un sistema per organizzare per le __segnalazioni di errori__.
+Il sistema dovrebbe essere accessibile a tutti in modo da evitare segnalazioni duplicate.
 Anche la segnalazione d'errore avrà il suo "ciclo di vita". 
-
-
-
