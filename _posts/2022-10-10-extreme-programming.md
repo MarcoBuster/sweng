@@ -5,32 +5,35 @@ date:   2022-10-10 14:40:00 +0200
 toc: true
 ---
 
-# eXtreme programming
-Concetto principale dell'extreme programming
-> Increment then simplify
+# Test Driven Development
 
-## Test Driven Development
+Il _test driven development_ (TDD) è una __tecnica di progettazione__ del software che mira a far emergere "dal basso" il design più semplice in grado di risolvere un dato problema. Non si tratta ne un'attività di verifica ne di scrittura del codice, quanto piuttosto un approccio alla scrittura di questi ultimi.
 
-Il _test driven development_ (TDD) è una __tecnica di progettazione__ che guida verso il design più semplie. Non è ne un'attività di verifica ne di scrittura del codice.
+Il TDD si fonda su due concetti fondamentali, esplicitati nella seguente citazione:
 
-> TDD = test-first + baby steps
+> TDD = __test-first__ + __baby steps__
 
-Il signifcato di questa espressione è di fare prima il test e poi passi molto piccoli. Concetto di feedback instantaneo: faccio piccoli passi e testo ogni volta. Non scrivo tanto codice senza fare alcun test.
+Il significato di questa espressione è che per scrivere del codice che esalti la semplicità della soluzione è necessario __scrivere prima il test rispetto al codice__ (_test-first_) e procedere a __piccoli passi__ (_baby steps_), realizzando cioè piccole porzioni di codice, testandole e solo allora andando avanti. Questa tecnica mira infatti a stabilire un ciclo di _feedback istantaneo_: facendo piccoli passi e testando ogni volta ciò che si appena scritto è meno probabile buttare molto tempo su una soluzione che non funziona, e anche in caso di errore è più facile individuare cosa lo genera e come risolverlo.
 
-Il "mantra" del TDD è __red__, __green__, __refactor__, infatti:
+Per applicare questo approccio _test-driven_ allo sviluppo effettivo di software, il TDD ha sviluppato il seguente "mantra": __rosso__, __verde__, __refactoring__. Quando si scrive codice bisogna infatti seguire le seguenti tre fasi:
 
-- ogni volta che devo aggiungere qualcosa faccio prima il test che fallisce (<span style="Color: red">rosso</span>)
-- poi lo faccio diventare <span style="Color: green">verde</span> il prima possibile, ovvero scrivo il codice nel modo corretto il prima possibile (quasi come se fosse nua bozza) cosi facendo il test diventa verde. in questo modo ho sempre un feedback di quello che faccio
-- refactoring -> fattorizzare, riorganizzare e riscrivere il codice in modo da renderlo migliore (in questa fase dobbiamo rimanere in uno stato verde).
-questa cosa va fatta con una cadenza frequente, ogni 2-10 minutii: compiti semplici.
+- Ogni volta che si deve aggiungere una feature __si scrive prima il test__ che la provi; non essendo ancora stata sviluppata, tale test dovrà fallire (<span style="Color: red">rosso</span>).
 
-Quindi prima faccio qualche piccolo progresso (increment) e poi lo semplifico (semplify)
+- Si cerca poi di __soddisfare il test il più velocemente possibile__, facendolo diventare <span style="Color: green">verde</span>. Si ottiene così del codice corretto ma probabilmente molto brutto, quasi come fosse una bozza: tale codice serve però come feedback del fatto che l'algoritmo scelto funziona.
 
-È necessario passare per quel passaggio intermedio (la bozza menzionata al punto 2 dell'elenco precendete) perchè in questo modo una volta che abbiamo una base funzionante sicuramente nella fase di refactoring ciò che ho fatto continuerà a funzionare (non si torna al rosso). Se scrivessimo direttamente il codice in "bella" impiegheremmo molto più tempo e magari alla fine non abbiamo neanche un codice funzionante (siccome implementare del codice gestendo ogni particolare fin da subito al meglio ècomplesso ed è facile commettere errori).
+- Si compie infine un'azione di __refactoring__ (_fattorizzazione_), ovvero si riorganizza e si riscrive il codice in modo da renderlo migliore assicurandosi però che il test continui ad essere soddisfatto (in questa fase dobbiamo rimanere in uno stato di <span style="Color: green">verde</span>).
 
-Perchè il TDD è una tecnica di progettazione?
-- spesso capita di scrivere codice difficilmente testabile; scrivere il test prima e il codice dopo aiuta a progettare prodotti _test-first_;
-- scrivere prima i test aiuta a definire le interfacce del programma (e come comunicano), perché durante il testing ci si pone dal punto di vista del clinte, se non dovessimo farlo potremmo avere delle dipendenze complicate da rimuovere.
+Questa ciclo in tre fasi va ripetuto con una cadenza frequente, ogni 2-10 minuti: ciò obbliga a concentrarsi su compiti semplici evitando così di perdersi in costruzioni software complicate che magari non funzionano neanche. Si preferisce invece prima fare qualche piccolo progresso (_increment_) e poi semplificare per migliorare il codice (_simplify_).
+
+È importante inoltre capire perché quel passaggio intermedio, la "bozza" menzionata al secondo punto dell'elenco precedente, è tanto importante: concentrarsi in primo luogo sulla creazione di una base funzionante permette subito di capire se si è scelta la strategia giusta per risolvere il problema corrente. Scrivere direttamente il codice "in bella" impiegherebbe molto più tempo e potrebbe non produrrebbe neanche un codice funzionante, siccome maggiore è la complessità del codice che si scrive più è probabile commettere errori.
+
+In virtù di quanto appena detto, l'uso del TDD come tecnica di progettazione garantisce inoltre due importanti vantaggi:
+
+- Spesso capita di scrivere codice difficilmente testabile: scrivere il test prima e il codice dopo aiuta invece a progettare prodotti la cui correttezza può essere provata.
+
+- Scrivere prima i test aiuta a definire chiaramente le interfacce del programma e come queste comunicano tra di loro, mentre se non dovessimo farlo potremmo avere delle dipendenze complicate da rimuovere.
+
+Durante il testing ci si pone dal __punto di vista del cliente__: la tecnica TDD ci permette dunque di osservare il codice da molteplici prospettive (sviluppatore e cliente), cosa che contribuisce ovviamente alla creazione di un prodotto migliore.
 
 ## eXtreme Programming (XP)
 Ora possiamo iniziare a parlare di extrene programming, nasce tra la fine degl anni 90 e inizio del 2000, la figura di riferimento è Kent Beck.
