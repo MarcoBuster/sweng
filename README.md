@@ -100,3 +100,21 @@ Inizia il processo di _review_: altri contributori (ovvero tutti a parte Carlo) 
 Se (ancora, per esempio) Marco trova dei problemi, può creare un proprio branch `marco/05-review` partendo dal branch `lezioni/05`, committare le proprie proposte e quindi rimegiarle in `lezioni/05`.
 
 Infine, una volta che tutti i reviewer sono contenti, la Merge Request viene mergiata in master e gli appunti vengono aggiunti in GitLab Pages.
+
+### Issues e Merge Requests
+
+Per coordinare il lavoro tra di noi, utilizziamo principalmente la funzione "Issue" di GitLab. 
+Tutte le issues sono elencate [qui](https://gitlab.com/silab-gang/sweng/-/issues).
+
+C'è una issue per ogni argomento. Ogni issue...
+- ha un titolo con il numero (corrispondente all'`N` nei nomi di branch) e al nome dell'argomento;
+- ha una descrizione, contentente i riferimenti alle lezioni relative all'argomento (come la data) e altre note opportune (_"il prof. ha spiegato il pattern Observer in questa lezione"_, ...);
+- ha un label per tracciare lo stato nel processo (Da Fare / In esecuzione / In attesa di review / Fatto); 
+- ha un epico per tracciare il progresso dei [4 macro argomenti](https://gitlab.com/silab-gang/sweng/-/milestones/) del corso.
+- ha un utente assegnato: solitamente è l'integratore principale della issue.
+
+Nelle issue si può discutere e coordinare il lavoro, ma le review si fanno nelle merge request.
+Le osservazioni sul _processo_ si fanno nell'issue, quelle sul _contenuto_ nella merge request.
+
+Le merge request sono collegate alla relativa issue semplicemente citandola.
+È possibile utilizzare la [revisione GitLab](https://docs.gitlab.com/ee/user/project/merge_requests/reviews/) per indicare i problemi: se trovi un problema sei invitato a risolverlo subito, per velocizzare il processo.
