@@ -19,7 +19,7 @@ Tutti i contenuti sono rilasciati sotto licenza [Creative Commons BY-NC-SA 4.0](
 
 ## Visualizzare
 
-È possibile visualizzare gli appunti approdati sul branch `master` a questa pagina di GitLab Pages: https://silab-gang.gitlab.io/sweng.
+È possibile visualizzare gli appunti approvati sul branch `master` a questa pagina di GitLab Pages: https://silab-gang.gitlab.io/sweng.
 
 ## Contribuire
 
