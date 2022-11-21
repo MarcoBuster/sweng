@@ -36,37 +36,49 @@ In virtù di quanto appena detto, l'uso del TDD come tecnica di progettazione ga
 Durante il testing ci si pone dal __punto di vista del cliente__: la tecnica TDD ci permette dunque di osservare il codice da molteplici prospettive (sviluppatore e cliente), cosa che contribuisce ovviamente alla creazione di un prodotto migliore.
 
 ## eXtreme Programming (XP)
-Ora possiamo iniziare a parlare di extrene programming, nasce tra la fine degl anni 90 e inizio del 2000, la figura di riferimento è Kent Beck.
+
+Ora possiamo iniziare a parlare di Extreme Programming (XP), una tecnica di sviluppo agile nata tra la fine degli anni '90 e l'inizio degli anni 2000 dalla mente di Kent Beck, che la ideò nell'ambito di un progetto Chrysler.
 
 ### Le variabili in gioco
-secondo kent Beck, l'ideatore dell'extreme programming, in un software le variabili sono:
-- __portata__: quantità di funzionalità da implementare, la portata èmutevole siccome il numero di funzionalitàda implementare può cambiare nel tempo.
-- __tempo__: tempo dedicabile al progetto;
-- __qualità__: la qualità del progretto che si deve ottenere (principalmente correttezza e affidabilità);
-- __costo__: risorse finanziare che si possono impegnare.
 
-Queste 4 variabili __non sono indipendenti__, una influenza le altre; possiamo dire che la qualità non è negoziabile, deve essee per forza massima, quindi bisogna lavorare sulle altre, sopratutto bilanciando costo e tempo.
-Con l'XP si stravolge la prospettiva: __il costo è orario__, il tempo verrà deciso successivamente, e infine la portata viene ricalcolata durante il progetto, quindi l'unica variabile che cambia è la portata. Inoltre siccome è una tecnica fortenete incrementale non dò al cliente tutto il lavoro in un colpo solo, ma una parte alla volta. questo serve per 2 motivi:
-- Il cliente vede che sto lavorando, siccome vede il prodotto crescere.
-- Da la possibilità al cliente di avere comunque qualcosa in mano anche se ad un certo punto vuole interrompere la collaborazione.
-Quindi non abbiamo più un rapporto così conflittuale tra cliente e sviluppatore.
+Secondo Beck, durante lo sviluppo di software le principali variabili sono:
+
+- __portata__: la quantità di funzionalità da implementare, una variabile delicata dal valore _mutevole_ poiché il numero di funzionalità richieste può cambiare nel corso dello sviluppo;
+- __tempo__: il tempo che si può dedicare al progetto;
+- __qualità__: la qualità del progetto che si vuole ottenere, principalmente relativa a correttezza e affidabilità;
+- __costo__: le risorse finanziare che si possono impegnare per il progetto.
+
+Queste 4 variabili __non sono indipendenti__ tra di loro, in quanto cambiare una influenza automaticamente le altre, in positivo o in negativo. Ponendo quindi che la qualità non sia negoziabile (il software deve funzionare) bisognerà lavorare sulle altre, specialmente bilanciando costo e tempo.
+
+Nel panorama classico di sviluppo la portata era definita in modo rigido dal cliente, che richiedeva certe funzionalità non negoziabili e pagava lo sviluppatore a progetto completo.
+Con l'XP si stravolge invece la prospettiva: __il costo è orario__, il tempo disponibile non è fisso ma pari al tempo richiesto per lo sviluppo e la portata viene ricalcolata durante il progetto, essendo così l'unica variabile a variare effettivamente. Si tratta di un approccio _incrementale_ che mira ad avere sempre un prodotto consegnabile se il cliente decide di essere soddisfatto dello sviluppo: non si fa aspettare il cliente per dargli tutto il lavoro in un colpo solo, ma questo viene consegnato una parte alla volta. Oltre ad alleggerire la pressione sullo sviluppatore, questo approccio è utile per due motivi:
+
+- Il cliente è certo che lo sviluppatore si sia dedicando al progetto siccome vede il prodotto crescere a poco a poco.
+- Dà la possibilità al cliente di avere comunque qualcosa in mano se ad un certo punto vuole interrompere la collaborazione.
+- Permette al cliente di cambiare idea sulla portata e sulle funzionalità richieste in corso d'opera, bandendo la rigidità dei documenti di specifica.
+
+Tutti questi aspetti permettono di creare un rapporto molto meno conflittuale tra cliente e sviluppatore, cosa che crea le basi per una maggiore collaborazione tra le due parti.
 
 ### Principi dell'extreme programming
-- __Feedback rapido__ da test, cliente e colleghi. In alcune aziende viene fatto uno _standup meeting_: poche parole in piedi per dire cosa è stato fatto e le successive intenzioni.
-- __Presumere la semplicità__: Non pianificare per il futuro ma per ciò che ti serve nel breve termine, questo sia per quanto riguarda la pianificazione del prodotto da creare sia per la progettazione del team, che deve essere semplice (per esempio non gerarchica). in generale questa regola vale per tutti gli ambiti del progetto.
-- __Accettare il cambiamento__: non ci si deve aspettare che il software sia immutabile, deve essere dato per scontato il concetto di flessibilità, ovvero che il cliente vorrà fare cambiamenti sia dopo che durante lo sviluppo del prodotto.
-- __Modifica incrementale__: Qui rientra il concetto di baby steps visto prima, ma non solo, per esempio vale anche per il team, ovvero non bisognerebbe mai aggiungere più di una persona al gruppo di valoro (se ne aggiungo di più potrei passare più tempo ad istruirle che a sviluppare).
-- __Lavoro di qualità__: far star bene lo sviluppatore; la fidelizzazione dello sviluppatore è importante perchè più lo sviluippatore si trova bene e meglio lavora.
 
-Nell'ingegneria classica invece abbiamo (alcuni sono condivisi con l'extreme programming):
-- __Separazione degli interessi__ (_aspects_ o _concerns_): separare tempi, responsabilità, moduli, ovvero tutte le varie viste o le varie dimensioni su cui devo affrontare il mio problema. anche l'extreme programming da per scontato questo principio.
-- __Astrazione e modularità__: ciò che ci permette di dominare i problemi complessi (possono essere i diversi linguaggi di programmazione, linguaggi di descrizione o i vari costrutti che abbiamo usato).
-- __Anticipazione del cambiamento__ (_design for change_): in fase di progettazione il programmatore pensa a come potrebbe cambiare il prodotto per aggiungere requisiti che il cliente magari non aveva neanche pensato. Spesso però questo concetto complica arbitrariamente la progettazione e lo sviluppo, considerando anche che sono solo fantasie; può essere un'idea migliore farlo semplice ed incrementarlo man mano.
-- __Generalità__
-- __Incrementalità__
-- __Rigore e formalità__
+Parliamo ora un po' dei fondamenti della filosofia XP, confrontandoli con quanto veniva prescritto nell'ambiente di sviluppo classico. I principi dell'ingegneria del software classica erano infatti i seguenti:
 
-I due punti più in contrasto sono presumere la semplicità e l'anticipazione del cambiamento.
+- __Separazione degli interessi__ (_aspects_ o _concerns_): separare tempi, responsabilità e moduli, ovvero tutte le varie viste o le varie dimensioni su cui si deve affrontare il problema.
+- __Astrazione e modularità__: bisogna usare le giuste astrazioni che ci permettono di dominare i problemi complessi (possono essere i diversi linguaggi di programmazione, linguaggi di descrizione o vari altri costrutti).
+- __Anticipazione del cambiamento__ (_design for change_): in fase di progettazione il programmatore deve pensare a come potrebbe cambiare il prodotto, accomodando la possibile  aggiunta di requisiti che il cliente magari non aveva neanche pensato; bisogna stare attenti però, perché spesso questo concetto complica arbitrariamente la progettazione e lo sviluppo, rischiando di far perdere molto tempo su cose che al cliente potrebbero non servire: può essere un'idea migliore partire da qualcosa di semplice ed incrementare man mano.
+- __Generalità__: per rendere più semplice la modifica e l'espansione futura è necessario scrivere interfacce molto generali ai sistemi che costruiamo.
+- __Incrementalità__: lo sviluppo avviene incrementalmente, un pezzetto alla volta.
+- __Rigore e formalità__: è importante essere rigidi e specifici sia nella comunicazione che nella descrizione dei requisiti.
+
+Sebbene non butti via tutti questi principi ma ne erediti invece alcuni per adattarli alle proprie esigenze (specialmente la _separazione degli interessi_, che viene data per scontata), l'XP pone l'accento su altri aspetti, ovvero:
+
+- __Feedback rapido__: bisogna mantenere un costante flusso di feedback; questo viene dato dai test, dai colleghi ma anche dal cliente, che dev'essere continuamente consultato sullo stato dei lavori. Tra le iniziative che favoriscono un veloce ciclo di feedback c'è lo _standup meeting_, una riunione mattutina fatta in piedi in cui ciascuno descrive in poche parole cosa ha fatto il giorno precedente e cosa intende fare oggi.
+- __Presumere la semplicità__: non bisogna complicare senza motivo né il codice, che dev'essere scritto con in mente ciò che serve a breve termine e non in un futuro remoto, né le relazioni tra colleghi, che non devono essere eccessivamente gerarchiche (tutti dovrebbero avere compiti molto simili); in generale si dovrebbe semplificare il più possibile in tutti gli ambiti del progetto.
+- __Accettare il cambiamento__: non ci si deve aspettare che il software sia immutabile; al contrario, deve essere dato per scontato il concetto di _flessibilità_ e _malleabilità_, ovvero che il cliente vorrà fare cambiamenti sia dopo che durante lo sviluppo del prodotto.
+- __Modifica incrementale__: ritornando al concetto di baby steps, ogni iterazione di sviluppo dovrebbe essere breve e le funzionalità introdotte piuttosto piccole; questa regola si applica tuttavia a tutti gli ambiti del progetto, tra cui la gestione del team: ovvero non bisognerebbe mai aggiungere più di una persona alla volta al gruppo di lavoro, in quanto aggiungerne di più potrebbe portare a passare più tempo ad istruirle che a sviluppare.
+- __Lavoro di qualità__: bisogna ovviamente ottenere un buon prodotto, ma per fare ciò la prospettiva cambia in favore dello sviluppatore, al quale si deve garantire un ambiente di lavoro salutare e un certo benessere; la fidelizzazione dei programmatori è importante perché più si trovano bene e meglio lavorano.
+
+I due punti più in contrasto sono il presumere la semplicità e l'anticipazione del cambiamento: ci sembra infatti più previdente pianificare per il futuro e anticipare eventuali cambiamenti, ma come vedremo nel prossimo paragrafo talvolta questo può essere controproducente.
 
 ### Presumere la semplicità vs anticipazione del cambiamento
 - XP mette davanti la semplicità all'anticipazione del cambiamento: non sto inserendo cose che mi serviranno per il futuro, ma non è detto che non stia progettando per il futuro. Diciamo non è il primo aspetto da guardare, il primo aspetto è la semplicità, ovvero fare le cose nella maniera più chiara possibile.
