@@ -10,7 +10,14 @@ before_script:
 test:
   stage: test
   script:
-  - bundle exec jekyll build -d test
+    - apt update -y
+    - apt install -y wget
+    - wget https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml-1.2022.13.jar -O plantuml.jar
+    - echo "#!/bin/bash" > plantuml
+    - echo "java -jar $PWD/plantuml.jar \"\$1\" \"\$2\"" >> plantuml
+    - mv plantuml /usr/bin/plantuml
+    - chmod +x /usr/bin/plantuml
+    - bundle exec jekyll build -d test
   artifacts:
     paths:
     - test
@@ -20,7 +27,14 @@ test:
 pages:
   stage: deploy
   script:
-  - bundle exec jekyll build -d public
+    - apt update -y
+    - apt install -y wget
+    - wget https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml-1.2022.13.jar -O plantuml.jar
+    - echo "#!/bin/bash" > plantuml
+    - echo "java -jar $PWD/plantuml.jar \"\$1\" \"\$2\"" >> plantuml
+    - mv plantuml /usr/bin/plantuml
+    - chmod +x /usr/bin/plantuml
+    - bundle exec jekyll build -d public
   artifacts:
     paths:
     - public
