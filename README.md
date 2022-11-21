@@ -193,3 +193,32 @@ Per convertire un'immagine più piccola, puoi utilizzare il seguente comando (ri
 ```bash
 $ convert assets/N_nome-immagine.png -filter point -resize 810 assets/N_nome-immagine.png
 ```
+
+### Diagrammi UML
+
+(Quasi) tutti i diagrammi UML mostrati durante le lezioni dal prof. Bellettini sono generati utilizzando [PlantUML](https://plantuml.com/), uno strumento open source che genera diagrammi in formato vettoriale partendo da del semplice testo.
+È quindi perfetto per il nostro caso d'uso (_pun intendend_).
+
+La sintassi per generare un diagramma dal Markdown di Jekyll è la seguente:
+
+```
+{% plantuml %}
+Object <|-- ArrayList
+Object : equals()
+ArrayList : Object[] elementData
+ArrayList : size()
+{% endplantuml %}
+```
+
+Informazioni complete sulla sintassi con esempi sono sul sito di PlantUML.
+
+Oltre al plugin, per generare i diagrammi è necessario installare l'eseguibile `plantuml`. Nei sistemi UNIX-like: 
+1. in una cartella che vuoi (come nella HOME), scarica il file `.jar` con `$ wget https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml-1.2022.13.jar -O plantuml.jar`;
+2. crea un file chiamato `/usr/bin/plantuml` avente come contenuto
+```bash
+#!/bin/bash
+java -jar /path/to/plantuml.jar "$1" "$2"
+```
+3. rendi il file eseguibile: `$ sudo chmod +x /usr/bin/plantuml`.
+
+Se possibile, __cerca sempre di utilizzare un diagramma UML al posto di uno screenshot__.
