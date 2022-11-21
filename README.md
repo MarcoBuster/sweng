@@ -10,12 +10,19 @@ I _maintainer_ ufficiali sono:
 - Daniele Ceribelli
 - Matteo Mangioni
 
+e gli altri contributori sono:
+- Alessandro Mangili
+- Alessandro Tellarini
+- Armani Islam
+- Mattia Oldani
+- Silvio Angelo Settembrese
+
 ma _chiunque_ può contribuire e proporre _Merge Request_. 
 Se utilizzi questi appunti per studiare, non solo è _galante_ contribuire ma è anche un modo per controllare e sistemare l'enormità di errori che prevediamo saranno presenti e per espandere o integrare nozioni e concetti.
 
 I docenti del corso sono a conoscenza di questo progetto e sembrano apprezzarlo.
 
-Tutti i contenuti sono rilasciati sotto licenza [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+Tutti i contenuti saranno rilasciati sotto licenza [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) dopo gli esami.
 
 ## Visualizzare
 
