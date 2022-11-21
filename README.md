@@ -118,3 +118,71 @@ Le osservazioni sul _processo_ si fanno nell'issue, quelle sul _contenuto_ nella
 
 Le merge request sono collegate alla relativa issue semplicemente citandola.
 È possibile utilizzare la [revisione GitLab](https://docs.gitlab.com/ee/user/project/merge_requests/reviews/) per indicare i problemi: se trovi un problema sei invitato a risolverlo subito, per velocizzare il processo.
+
+## Convenzioni Jekyll e di stile
+
+Il Markdown scritto su Jekyll è particolare e richiede l'utilizzo di alcune convenzioni, specialmente per lavorare insieme.
+
+Jekyll è orientato alla creazione di blog personali, quindi ogni _argomento_ (pagina) è, secondo la terminologia di Jekyll, un _blog post_.
+Questo ha implicazioni fastidiose: per esempio, è necessario assegnare una data ad ogni _"post"_ anche se non ha molto senso se si sta parlando di appunti.
+Per convenzione, per ogni _post_ utilizziamo sempre come data (e ora) quello della prima lezione in cui l'argomento è stato introdotto.
+
+### Nomi di file e intestazione
+
+Tutti i _post_ vanno creati nella cartella `_posts/`. 
+Ogni file all'interno di `posts/` DEVE avere come il seguente nome: `YYYY-MM-DD-titolo-argomento.md` dove YYYY-MM-DD è la __data__ del post in quel formato e `titolo-argomento` il titolo (breve) che comparirà nell'URL. 
+
+All'inizio di ogni post Markdown DEVE ESSERE PRESENTE il _Jekyll header_.
+Di seguito un esempio:
+```
+---
+layout: post
+title:  "[01] Introduzione"
+date:   2022-10-03 14:30:00 +0200
+toc:    true
+---
+```
+
+Il numero nel titolo racchiuso tra parentesi quadre deve essere uguale al numero di argomento N assegnato nell'issue e nei nomi di branch.
+Il parametro `toc: true` serve per generare automaticamente la Table Of Contents all'inizio del file HTML compilato.
+
+Se non vedete un post che avete creato sul vostro Jekyll, molto probabilmente state sbagliando una di queste convenzioni.
+
+È possibile che durante la prima fase di presa degli appunti durante la lezione vengano utilizzati dei nomi di file diversi. 
+È compito degli integratori sceglierne uno adatto e degli altri contributori adottarlo.
+
+### Stile di scrittura
+
+Cerca di essere chiaro, conciso ma __completo__.
+È chiaro che all'esame viene chiesto _tutto_, compresi i riferimenti esterni: durante la fase di integrazione occorre quindi includere ogni nozione e concetto rilevante.
+
+L'obiettivo è creare la _bibbia_ del corso: idealmente studiandola da zero si dovrebbe arrivare al 30L. 
+
+Evita quindi di:
+- citare concetti senza spiegarli; 
+- dare per scontato conoscenze (_"su git si possono fare i commit"_ => _"su git si può utilizzare `git commit` per creare un commit"_);
+- ricopiare i contenuti pari pari alle slide;
+- scrivere "..." alla fine degli elenchi puntati;
+- ...
+
+Naturalmente, queste indicazioni valgono per gli appunti proposti per il branch master: per gli appunti presi a lezione è assolutamente OK essere vaghi o brevi.
+
+### Immagini
+
+Per includere immagini utilizziamo il plugin `jekyll-responsive-image`, che le ottimizza per tutti i dispositivi.
+
+Le immagini sono da mettere nella cartella `assets/` e tracciate con Git (altrimenti gli altri non le vedranno!). 
+Per convenzione nostra, i nomi dei file immagine è `N_nome-immagine.png` dove `N` è il numero di lezione giù più volte citato in questa guida.
+
+Per includere un'immagine, è sufficiente inserire nel Markdown la seguente stringa e Jekyll si occuperà ad inserire l'immagine.
+
+```
+{% responsive_image path: 'assets/N_nome-immagine.png' %}
+```
+
+L'immagine deve essere grande almeno 800 pixel in larghezza.
+Per convertire un'immagine più piccola, puoi utilizzare il seguente comando (richiede ImageMagick installato):
+
+```bash
+$ convert assets/N_nome-immagine.png -filter point -resize 810 assets/N_nome-immagine.png
+```
