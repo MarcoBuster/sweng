@@ -81,12 +81,15 @@ Sebbene non butti via tutti questi principi ma ne erediti invece alcuni per adat
 I due punti più in contrasto sono il presumere la semplicità e l'anticipazione del cambiamento: ci sembra infatti più previdente pianificare per il futuro e anticipare eventuali cambiamenti, ma come vedremo nel prossimo paragrafo talvolta questo può essere controproducente.
 
 ### Presumere la semplicità vs anticipazione del cambiamento
-- XP mette davanti la semplicità all'anticipazione del cambiamento: non sto inserendo cose che mi serviranno per il futuro, ma non è detto che non stia progettando per il futuro. Diciamo non è il primo aspetto da guardare, il primo aspetto è la semplicità, ovvero fare le cose nella maniera più chiara possibile.
-- Secondo Bohem (1976) invece, si ipotizza una curva di tipo esponenziale per il corso delle modifiche all'aumento dell'avanzamento del progetto.
-    - Dal'altro canto, per l'XP questa curva ha un asintoto orizzontale a un certo punto.
-    - "Nei primi tempi poteva essere vero, ma ora è meglio rimandare l'aggiunta di modifiche fino a quando non servono.", appunto perchè da un certo punto in poi il costo delle modifiche non subisce cambiamenti sensibili, siccome abbiamo del codice semplice e facile da modificare.
 
-Bohem parlava in realtà di cost to fix, non per modificare: la generalizzazione è un po estesa; inoltre la sua statistica era poco affidabile perchèsi basava su pochi elementi. La curva è stata poi ritrattata per accomodare il fatto che se un errore avviene in una fase affligge solo le successive, e non le precedenti.
+XP mette davanti la semplicità all'anticipazione del cambiamento: non si scrive in anticipo codice che si pensa servirà in futuro. Questo non significa che non si stia progettando per il futuro, ma solo che questo non è il primo aspetto da guardare: il primo aspetto è la semplicità, ovvero fare le cose nella maniera più chiara possibile.
+
+Non pianificare per il futuro sembra rischioso: secondo uno studio condotto da Bohem nel 1976 viene ipotizzata una curva esponenziale per il corso delle modifiche all'aumento dell'avanzamento del progetto; più il progetto avanza più è costoso modificarlo, motivo per cui sembra necessario accomodare il cambiamento futuro in modo da ridurre tale costo. \
+Al contrario, XP presuppone una curva di tipo logaritmico che tenda ad un asintoto: passato un certo punto nello sviluppo il costo per le modifiche non subisce più cambiamenti sensibili, per cui non ha senso fasciarsi la testa in anticipo in quanto un codice semplice è relativamente facile da modificare.
+
+{% responsive_image path: assets/03_cost-curves.png %}
+
+Va inoltre considerato che Bohem parlava in realtà di cost-to-fix, non del costo per la modifica in sé; inoltre la sua statistica era poco affidabile poiché era stata costruita a partire da pochi dati. La curva esponenziale da lui descritta è stata poi successivamente ritrattata per accomodare il fatto che se un errore avviene in una fase affligge solo le successive, e non le precedenti.
 
 ## Figure in gioco e responsabilità
 Solitamente ci sono tre figure:
