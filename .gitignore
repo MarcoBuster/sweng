@@ -4,4 +4,4 @@ _site
 public/
 .jekyll-cache 
 resized/
-_posts/.vscode/settings.json
+.vscode/
