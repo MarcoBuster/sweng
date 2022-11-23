@@ -92,31 +92,65 @@ Al contrario, XP presuppone una curva di tipo logaritmico che tenda ad un asinto
 Va inoltre considerato che Bohem parlava in realtà di cost-to-fix, non del costo per la modifica in sé; inoltre la sua statistica era poco affidabile poiché era stata costruita a partire da pochi dati. La curva esponenziale da lui descritta è stata poi successivamente ritrattata per accomodare il fatto che se un errore avviene in una fase affligge solo le successive, e non le precedenti.
 
 ## Figure in gioco e responsabilità
-Solitamente ci sono tre figure:
-- cliente -> colui che fa le richieste e che conosce il dominio applicativo.
-- sviluppatore -> Colui che va a sviluppare e a scrivere il codice.
-- manager -> a volte si fonde con il cliente siccome possiamo dire che hanno gli stessi diritti e responsabilità, infatti successivamente li consideriamo come una cosa sola
 
-Manager/cliente
-- ha responsabilità di decidere
-    - la portata del progetto -> cosa deve fare il progetto, questa cosa può essere limitata dal manager
-    - priorità (_business value_) tra le funzionalità -> valore di mercato, ovvero si ragiona cosa vale la pena aggiungere al progetto per far si che il prodotto finale valga di più.
-    - date dei rilasci -> quando ti do il prodotto oppure ogni quanto se adottiamo una sviluppo incrementale
-- ha diritto di:
-    - trasparenza del processo di sviluppo: sapere cosa è stato fatto, cosa può essere fatto, con quali e tempi e quali i costi.
-    - vedere progressi nel sistema, provati dal superamento dei test da lui definiti. Il cliente deve poter vedeere anche le qualità interne e come sta evolvendo il progetto anche in mezzo ad un'iterazione, questo per poter incrementare la fiducia tra cliente e sviluppatore.
-    - cambiare idea, sostituire funzionalità e cambiare prorità a intervallo di tempo (in genere ogni due settimane, ovvero il tempo dell'iterazione).
+Al fine di organizzare il lavoro, XP individua diverse figure che partecipano allo sviluppo:
 
-Sviluppatore
-- ha responsabilità di decedere:
-    - stime dei tempi per le singole funzionalità -> ovvero decide lo sviluppatore quanto tempo serve per sviluppare una funzionalità (quindi il manager non dice più "fammelo in una settimana" ma "Quanto ci metti a farlo").
-    - conseguenze di scelte tecnologiche -> questo perchè ha conoscenze superiori rispetto al cliente per poter scegliere quali soluzioni tecnologiche adoperare.
-    - pianificazione dettagliata -> sceglie anche come ci si organizza all'interno di un'iterazione.
-- ha diritto di:
-    - sapere cosa è necessario fare attraverso dei requisti chiari, sottoforma di casi d'uso (storie di uso) con priorità. per casi d'uso si intende che il cliente specifichi cosa deve succedere date delle condizioni, evitando una specifica formale.
-    - cambiare stimi tempi con l'esperiezna, come il cliente cambia idea anche lo sviluppatore può cambiare le stime sul tempo. Questo non è come dire che lo sviluppatore ha commesso un errore, ma che il contesto in cui doveva realizzare una certa feature è cambiato, considerando che con l'esperienza il tempo di realizzazione diminuisce.
-    - identificare e indicare le funzionalità _pericolose_, ovvero funzionalità che potrebbero essere difficili da applicare e su cui si poggiano le richieste principali del cliente.
-    - produrre software di qualità
+- Cliente: colui che richiede funzionalità e conosce il dominio applicativo.
+- Sviluppatore: colui che sviluppa concretamente scrivendo codice.
+- Manager: colui che amministra lo sviluppo con uno sguardo generale.
+
+È interessante l'inclusione del cliente nel contesto dello sviluppo: esso non è più soltanto il committente ma ha un ruolo attivo nel lavoro, potendo cioè contribuire alla riuscita del progetto anche e soprattutto in virtù della già citata conoscenza del dominio applicativo.
+
+Ciascuna di tali figure ha responsabilità e diritti riassunti nella seguente tabella (_manager e cliente sono accorpati perché hanno grossomodo gli stessi compiti_):
+
+<table style="margin: 20px">
+    <tr style="text-align: center; background-color: #DEDEDE">
+        <th>Soggetto</th>
+        <th>Ha responsabilità di decidere...</th>
+        <th>Ha diritto di...</th>
+    </tr>
+    <tr>
+        <td style="padding-left: 15px; padding-right: 15px; text-align: center;">
+            <b>Manager/Cliente</b>
+        </td>
+        <td style="padding-left: 5px; padding-right: 15px; padding-top: 10px">
+            <ul>
+                <li>Portata del progetto, ovvero le funzionalità da realizzare</li>
+                <li>Priorità tra funzionalità e loro <i>business value</i></li>
+                <li>Date dei rilasci, anche nel caso di release incrementali</li>
+            </ul>
+        </td>
+        <td style="padding-left: 5px; padding-right: 15px; padding-top: 10px">
+            <ul>
+                <li>Sapere cosa può essere fatto, con quali tempi e quali costi</li>
+                <li>Vedere progressi nel sistema, provati dai test da lui definiti (<i>trasparenza</i>)</li>
+                <li>Cambiare idea, sostituendo funzionalità o cambiandone le priorità a intervalli di tempo fissi (<i>fine del ciclo di sviluppo incrementale</i>)</li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td style="padding-left: 5px; padding-right: 15px; text-align: center;">
+            <b>Sviluppatore</b>
+        </td>
+        <td style="padding-left: 5px; padding-right: 15px; padding-top: 10px">
+            <ul>
+                <li>Stime dei tempi per le singole funzionalità (<i>no deadline imposte dall'alto</i>)</li>
+                <li>Scelte tecnologiche e loro conseguenze, ovvero <i>come</i> si realizzano le funzionalità richieste</li>
+                <li>Pianificazione dettagliata delle iterazioni</li>
+            </ul>
+        </td>
+        <td style="padding-left: 5px; padding-right: 15px; padding-top: 10px">
+            <ul>
+                <li>Ricevere dei requisiti chiari (<i>casi d'uso</i>) con priorità per le varie funzionalità</li>
+                <li>Cambiare le stime dei tempi man mano che il progetto procede e il contesto di sviluppo cambia</li>
+                <li>Identificare funzionalità pericolose o troppo difficili da realizzare</li>
+                <li>Produrre software di qualità, per il quale deve godere di un certo benessere</li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+Come si vede, per migliorare la fiducia tra sviluppatore e cliente sono necessari due requisiti: un certo grado di _trasparenza_ da parte di chi sviluppa, ottenuta dall'uso delle contiene release incrementali per mostrare come sta evolvendo il sistema, e una certa dose di _pazienza_ da parte del cliente, che deve accettare di lasciare allo sviluppatore la facoltà di decidere come si realizzano le funzionalità e di cambiare le prospettive temporali di sviluppo qualora fosse necessario.
 
 ## Tecniche XP
 
