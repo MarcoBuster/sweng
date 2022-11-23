@@ -38,16 +38,33 @@ Le pagine su GitLab Pages sono automaticamente _compilate_ in HTML da un workflo
 Utilizziamo alcuni plugin di Jekyll per consentire di utilizzare LaTeX, immagini responsive e tabelle.
 Per strutture complesse, è possibile embeddare dell'HTML (e del CSS) nel file Markdown.
 
-Riferirsi al sito di Jekyll per installare Ruby e Jekyll a livello di sistema. 
-Una volta fatto, per installare i componenti necessari i seguenti comandi dovrebbero funzionare:
+> ### CONSIGLIATO: installazione di tutte le dipendenze tramite Docker
+> Prima di iniziare, è necessario avere Docker installato. Quindi:
+> 1. entra nel branch `master` e sincronizzalo con l'ultima versione remota:
+>
+>       ```
+>       $ git switch master
+>       $ git pull
+>       ```
+> 
+> 2. costruisci l'immagine Docker: 
+> 
+>       ```
+>       $ docker build -t appunti_sweng .
+>       ```
+> 3. crea un container ed eseguilo, ricondandoti di:
+>       - mappare le porte 4000/tcp e 35729/tcp sul tuo host;
+>       - mappare la cartella del progetto a `/usr/src/app` nel container;
+>       - mappare correttamente l'utente;
+>       - aggiungere a Jekyll l'opzione `--live-reload`.
+>
+>       In ambiente UNIX, ho creato uno script che permette di fare tutte le cose di cui sopra con un comando. Per eseguirlo fare:
+>
+>       ```
+>       $ ./docker-run.sh
+>       ```
 
-```bash
-$ cd Cartella_Progetto
-$ bundle install
-$ bundle exec jekyll serve --livereload
-```
-
-Con l'ultimo comando aprendo la pagina https://localhost:4000/sweng nel nostro browser potremo visualizzare un'anteprima della pagina HTML compilata, aggiornata ad ogni modifica del file Markdown originale.
+Aprendo la pagina https://localhost:4000/sweng nel nostro browser potremo visualizzare un'anteprima della pagina HTML compilata, aggiornata ad ogni modifica del file Markdown originale.
 È estremamente consigliato arrivare a questo punto prima di continuare: non inviare patch prima di aver verificato che Jekyll compili il file in una pagina sensata.
 
 Oltre a Jekyll, è naturalmente necessario avere Git installato sulla propria macchina.

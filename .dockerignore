@@ -1,0 +1,12 @@
+.git/*
+.git*
+Dockerfile
+docker-run.sh
+.dockerignore
+.idea/*
+.jekyll-cache/*
+**/.jekyll-cache/*
+_site/*
+assets/resized/*
+uml/*
+README.md
