@@ -23,16 +23,3 @@ build:
     name: jekyll-build.zip
     paths:
       - build
-
-pages:
-  stage: deploy
-  needs: 
-    - build
-  script:
-    - ls -l build/
-  only:
-    - master
-#    - feature/gitlab-no-pages
-    - lezioni/*
-  except:
-    - merge_requests
