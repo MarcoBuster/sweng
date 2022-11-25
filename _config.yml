@@ -18,7 +18,14 @@ permalink: /:year/:title
 
 # Build settings
 markdown: kramdown
-exclude: ["README.md"]
+exclude:
+  - README.md
+  - Gemfile*
+  - .git*
+  - .dockerfile
+  - Dockerfile
+  - docker-run.sh
+  - plantuml.jar
 
 plugins:
   - jekyll-toc
