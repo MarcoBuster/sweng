@@ -87,31 +87,34 @@ Bohem parlava in realtà del _cost to fix_, non della modifica in sé: la genera
 La curva è stata poi ritrattata per accomodare il fatto che se un errore avviene in una fase affligge solo le successive, e non le precedenti.
 
 ## Figure in gioco e responsabilità
-Solitamente ci sono tre figure:
-- cliente -> colui che fa le richieste e che conosce il dominio applicativo.
-- sviluppatore -> Colui che va a sviluppare e a scrivere il codice.
-- manager -> a volte si fonde con il cliente siccome possiamo dire che hanno gli stessi diritti e responsabilità, infatti successivamente li consideriamo come una cosa sola
+Nell'XP sono generalmente previste tre figure:
+- il __cliente__: colui che fa le richieste e che conosce il _dominio applicativo_;
+- lo __sviluppatore__: colui che sviluppa e scrive il codice;
+- il __manager__: a volte si fonde con il cliente siccome possiamo dire che hanno gli stessi diritti e responsabilità, infatti successivamente li consideriamo come una cosa sola.
 
-Manager/cliente
-- ha responsabilità di decidere
-    - la portata del progetto -> cosa deve fare il progetto, questa cosa può essere limitata dal manager
-    - priorità (_business value_) tra le funzionalità -> valore di mercato, ovvero si ragiona cosa vale la pena aggiungere al progetto per far si che il prodotto finale valga di più.
-    - date dei rilasci -> quando ti do il prodotto oppure ogni quanto se adottiamo una sviluppo incrementale
+### Manager/cliente
+- ha responsabilità di decidere:
+    - la __portata__ del progetto, ovvero _cosa_ deve fare il progetto. 
+    Il manager può limitare questa proprietà;
+    - le __priorità__ (_business value_ - valore di mercato) tra le funzionalità: si ragiona cosa vale la pena aggiungere al progetto per far si che il prodotto finale valga di più;
+    - le __date dei rilasci__: decidere _quando_ (o _ogni quanto_ in caso di sviluppo incrementale) il prodotto viene rilasciato;
 - ha diritto di:
-    - trasparenza del processo di sviluppo: sapere cosa è stato fatto, cosa può essere fatto, con quali e tempi e quali i costi.
-    - vedere progressi nel sistema, provati dal superamento dei test da lui definiti. Il cliente deve poter vedeere anche le qualità interne e come sta evolvendo il progetto anche in mezzo ad un'iterazione, questo per poter incrementare la fiducia tra cliente e sviluppatore.
-    - cambiare idea, sostituire funzionalità e cambiare prorità a intervallo di tempo (in genere ogni due settimane, ovvero il tempo dell'iterazione).
+    - avere __trasparenza__ del processo di sviluppo: sapere cosa è stato fatto, cosa può essere fatto, con quali e tempi e quali i costi;
+    - vedere __progressi__ nel sistema, provati dal superamento dei test da lui definiti. Il cliente deve poter vedeere anche le qualità interne e come sta evolvendo il progetto anche in mezzo ad un'iterazione, per poter incrementare la fiducia tra cliente e sviluppatore;
+    - __cambiare idea__, sostituire funzionalità e cambiare prorità a intervallo di tempo (all'inizio di un'iterazione e non durante).
 
-Sviluppatore
-- ha responsabilità di decedere:
-    - stime dei tempi per le singole funzionalità -> ovvero decide lo sviluppatore quanto tempo serve per sviluppare una funzionalità (quindi il manager non dice più "fammelo in una settimana" ma "Quanto ci metti a farlo").
-    - conseguenze di scelte tecnologiche -> questo perchè ha conoscenze superiori rispetto al cliente per poter scegliere quali soluzioni tecnologiche adoperare.
-    - pianificazione dettagliata -> sceglie anche come ci si organizza all'interno di un'iterazione.
+### Sviluppatore
+- ha responsabilità di decidere:
+    - le __stime dei tempi__ per le singole funzionalità: è quindi lo sviluppatore che decide quanto tempo serve per sviluppare una funzionalità. Il manager non dice più _"fammelo in una settimana!"_ ma _"quanto ci metti a farlo?"_;
+    - le __scelte tecnologiche__: avendo conoscenze superiori rispetto al cliente può scegliere quali soluzioni tecnologiche adoperare;
+    - __pianificazione dettagliata__ come organizzarsi all'interno di un'iterazione;
 - ha diritto di:
-    - sapere cosa è necessario fare attraverso dei requisti chiari, sottoforma di casi d'uso (storie di uso) con priorità. per casi d'uso si intende che il cliente specifichi cosa deve succedere date delle condizioni, evitando una specifica formale.
-    - cambiare stimi tempi con l'esperiezna, come il cliente cambia idea anche lo sviluppatore può cambiare le stime sul tempo. Questo non è come dire che lo sviluppatore ha commesso un errore, ma che il contesto in cui doveva realizzare una certa feature è cambiato, considerando che con l'esperienza il tempo di realizzazione diminuisce.
-    - identificare e indicare le funzionalità _pericolose_, ovvero funzionalità che potrebbero essere difficili da applicare e su cui si poggiano le richieste principali del cliente.
-    - produrre software di qualità
+    - __sapere cosa è necessario fare__ attraverso dei requisti chiari, sottoforma di casi d'uso (_user stories_) con priorità. 
+    Per casi d'uso si intende che il cliente specifichi cosa deve succedere date delle condizioni, evitando una specifica formale;
+    - __cambiare idea__ sulle stime dei tempi con l'esperienza: come il cliente cambia idea anche lo sviluppatore può cambiare le stime sul tempo;
+    In questi casi non è necessariamente vero che lo sviluppatore ha commesso un errore, ma che il contesto in cui doveva realizzare una certa feature è cambiato, considerando che con l'esperienza il tempo di realizzazione diminuisce;
+    - __identificare e indicare le funzionalità _pericolose___, ovvero funzionalità che potrebbero essere difficili da implementare e su cui si poggiano le richieste principali del cliente;
+    - __produrre software di qualità__.
 
 ## Tecniche XP
 
