@@ -274,4 +274,13 @@
         border: 1px solid;
         width: 100%;
     }
+
+    /* PlantUML horizontal alignment */
+    .plantuml-parent {
+        text-align: center;
+    }
+
+    .plantuml {
+        width: 40%;
+    }
 }
