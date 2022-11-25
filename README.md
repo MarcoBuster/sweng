@@ -26,14 +26,17 @@ Tutti i contenuti saranno rilasciati sotto licenza [Creative Commons BY-NC-SA 4.
 
 ## Visualizzare
 
-È possibile visualizzare gli appunti approvati sul branch `master` a questa pagina di GitLab Pages: https://silab-gang.gitlab.io/sweng.
+Gli appunti sul branch `master` e sui branch `lezioni/*` sono [automaticamente compilati](https://gitlab.di.unimi.it/silab-gang/appunti-deploy) in HTML e disponibili su [https://appunti.studentiunimi.it/sweng/](https://appunti.studentiunimi.it/sweng/).
+L'accesso è protetto da un'**autenticazione HTTP**: username `sweng` / password `ariane5`. 
 
 ## Contribuire
 
 ### Stack tecnologico
 
 Tutti i contenuti sono scritti in Markdown e quindi convertiti in HTML autoamticamente da [Jekyll](https://jekyllrb.com/). 
-Le pagine su GitLab Pages sono automaticamente _compilate_ in HTML da un workflow di GitLab CI, ma solo quando approdano sul branch `master`.
+Le pagine su appunti.studentiunimi.it sono automaticamente _compilate_ in HTML da un workflow di GitLab CI, ma solo quando approdano sul branch `master` o su un branch `lezioni/*`.
+Una volta compilate viene lanciato un webhook a uno [script Python](https://gitlab.di.unimi.it/silab-gang/appunti-deploy/-/blob/master/handler.py) che scarica i file di build e li inserisce nella cartella corrispondente al branch. 
+Un container Docker di nginx (dietro Traefik) si occuperà quindi di servirli sul web e gestire l'autenticazione.
 
 Utilizziamo alcuni plugin di Jekyll per consentire di utilizzare LaTeX, immagini responsive e tabelle.
 Per strutture complesse, è possibile embeddare dell'HTML (e del CSS) nel file Markdown.
