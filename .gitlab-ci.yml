@@ -17,6 +17,7 @@ build:
     - echo "java -jar $PWD/plantuml.jar \"\$1\" \"\$2\"" >> plantuml
     - mv plantuml /usr/bin/plantuml
     - chmod +x /usr/bin/plantuml
+    - sed -i "s/\/sweng/\/$CI_COMMIT_REF_SLUG/g" _config.yml
     - bundle exec jekyll build -d build
   artifacts:
     name: jekyll-build.zip
