@@ -11,67 +11,80 @@ Concetto principale dell'extreme programming
 
 ## Test Driven Development
 
-Il _test driven development_ (TDD) è una __tecnica di progettazione__ che guida verso il design più semplie. Non è ne un'attività di verifica ne di scrittura del codice.
+Il _test driven development_ (TDD) è una __tecnica di progettazione__ che guida verso il design più semplice. 
+Non è né un'attività di verifica ne di scrittura del codice.
 
-> TDD = test-first + baby steps
+> __TDD__ = _test-first_ + _baby steps_
 
-Il signifcato di questa espressione è di fare prima il test e poi passi molto piccoli. Concetto di feedback instantaneo: faccio piccoli passi e testo ogni volta. Non scrivo tanto codice senza fare alcun test.
+Il significato di questa espressione è: prima fai il test e poi passi molto piccoli. 
+Viene quindi introdotto il concetto di _feedback instantaneo_: faccio piccoli passi e testo ogni volta. 
+Non scrivo tanto codice senza fare alcun test.
 
 Il "mantra" del TDD è __red__, __green__, __refactor__, infatti:
 
-- ogni volta che devo aggiungere qualcosa faccio prima il test che fallisce (<span style="Color: red">rosso</span>)
-- poi lo faccio diventare <span style="Color: green">verde</span> il prima possibile, ovvero scrivo il codice nel modo corretto il prima possibile (quasi come se fosse nua bozza) cosi facendo il test diventa verde. in questo modo ho sempre un feedback di quello che faccio
-- refactoring -> fattorizzare, riorganizzare e riscrivere il codice in modo da renderlo migliore (in questa fase dobbiamo rimanere in uno stato verde).
-questa cosa va fatta con una cadenza frequente, ogni 2-10 minutii: compiti semplici.
+1. ogni volta che devo aggiungere qualcosa faccio prima il test che fallisce (<span style="color: red">rosso</span>);
+2. lo faccio poi diventare <span style="color: green">verde</span> il prima possibile, ovvero scrivo il codice nel modo corretto il prima possibile (quasi come se fosse una bozza). 
+In questo modo ho sempre un feedback di quello che faccio;
+3. nell'ultima fase, in cui bisogna sempre rimanere in uno stato di verde, si può procedere con il <span style="color: lightblue">refactoring</span> (fattorizzare) ovvero riorganizzare e riscrivere il codice in modo da renderlo migliore.
+Questa cosa va fatta con una cadenza frequente, ogni 2-10 minutii: compiti semplici.
 
-Quindi prima faccio qualche piccolo progresso (increment) e poi lo semplifico (semplify)
+Quindi prima faccio qualche piccolo progresso (__increment__) e poi lo semplifico (__semplify__).
 
-È necessario passare per quel passaggio intermedio (la bozza menzionata al punto 2 dell'elenco precendete) perchè in questo modo una volta che abbiamo una base funzionante sicuramente nella fase di refactoring ciò che ho fatto continuerà a funzionare (non si torna al rosso). Se scrivessimo direttamente il codice in "bella" impiegheremmo molto più tempo e magari alla fine non abbiamo neanche un codice funzionante (siccome implementare del codice gestendo ogni particolare fin da subito al meglio ècomplesso ed è facile commettere errori).
+È necessario passare per lo step _verde_ (punto 2 dell'elenco precedente) prima di fare refactoring perchè in questo modo è semplice verificare che nella fase di refactoring ciò che è stato fatto continuerà a funzionare, senza retrocedere allo step precedente.
+Se scrivessimo direttamente il codice in "bella" impiegheremmo molto più tempo senza la garanzia di avere codice funzionante alla fine, siccome implementare del codice gestendo ogni particolare fin da subito al meglio è complesso e prono agli errori.
 
 Perchè il TDD è una tecnica di progettazione?
 - spesso capita di scrivere codice difficilmente testabile; scrivere il test prima e il codice dopo aiuta a progettare prodotti _test-first_;
-- scrivere prima i test aiuta a definire le interfacce del programma (e come comunicano), perché durante il testing ci si pone dal punto di vista del clinte, se non dovessimo farlo potremmo avere delle dipendenze complicate da rimuovere.
+- scrivere prima i test aiuta a definire le interfacce del programma (e come comunicano), perché durante il testing ci si pone dal punto di vista del cliente, se non dovessimo farlo potremmo avere delle dipendenze complicate da rimuovere.
 
-## eXtreme Programming (XP)
-Ora possiamo iniziare a parlare di extrene programming, nasce tra la fine degl anni 90 e inizio del 2000, la figura di riferimento è Kent Beck.
+## La tecnica
+Ora possiamo iniziare a parlare di eXtreme Programming, tecnica che nasce tra la fine degl anni 90 e inizio del 2000. La figura di riferimento è Kent Beck.
 
 ### Le variabili in gioco
-secondo kent Beck, l'ideatore dell'extreme programming, in un software le variabili sono:
-- __portata__: quantità di funzionalità da implementare, la portata èmutevole siccome il numero di funzionalitàda implementare può cambiare nel tempo.
-- __tempo__: tempo dedicabile al progetto;
-- __qualità__: la qualità del progretto che si deve ottenere (principalmente correttezza e affidabilità);
-- __costo__: risorse finanziare che si possono impegnare.
+Secondo Beck in un software le variabili sono:
+- la __portata__, ovvero la quantità di funzionalità da implementare. Potendo il numero di funzionalità da implementare cambiare nel tempo, questa variabile può mutare;
+- il __tempo__ dedicabile al progetto;
+- la __qualità__ del progretto che si deve ottenere (principalmente correttezza e affidabilità);
+- il __costo__, ovvero le risorse finanziare che si possono impegnare.
 
-Queste 4 variabili __non sono indipendenti__, una influenza le altre; possiamo dire che la qualità non è negoziabile, deve essee per forza massima, quindi bisogna lavorare sulle altre, sopratutto bilanciando costo e tempo.
-Con l'XP si stravolge la prospettiva: __il costo è orario__, il tempo verrà deciso successivamente, e infine la portata viene ricalcolata durante il progetto, quindi l'unica variabile che cambia è la portata. Inoltre siccome è una tecnica fortenete incrementale non dò al cliente tutto il lavoro in un colpo solo, ma una parte alla volta. questo serve per 2 motivi:
-- Il cliente vede che sto lavorando, siccome vede il prodotto crescere.
-- Da la possibilità al cliente di avere comunque qualcosa in mano anche se ad un certo punto vuole interrompere la collaborazione.
-Quindi non abbiamo più un rapporto così conflittuale tra cliente e sviluppatore.
+Queste 4 variabili __non sono indipendenti__, una influenza l'altra; si possono quindi bilanciare, soprattuto costo e tempo (ma non la qualità: che non è negozioniabile e deve essere massima).
+Con l'XP si stravolge la prospettiva: __il costo è orario__, il tempo verrà deciso successivamente e la portata viene ricalcolata durante il progetto, quindi l'unica variabile che cambia è la portata.
+Essendo inoltre una tecnica fortenete incrementale, il cliente non riceve il lavoro tutto in un colpo solo, ma una parte alla volta. 
+Questa caratteristica ha diversi benifici:
+- il cliente vede che sto lavorando, siccome vede il prodotto crescere - può anche fornire feedback estremamente utile per gli sviluppatori;
+- da la possibilità al cliente di avere comunque qualcosa in mano anche se ad un certo punto vuole interrompere la collaborazione.
+
+Il rapporto tra cliente e sviluppatore non viene più visto quindi come conflittuale ma come collaborativo.
 
 ### Principi dell'extreme programming
 - __Feedback rapido__ da test, cliente e colleghi. In alcune aziende viene fatto uno _standup meeting_: poche parole in piedi per dire cosa è stato fatto e le successive intenzioni.
-- __Presumere la semplicità__: Non pianificare per il futuro ma per ciò che ti serve nel breve termine, questo sia per quanto riguarda la pianificazione del prodotto da creare sia per la progettazione del team, che deve essere semplice (per esempio non gerarchica). in generale questa regola vale per tutti gli ambiti del progetto.
-- __Accettare il cambiamento__: non ci si deve aspettare che il software sia immutabile, deve essere dato per scontato il concetto di flessibilità, ovvero che il cliente vorrà fare cambiamenti sia dopo che durante lo sviluppo del prodotto.
-- __Modifica incrementale__: Qui rientra il concetto di baby steps visto prima, ma non solo, per esempio vale anche per il team, ovvero non bisognerebbe mai aggiungere più di una persona al gruppo di valoro (se ne aggiungo di più potrei passare più tempo ad istruirle che a sviluppare).
-- __Lavoro di qualità__: far star bene lo sviluppatore; la fidelizzazione dello sviluppatore è importante perchè più lo sviluippatore si trova bene e meglio lavora.
+- __Presumere la semplicità__: non pianificare per il futuro ma per ciò che serve nel breve termine, sia per quanto riguarda la pianificazione del prodotto da creare sia per la progettazione del team, che deve essere semplice (per esempio non gerarchica). In generale questa regola vale per tutti gli ambiti del progetto.
+- __Accettare il cambiamento__: non ci si deve aspettare che il software sia immutabile, deve essere dato per scontato il concetto di flessibilità, ovvero che il cliente vorrà fare cambiamenti sia dopo che durante lo sviluppo.
+- __Modifica incrementale__: qui rientra il concetto di baby steps visto prima, ma non solo, per esempio vale anche per il team, ovvero non bisognerebbe mai aggiungere più di una persona per volta al gruppo di valoro (se ne aggiungo di più potrei passare più tempo ad istruirle che a sviluppare).
+- __Lavoro di qualità__: far star bene lo sviluppatore; la fidelizzazione dello sviluppatore è importante perchè più lo sviluppatore si trova bene e meglio lavora.
 
 Nell'ingegneria classica invece abbiamo (alcuni sono condivisi con l'extreme programming):
-- __Separazione degli interessi__ (_aspects_ o _concerns_): separare tempi, responsabilità, moduli, ovvero tutte le varie viste o le varie dimensioni su cui devo affrontare il mio problema. anche l'extreme programming da per scontato questo principio.
+- __Separazione degli interessi__ (_aspects_ o _concerns_): separare tempi, responsabilità, moduli, ovvero tutte le varie viste o le varie dimensioni su cui devo affrontare il mio problema; anche l'XP dà per scontato questo principio.
 - __Astrazione e modularità__: ciò che ci permette di dominare i problemi complessi (possono essere i diversi linguaggi di programmazione, linguaggi di descrizione o i vari costrutti che abbiamo usato).
 - __Anticipazione del cambiamento__ (_design for change_): in fase di progettazione il programmatore pensa a come potrebbe cambiare il prodotto per aggiungere requisiti che il cliente magari non aveva neanche pensato. Spesso però questo concetto complica arbitrariamente la progettazione e lo sviluppo, considerando anche che sono solo fantasie; può essere un'idea migliore farlo semplice ed incrementarlo man mano.
-- __Generalità__
-- __Incrementalità__
-- __Rigore e formalità__
+- __Generalità__.
+- __Incrementalità__.
+- __Rigore e formalità__.
 
-I due punti più in contrasto sono presumere la semplicità e l'anticipazione del cambiamento.
+I due punti più in contrasto sono _presumere la semplicità_ (XP) e l'_anticipazione del cambiamento_ (ingegneria classica).
 
 ### Presumere la semplicità vs anticipazione del cambiamento
-- XP mette davanti la semplicità all'anticipazione del cambiamento: non sto inserendo cose che mi serviranno per il futuro, ma non è detto che non stia progettando per il futuro. Diciamo non è il primo aspetto da guardare, il primo aspetto è la semplicità, ovvero fare le cose nella maniera più chiara possibile.
-- Secondo Bohem (1976) invece, si ipotizza una curva di tipo esponenziale per il corso delle modifiche all'aumento dell'avanzamento del progetto.
-    - Dal'altro canto, per l'XP questa curva ha un asintoto orizzontale a un certo punto.
-    - "Nei primi tempi poteva essere vero, ma ora è meglio rimandare l'aggiunta di modifiche fino a quando non servono.", appunto perchè da un certo punto in poi il costo delle modifiche non subisce cambiamenti sensibili, siccome abbiamo del codice semplice e facile da modificare.
+XP dà priorità alla semplicità rispetto che all'anticipazione del cambiamento, ma non inserire funzionalità che non serviranno per il futuro non esclude necessariamente _progettare per il futuro_.
+L'XP prescrive comunque la semplicità e la chiarezza rispetto a quest'ultimo. 
+Secondo Bohem (1976) invece, si ipotizza una curva di tipo esponenziale per il costo delle modifiche all'aumento dell'avanzamento del progetto. 
+Dal'altro canto, per l'XP questa curva ha un asintoto orizzontale a un certo punto.
 
-Bohem parlava in realtà di cost to fix, non per modificare: la generalizzazione è un po estesa; inoltre la sua statistica era poco affidabile perchèsi basava su pochi elementi. La curva è stata poi ritrattata per accomodare il fatto che se un errore avviene in una fase affligge solo le successive, e non le precedenti.
+{% responsive_image path: 'assets/03_bohem-cost-to-fix.png' %}
+
+> _"Nei primi tempi poteva essere vero, ma ora è meglio rimandare l'aggiunta di modifiche fino a quando non servono."_, appunto perchè da un certo punto in poi il costo delle modifiche non subisce cambiamenti sensibili, siccome seguendo i principi dell'XP il codice rimane semplice e facile da modificare.
+
+Bohem parlava in realtà del _cost to fix_, non della modifica in sé: la generalizzazione è un po estesa; inoltre la sua statistica era poco affidabile perchè si basava su pochi elementi. 
+La curva è stata poi ritrattata per accomodare il fatto che se un errore avviene in una fase affligge solo le successive, e non le precedenti.
 
 ## Figure in gioco e responsabilità
 Solitamente ci sono tre figure:
