@@ -7,22 +7,19 @@ variables:
 before_script:
   - bundle install
 
-test:
-  stage: test
+build:
+  stage: build
   script:
-  - bundle exec jekyll build -d test
+    - apt-get update -y
+    - apt-get install -y wget default-jre default-jdk graphviz
+    - wget https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml-1.2022.13.jar -O plantuml.jar
+    - echo "#!/bin/bash" > plantuml
+    - echo "java -jar $PWD/plantuml.jar \"\$1\" \"\$2\"" >> plantuml
+    - mv plantuml /usr/bin/plantuml
+    - chmod +x /usr/bin/plantuml
+    - sed -i "s/\/sweng/\/$CI_COMMIT_REF_SLUG/g" _config.yml
+    - bundle exec jekyll build -d build
   artifacts:
+    name: jekyll-build.zip
     paths:
-    - test
-  except:
-  - master
-
-pages:
-  stage: deploy
-  script:
-  - bundle exec jekyll build -d public
-  artifacts:
-    paths:
-    - public
-  only:
-  - master
+      - build
