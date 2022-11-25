@@ -19,6 +19,7 @@ build:
     - chmod +x /usr/bin/plantuml
     - bundle exec jekyll build -d build
   artifacts:
+    name: jekyll-build.zip
     paths:
       - build
 
@@ -31,3 +32,6 @@ pages:
   only:
     - master
     - feature/gitlab-no-pages
+    - lezioni/*
+  except:
+    - merge_requests
