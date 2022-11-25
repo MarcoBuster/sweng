@@ -31,7 +31,7 @@ pages:
     - ls -l build/
   only:
     - master
-    - feature/gitlab-no-pages
+#    - feature/gitlab-no-pages
     - lezioni/*
   except:
     - merge_requests
