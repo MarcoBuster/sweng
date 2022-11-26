@@ -1,12 +1,13 @@
 ---
 layout: post
-title: "[03] eXtreme programming"
+title: "[03] eXtreme Programming"
 date:   2022-10-10 14:40:00 +0200
 toc: true
 ---
 
-# eXtreme programming
-Concetto principale dell'extreme programming
+# eXtreme Programming
+Il concetto principale dell'eXtreme Programming è
+
 > Increment then simplify
 
 ## Test Driven Development
@@ -118,99 +119,141 @@ Nell'XP sono generalmente previste tre figure:
 
 ## Tecniche XP
 
-L'extreme programming fornisce una serie di pratiche per poter garantire tutto ciò che è stato descritto fino ad ora. Lo schema sottostante le descrive mettendole in relazione tra loro in modo che i vari aspetti negativi delle diferse pratiche siano compensati dagli aspetti positivi di quelle in relazione con loro. In sostanza abbiamo un mix perfetto di attività organizzate in modo da garantire i principi.
+L'extreme programming fornisce una serie di pratiche per poter garantire tutto ciò che è stato descritto fino ad ora. 
+Lo schema sottostante le descrive mettendole in relazione tra loro in modo che i vari aspetti negativi delle diferse pratiche siano compensati dagli aspetti positivi di quelle in relazione con loro. 
+In sostanza, abbiamo un mix perfetto di attività organizzate in modo da garantirne i principi.
 
 {% responsive_image path: assets/03_approccio.png %}
 
 ### 1. Planning game
-È l'attività che viene fatta all'inizio dell'iterazione e serve per "congelare" il sottoinsieme di requisiti sul quale il team lavorerà per le prossime ~2 settimane.
+È l'attività che viene fatta all'inizio dell'iterazione e serve per "congelare" il sottoinsieme di requisiti sul quale il team lavorerà per le successive ~2 settimane.
 
-Si inizia da dalle richieste del cliente, ovvero le _user stories_, una versione semplificata degli _use case_ degli UML; hanno come soggetto sempre un ruolo specifico nell'azienda del cliente.
-Lo scopo del planning game è determinare quali funzionalità saranno presenti nel prossimo rilasio, combinando priorità commerciali e valutazioni tecniche, questo richiede una collaborazione con il cliente, che come vedremo sarà in loco (in scrum si introduce un "product owner portavoce del cliente").
+#### User stories
+Tutto ha inizio dalle richieste del cliente, ovvero le _user stories_, una versione semplificata degli _use case_ degli UML. Ogni _user story_ è composta da tre parti: 
+- il __soggetto__, ovvero il ruolo dell'utente nell'azienda - può anche essere esterno;
+- l'__azione__ che vuole eseguire il soggetto; 
+- la __motivazione__ che spinge il soggetto a portare avanti l'azione descritta.
+
+Esempi di _user stories_ sono:
+
+- > _Da bibliotecario, voglio poter visualizzare dove si trova un particolare libro in modo da poterlo reperire per i clienti._
+- > _Da utente della biblioteca, voglio poter visualizzare lo stato di un libro per poterlo prendere in prestito._
+
+Lo scopo del planning game è determinare quali funzionalità saranno presenti nel prossimo rilasio, combinando priorità commerciali e valutazioni tecniche. 
+È quindi richiesta una collaborazione con il cliente, che come vedremo sarà in loco (in scrum si introduce un _"product owner"_ portavoce del cliente).
 
 #### Procedura
 <!-- immagine scheda -->
-1. All'inizio il cliente prepara le carte, che sono piccole in modo da non scrivere tanto. In ogni carta c'è:
+1. All'inizio __il cliente prepara le carte__, che sono piccole in modo da non scrivere tanto. In ogni carta c'è:
 - un identificativo;
 - una breve descrizione che descrive uno scenario d'uso;
 - un caso di test che funge da test d'accettazione (in sostanza un esempio, possono essere anche un paio, un caso posiitvo e uno negativo);
 - il valore di business che ha per il cliente.
-2. Il team di sviluppatori stima il tempo necessitario: ognuno dà la propria stima. Sul retro della carte si tiene un resoconto di ciò che si è fatto. Un sviluppatore prende il ruolo di _tracker_ e si impegna a tracciare lo stato di avanzamento durante le due settimane (per esempio quante feature fatte, quanti bug segnalati, ecc).
-3. Il manager quindi sulla base di queste informazioni decide quali schede verranno implementate alla prossima iterazione. Le varie funzionalità rappresentate nelle carte in teoria sono indipendenti, quindi il manager per compiere queste scelte calcola il valore fratto tempo stimato e ordina le carte, in questo modo può scegliere meccanicamente le schede da utilizzare durante l'iterazione (in realtà compie dei ragionamenti, quindi non è un'operazione così meccanica).
+2. Il team di sviluppatori __stima il tempo necessitario__: ognuno dà la propria stima. 
+Sul retro della carte si tiene un resoconto di ciò che si è fatto. 
+Un sviluppatore prende il ruolo di _tracker_ e si impegna a tracciare lo stato di avanzamento durante le due settimane (per esempio quante feature fatte, quanti bug segnalati, ecc).
+3. Il manager quindi sulla base di queste informazioni __decide quali schede verranno implementate__ alla prossima iterazione. 
+Le varie funzionalità rappresentate nelle carte in teoria sono indipendenti, quindi il manager per compiere queste scelte calcola il valore fratto tempo stimato e ordina le carte, in questo modo può scegliere meccanicamente le schede da utilizzare durante l'iterazione (in realtà compie dei ragionamenti, quindi non è un'operazione così meccanica).
 
 #### Stime
-Le stime sono fatte da parte del team, composto da persone diverse chee quindi faranno stime diverse. Questo è dato anche dall'esperienza del team, lo svilupatore junior può non essere in grado di dare una stima siccome è alle prime armi, o comunque stimerà un tempo maggiore rispetto ad uno sviluppatore esperto, ma in ogni caso è tenuto anche lui a dare un'opinione.
+Le stime sono fatte da parte del team, composto da persone diverse che quindi faranno singolarmente stime diverse. 
+Lo sviluppatore junior può non essere in grado di dare una stima siccome è alle prime armi, o comunque stimerà un tempo maggiore rispetto ad uno sviluppatore esperto, ma in ogni caso è tenuto anche lui a dare un'opinione.
 
-possiamo avere stime:
-- __molto differenti__ (ore vs giorni): in questo caso, è possibile che la carta non sia descritta o compresa correttamente; bisogna raggiungere un accordo siccome se uno sviluppatore stima poche ore e un altro qualche giorno abbiamo dei problemi. Se viene deciso che il tempo per una data scheda è di qualche ora e viene assegnato allo sviluppatore che aveva fatto una stima più alta allora si troverà in difficoltà nel portare a termine il compito. in conclusione è necessario trovare un punto di incontro.
-- quasi uniformi, ma __molto alte__: potrebbe essere che la storia sia troppo ampia. Se alla fine dell'iterazione no ho portato a termine il lavoro prefissato è come se non l'avessi fatto, e quindi il suo valore è zero (anche se magari era stato completato all'80%), perchè il cliente non lo avrà alla fine dell'iterazione. Questo concetto è molto importante nelle tecniche agili. Per ovviare a questo problema si può fare lo __splitting__ delle carte, ovvero scomponiamo una carta in più carte in modo da scomporre il problema.
-- non c'è accordo ma __sono simili__: non bisogna prendere la più bassa, alta o la media. Secondo XP bisogna arrivare ad un accordo in modo tale che chiunque nel team si riconosca nella stima effettuata, la stima non è del singolo.
+Le stime possono tra loro essere:
+- __molto differenti__ (ore vs giorni): in questo caso, è possibile che la carta non sia descritta o compresa correttamente; bisogna raggiungere un accordo siccome se uno sviluppatore stima poche ore e un altro qualche giorno abbiamo dei problemi. 
+Se viene deciso che il tempo per una data scheda è di qualche ora e viene assegnato allo sviluppatore che aveva fatto una stima più alta allora si troverà in difficoltà nel portare a termine il compito: è necessario trovare un punto di incontro;
+- quasi uniformi, ma __molto alte__: potrebbe essere che la storia sia troppo ampia. Se alla fine dell'iterazione il lavoro prefissato non è stato portato a termine è come se non l'avessi fatto, quindi il suo valore è zero (anche se magari era stato completato all'80%), perchè il cliente non lo avrà alla fine dell'iterazione. 
+Questo concetto è molto importante nelle tecniche agili. Per ovviare a questo problema si può fare lo __splitting__ delle carte, ovvero scomporre una carta in più carte in modo da scomporre il problema.
+- non c'è accordo ma __sono simili__: non bisogna prendere la più bassa, alta o la media. Secondo XP bisogna arrivare ad un accordo in modo tale che chiunque nel team si riconosca nella stima effettuata: è il team che fa la stima, non il singolo.
 
 La fase di stima dei tempi si porta dietro diverse problematiche, tra cui:
-- perdita di tempo per accordarsi su ciò che si dovrà fare (troppa comunicazione);
-- effetto àncora (anchoring effect): effetto che si verifica quando le persone devono assegnare un valore ad una quantità ignota, se questo viene fatto, tutte le stime successive del valore saranno fatte in riferimento al primo valore deciso. Nel nostro caso quando il team si riunisce per fare delle stime e il primo membro da la sua opinione, tutte le stime successive saranno fatte in confronto alla prima stima fatta. Il cervello unano tende a ragionare in questo modo.
+- __perdita di tempo__ per accordarsi su ciò che si dovrà fare (troppa comunicazione);
+- __effetto àncora__ (anchoring effect): quando una persona assegna a un valore a una quantità ignota, tutte le stime successive avranno come punto di riferimento il primo valore deciso; il cervello unano tende a ragionare in questo modo.
+
+Per risolvere questi problemi gli agilisti propongono alcuni gioci, come il _planning poker_ e il _team estimation game_.
 
 #### [Planning poker](https://en.wikipedia.org/wiki/Planning_poker)
 
 {% responsive_image path: assets/03_planning-poker.jpg %}
 
 Vengono presentate brevemente le carte con attenzione a non fare riferimento alle tempistiche in modo da non creare subito l'effetto àncora, successivamente il team può fare domande, chiedere chiarimenti e discutere per chiararire assunzioni e rischi.
-Dopodichè ogni componente sceglie una carta del poker per rappresentare la propria stima. Le carte vengono girate contemporaneamente in modo da evitare l'effetto ancora, quindi la prima stima è _blind_. Ci sono anche delle carte particolari, ovvero:
-- il punto di domanda indica che non si è in grado di dare una stima
-- la tazza di caffè indica che la riunione è andata troppo per le lunghe e è necessaria una pausa.
-Dopo ogni giro di carte, solo chi ha fatto la stima più bassa e la più alta parlano (per ~1 minuto) per motivare la propria scelta in modo da cercare di trovare un punto in comune. Successivamente tutti fatanno una nuova stima e solitamente le votazioni convergono (non sempre, a volte ci vogliono più "giri" di votazione).
-Sulle carte usate dal team per fare la stima ci sono dei numeri che rappresentano i tempi stimati per quel task, l'unità di misura di questi numeri può essere scelta prima o dopo aver trovato un acordo. Queste unità di misuta possono variare, può essere ore, giorni, pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni,e dopo c'è una pausa).
-Ovviamente non si può pretendere si lavorare delle ore senza alcune distrazioni, quindi in queste stime si considera uno __slacl time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
+Dopodichè __ogni componente sceglie una carta__ del poker per rappresentare la propria stima. 
+Le carte vengono girate contemporaneamente in modo da evitare l'effetto ancora, quindi la prima stima è _blind_. 
+Ci sono anche delle carte particolari, ovvero:
+- il __punto di domanda__ indica che non si è in grado di dare una stima
+- la __tazza di caffè__ indica che la riunione è andata troppo per le lunghe ed [è necessaria una pausa](https://www.youtube.com/watch?v=-gAlDOcXgyM).
+
+Dopo ogni giro di carte, solo chi ha fatto la stima più bassa e la più alta parlano (per ~1 minuto) per motivare la propria scelta in modo da cercare di trovare un punto in comune. 
+Successivamente tutti propongono una nuova stima e dopo qualche iterazione le votazioni convergono .
+Sulle carte usate dal team per fare la stima ci sono dei numeri che rappresentano i tempi stimati per quel task, l'unità di misura di questi numeri può essere scelta prima o dopo aver trovato un accordo. 
+Queste unità di misuta possono variare, può essere ore, giorni, pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni, e dopo c'è una pausa).
+Ovviamente non si può pretendere si lavorare delle ore senza alcune distrazioni, quindi in queste stime si considera uno __slack time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
 
 #### [Team Estimation Game](https://agilelearninglabs.com/2012/05/how-to-play-the-team-estimation-game/)
 Metodo un po più complesso, si compone in 3 fasi, e alla base si ha un confronto tra i diversi task da fare.
-È facile dire che un task è più facile di un altro, ma il difficile è capire di quanto, quindi il cercare di splittare in fasi questa cosa di dover dare un valore al task considerandone sempre di più difficili può aiutare a fare una buona stima.
+È facile dire che un task è più facile di un altro, ma il difficile è capire di _quanto_: suddividere le fasi di questa decisione considerando task sempre più difficili aiuta a fare una buona stima.
 
 ##### PRIMA FASE
 {% responsive_image path: assets/03_team-estimation-1.jpg %}
 
 Si fa una pila con le storie e si mette la prima carta al centro del tavolo. I developer si mettono in fila:
-- il primo della fila prende una carta della pila, la rilegge (ad alta voce) e la posiziona a sinistra (più semplice), a destra (più complicata) o sotto (equivalente).
-- il prossimo developer può:
-    - prendere una nuova carta della pipa e posizionarla secondo le stesse regole (può anche distanziare due file e metterla in mezzo tra le due);
-    - spostare una carta precedentemente posizionata (commentando la motivazione della sua azione), ovviamente può succedere che venga rispostata nella sua posizione originale ma si punta a trovare un accordo sulla difficoltà della carta (il task).
+- il __primo della fila estrae una carta della pila__, la rilegge (ad alta voce) e la __posiziona__ a sinistra (più semplice), a destra (più complicata) o sotto (equivalente).
+- il __prossimo developer__ può:
+    - __estrarre una nuova carta della pila__ e __posizionarla__ secondo le stesse regole (può anche distanziare due file e metterla in mezzo tra le due);
+    - __spostare una carta precedentemente posizionata__, commentando la motivazione della sua azione. 
+    Ovviamente può succedere che la carta venga rispostata nella sua posizione originale ma si punta a trovare un accordo sulla difficoltà della carta (il task).
 
 A questo punto abbiamo le carte disposte sul tavolo in colonne di difficoltà comparabile, ordinate dalla meno difficile (sinistra) alla più difficile (destra).
-Usando questa tecnica abbiamo evitato anche l'effetto àncora, o per lo abbiamo ma diverso (molto più lieve), siccome le stime sono relative, non abbiamo un valore preciso che può influenzare gli altri. A differenza del planning poker posso tornare sulle mie decisioni e quindi ho un continuo adattamento e ripensamento delle stime, grazie al fatto che sono stime relative (e no valori specifici).
+Usando questa tecnica __abbiamo evitato__ anche l'__effetto àncora__, o comunque è allievato dal fatto che le stime sono relative e non c'èun valore preciso che può influenzare gli altri. 
+A differenza del planning poker posso tornare sulle mie decisioni e quindi ho un continuo adattamento e ripensamento delle stime, grazie al fatto che sono stime relative (e non ci sono valori specifici).
 
 ##### SECONDA FASE
-Ora si cerca di quantificare le distanze tra le carte.
+L'obiettivo di questa fase è cercare di quantificare le distanze tra le carte.
 
 {% responsive_image path: assets/03_team-estimation-2.jpg %}
 
-Ci si mette di nuovo in coda davanti al tavolo con il mazzo di carte del planning poker (uno solo, non uno per persona), e si cerca di etichettare le colonne in base alle difficoltà.
+Ci si mette di nuovo in coda davanti al tavolo con il mazzo di carte del planning poker (uno solo, non uno per persona) e __si cerca di etichettare le colonne in base alle difficoltà__.
 
 Si posiziona la prima carta (solitamente si parte da 2 perchè magari nella prossima iterazione può esserci qualcosa di ancora più facile) sopra la prima colonna.
-Il primo sviluppatore prende il valore successivo e lo posiziona sulla prima colonna che pensa abbia quel valore (rispetto al 2), oppure lo posiziona tra due colonne se pensa che sia un valore di difficoltà intermedio tra le due.
-Gli sviluppatori successivi invece possono fare due cose:
-- prende una carta dal mazzo e la posiziona secondo le regole di prima (la prima colonna che pensa abbia quel valore di difficoltà)
-- Spostare una carta con un valore precedentemente posizionata, commentando la motivazione dello spostamento
-- nel caso in cui non ci siano più carte nella pila e non vuole spostare altre carte, lo svuluppatore può passare.
 
-È possibile avere delle carte in cui sopra non c'è nessun numero, queste saranno assimilate alla colonna alla loro sinistra, e avremo una situaione di questo tipo
+Quindi:
+- il __primo sviluppatore__ prende il valore successivo e lo posiziona sulla prima colonna che pensa abbia quel valore (rispetto al 2), oppure lo posiziona tra due colonne se pensa che sia un valore di difficoltà intermedio tra le due.
+- lo __sviluppatore successivo__ può invece:
+    - __estrarre una carta__ dal mazzo e __posizionarla__ secondo le regole di prima (la prima colonna che pensa abbia un particolare valore di difficoltà);
+    - __spostare una carta__ con un valore precedentemente posizionato, commentando la motivazione dello spostamento;
+    - __passare__ il turno, nel caso in cui non ci siano più carte nella pila e non si vogliono spostare altre carte.
+
+È possibile avere delle carte in cui sopra non c'è nessun numero, queste saranno assimilate alla colonna alla loro sinistra. 
+
+Al termine di questa fase, la situazione sarà simile alla seguente:
 
 {% responsive_image path: assets/03_fine-seconda-fase-estimation-game.jpg %}
 
 ##### TERZA FASE
 Si stima il tempo in ore/uomo di una delle carte più semplici e successivamente si calcolano tutte le colonne in proporzione alla prima.
-Ma questa fase è davvero cosi utile? nella pratica si è visto che non è una utile valutare tutto il lavoro fatto in ore/uomo, anche perchè con il passare del tempo la taratura può variare.
-Possiamo allora prendere tutte le carte portate a termine e assegnamogli un valore, questa cosa si chiama __velocity__.
+Ma questa fase è davvero cosi utile? Nella pratica si è visto che __è inutile valutare il lavoro fatto in ore/uomo__, anche perchè con il passare del tempo la taratura può variare.
+
+Nella prossima sezione parliamo di come la nozione di __velocity__ risolve questo problema. 
 
 #### Velocity
-La capacità osservata (quindi alla fine dell'osservazione) di qunato sono riuscito a fare in termini di complessità astratta.
-Se per esempio sono riuscito a fare 50 punti nella iterazione appena finita, posso prefissarmi di fare almento 50 punti nell'iterazione successiva.
-La Velocity non può essere usata per dare premi, per confrontare team diversi o punire in caso di diminuzione, però si adatta al modo diverso degli sviluppatori di gestire le stime e anche al fatto che ho una tendenza a sottostimare le diverse carte.
-Se aggiungo una persona lascio questa metrica inizialmente invariata, per la formazione; se la rimuovo ci sarà una perdita di produttività.
- La Velocity non deve considerare le storie lasciate incompiute, quindi anche se l'ho completata al 90% devo considerarla come se non l'avessi fatta.
-Inoltre non deve essere imposta, nel senso che se la velocity di un team è x non deve essere aumentata per produrre come un altro team.
-Acnhe qui abbiamo lo slack time visto nel planning poker.
+È importante riuscire a stimare la _velocità_ con la quale stiamo avanzando. 
+In fisica la velocità è data dal rapporto tra la distanza percorsa e il tempo per percorrerla. 
+Questa proprietà può essere usata anche nella gestione dello sviluppo agile: il numeratore è il punteggio delle storie mentre il denominatore è la lunghezza dell'iterazione (assimilabile in un'unità di tempo).
 
-Esiste un movimento chiamato no estimates, che evita tutta questa parte delle stime, ma dall'esperienza di bellettini si vede che funziona in generale per team molto maturi che sono in grado di guidare il ciente a formulare storie simili intermini di difficoltà, questo perchè tutti hanno una misura standard per le storie.
+La ___velocity___ nel mondo agile è quindi il __numero di story point__ guadagnati nell'arco dell'iterazione corrente.
+
+Essa riesce quindi a dare un'idea di quanto si è riusciti a fare in termini di complessità astratta.
+Se per esempio il team è riuscito a fare 50 punti nella iterazione appena finita, è ragionevole prefissarsi di fare almento 50 punti nell'iterazione successiva.
+
+La velocity __non può essere usata__ per dare __premi__, per __confrontare__ team diversi o __punire__ in caso di diminuzione, però si adatta al modo diverso degli sviluppatori di gestire le stime e dal fatto che si tende a sottostimare o sovrastimare carte diverse.
+
+All'atto di aggiungere una persona questa metrica deve inizialmente rimanere invariata, per prevedere la sua formazione; se la rimuovo ci sarà una perdita di produttività.
+
+La velocity __non deve considerare le storie lasciate incompiute__, quindi anche se l'ho completata al 90% devo considerarla come se non l'avessi fatta.
+Inoltre, __non deve essere__ imposta: la velocity di un team è fissa e non può essere aumentata.
+
+Esiste un movimento chiamato ___no estimates___, che evita al team tutta la parte delle stime. 
+Dall'esperienza del prof. Bellettini, però, questa metodologia funziona in team molto maturi che sono in grado di guidare il ciente a formulare storie simili in termini di difficoltà, avendo tutti una misura standard per le storie.
 
 ### 2. Brevi cicli di rilascio
 Per ridurre i rischi, la vita e lo sviluppo dell'applicazione sono scanditi dai rilasci di dversioni del prodotto funzionanti. Di solito uno ogni due settimane (come abbiamo visto in scram con il freez, ma con un tempo di rilascio minore). Dobbiamo avere il tempo per sviluppare qualcosa di concreto, e il cliente per poter pensare alle richieste che ha fatto e pensare se ha bisogno di modifiche.
