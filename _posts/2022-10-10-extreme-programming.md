@@ -256,27 +256,36 @@ Esiste un movimento chiamato ___no estimates___, che evita al team tutta la part
 Dall'esperienza del prof. Bellettini, però, questa metodologia funziona in team molto maturi che sono in grado di guidare il ciente a formulare storie simili in termini di difficoltà, avendo tutti una misura standard per le storie.
 
 ### 2. Brevi cicli di rilascio
-Per ridurre i rischi, la vita e lo sviluppo dell'applicazione sono scanditi dai rilasci di dversioni del prodotto funzionanti. Di solito uno ogni due settimane (come abbiamo visto in scram con il freez, ma con un tempo di rilascio minore). Dobbiamo avere il tempo per sviluppare qualcosa di concreto, e il cliente per poter pensare alle richieste che ha fatto e pensare se ha bisogno di modifiche.
+Per ridurre i rischi, la vita e lo sviluppo dell'applicazione sono scanditi dai rilasci di diversioni del prodotto funzionanti, di solito uno ogni due settimane (come abbiamo visto in scrum con il _freez_, ma con un tempo di rilascio minore). 
+È necessario avere abbastanza tempo per sviluppare qualcosa di concreto, e il cliente per poter pensare alle richieste che ha fatto e stabilire se ha bisogno di modifiche.
+
+Betrand Meyer, nel suo libro _"Agile! The Good, the Hype and the Ugly"_, definisce questa idea _"brillante"_, _"forse l'idea agile con l'influenza e impatto maggiore nell'industria"_. 
 
 ### 3. Uso di una metafora
-Definire un nuovo vocabolario con cui parlare con l'utente (tecnica _non informatica_) ma anche ai nuovi sviluppatori.
+Definire un __nuovo vocabolario__ con cui parlare con l'utente (tecnica _non informatica_) ma anche ai nuovi sviluppatori.
 Serve per permettere una nominazione di classi e metodi omogenei e fornire una vista d'insieme.
-Siccome non c'è una vera documentazione in XP, possiamo usare queste metafore come una vista d'insieme, quindi sostituisce in parte l'architettura del sistema, e fa capire gli elementi fondametali, il loro scopo e le relazioni fra loro. <!-- da scrivere meglio, non chiaro -->
+Siccome non c'è una vera documentazione in XP, possiamo usare queste metafore come una vista d'insieme, quindi sostituire in parte l'architettura del sistema, e far capire gli elementi fondamentali, il loro scopo e le relazioni fra loro. 
 
 ### 4. Semplicità di progetto
-chiamata anche l'arte di massimizzare il lavoro non fatto, o da non fare, infatti non è necessario riscrivere cose già esistenti e consolidate. uno slogan tipico è KISS: Keep It Simple, Stupid.
-Questo punto si contrappone al Design for change che viene visto come un appesantimento inutile, perchè una feature che aggiungiamo può essere scartata dal cliente, e quindi abbiamo perso tempo inutilmente.
+Ovvero l'___arte di massimizzare il lavoro non fatto___, o da non fare.
+Non è necessario riscrivere cose già esistenti e consolidate. 
+
+Uno slogan tipico è __KISS__: __Keep It Simple, Stupid__.
+
+Questo punto si contrappone al _design for change_ che viene invece visto come un appesantimento inutile, perchè una feature che aggiungiamo può essere scartata dal cliente.
 
 ### 5. Testing
-- I clienti scrivono i test di accettazione (o funzionali) sulle schede per aumentare la loro fiducia nel programmi.
-- I programmatori scrivono i test di unità perché la fiducia nel codice diventi parte del programma stesso.
+È consolidato su due fronti:
+- i clienti scrivono i __test di accettazione__ (o funzionali) sulle schede per aumentare la loro fiducia nel programmi;
+- i programmatori scrivono i __test di unità__ perché la fiducia nel codice diventi parte del programma stesso.
 
-Nell'XP ogni aspetto viene massimizzato, ma in particolare il testing viene esasperato di più perchè molto importante siccome molti altri aspetti si basano su di esso. Possiamo dire quindi che ha il ruolo di _"rete di protezione"_ in tutte le varie fasi, ogni volta che faccio qualcosa posso verificarla tramite i test.
+Nell'XP ogni aspetto viene massimizzato, ma in particolare il testing viene esasperato di più in quanto, oltre ad essere molto importante, molti altri aspetti si basano su di esso (vedi la figura all'inizio della sezione). 
+Ha il ruolo di __rete di protezione__ in tutte le fasi: ogni cambiamento è verificabile tramite i test.
 
-Il testing aiuta molto anche quando non si parte da 0 con il programma, per esempio quando il lavoro è proprio modificare un programma proprietario precedentemente sviluppato.
-Può essere che non sia stato sviluppato in modalità agile e quindi non sono presenti test, a questo punto se devo fare alcune modifice prima scrivo i test e successivamente modifico il codice in modo da non causare problemi.
+Il testing aiuta molto anche quando non si parte da zero con il programma, ma quando si deve modificare un programma proprietario precedentemente sviluppato anche in modalità non agile.
+Prima di apportare modifiche al codice scrivo i test e solo successivamente procedo, in modo da non causare problemi.
 
-Un'altra cosa importante è che i test devono coprire tutte le righe di codice.
+Un altro concetto importante è che i test dovrebbero __coprire tutte le righe di codice__.
 
 ### 6. Refactoring
 Non bisogna avere paura di apportare modifiche che semplificano il progetto: bisogna avere coraggio.
