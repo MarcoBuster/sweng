@@ -288,25 +288,34 @@ Prima di apportare modifiche al codice scrivo i test e solo successivamente proc
 Un altro concetto importante è che i test dovrebbero __coprire tutte le righe di codice__.
 
 ### 6. Refactoring
-Non bisogna avere paura di apportare modifiche che semplificano il progetto: bisogna avere coraggio.
+Anche da novizi, non bisogna avere paura di apportare modifiche che semplificano il progetto: bisogna avere coraggio.
 
-Il refactoring è un'operazione che modifica il software __ma non modifica le funzionalità__, quindi tocchiamo solo proprietà interne.
-L'obiettivo è eliminare l'entropia con le continue modifiche e aggiunte. <!-- da scrivere meglio -->
+Il refactoring è l'operazione che __modifica solo le proprietà interne__ del software, __non le funzionalità__.
+L'obiettivo è eliminare l'entropia generata dalle continue modifiche e aggiunte.
 
-Deve essere graduale e continua in modo da poter aggiungere funzionalità in maniera più semplice.
+Il refactoring deve essere __graduale e continuo__ in modo da poter aggiungere funzionalità in maniera semplice. 
+Chiaramente, in caso di ristrutturazioni architetturali di grosse dimensioni di sistemi legacy non è sempre possibile procedere in questa maniera.
 
-Se una parte di codice non viene stimolato dai test non è utile ai fini della soluzione, al massimo posso aggiungere dei test per gestire dei casi specifici, se no posso togliere le parti di codice non richiamate dai test.
+Parti di codice non stimolate da test non sono utili ai fini della soluzione: o si aggiungono test per gestire i casi specifici, altrimenti si possono rimuovere _in toto_.
+
+Il refactoring è una delle tecniche più __importanti__ e __fondamentali__ dell'XP.
 
 ### 7. Programmazione a coppie
-È una tecnica che può portare dei vantaggi, anche se il manager può non rendersi subito conto, infatti paga due persone e una delle due guarda l'altro lavorare, ma non è cosi.
 
-I punti a favore sono:
-- Ci si controlla a vicenda su ogni aspetto (codice, rispetto delle regole, idee)
-- Uno attua le cose, l'altro pensa a ciò che bisogna fare subito dopo, quindi la seconda persona pensa a come fare refactoring
-- Ad avere un controllo continuo delle regole di XP
-- L'inserimento di nuovo personale e la sua formazione, al posto di mettere quelli nuovi a studiare libri interi lasciati a se stessi, vengono affiancati a persone che stanno lavorando e quindi può essere istruito guardando gli altri lavorare e dialogando.
-- Ottenere una _proprietà colettiva_ (conoscenza osmotica), quindi quando programmo con un altra persona posso conoscere il codice scritto dall'altro. Un altro punto importante sono i commenti naif, ovvero quelli fatti dai programmatori junior, sono importanti perchè molto spesso i programmatori esperti devono ripensare a delle cose basilari che danno per scontato, e può succedere che trovino parti di codice che potevano essere scritte meglio o addirittura tolte.
-- Dimenzzare le persone dimezzano la produttività? no, è stimato che la produttività sia una volta e mezzo in più, che comunque sarebbe una perdita. Ma degli studi pongono una domanda, la produttività calcolata puntualmente è davvero sensata da calcolare? no perchè sul lungo (quindi sull'iertazione) ciò che sembrava meno produttivo in realtà lo è di più. Questo perchè una persona da sola deve fare il lavoro, poi passare molto tempo a verificarlo e ricontrollarlo, mentre nella programmazione a coppie questa cosa si verifica costantemente e quindi la parte sul refactoring sarà più leggera perchè in parte già svolta (questa tecnica si chiama __ispezioe del codice__).
+La programmazione a coppie (__pair programming__) è una tecnica controintuitiva: dal punto di vista del manager si pagano due persone per fare il lavoro di una, ma non è così.
+
+Ci sono diversi __vantaggi__:
+- in coppia, __ci si controlla a vicenda__ su ogni aspetto (codice, rispetto delle regole XP, idee); 
+- mentre il _pilota_ attua le idee, il _navigatore_ pensa cosa fare subito dopo: forma di __refactoring__;
+- favorisce l'__inserimento di nuovo personale__: piuttosto che lasciare i novizi da soli a studiare libroni, vengono affiancati e incitati a osservare e interagire con persone esperte che stanno lavorando;
+- fa ottenere una __proprietà collettiva__ (conoscenza osmotica), come descritta da Crystal. 
+Un altro punto importante sono i commenti _naive_ (ovvero fatti da programmatori junior) per permettere di chiarire concetti basilari date spesso per scontato. 
+
+Raddoppiare il numero di persone raddoppia la produttività?
+__No__, è stimato invece che la produttività aumenti circa del 50% - quindi non abbastanza per giustificare il costo.
+
+Diversi studi si chiedono se la produttività calcolata puntualmente sia una metrica sensata. 
+Secondo molti no, perché al termine di un'iterazione ciò che sembra poco produttivo in realtà lo è di più: il tempo non successivamente speso in verifica, convalida e refactoring è largamente assorbito dall'__ispezione continua del codice__ svoltasi durante le sessioni di pair programming.
 
 ### 8. Proprietà collettiva
 L'extreme programming ha cercato di mettere insieme proprietà già esistenti che funzionavano, di fatto non ha inventato niente di nuovo.
