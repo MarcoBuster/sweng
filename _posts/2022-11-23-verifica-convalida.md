@@ -103,7 +103,7 @@ $$
 P \text{ è } \textit{corretto} \Leftrightarrow \forall d \in D \: \operatorname{ok}(P, \, d)
 $$
 
-### Test
+## Test
 
 - un test $$T$$ per un programma $$P$$ è un sottoinsieme del dominio $$D$$;
 - un elemento $$t$$ di un test $$T$$ è detto _caso di test_;
@@ -120,7 +120,7 @@ $$
 \operatorname{successo}(T, \, P) TODO  
 $$
 
-#### Test ideale
+### Test ideale
 
 $$T$$ è _ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ cioè se il superamento del test implica la correttezza del programma.
 
@@ -145,7 +145,7 @@ Perché è impossibile trovare un test ideale esaustivo?
 In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $$ 2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
 Considerando un tempo di 1 nanosecondo per ogni test, ci dovremmo mettere più di 600 anni.
 
-#### Criterio di selezione
+### Criterio di selezione
 
 Come faccio a scegliere un sottoinsieme del dominio _intelligente_ cercando di approssimare il test ideale? 
 
@@ -184,6 +184,67 @@ un criterio che seleziona...
 
 <!-- e 68 -->
 
-Un test $$T$$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programam è eseguito in corrispondenza di almeno un caso di test $$t \in T$$.
+### Copertura
+
+Un test $$T$$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$.
 
 Notare: nella definizione si parla di _comandi eseguibili_, ovvero la frazione di comandi eseguiti su quelli eseguibili.
+
+Un test $$T$$ soddisfa il criterio di __copertura delle decisioni__ se e solo se ogni decisione effettiva viene resa sia vera che falsa in corrispondenza di almeno un caso di test $$t \in T$$.
+
+Notare: nella definizione si parla di _decisione effettiva_, ovvero una condizione non o sempre vera o sempre falsa.
+
+Un test che copre tutte le decisioni copre tutti i malfunzionamenti? No, ad esempio, nell'esempio del prof l'istruzione 6 potrebbe andare in overflow.
+
+............
+
+Si può dimostrare che se si hanno $$N$$ condizioni base, allora servono _"solo"_ $$N+1$$ casi di test.
+
+............
+
+
+Un test $$T$$ soddisfa il criterio di __copertura dei cammini__ se e solo se ogni cammino del grafo di controllo viene perocrso per almeno un caso di test in $$T$$. 
+
+Un test soddisffa il __criterio di $$n$$-copertura__ se e solo se ogni cammino del grafo contenente al massimo un numero di iterazioni di ogni ciclo non superiore a $$n$$ viene percorso almeno un caso di test.
+
+Il caso $$n = 2$$ è minimale per considerare i cicli. 
+Se fosse $$n = 1$$ allora anche un ciclo `while` sarebbe di fatto equivalente a un `if`. In questo caso controllo:
+- i casi in cui non devo entrare;
+- i casi in cui entro una volta;
+- i casi in cui rimango più di una volta.
+
+Invarianti del ciclo.
+
+....
+
+## Analisi statica
+
+.........
+
+I compilatori fanno una serie di analisi statiche prima di fornire l'eseguibile. Principalmente si dividono nelle seguenti fasi:
+- __analisi lessicale__: identificazione dei token del linguaggio;
+- __analisi sintattica__: controllo della grammatica del linguaggio e quindi delle relazioni tra i token; 
+- __controllo dei tipi__: violazioni di regole sui tipi;
+- __analisi flusso dei dati__: rileva dei problemi relativi a evoluzione del valore associato alle variabili.
+
+## Analisi DataFlow
+
+...............
+
+
+### Regole 
+
+- L'_uso_ di una variabile deve essere sempre preceduto senza annullamenti intermedi.
+- La _definizione_ di una variabile deve sempre essere seguita da un uso prima di un suo annullamento o definizione
+- l'_annullamento_ di una variabile deve essere sempre seguito da una definizione prima di un uso o di altro annuallmento
+
+|   | annullamento | definizione | uso | 
+|---|---|---|---|
+| annullamento | ERR | | ERR |
+| definizione | ERR | ERR | |
+| uso | | | | 
+
+.............................................
+                kernel panic
+             ~. scusate raga .~
+.............................................
