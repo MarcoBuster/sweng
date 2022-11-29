@@ -4,4 +4,5 @@ _site
 public/
 .jekyll-cache 
 resized/
+.vscode/
 uml/
