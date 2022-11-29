@@ -204,36 +204,39 @@ Per evitare questi problemi e semplificare il processo di stima si sono sviluppa
 
 {% responsive_image path: assets/03_planning-poker.jpg %}
 
-Vengono presentate brevemente le carte con attenzione a non fare riferimento alle tempistiche in modo da non creare subito l'effetto àncora, successivamente il team può fare domande, chiedere chiarimenti e discutere per chiararire assunzioni e rischi.
-Dopodichè ogni componente sceglie una carta del poker per rappresentare la propria stima. Le carte vengono girate contemporaneamente in modo da evitare l'effetto ancora, quindi la prima stima è _blind_. Ci sono anche delle carte particolari, ovvero:
+Una per una vengono presentate brevemente le carte con le user stories facendo attenzione a non fare alcun riferimento alle tempistiche in modo da non creare subito un effetto àncora: in questa fase il team può fare domande, chiedere chiarimenti e discutere per chiarire assunzioni e rischi sulla user story, ma deve stare molto attento a non fare alcuna stima.
+
+Dopodiché ogni componente del team sceglie una carta dal proprio mazzo personale per rappresentare la propria stima e la pone coperta sul tavolo: su queste carte si trovano una serie di numeri senza unità di misura che vanno da 0 a 100 seguendo un andamento non uniforme; il loro scopo è quello di definire un'ordine di grandezza piuttosto che una stima precisa. Ci sono anche delle carte particolari, ovvero:
 
 - il punto di domanda indica che non si è in grado di dare una stima
 - la tazza di caffè indica che la riunione è andata troppo per le lunghe e è necessaria una pausa.
-Dopo ogni giro di carte, solo chi ha fatto la stima più bassa e la più alta parlano (per ~1 minuto) per motivare la propria scelta in modo da cercare di trovare un punto in comune. Successivamente tutti fatanno una nuova stima e solitamente le votazioni convergono (non sempre, a volte ci vogliono più "giri" di votazione).
-Sulle carte usate dal team per fare la stima ci sono dei numeri che rappresentano i tempi stimati per quel task, l'unità di misura di questi numeri può essere scelta prima o dopo aver trovato un acordo. Queste unità di misuta possono variare, può essere ore, giorni, pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni,e dopo c'è una pausa).
-Ovviamente non si può pretendere si lavorare delle ore senza alcune distrazioni, quindi in queste stime si considera uno __slacl time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
+
+Fatta questa prima stima _blind_ le carte vengono girate contemporaneamente: idealmente vi dovrebbe essere l'unanimità sulla stima. Se così non è chi ha espresso le stime più basse e più alte ha ~1 minuto per motivare la propria scelta in modo da cercare di convincere gli altri; si noti che agli altri componenti del team non è concesso parlare per evitare di perdere troppo tempo! \
+Finito questo momento di consultazione tutti i membri del team fanno una nuova stima e si continua così finché non si raggiunge l'unanimità; solitamente le votazioni convergono dopo un paio di round.
+
+Ma qual'è l'unità di misura su cui si fanno le stime? Dipende: essa può essere scelta prima o dopo aver trovato un accordo; possono essere ore, giorni o pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni,e dopo c'è una pausa). Ovviamente non si può pretendere di lavorare delle ore senza alcuna distrazione, per cui in queste stime si considera anche un certo __slack time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
 
 #### [Team Estimation Game](https://agilelearninglabs.com/2012/05/how-to-play-the-team-estimation-game/)
 
-Metodo un po più complesso, si compone in 3 fasi, e alla base si ha un confronto tra i diversi task da fare.
-È facile dire che un task è più facile di un altro, ma il difficile è capire di quanto, quindi il cercare di splittare in fasi questa cosa di dover dare un valore al task considerandone sempre di più difficili può aiutare a fare una buona stima.
+Si tratta di un metodo un po più complesso articolato in 3 fasi e basato sul confronto tra i diversi task piuttosto che sulla stima numerica: esso si basa infatti sull'idea che sia semplice stabilire se un task sia più facile o più difficile di un altro, mentre è molto più complicato capire di quanto sia più facile/difficile. L'idea è dunque quella di splittare in fasi questa cosa di dover dare un valore al task considerandone sempre di più difficili per arrivare a fare una buona stima.
 
-##### PRIMA FASE
+##### __<big>PRIMA FASE</big>__
 
 {% responsive_image path: assets/03_team-estimation-1.jpg %}
 
-Si fa una pila con le storie e si mette la prima carta al centro del tavolo. I developer si mettono in fila:
-- il primo della fila prende una carta della pila, la rilegge (ad alta voce) e la posiziona a sinistra (più semplice), a destra (più complicata) o sotto (equivalente).
+Si fa una pila con le storie e si mette la prima carta al centro del tavolo. I developer si mettono in fila e uno alla volta eseguono queste azioni:
+
+- il primo della fila prende una carta della pila, la legge ad alta voce e la posiziona a sinistra (più semplice), a destra (più complicata) o sotto (equivalente) la carta già presente sul tavolo.
 - il prossimo developer può:
-    - prendere una nuova carta della pipa e posizionarla secondo le stesse regole (può anche distanziare due file e metterla in mezzo tra le due);
-    - spostare una carta precedentemente posizionata (commentando la motivazione della sua azione), ovviamente può succedere che venga rispostata nella sua posizione originale ma si punta a trovare un accordo sulla difficoltà della carta (il task).
+  - prendere una nuova carta dalla pila e posizionarla secondo le stesse regole, eventualmente inserendola in mezzo a due colonne già presenti;
+  - spostare una carta precedentemente posizionata commentando la motivazione della sua scelta; può ovviamente succedere che tale carta venga rispostata nella sua posizione originale, ma dopo un po' si troverà un accordo sulla difficoltà del relativo task.
 
-A questo punto abbiamo le carte disposte sul tavolo in colonne di difficoltà comparabile, ordinate dalla meno difficile (sinistra) alla più difficile (destra).
-Usando questa tecnica abbiamo evitato anche l'effetto àncora, o per lo abbiamo ma diverso (molto più lieve), siccome le stime sono relative, non abbiamo un valore preciso che può influenzare gli altri. A differenza del planning poker posso tornare sulle mie decisioni e quindi ho un continuo adattamento e ripensamento delle stime, grazie al fatto che sono stime relative (e no valori specifici).
+Terminata la pila avremo le carte disposte sul tavolo in colonne di difficoltà comparabile, ordinate dalla meno difficile (sinistra) alla più difficile (destra).
+Oltre ad aver ridotto la comunicazione (molte carte non saranno contestate), usando questa tecnica abbiamo evitato anche l'effetto àncora rendendolo relativo: l'assenza di valori precisi evita il rischio di influenzare eccessivamente gli altri. Inoltre a differenza del planning poker si può tornare sulle proprie decisioni, cosa che favorisce un continuo adattamento e ripensamento delle stime.
 
-##### SECONDA FASE
+##### __<big>SECONDA FASE</big>__
 
-Ora si cerca di quantificare le distanze tra le carte.
+Ora si cerca di quantificare le _distanze_ tra le carte.
 
 {% responsive_image path: assets/03_team-estimation-2.jpg %}
 
@@ -250,7 +253,7 @@ Gli sviluppatori successivi invece possono fare due cose:
 
 {% responsive_image path: assets/03_fine-seconda-fase-estimation-game.jpg %}
 
-##### TERZA FASE
+##### __<big>TERZA FASE</big>__
 
 Si stima il tempo in ore/uomo di una delle carte più semplici e successivamente si calcolano tutte le colonne in proporzione alla prima.
 Ma questa fase è davvero cosi utile? nella pratica si è visto che non è una utile valutare tutto il lavoro fatto in ore/uomo, anche perchè con il passare del tempo la taratura può variare.
