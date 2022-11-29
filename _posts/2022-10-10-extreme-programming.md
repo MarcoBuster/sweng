@@ -521,8 +521,15 @@ I punti di cui sopra cercano di evidenziare la mancanza di approfondimento e chi
 È consigliata la lettura del libro di Meyer.
 
 ## Mesi uomo
-I manager pensano che la stima del tempo in mesi uomo sia graficata come un ramo di iperbole, ovvero che possibile aumentare il nuermo di uomini per diminuire il tempo stimato senza considerare i tempi di overhead, ovvero tutto il tempo impiegato per la comunicazione e tutto ciò che non è l'implementazione. Questo ovviamente non è vero, i mesi uomo non sono una metrica valida, sono utili solo a posteriori per capire se un certo approccio ad un problema si è dimostrato valido.
-Nella realtà all'aumentare delle persone aumenta il bisogno di comunicare.
-C'è anche il caso in cui all'aumentare delle persone il tempo di consegna non cambia, questo si verifica quando il lavoro è strettamente sequenziale e non paralelizzabile (esempio gravidanza).
-Infine nel software abbiamo un caso ancora differente, ovvero abbiamo un numero ideale di persone, dopodichè le persone in più causano solo confusione e rallentano i tempi a causa della comunicazione. Il nuemro può essere grande però, dipende dall'entità del progetto (esempio space shuttle).
-In generale nelle metodologie agili se il team è più grande di 8-10 persone inizia a non funzionare più, e questo può essere visto come un caso in cui l'extreme programming non va utilizzato, ovvero (sistema questa parte, da 01:05:00 a 01:07:00 della videolezione 4 parte, successivamente sempre nella videolezione ci sono i riferimenti ai vari libri).
+È diffuso tra i manager pensare che la stima in tempo in mesi uomo sia graficata come un ramo di un iperbole, ovvero che il tempo diminuisca simil-esponenzialmente all'aumentare dei mesi uomo; tale stima non considera i tempi di _overhead_, ovvero il tempo impiegato per la comunicazione e tutto ciò che non è l'implementazione.
+I mesi uomo __non quindi sono una metrica valida__, ma sono utili solo a posteriori per valutare se un approccio ad un problema si è dimostrato valido.
+
+Nella realtà, __all'aumentare delle persone aumenta il bisogno di comunicare__.
+
+Quando il lavoro è strettamente sequenziale e non parallelizzabile (come la _gravidanza_) anche all'aumentare delle persone il tempo non cambia.
+
+Nel mondo dello sviluppatore software spesso c'è un __numero ideale di persone__ per un progetto; dopodiché, persone in più causano solo confusione e rallentano i tempi a causa della comunicazione.
+Il numero può anche essere grande, dipende dall'entità del progetto (esempio: space shuttle).
+
+In generale, le metodologie agili iniziano a __non funzionare più__ se il team è __più grande di 8-10 persone__.
+Quando il progetto non funziona più con un tale numero di persone, è necessario esplorare altre pratiche.
