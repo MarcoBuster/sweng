@@ -352,33 +352,61 @@ Durante il giorno, più volte al giorno, è comune __cambiare coppia__ e saranno
 In tutti i casi, in XP ci si riferisce al team e non al singolo.
 
 ### 9. Integrazione continua
-Nell'ottica di avere feedback rapidi è necessario fare l'integrazione spesso, anche più volte al giorno, e questo non significa fare i test di unità e poi alla fine integrare tutti in una bottasola, ma intergrare man mano. Questo perchè è frequente il caso in cui ogni parte è stata testata singolarmente e funziona, ma quando tutti i pezzi vengono messi insieme per formare il prodotto finale qualcosa non funziona, per questo motivo integrando man mano è possibile risolvere meglio questi problemi (questo funziona in ogni campo non solo nello sviluppo software).
-Nello sviluippo software queste intergazioni vengono fatte cosi frequentemente che dopo lo sviluppo anche di una piccola feature è compito della coppia andare ad integrarla nella macchina di riferimento per. Questa macchina di riferimento è una macchina a cui si accede in maniera __esclusiva__ che serve per integrare tutti i lavori delle diverse coppie; questa sequenzialità nell'uso della macchina la si deve garantire anche nel caso in cui ci si acceda da remoto, questo si fa grazie ad un token.
-Il completamento di una use sotry si ha quidi dopo aver integrato la feature, aver testato il suo funzionamento (test di integrazione) e aver mostrato al cliente il risultato della macchina complessiva dopo l'integrazione.
-La macchina è sempre in una situazione monotona creascente per quanto riguarda le funzionalità (io posso andare a rimuovere cose dalla macchina, è per questo che parlo di crescita delle funzionalità e non delle componenti della macchina in se). Inoltre ogni volta che vado ad integrare una parte devo sempre produrre un qualcosa di consegnabile all'utente.
-Un altra motivazione importante della continua integrazione è che se devo integrare qualcosa nella macchina e un'altra coppia prima di me ha aggiunto una parte che non integrava da molto tempo, la probabilità che la macchina funzioni dopo la mia aggiunta è molto bassa, al contrario se tutti integrano molto spesso le probabilità saranno sicuramente molto più alte. Se una coppia non riesce ad integrare bloccherà anche tutte le altre che non possono andare avanti con le use story, quindi sarà necessario che quella coppia rinunci, ritorni sulla sua macchina e cerchi di risolvere li (tutte le coppie hanno una loro macchina su cui testano prima di farlo su quella comune).
+Nell'ottica di ricevere feedback rapidi dal cliente è necessario __integrare spesso__, anche __più volte al giorno__. 
+Questo non significa far passare i test d'unità per integrare tutto in un'unica operazione, ma essere graduali: è frequente scoprire che parti testate e funzionanti singolarmente una volta integrate nel prodotto finale non funzionano. 
+
+L'integrazione continua e graduale è una tecnica largamente utilizzata in tutti i campi, non solo nello sviluppo software.
+
+Al termine dello sviluppo di una _feature_, è compito della coppia integrarla nella __macchina di riferimento__.
+L'accesso a tale macchina deve essere regolato in maniera __esclusiva__: in situazioni di lavoro da remoto si può utilizzare un token.
+La macchina di riferimento si trova, per quanto riguarda le funzionalità, in una situazione __monotona crescente__.
+Ad ogni integrazione è necessario produrre sempre qualcosa di consegnabile al cliente. 
+
+Una _user story_ si definisce __completata__ solo dopo aver terminato l'integrazione, superato dei test di integrazione e aver mostrato al cliente il risultato della macchina complessiva dopo l'integrazione.
+
+Un'altro punto a favore della continua integrazione è che evita la situazione in cui una coppia modifichi la macchina __dopo molto tempo__ dalla propria ultima integrazione, aumentando di molto la probabilità di errori per le altre coppie. 
+
+Se una coppia __non riesce ad integrare__ blocca anche tutte le altre che non possono andare avanti con le use story, quindi sarà necessario che quella coppia rinunci, ritorni sulla sua macchina e cerchi di risolvere lì - tutte le coppie hanno una propria macchina su cui testano prima di farlo su quella comune.
 
 ### 10. Settimana di 40 ore
-Il mestiere dello sviluppatore ha sempre avuto dei ritmi dettati un po dalle consegne, questo causa dei problemi come per esempio se lavoro di più renderò sicuramente di meno, inoltre porta a stress e frustrazione. Nell'XP si cerca di evitare queste situazioni in modo da avere una resa migliore, avere maggior soddisfazione nel lavorare nel team o nell'azienda, avere meno problemi fuori dal lavoro (tante volte questo eccessivo lavoro può causare problemi familiari) e inoltre abbassa la probabilità per l'azienda di perdere dipendenti. Purtroppo però il mestiere dello sviluppatore non è meccanico e molto spesso si vuole portare a termine quello che si sta facendo perchè magari si è quasi alla soluzione, inoltre si continua a pensare a come risolvere dei problemi anche fuori dall'orario lavorativo.
+Il mestiere di sviluppatore ha sempre avuto dei __ritmi dettati dalle consegne__: lavorare troppo a lungo porta a un abbassamento della produttività, oltre che a stress e frustrazione. 
+
+Nell'XP si cerca di evitare queste situazioni in modo da avere una resa migliore, avere maggior soddisfazione nel lavorare nel team e nell'azienda, avere meno problemi fuori dal lavoro (tante volte questo eccessivo lavoro può causare problemi familiari) e inoltre abbassare la probabilità per l'azienda di perdere dipendenti. 
+
+Purtroppo però il mestiere dello sviluppatore non è meccanico e molto spesso si vuole portare a termine quello che si sta facendo perchè magari si è quasi alla soluzione, inoltre si continua a pensare a come risolvere dei problemi anche fuori dall'orario lavorativo.
 
 ### 11. Cliente sul posto
-Fino ad ora abbiamo visto le motivazioni a favore del cliente per cui vengono messe delle persone sul posto dove si sviluppa il progetto, ovvero perchè cosi può essere sicuro che stiamo lavorando per lui e per verificare come procede il progetto. Ma perchè a noi fa comodo avere il cliente sul posto?
-È fondamentale avere il cliente sul posto in modo date da avere qualcuno a cui chiedere in caso di specifiche poco chiare, infatti noi abbiamo a disposizione solo le use story che non sempre sono chiare, quindi avere il cliente a nostra disposizione (lui può comunque continuare a lavorare per la sua azienda, ma noi abbiamo la priorità) ci permette di fargli domande per chiarire i punti delle specifiche, è come avere una documentazione vivente.
-Quindi questo punto è fondamentale, e nel caso in cui il cliente sul posto non sia disponibile dobbiamo trovare degli escamotage per far si di avere comunque un punto di riferimento, però non sarà sicuramente come avere il cliente nel team.
-Anche avere il cliente sul posto ha dei limiti in realtà, infatti dobbiamo avere una persona che riesca ad essere rappresentativo di tutti gli stakeholders.
-Il cliente durante le iterazioni può creare delle altre storie che nell'iterazione successiva potrà inserire nel planning game, e in più è disponibile anche nel caso in cui vogliamo che faccia dei test funzionali.
+
+Dal punto di vista del cliente, il suo inserimento nel luogo fisico di sviluppo è un vantaggio in quanto può essere sicuro che gli sviluppatori stiano lavorando per lui e __può verificare come procede il progetto__.
+
+Dal punto di vista degli sviluppatori, invece, è fondamentale avere il cliente sul posto per potergli __chiedere chiarimenti__ in caso di specifiche non chiare. 
+La possibilità di poter far domande è come avere una _documentazione vivente_; il cliente potrà continuare a lavorare per la sua azienda, ma dovrà dare priorità alle richieste degli sviluppatori. 
+
+Avere il cliente sul posto ha comunque dei __limiti__: quest'ultimo, infatti, deve essere scelto accuratamente per avere una persona rappresentativa di tutti gli stakeholder; il compito è forse impossibile.
+Se il cliente del posto non è disponibile, il team deve trovare dei modi per poter comunque avere un _punto di riferimento_: la tecnica Scrum introduce il concetto di __product owner__, un componente interno al team che si comporta come se fosse il cliente.
+
+Il cliente durante le iterazioni può __creare altre storie__ che a partire dall'iterazione successiva potrà inserire nel planning game; è inoltre disponibile per __test funzionali__.
 
 ### 12. Standard di codifica
-È necessario avere delle regole che specificano come va scritto il codice, con delle convenzioni comuni, questo per aumentare la comunicazione anche attraverso il codice.
-Vengono utilizzati dei tool per garantire queste convenzioni in modo date da non avere membri del team che non le rispettino, oppure questi strumenti possono anche fare un'autocorrezione del codice per far si che rispetti gli standard.
-Inoltre avere uno standard di codifica aiuta:
-- il refactoring
-- la programmazione a coppie
-- le proprietà collettive
+È necessario prevedere delle regole (__convenzioni comuni__) che specificano come scrivere il codice, per aumentare la leggibilità e quindi la comunicazione attraverso il codice.
 
-### 13. Just rules
-Definiamo ora questa tredicesima regola "non canonica" che è stata aggiunta da alcuni.
-Nel caso in cui non si voglia seguire una regola deve esser fatto da tutto il team, e non solo dal singolo o dalla coppia, e poi alla fine dell'iterazione si fa un resoconto di come sono andate le cose e se nell'iterazione successiva sia il caso di reintrodurre la regola oppure no. In questo resoconto si può anche decidere di sospendere delle regole se si pensa che per il team non siano necessarie o non vadano bene, e successivamente possono essere reintrodotte. In conclusione si possono effettuare questo tipo di test per trovare il giusto equilibrio, e questa ultima regola mostra anche che l'XP non è una tecnica cosi rigida e rigorosa. Questo punto però non è condiviso da tutti e una motivazione la si può trovare nel fatto che tutti i punti sono interconnessi tra loro, e quindio non è possibile studiarli singolarmente senza considerate anche gli altri perchè non avrebbero senso in quanto hanno una forte dipendenza l'una dall'altra (non a caso nei punti sopra si può notare come si influenzino a vicenda).
+Spesso, si utilizzano degli __strumenti__ per garantire il rispetto delle convenzioni o autocorreggere il codice auutomaticamente.
+
+Avere uno standard di codifica aiuta inoltre:
+- il refactoring;
+- la programmazione a coppie;
+- la proprietà collettiva.
+
+### 13. _They're just rules_
+L'ultima regola _"non è canonica"_, in quanto è stata aggiunta successivamente da alcuni agilisti.
+
+Al termine di un'iterazione si fa un __resoconto__ e quindi decidere come comportarsi per l'iterazione successiva.
+Nel suddetto resoconto si può anche decidere di __sospendere regole__ se si pensa che non siano adatte per la situazione o per il team e successivamente possono essere reintrodotte. 
+La decisione di non seguire una regola deve essere sempre fatta a livello di __team__, non dal singolo o dalla coppia.
+
+In conclusione, l'XP non è una tecnica così rigida e rigorosa: ad ogni iterazione, si possono effettuare test per trovare il giusto equilibrio.
+
+Questo punto non però è condiviso da tutti e una motivazione la si può trovare nel fatto che tutti i punti sono interconnessi tra loro, e quindio non è possibile studiarli singolarmente senza considerate anche gli altri perchè non avrebbero senso in quanto hanno una forte dipendenza l'una dall'altra; non a caso nei punti sopra si può notare come si influenzino a vicenda.
 
 ## XP e modello a cascata
 Non è un raggruppanmento oggettivo in quanto i diversi punti hanno tante sfaccetature, però un possibile raggruppamento potrebbe essere:
