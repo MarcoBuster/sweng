@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[03] eXtreme programming"
+title: "[03] eXtreme Programming"
 date:   2022-10-10 14:40:00 +0200
 toc: true
 ---
@@ -162,7 +162,18 @@ L'extreme programming fornisce una serie di metodologie pratiche per poter garan
 
 È l'attività di pianificazione che viene fatta all'inizio di ogni iterazione e serve per "congelare" il sottoinsieme di requisiti sul quale il team lavorerà per le prossime ~2 settimane.
 
-Si parte dalle richieste del cliente espresse tramite _user stories_, una versione semplificata degli _use case_ degli UML; esse hanno come soggetto sempre un ruolo specifico nell'azienda del cliente e descrivono una funzionalità: un esempio di storia potrebbe essere per esempio "_Come utente autenticato posso accedere all'area riservata._" Lo scopo del planning game è dunque quello di determinare quali funzionalità saranno presenti nel prossimo rilascio combinando priorità commerciali e valutazioni tecniche: questo richiede una collaborazione da parte del cliente, che come vedremo sarà presente in loco al momento della decisione.
+Si parte dalle richieste del cliente espresse tramite _user stories_, una versione semplificata degli _use case_ degli UML; esse hanno come soggetto sempre un ruolo specifico nell'azienda del cliente e descrivono una funzionalità. Ogni _user story_ è dunque composta da tre parti:
+
+- il __soggetto__, ovvero il ruolo dell'utente nell'azienda (può anche essere esterno);
+- l'__azione__ che vuole eseguire il soggetto;
+- la __motivazione__ che spinge il soggetto a portare avanti l'azione descritta.
+
+Esempi di _user stories_ potrebbero essere:
+
+- > _Da bibliotecario, voglio poter visualizzare dove si trova un particolare libro in modo da poterlo reperire per i clienti._
+- > _Da utente della biblioteca, voglio poter visualizzare lo stato di un libro per poterlo prendere in prestito._
+
+Lo scopo del planning game è dunque quello di determinare quali funzionalità saranno presenti nel prossimo rilascio combinando priorità commerciali e valutazioni tecniche: questo richiede una collaborazione da parte del cliente, che come vedremo sarà presente in loco al momento della decisione.
 
 #### Procedura
 
@@ -209,7 +220,7 @@ Una per una vengono presentate brevemente le carte con le user stories facendo a
 Dopodiché ogni componente del team sceglie una carta dal proprio mazzo personale per rappresentare la propria stima e la pone coperta sul tavolo: su queste carte si trovano una serie di numeri senza unità di misura che vanno da 0 a 100 seguendo un andamento non uniforme; il loro scopo è quello di definire un'ordine di grandezza piuttosto che una stima precisa. Ci sono anche delle carte particolari, ovvero:
 
 - il punto di domanda indica che non si è in grado di dare una stima
-- la tazza di caffè indica che la riunione è andata troppo per le lunghe e è necessaria una pausa.
+- la tazza di caffè indica che la riunione è andata troppo per le lunghe ed [è necessaria una pausa](https://www.youtube.com/watch?v=-gAlDOcXgyM).
 
 Fatta questa prima stima _blind_ le carte vengono girate contemporaneamente: idealmente vi dovrebbe essere l'unanimità sulla stima. Se così non è chi ha espresso le stime più basse e più alte ha ~1 minuto per motivare la propria scelta in modo da cercare di convincere gli altri; si noti che agli altri componenti del team non è concesso parlare per evitare di perdere troppo tempo! \
 Finito questo momento di consultazione tutti i membri del team fanno una nuova stima e si continua così finché non si raggiunge l'unanimità; solitamente le votazioni convergono dopo un paio di round.
@@ -226,174 +237,264 @@ Si tratta di un metodo un po più complesso articolato in 3 fasi e basato sul co
 
 Si fa una pila con le storie e si mette la prima carta al centro del tavolo. I developer si mettono in fila e uno alla volta eseguono queste azioni:
 
-- il primo della fila prende una carta della pila, la legge ad alta voce e la posiziona a sinistra (più semplice), a destra (più complicata) o sotto (equivalente) la carta già presente sul tavolo.
-- il prossimo developer può:
-  - prendere una nuova carta dalla pila e posizionarla secondo le stesse regole, eventualmente inserendola in mezzo a due colonne già presenti;
-  - spostare una carta precedentemente posizionata commentando la motivazione della sua scelta; può ovviamente succedere che tale carta venga rispostata nella sua posizione originale, ma dopo un po' si troverà un accordo sulla difficoltà del relativo task.
+- il __primo della fila estrae una carta della pila__, la legge ad alta voce e la __posiziona__ a sinistra (più semplice), a destra (più complicata) o sotto (equivalente) la carta già presente sul tavolo.
+- il __prossimo developer__ può:
+  - __estrarre una nuova carta dalla pila__ e __posizionarla__ secondo le stesse regole, eventualmente inserendola in mezzo a due colonne già presenti;
+  - __spostare una carta precedentemente posizionata__ commentando la motivazione della sua scelta; può ovviamente succedere che tale carta venga rispostata nella sua posizione originale, ma dopo un po' si troverà un accordo sulla difficoltà del relativo task.
 
 Terminata la pila avremo le carte disposte sul tavolo in colonne di difficoltà comparabile, ordinate dalla meno difficile (sinistra) alla più difficile (destra).
 Oltre ad aver ridotto la comunicazione (molte carte non saranno contestate), usando questa tecnica abbiamo evitato anche l'effetto àncora rendendolo relativo: l'assenza di valori precisi evita il rischio di influenzare eccessivamente gli altri. Inoltre a differenza del planning poker si può tornare sulle proprie decisioni, cosa che favorisce un continuo adattamento e ripensamento delle stime.
 
 ##### __<big>SECONDA FASE</big>__
 
-Ora si cerca di quantificare le _distanze_ tra le carte.
+Si cerca dunque di quantificare le _distanze_ tra le carte.
 
 {% responsive_image path: assets/03_team-estimation-2.jpg %}
 
-Ci si mette di nuovo in coda davanti al tavolo con il mazzo di carte del planning poker (uno solo, non uno per persona), e si cerca di etichettare le colonne in base alle difficoltà.
+Ci si mette di nuovo in coda davanti al tavolo con il mazzo di carte del planning poker (uno solo, non uno per persona) e __si cerca di etichettare le colonne in base alle difficoltà__.
 
 Si posiziona la prima carta (solitamente si parte da 2 perchè magari nella prossima iterazione può esserci qualcosa di ancora più facile) sopra la prima colonna.
-Il primo sviluppatore prende il valore successivo e lo posiziona sulla prima colonna che pensa abbia quel valore (rispetto al 2), oppure lo posiziona tra due colonne se pensa che sia un valore di difficoltà intermedio tra le due.
-Gli sviluppatori successivi invece possono fare due cose:
-- prende una carta dal mazzo e la posiziona secondo le regole di prima (la prima colonna che pensa abbia quel valore di difficoltà)
-- Spostare una carta con un valore precedentemente posizionata, commentando la motivazione dello spostamento
-- nel caso in cui non ci siano più carte nella pila e non vuole spostare altre carte, lo svuluppatore può passare.
 
-È possibile avere delle carte in cui sopra non c'è nessun numero, queste saranno assimilate alla colonna alla loro sinistra, e avremo una situaione di questo tipo
+Quindi:
+- il __primo sviluppatore__ prende il valore successivo e lo posiziona sulla prima colonna che pensa abbia quel valore (rispetto al 2), oppure lo posiziona tra due colonne se pensa che sia un valore di difficoltà intermedio tra le due.
+- lo __sviluppatore successivo__ può invece:
+    - __estrarre una carta__ dal mazzo e __posizionarla__ secondo le regole di prima (la prima colonna che pensa abbia un particolare valore di difficoltà);
+    - __spostare una carta__ con un valore precedentemente posizionato, commentando la motivazione dello spostamento;
+    - __passare__ il turno, nel caso in cui non ci siano più carte nella pila e non si vogliono spostare altre carte.
+
+È possibile avere delle carte in cui sopra non c'è nessun numero, queste saranno assimilate alla colonna alla loro sinistra. 
+
+Al termine di questa fase, la situazione sarà simile alla seguente:
 
 {% responsive_image path: assets/03_fine-seconda-fase-estimation-game.jpg %}
 
 ##### __<big>TERZA FASE</big>__
 
 Si stima il tempo in ore/uomo di una delle carte più semplici e successivamente si calcolano tutte le colonne in proporzione alla prima.
-Ma questa fase è davvero cosi utile? nella pratica si è visto che non è una utile valutare tutto il lavoro fatto in ore/uomo, anche perchè con il passare del tempo la taratura può variare.
-Possiamo allora prendere tutte le carte portate a termine e assegnamogli un valore, questa cosa si chiama __velocity__.
+Ma questa fase è davvero cosi utile? Nella pratica si è visto che __è inutile valutare il lavoro fatto in ore/uomo__, anche perchè con il passare del tempo la taratura può variare.
+
+Nella prossima sezione parliamo di come la nozione di __velocity__ risolve questo problema. 
 
 #### Velocity
+È importante riuscire a stimare la _velocità_ con la quale stiamo avanzando. 
+In fisica la velocità è data dal rapporto tra la distanza percorsa e il tempo per percorrerla. 
+Questa proprietà può essere usata anche nella gestione dello sviluppo agile: il numeratore è il punteggio delle storie mentre il denominatore è la lunghezza dell'iterazione (assimilabile in un'unità di tempo).
 
-La capacità osservata (quindi alla fine dell'osservazione) di qunato sono riuscito a fare in termini di complessità astratta.
-Se per esempio sono riuscito a fare 50 punti nella iterazione appena finita, posso prefissarmi di fare almento 50 punti nell'iterazione successiva.
-La Velocity non può essere usata per dare premi, per confrontare team diversi o punire in caso di diminuzione, però si adatta al modo diverso degli sviluppatori di gestire le stime e anche al fatto che ho una tendenza a sottostimare le diverse carte.
-Se aggiungo una persona lascio questa metrica inizialmente invariata, per la formazione; se la rimuovo ci sarà una perdita di produttività.
- La Velocity non deve considerare le storie lasciate incompiute, quindi anche se l'ho completata al 90% devo considerarla come se non l'avessi fatta.
-Inoltre non deve essere imposta, nel senso che se la velocity di un team è x non deve essere aumentata per produrre come un altro team.
-Acnhe qui abbiamo lo slack time visto nel planning poker.
+La ___velocity___ nel mondo agile è quindi il __numero di story point__ guadagnati nell'arco dell'iterazione corrente.
 
-Esiste un movimento chiamato no estimates, che evita tutta questa parte delle stime, ma dall'esperienza di bellettini si vede che funziona in generale per team molto maturi che sono in grado di guidare il ciente a formulare storie simili intermini di difficoltà, questo perchè tutti hanno una misura standard per le storie.
+Essa riesce quindi a dare un'idea di quanto si è riusciti a fare in termini di complessità astratta.
+Se per esempio il team è riuscito a fare 50 punti nella iterazione appena finita, è ragionevole prefissarsi di fare almento 50 punti nell'iterazione successiva.
+
+La velocity __non può essere usata__ per dare __premi__, per __confrontare__ team diversi o __punire__ in caso di diminuzione, però si adatta al modo diverso degli sviluppatori di gestire le stime e dal fatto che si tende a sottostimare o sovrastimare carte diverse.
+
+All'atto di aggiungere una persona questa metrica deve inizialmente rimanere invariata, per prevedere la sua formazione; se la rimuovo ci sarà una perdita di produttività.
+
+La velocity __non deve considerare le storie lasciate incompiute__, quindi anche se l'ho completata al 90% devo considerarla come se non l'avessi fatta.
+Inoltre, __non deve essere__ imposta: la velocity di un team è fissa e non può essere aumentata.
+
+Esiste un movimento chiamato ___no estimates___, che evita al team tutta la parte delle stime. 
+Dall'esperienza del prof. Bellettini, però, questa metodologia funziona in team molto maturi che sono in grado di guidare il ciente a formulare storie simili in termini di difficoltà, avendo tutti una misura standard per le storie.
 
 ### 2. Brevi cicli di rilascio
+Per ridurre i rischi, la vita e lo sviluppo dell'applicazione sono scanditi dai rilasci di diversioni del prodotto funzionanti, di solito uno ogni due settimane (come abbiamo visto in scrum con il _freez_, ma con un tempo di rilascio minore). 
+È necessario avere abbastanza tempo per sviluppare qualcosa di concreto, e il cliente per poter pensare alle richieste che ha fatto e stabilire se ha bisogno di modifiche.
 
-Per ridurre i rischi, la vita e lo sviluppo dell'applicazione sono scanditi dai rilasci di dversioni del prodotto funzionanti. Di solito uno ogni due settimane (come abbiamo visto in scram con il freez, ma con un tempo di rilascio minore). Dobbiamo avere il tempo per sviluppare qualcosa di concreto, e il cliente per poter pensare alle richieste che ha fatto e pensare se ha bisogno di modifiche.
+Betrand Meyer, nel suo libro _"Agile! The Good, the Hype and the Ugly"_, definisce questa idea _"brillante"_, _"forse l'idea agile con l'influenza e impatto maggiore nell'industria"_. 
 
 ### 3. Uso di una metafora
-
-Definire un nuovo vocabolario con cui parlare con l'utente (tecnica _non informatica_) ma anche ai nuovi sviluppatori.
+Definire un __nuovo vocabolario__ con cui parlare con l'utente (tecnica _non informatica_) ma anche ai nuovi sviluppatori.
 Serve per permettere una nominazione di classi e metodi omogenei e fornire una vista d'insieme.
-Siccome non c'è una vera documentazione in XP, possiamo usare queste metafore come una vista d'insieme, quindi sostituisce in parte l'architettura del sistema, e fa capire gli elementi fondametali, il loro scopo e le relazioni fra loro. <!-- da scrivere meglio, non chiaro -->
+Siccome non c'è una vera documentazione in XP, possiamo usare queste metafore come una vista d'insieme, quindi sostituire in parte l'architettura del sistema, e far capire gli elementi fondamentali, il loro scopo e le relazioni fra loro. 
 
 ### 4. Semplicità di progetto
+Ovvero l'___arte di massimizzare il lavoro non fatto___, o da non fare.
+Non è necessario riscrivere cose già esistenti e consolidate. 
 
-chiamata anche l'arte di massimizzare il lavoro non fatto, o da non fare, infatti non è necessario riscrivere cose già esistenti e consolidate. uno slogan tipico è KISS: Keep It Simple, Stupid.
-Questo punto si contrappone al Design for change che viene visto come un appesantimento inutile, perchè una feature che aggiungiamo può essere scartata dal cliente, e quindi abbiamo perso tempo inutilmente.
+Uno slogan tipico è __KISS__: __Keep It Simple, Stupid__.
+
+Questo punto si contrappone al _design for change_ che viene invece visto come un appesantimento inutile, perchè una feature che aggiungiamo può essere scartata dal cliente.
 
 ### 5. Testing
+È consolidato su due fronti:
+- i clienti scrivono i __test di accettazione__ (o funzionali) sulle schede per aumentare la loro fiducia nel programmi;
+- i programmatori scrivono i __test di unità__ perché la fiducia nel codice diventi parte del programma stesso.
 
-- I clienti scrivono i test di accettazione (o funzionali) sulle schede per aumentare la loro fiducia nel programmi.
-- I programmatori scrivono i test di unità perché la fiducia nel codice diventi parte del programma stesso.
+Nell'XP ogni aspetto viene massimizzato, ma in particolare il testing viene esasperato di più in quanto, oltre ad essere molto importante, molti altri aspetti si basano su di esso (vedi la figura all'inizio della sezione). 
+Ha il ruolo di __rete di protezione__ in tutte le fasi: ogni cambiamento è verificabile tramite i test.
 
-Nell'XP ogni aspetto viene massimizzato, ma in particolare il testing viene esasperato di più perchè molto importante siccome molti altri aspetti si basano su di esso. Possiamo dire quindi che ha il ruolo di _"rete di protezione"_ in tutte le varie fasi, ogni volta che faccio qualcosa posso verificarla tramite i test.
+Il testing aiuta molto anche quando non si parte da zero con il programma, ma quando si deve modificare un programma proprietario precedentemente sviluppato anche in modalità non agile.
+Prima di apportare modifiche al codice scrivo i test e solo successivamente procedo, in modo da non causare problemi.
 
-Il testing aiuta molto anche quando non si parte da 0 con il programma, per esempio quando il lavoro è proprio modificare un programma proprietario precedentemente sviluppato.
-Può essere che non sia stato sviluppato in modalità agile e quindi non sono presenti test, a questo punto se devo fare alcune modifice prima scrivo i test e successivamente modifico il codice in modo da non causare problemi.
-
-Un'altra cosa importante è che i test devono coprire tutte le righe di codice.
+Un altro concetto importante è che i test dovrebbero __coprire tutte le righe di codice__.
 
 ### 6. Refactoring
+Anche da novizi, non bisogna avere paura di apportare modifiche che semplificano il progetto: bisogna avere coraggio.
 
-Non bisogna avere paura di apportare modifiche che semplificano il progetto: bisogna avere coraggio.
+Il refactoring è l'operazione che __modifica solo le proprietà interne__ del software, __non le funzionalità__.
+L'obiettivo è eliminare l'entropia generata dalle continue modifiche e aggiunte.
 
-Il refactoring è un'operazione che modifica il software __ma non modifica le funzionalità__, quindi tocchiamo solo proprietà interne.
-L'obiettivo è eliminare l'entropia con le continue modifiche e aggiunte. <!-- da scrivere meglio -->
+Il refactoring deve essere __graduale e continuo__ in modo da poter aggiungere funzionalità in maniera semplice. 
+Chiaramente, in caso di ristrutturazioni architetturali di grosse dimensioni di sistemi legacy non è sempre possibile procedere in questa maniera.
 
-Deve essere graduale e continua in modo da poter aggiungere funzionalità in maniera più semplice.
+Parti di codice non stimolate da test non sono utili ai fini della soluzione: o si aggiungono test per gestire i casi specifici, altrimenti si possono rimuovere _in toto_.
 
-Se una parte di codice non viene stimolato dai test non è utile ai fini della soluzione, al massimo posso aggiungere dei test per gestire dei casi specifici, se no posso togliere le parti di codice non richiamate dai test.
+Il refactoring è una delle tecniche più __importanti__ e __fondamentali__ dell'XP.
 
 ### 7. Programmazione a coppie
 
-È una tecnica che può portare dei vantaggi, anche se il manager può non rendersi subito conto, infatti paga due persone e una delle due guarda l'altro lavorare, ma non è cosi.
+La programmazione a coppie (__pair programming__) è una tecnica controintuitiva: dal punto di vista del manager si pagano due persone per fare il lavoro di una, ma non è così.
 
-I punti a favore sono:
-- Ci si controlla a vicenda su ogni aspetto (codice, rispetto delle regole, idee)
-- Uno attua le cose, l'altro pensa a ciò che bisogna fare subito dopo, quindi la seconda persona pensa a come fare refactoring
-- Ad avere un controllo continuo delle regole di XP
-- L'inserimento di nuovo personale e la sua formazione, al posto di mettere quelli nuovi a studiare libri interi lasciati a se stessi, vengono affiancati a persone che stanno lavorando e quindi può essere istruito guardando gli altri lavorare e dialogando.
-- Ottenere una _proprietà colettiva_ (conoscenza osmotica), quindi quando programmo con un altra persona posso conoscere il codice scritto dall'altro. Un altro punto importante sono i commenti naif, ovvero quelli fatti dai programmatori junior, sono importanti perchè molto spesso i programmatori esperti devono ripensare a delle cose basilari che danno per scontato, e può succedere che trovino parti di codice che potevano essere scritte meglio o addirittura tolte.
-- Dimenzzare le persone dimezzano la produttività? no, è stimato che la produttività sia una volta e mezzo in più, che comunque sarebbe una perdita. Ma degli studi pongono una domanda, la produttività calcolata puntualmente è davvero sensata da calcolare? no perchè sul lungo (quindi sull'iertazione) ciò che sembrava meno produttivo in realtà lo è di più. Questo perchè una persona da sola deve fare il lavoro, poi passare molto tempo a verificarlo e ricontrollarlo, mentre nella programmazione a coppie questa cosa si verifica costantemente e quindi la parte sul refactoring sarà più leggera perchè in parte già svolta (questa tecnica si chiama __ispezioe del codice__).
+Ci sono diversi __vantaggi__:
+- in coppia, __ci si controlla a vicenda__ su ogni aspetto (codice, rispetto delle regole XP, idee); 
+- mentre il _pilota_ attua le idee, il _navigatore_ pensa cosa fare subito dopo: forma di __refactoring__;
+- favorisce l'__inserimento di nuovo personale__: piuttosto che lasciare i novizi da soli a studiare libroni, vengono affiancati e incitati a osservare e interagire con persone esperte che stanno lavorando;
+- fa ottenere una __proprietà collettiva__ (conoscenza osmotica), come descritta da Crystal. 
+Un altro punto importante sono i commenti _naive_ (ovvero fatti da programmatori junior) per permettere di chiarire concetti basilari date spesso per scontato. 
 
-### 8. proprietà collettiva
+Raddoppiare il numero di persone raddoppia la produttività?
+__No__, è stimato invece che la produttività aumenti circa del 50% - quindi non abbastanza per giustificare il costo.
 
-L'extreme programming ha cercato di mettere insieme proprietà già esistenti che funzionavano, di fatto non ha inventato niente di nuovo.
-Proprietà collettiva significa che il codice non è di una persona sola ma del team, quindi la responsabilità del codice appaertiene a ogni il team, anche se non lo si conosce tutto alla stessa maniera. Di conseguenza tutti sono autorizzati a metterci mano qualcosa non va, anche a parti che magari ha scritto qualche altro membro.
-Durante il lavoro succedera spesso di cambiare coppia, magari anche più volte al giorno e per diversi motivi, per esempio nessuno dei due ha una profonda conoscienza della parte di codice che stanno trattando, oppure perchè il task da fare non si addice alle competenze della coppia. In ogni caso il continuo riferirsi al team e non al singolo è importatnissimo nell'XP.
+Diversi studi si chiedono se la produttività calcolata puntualmente sia una metrica sensata. 
+Secondo molti no, perché al termine di un'iterazione ciò che sembra poco produttivo in realtà lo è di più: il tempo non successivamente speso in verifica, convalida e refactoring è largamente assorbito dall'__ispezione continua del codice__ svoltasi durante le sessioni di pair programming.
+
+#### Critiche
+Betrand Meyer, nel suo libro _"Agile! The Good, the Hype and the Ugly"_, scrive:
+
+> __Applied judiciously, pair programming can unquestionably be useful__. Many developers enjoy the opportunity to program jointly with a peer, particularly to deal with a thorny part of an assignment. 
+> The basic techniques, in particular the idea of speaking your thoughts aloud for immediate feedback, are well understood and widely applied. (As a manager I regularly hear, from a developer, “On this problem I would like to engage in a round of pair programming with X ”, and invariably find it a good idea.)
+> 
+> What is puzzling is the insistence of XP advocates that this technique is the only way to develop software and has to be applied at all times. __Such insistence makes no sense__, for two reasons.
+> 
+> The first is the __inconclusiveness of empirical evidence__, noted above. Granted, lack of data is often used as a pretext to block the introduction of new techniques. 
+> When an idea is obviously productive, we should not wait for massive, incontrovertible proof. 
+> But here there is actually a fair amount of empirical evidence, and it does not show a significant
+advantage for pair programming. 
+> Pair programming may be good in some circumstances, but if it were always the solution the studies would show it. 
+> In the absence of scientific evidence, a universal move is based on ideology, not reason.
+> 
+> The second reason, which may also explain why studies’ results vary, is that __people are different__. 
+> Many excellent programmers love interacting with someone else when
+they write programs; and many excellent programmers do not. 
+> Those of the second kind want to think in depth, undisturbed. 
+> The general agile view is that communication should be encouraged and that the days of the solitary, silent genius are gone. 
+> Fine; but if your team has an outstanding programmer who during the critical steps needs peace, quiet and solitude, do you kick him out of the team, or force him to work in a way that for him may be torture?
+
+> It is one thing to require that people explain their work to others; it is another, quite dangerous, to __force a single work pattern__, especially in a highly creative and challenging intellectual endeavor. 
+> When Linus Torvalds was writing Linux, he was pretty much by
+himself; that did not prevent him from showing his code, and, later on, engaging thousands of people to collaborate on it.
+
+### 8. Proprietà collettiva
+Il codice non appartiene a una singola persona ma al _team_: non devono quindi esistere policy di _"code owners"_ a la Microsoft.
+Tutti i componenti del team sono quindi autorizzati a modificare e sistemare ogni parte del codice, anche se scritta da un altro. 
+
+Durante il giorno, più volte al giorno, è comune __cambiare coppia__ e saranno quindi possibili situazioni in cui nessuno dei due ha una profonda conoscenza della parte di codice che si sta trattando o che il task non si addica alle competenze della coppia.
+
+In tutti i casi, in XP ci si riferisce al team e non al singolo.
 
 ### 9. Integrazione continua
+Nell'ottica di ricevere feedback rapidi dal cliente è necessario __integrare spesso__, anche __più volte al giorno__. 
+Questo non significa far passare i test d'unità per integrare tutto in un'unica operazione, ma essere graduali: è frequente scoprire che parti testate e funzionanti singolarmente una volta integrate nel prodotto finale non funzionano. 
 
-Nell'ottica di avere feedback rapidi è necessario fare l'integrazione spesso, anche più volte al giorno, e questo non significa fare i test di unità e poi alla fine integrare tutti in una bottasola, ma intergrare man mano. Questo perchè è frequente il caso in cui ogni parte è stata testata singolarmente e funziona, ma quando tutti i pezzi vengono messi insieme per formare il prodotto finale qualcosa non funziona, per questo motivo integrando man mano è possibile risolvere meglio questi problemi (questo funziona in ogni campo non solo nello sviluppo software).
-Nello sviluippo software queste intergazioni vengono fatte cosi frequentemente che dopo lo sviluppo anche di una piccola feature è compito della coppia andare ad integrarla nella macchina di riferimento per. Questa macchina di riferimento è una macchina a cui si accede in maniera __esclusiva__ che serve per integrare tutti i lavori delle diverse coppie; questa sequenzialità nell'uso della macchina la si deve garantire anche nel caso in cui ci si acceda da remoto, questo si fa grazie ad un token.
-Il completamento di una use sotry si ha quidi dopo aver integrato la feature, aver testato il suo funzionamento (test di integrazione) e aver mostrato al cliente il risultato della macchina complessiva dopo l'integrazione.
-La macchina è sempre in una situazione monotona creascente per quanto riguarda le funzionalità (io posso andare a rimuovere cose dalla macchina, è per questo che parlo di crescita delle funzionalità e non delle componenti della macchina in se). Inoltre ogni volta che vado ad integrare una parte devo sempre produrre un qualcosa di consegnabile all'utente.
-Un altra motivazione importante della continua integrazione è che se devo integrare qualcosa nella macchina e un'altra coppia prima di me ha aggiunto una parte che non integrava da molto tempo, la probabilità che la macchina funzioni dopo la mia aggiunta è molto bassa, al contrario se tutti integrano molto spesso le probabilità saranno sicuramente molto più alte. Se una coppia non riesce ad integrare bloccherà anche tutte le altre che non possono andare avanti con le use story, quindi sarà necessario che quella coppia rinunci, ritorni sulla sua macchina e cerchi di risolvere li (tutte le coppie hanno una loro macchina su cui testano prima di farlo su quella comune).
+L'integrazione continua e graduale è una tecnica largamente utilizzata in tutti i campi, non solo nello sviluppo software.
+
+Al termine dello sviluppo di una _feature_, è compito della coppia integrarla nella __macchina di riferimento__.
+L'accesso a tale macchina deve essere regolato in maniera __esclusiva__: in situazioni di lavoro da remoto si può utilizzare un token.
+La macchina di riferimento si trova, per quanto riguarda le funzionalità, in una situazione __monotona crescente__.
+Ad ogni integrazione è necessario produrre sempre qualcosa di consegnabile al cliente. 
+
+Una _user story_ si definisce __completata__ solo dopo aver terminato l'integrazione, superato dei test di integrazione e aver mostrato al cliente il risultato della macchina complessiva dopo l'integrazione.
+
+Un'altro punto a favore della continua integrazione è che evita la situazione in cui una coppia modifichi la macchina __dopo molto tempo__ dalla propria ultima integrazione, aumentando di molto la probabilità di errori per le altre coppie. 
+
+Se una coppia __non riesce ad integrare__ blocca anche tutte le altre che non possono andare avanti con le use story, quindi sarà necessario che quella coppia rinunci, ritorni sulla sua macchina e cerchi di risolvere lì - tutte le coppie hanno una propria macchina su cui testano prima di farlo su quella comune.
 
 ### 10. Settimana di 40 ore
+Il mestiere di sviluppatore ha sempre avuto dei __ritmi dettati dalle consegne__: lavorare troppo a lungo porta a un abbassamento della produttività, oltre che a stress e frustrazione. 
 
-Il mestiere dello sviluppatore ha sempre avuto dei ritmi dettati un po dalle consegne, questo causa dei problemi come per esempio se lavoro di più renderò sicuramente di meno, inoltre porta a stress e frustrazione. Nell'XP si cerca di evitare queste situazioni in modo da avere una resa migliore, avere maggior soddisfazione nel lavorare nel team o nell'azienda, avere meno problemi fuori dal lavoro (tante volte questo eccessivo lavoro può causare problemi familiari) e inoltre abbassa la probabilità per l'azienda di perdere dipendenti. Purtroppo però il mestiere dello sviluppatore non è meccanico e molto spesso si vuole portare a termine quello che si sta facendo perchè magari si è quasi alla soluzione, inoltre si continua a pensare a come risolvere dei problemi anche fuori dall'orario lavorativo.
+Nell'XP si cerca di evitare queste situazioni in modo da avere una resa migliore, avere maggior soddisfazione nel lavorare nel team e nell'azienda, avere meno problemi fuori dal lavoro (tante volte questo eccessivo lavoro può causare problemi familiari) e inoltre abbassare la probabilità per l'azienda di perdere dipendenti. 
+
+Purtroppo però il mestiere dello sviluppatore non è meccanico e molto spesso si vuole portare a termine quello che si sta facendo perchè magari si è quasi alla soluzione, inoltre si continua a pensare a come risolvere dei problemi anche fuori dall'orario lavorativo.
 
 ### 11. Cliente sul posto
 
-Fino ad ora abbiamo visto le motivazioni a favore del cliente per cui vengono messe delle persone sul posto dove si sviluppa il progetto, ovvero perchè cosi può essere sicuro che stiamo lavorando per lui e per verificare come procede il progetto. Ma perchè a noi fa comodo avere il cliente sul posto?
-È fondamentale avere il cliente sul posto in modo date da avere qualcuno a cui chiedere in caso di specifiche poco chiare, infatti noi abbiamo a disposizione solo le use story che non sempre sono chiare, quindi avere il cliente a nostra disposizione (lui può comunque continuare a lavorare per la sua azienda, ma noi abbiamo la priorità) ci permette di fargli domande per chiarire i punti delle specifiche, è come avere una documentazione vivente.
-Quindi questo punto è fondamentale, e nel caso in cui il cliente sul posto non sia disponibile dobbiamo trovare degli escamotage per far si di avere comunque un punto di riferimento, però non sarà sicuramente come avere il cliente nel team.
-Anche avere il cliente sul posto ha dei limiti in realtà, infatti dobbiamo avere una persona che riesca ad essere rappresentativo di tutti gli stakeholders.
-Il cliente durante le iterazioni può creare delle altre storie che nell'iterazione successiva potrà inserire nel planning game, e in più è disponibile anche nel caso in cui vogliamo che faccia dei test funzionali.
+Dal punto di vista del cliente, il suo inserimento nel luogo fisico di sviluppo è un vantaggio in quanto può essere sicuro che gli sviluppatori stiano lavorando per lui e __può verificare come procede il progetto__.
 
-<!--- TODO: aggiungere sta roba --->
-(in Scrum si introduce il concetto un "product owner portavoce del cliente")
+Dal punto di vista degli sviluppatori, invece, è fondamentale avere il cliente sul posto per potergli __chiedere chiarimenti__ in caso di specifiche non chiare. 
+La possibilità di poter far domande è come avere una _documentazione vivente_; il cliente potrà continuare a lavorare per la sua azienda, ma dovrà dare priorità alle richieste degli sviluppatori. 
+
+Avere il cliente sul posto ha comunque dei __limiti__: quest'ultimo, infatti, deve essere scelto accuratamente per avere una persona rappresentativa di tutti gli stakeholder; il compito è forse impossibile.
+Se il cliente del posto non è disponibile, il team deve trovare dei modi per poter comunque avere un _punto di riferimento_: la tecnica Scrum introduce il concetto di __product owner__, un componente interno al team che si comporta come se fosse il cliente.
+
+Il cliente durante le iterazioni può __creare altre storie__ che a partire dall'iterazione successiva potrà inserire nel planning game; è inoltre disponibile per __test funzionali__.
 
 ### 12. Standard di codifica
+È necessario prevedere delle regole (__convenzioni comuni__) che specificano come scrivere il codice, per aumentare la leggibilità e quindi la comunicazione attraverso il codice.
 
-È necessario avere delle regole che specificano come va scritto il codice, con delle convenzioni comuni, questo per aumentare la comunicazione anche attraverso il codice.
-Vengono utilizzati dei tool per garantire queste convenzioni in modo date da non avere membri del team che non le rispettino, oppure questi strumenti possono anche fare un'autocorrezione del codice per far si che rispetti gli standard.
-Inoltre avere uno standard di codifica aiuta:
-- il refactoring
-- la programmazione a coppie
-- le proprietà collettive
+Spesso, si utilizzano degli __strumenti__ per garantire il rispetto delle convenzioni o autocorreggere il codice auutomaticamente.
 
-### 13. Just rules
+Avere uno standard di codifica aiuta inoltre:
+- il refactoring;
+- la programmazione a coppie;
+- la proprietà collettiva.
 
-Definiamo ora questa tredicesima regola "non canonica" che è stata aggiunta da alcuni.
-Nel caso in cui non si voglia seguire una regola deve esser fatto da tutto il team, e non solo dal singolo o dalla coppia, e poi alla fine dell'iterazione si fa un resoconto di come sono andate le cose e se nell'iterazione successiva sia il caso di reintrodurre la regola oppure no. In questo resoconto si può anche decidere di sospendere delle regole se si pensa che per il team non siano necessarie o non vadano bene, e successivamente possono essere reintrodotte. In conclusione si possono effettuare questo tipo di test per trovare il giusto equilibrio, e questa ultima regola mostra anche che l'XP non è una tecnica cosi rigida e rigorosa. Questo punto però non è condiviso da tutti e una motivazione la si può trovare nel fatto che tutti i punti sono interconnessi tra loro, e quindio non è possibile studiarli singolarmente senza considerate anche gli altri perchè non avrebbero senso in quanto hanno una forte dipendenza l'una dall'altra (non a caso nei punti sopra si può notare come si influenzino a vicenda).
+### 13. _They're just rules_
+L'ultima regola _"non è canonica"_, in quanto è stata aggiunta successivamente da alcuni agilisti.
 
-## Proviamo a raggruppare i punti nei 4 elementi del modello a cascata
-Non è un raggruppanmento oggettivo in quanto i diversi punti hanno tante sfaccetature, però un possibile raggruppamento potrebbe essere:
+Al termine di un'iterazione si fa un __resoconto__ e quindi decidere come comportarsi per l'iterazione successiva.
+Nel suddetto resoconto si può anche decidere di __sospendere regole__ se si pensa che non siano adatte per la situazione o per il team e successivamente possono essere reintrodotte. 
+La decisione di non seguire una regola deve essere sempre fatta a livello di __team__, non dal singolo o dalla coppia.
+
+In conclusione, l'XP non è una tecnica così rigida e rigorosa: ad ogni iterazione, si possono effettuare test per trovare il giusto equilibrio.
+
+Questo punto non però è condiviso da tutti e una motivazione la si può trovare nel fatto che tutti i punti sono interconnessi tra loro, e quindio non è possibile studiarli singolarmente senza considerate anche gli altri perchè non avrebbero senso in quanto hanno una forte dipendenza l'una dall'altra; non a caso nei punti sopra si può notare come si influenzino a vicenda.
+
+## XP e modello a cascata
+È possibile tentare di  raggruppare le diverse tecniche dell'eXtreme Programming nelle macrofasi descritte dal modello a cascata.
 
 - __Requirements__:
-    - I clienti fanni parte del team di sviluppo -> sono requirements viventi
-    - Consegne incrementali e pianificazioni continue -> c'è un'evoluzione del progetto
-- __Design__
-    - Una metafora come visione unificante di un progetto
-    - Refactoring -> il refactoring è design puro, attività molto utile per rendere possibile l'evolvibilità del software
-    - Presumere la semplicità
-- __Code__
-    - Programmazione a coppie
-    - proprietà collettiva
-    - Integrazione continua
-    - Standard di codifica
+    - i _clienti fanno parte del team di sviluppo_: requirements viventi;
+    - _consegne incrementali_ e pianificazioni continue: evoluzione del progetto.
+- __Design__:
+    - _metafora_ come visione unificante del progetto;
+    - _refactoring_: è design puro, molto utile per rendere possibile l'evolvibilità del software;
+    - presumere la _semplicità_.
+- __Code__:
+    - _programmazione a coppie_;
+    - _proprietà collettiva_;
+    - _integrazione continua_;
+    - _standard di codifica_.
 - __Test__
-    - Test di unità continuo (da scriversi prima del codice)
-    - test funzionale scritto dagli utenti
+    - _test di unità_ continuo (da scriversi prima del codice);
+    - _test funzionale_ scritto dagli utenti nelle user stories.
 
-Spike -> Sono dei prototipi, questa tecnica è utilizzata anche nell'XP per capire se ho compreso le specifiche, la tencnologia da utilizzare, e per capire come approcciarmi ai componenti esterni con cui devo dialogare. Questi prototipi vengono fatti, mostrati al cliente e poi vengono buttati.
+In XP è inoltre presente la nozione di _prototipo_ sotto il nome di ___spike___, ovvero programmi molto semplici creati per esplorare soluzioni potenziali.
+Sono utili per capire se ho compreso le specifiche, la tecnologia da utilizzare e l'approccio da avere con i componenti esterni con cui bisogna dialogare. 
+Questi prototipi vengono creati, mostrati al cliente e quindi scartati.
 
-## E la documentazione?
-La documentazione cartacea non è necessaria, il cliente e il compagno di peer programming lo sono, ma sopratutto è nel codice senza commenti (perchè usanto questo approccio dell'extreme programming i commenti nel codice non sono utilizzati), questo perchè abbiamo due cose fondamentali nel codice che sostituiscono la documentazione:
-- I test di unità che sono delle specifiche eseguibili, infatti li scrivo prima di fare il codice (prima dico cosa voglio tramite il test).
-- Il continuo refactoring consente di avere un codice estremamente leggibile, questo permette di non avere bisogno dei commenti (quindi i commenti non si mettono perchè non si deve sentierne il bisogno in quanto il refactoring ci semplifica la comprensione del codice). Però scrivere cose semplici tramite il refactoring in modo che si capiscano senza bisogno di commenti è molto complesso.
+## Documentazione
+La __documentazione__ cartacea __non è necessaria__: 
+il cliente, il compagno di peer programming e il codice _sono la documentazione_.
 
-### CRC cards (sistema)
-CRC card (class responsability and collaboration card) -> sono un altro modo per dire i metodi che rendo disponibile a chi è esterno (collaborazione) e i miei segreti cioè gli attributi e lo stato che inglobo dentro di me (responsabilità).
-Sono nate in ambiente didattico per spiegare l'object orientation, ma ora sono utilizzate da alciuni team agile per discutere di design, e il modo di utilizzarle è simile a quello del planning game.
-Aiutano a chiarire l'idea su una qualche parte del sistema, ma non persistono, dopo che sono state usate vengono butate.
+La documentazione è sostituita dal codice in quanto:
+- i __test di unità__ che sono delle _specifiche eseguibili_, infatti li scrivo prima di fare il codice (prima dico cosa voglio tramite il test);
+- il __continuo refactoring__ consente di avere un codice estremamente leggibile e quindi elimina il bisogno dei commenti.
+Scrivere codice semplice tramite refactoring in modo che sia facilmente comprensibile è in realtà molto complesso.
+
+### CRC cards
+Le __Class Responsibility and Collaboration cards__ permettono di rappresentare classi e le relazioni tra di esse.
+Nate in ambiente didattico per spiegare l'OOP, sono ora utilizzati da alcuni team agile per discutere di design e il modo di utilizzo è simile a quello del planning game.
+
+> Le carte CRC sono realizzate su piccole schede di carta o cartoncino. Ciascuna carta descrive una classe (o un oggetto) in modo sommario, indicando:
+> 
+> - Il nome della classe
+> - Le sue superclassi e sottoclassi (dove applicabile)
+> - Le sue responsabilità
+> - Il nome di altre classi con cui questa classe collabora per svolgere i compiti di cui è responsabile
+> - L'autore
+> 
+> L'uso di schede di piccole dimensioni ha lo scopo di limitare la complessità della descrizione, evitando che vengano riportate troppe informazioni di dettaglio. Serve anche a impedire che a una classe vengano assegnate troppe responsabilità. Il supporto cartaceo consente una serie di attività gestuali utili in fase di brainstorming, come piazzare le carte su un tavolo e spostarle, riorganizzarle, o anche eliminarle e sostituirle facilmente con altre nel corso della discussione. Il posizionamento delle carte su un tavolo può essere usato intuitivamente per rappresentare informazioni aggiuntive; per esempio, due carte possono essere parzialmente sovrapposte per indicare una relazione di stretta collaborazione, o una carta può essere posta sopra un'altra per indicare una relazione di controllo/supervisione.
+> 
+> _Da [Wikipedia](https://it.wikipedia.org/wiki/Carte_di_Class_Responsibility_Collaboration), l'enciclopedia libera (licenza CC BY-SA 3.0)_.
 
 ## Quando non utilizzare agile
 Back non esclude mai la possibilità di utilizzare agile, lui diceva che si può provare ad utilizzare questo approccio sempre (anche se in realtà non è sempre possibile "provare"), basta che vengano rispettati i 12 punti elencati sopra.
@@ -404,7 +505,7 @@ Quindi agile non si può usare quando:
 - Ci sono troppi stakeholders diversi in contrasto tra di loro.
 - Sistemi in cui la consegna incrementale non ha senso -> per esempio una centrale nuclere non posso consegnarla pezzo per pezzo.
 
-## Critiche all-extreme programming
+## Critiche
 Alcune critiche all'extreme programming fatte da meyer
 - Sottovalutazione dell'up-front, ovvero la sottovalutazione dell'approccio in cui penso al design prima di iniziare. Questa cosa nell'extreme programming non si verifica, infatti si inizia chiedendo al cliente di scrivere delle use story per l'iterazione che si sta per fare.
 - Sopravalutazione delle use stories, ovvero le use stories devono essere ben chiare e definite fin da subito
