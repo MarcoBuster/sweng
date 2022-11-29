@@ -496,25 +496,29 @@ Nate in ambiente didattico per spiegare l'OOP, sono ora utilizzati da alcuni tea
 > 
 > _Da [Wikipedia](https://it.wikipedia.org/wiki/Carte_di_Class_Responsibility_Collaboration), l'enciclopedia libera (licenza CC BY-SA 3.0)_.
 
-## Quando non utilizzare agile
-Back non esclude mai la possibilità di utilizzare agile, lui diceva che si può provare ad utilizzare questo approccio sempre (anche se in realtà non è sempre possibile "provare"), basta che vengano rispettati i 12 punti elencati sopra.
-Quindi agile non si può usare quando:
-- Siamo in ambienti che non permettono di applicare i 12 punti -> per esempio quando si lavora con il team dislocato in luoghi differenti
-- Quando abbiamo barriere di tipo manageriale, ovvero team troppo numerosi
-- barriere tecnologiche, ovvero se abbiamo l'obbligo di utilizzare una macchina specifica condivisa da tutte le coppie per i test, e questo ostacola lìintegrazione continua.
-- Ci sono troppi stakeholders diversi in contrasto tra di loro.
-- Sistemi in cui la consegna incrementale non ha senso -> per esempio una centrale nuclere non posso consegnarla pezzo per pezzo.
+## Quando non utilizzare XP
+Back non esclude mai la possibilità di utilizzare l'XP: secondo lui diceva può provare ad utilizzare questo approccio sempre (anche se in realtà non è sempre possibile "provare"), a patto che vengano rispettati i 12 punti elencati sopra.
+
+Da questo possiamo concludere che Agile non si può usare quando:
+- l'__ambiente__ non permette l'applicazione dei 12 punti, come per esempio succede con i team dislocati in luoghi diversi;
+- ci sono __barriere managieriali__, come team troppo numerosi;
+- ci sono __barriere tecnologiche__, come quando per esempio non è possibile utilizzare una macchina specifica condivisa da tutte le coppie per i test, ostacolando l'integrazione continua.
+- ci sono __troppi stakeholders__ diversi e in contrasto tra loro;
+- situazioni in cui __la consegna incrementale non ha senso__, come per una _centrale nucleare_ (vero [Dyatlov](https://en.wikipedia.org/wiki/Anatoly_Dyatlov)?).
 
 ## Critiche
-Alcune critiche all'extreme programming fatte da meyer
-- Sottovalutazione dell'up-front, ovvero la sottovalutazione dell'approccio in cui penso al design prima di iniziare. Questa cosa nell'extreme programming non si verifica, infatti si inizia chiedendo al cliente di scrivere delle use story per l'iterazione che si sta per fare.
-- Sopravalutazione delle use stories, ovvero le use stories devono essere ben chiare e definite fin da subito
-- Mancata evidenziazione della dipendenza tra uses stories. Noi abbiamo detto che le use stories devono essere indipendenze, però nel design classico si ha una vista che chiarisce tutte le dipendenze tra i diversi punti del sistema da realizzare.
-- TDD può portare ad una visione troppo ristretta
-- Cross functional team, ovvero se i team sono troppo disomogenei (ovvero quando ci tante singole figure specializzate in un campo e queste devono collaborare in coppia) ci possono essere dei problemi.
+Di seguito sono elencate alcune critiche all'eXtreme Programming fatte da Meyer (già pluricitato in questo documento).
 
-Tutti questi punti cercano di evidenziare la mancanza di approfondimento e chiarezza dell'extreme programming su alcuni aspetti dell'approccio ad un lavoro fornito da un cliente.
-Qui i punti sono solo enunciati, se si vuole approfondire c'è il libro di meyer.
+- __Sottovalutazione dell'up-front__, ovvero la progettazione iniziale prima di partire. Per Meyer, a parte in casi eccezionali (sviluppatori o manager particolarmente bravi) la progettazione non può essere fatta in modo totalmente incrementale. Nell'esperienza dei tesisti e colleghi di dottorando del prof. Bellettini questo problema non è così presente, ma potrebbe trattarsi di _survivorship bias_.
+- __Sopravalutazione delle user stories__: secondo Meyer sono troppo specifiche per sostituire i requisiti.
+- __Mancata evidenziazione delle dipendenze tra user stories__. 
+Le _user stories_ dovrebbero essere indipendenti tra loro, ma questo non è quasi mai possibile; nel design classico si utilizzano i diagrammi di Gantt per chiarire tutte le dipendenze tra i diversi punti del sistema da realizzare.
+- Il __TTD può portare ad una visione troppo ristretta__.
+- __Cross functional team__: se i team sono troppo disomogenei, ovvero ci sono tante singole figure specializzate in un campo e queste devono collaborare in coppia, ci possono essere dei problemi.
+
+I punti di cui sopra cercano di evidenziare la mancanza di approfondimento e chiarezza dell'XP su alcuni aspetti dell'approccio ad un lavoro fornito da un cliente.
+
+È consigliata la lettura del libro di Meyer.
 
 ## Mesi uomo
 I manager pensano che la stima del tempo in mesi uomo sia graficata come un ramo di iperbole, ovvero che possibile aumentare il nuermo di uomini per diminuire il tempo stimato senza considerare i tempi di overhead, ovvero tutto il tempo impiegato per la comunicazione e tutto ciò che non è l'implementazione. Questo ovviamente non è vero, i mesi uomo non sono una metrica valida, sono utili solo a posteriori per capire se un certo approccio ad un problema si è dimostrato valido.
