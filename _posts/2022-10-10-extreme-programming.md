@@ -409,35 +409,52 @@ In conclusione, l'XP non è una tecnica così rigida e rigorosa: ad ogni iterazi
 Questo punto non però è condiviso da tutti e una motivazione la si può trovare nel fatto che tutti i punti sono interconnessi tra loro, e quindio non è possibile studiarli singolarmente senza considerate anche gli altri perchè non avrebbero senso in quanto hanno una forte dipendenza l'una dall'altra; non a caso nei punti sopra si può notare come si influenzino a vicenda.
 
 ## XP e modello a cascata
-Non è un raggruppanmento oggettivo in quanto i diversi punti hanno tante sfaccetature, però un possibile raggruppamento potrebbe essere:
+È possibile tentare di  raggruppare le diverse tecniche dell'eXtreme Programming nelle macrofasi descritte dal modello a cascata.
 
 - __Requirements__:
-    - I clienti fanni parte del team di sviluppo -> sono requirements viventi
-    - Consegne incrementali e pianificazioni continue -> c'è un'evoluzione del progetto
-- __Design__
-    - Una metafora come visione unificante di un progetto
-    - Refactoring -> il refactoring è design puro, attività molto utile per rendere possibile l'evolvibilità del software
-    - Presumere la semplicità
-- __Code__
-    - Programmazione a coppie
-    - proprietà collettiva
-    - Integrazione continua
-    - Standard di codifica
+    - i _clienti fanno parte del team di sviluppo_: requirements viventi;
+    - _consegne incrementali_ e pianificazioni continue: evoluzione del progetto.
+- __Design__:
+    - _metafora_ come visione unificante del progetto;
+    - _refactoring_: è design puro, molto utile per rendere possibile l'evolvibilità del software;
+    - presumere la _semplicità_.
+- __Code__:
+    - _programmazione a coppie_;
+    - _proprietà collettiva_;
+    - _integrazione continua_;
+    - _standard di codifica_.
 - __Test__
-    - Test di unità continuo (da scriversi prima del codice)
-    - test funzionale scritto dagli utenti
+    - _test di unità_ continuo (da scriversi prima del codice);
+    - _test funzionale_ scritto dagli utenti nelle user stories.
 
-Spike -> Sono dei prototipi, questa tecnica è utilizzata anche nell'XP per capire se ho compreso le specifiche, la tencnologia da utilizzare, e per capire come approcciarmi ai componenti esterni con cui devo dialogare. Questi prototipi vengono fatti, mostrati al cliente e poi vengono buttati.
+In XP è inoltre presente la nozione di _prototipo_ sotto il nome di ___spike___, ovvero programmi molto semplici creati per esplorare soluzioni potenziali.
+Sono utili per capire se ho compreso le specifiche, la tecnologia da utilizzare e l'approccio da avere con i componenti esterni con cui bisogna dialogare. 
+Questi prototipi vengono creati, mostrati al cliente e quindi scartati.
 
 ## Documentazione
-La documentazione cartacea non è necessaria, il cliente e il compagno di peer programming lo sono, ma sopratutto è nel codice senza commenti (perchè usanto questo approccio dell'extreme programming i commenti nel codice non sono utilizzati), questo perchè abbiamo due cose fondamentali nel codice che sostituiscono la documentazione:
-- I test di unità che sono delle specifiche eseguibili, infatti li scrivo prima di fare il codice (prima dico cosa voglio tramite il test).
-- Il continuo refactoring consente di avere un codice estremamente leggibile, questo permette di non avere bisogno dei commenti (quindi i commenti non si mettono perchè non si deve sentierne il bisogno in quanto il refactoring ci semplifica la comprensione del codice). Però scrivere cose semplici tramite il refactoring in modo che si capiscano senza bisogno di commenti è molto complesso.
+La __documentazione__ cartacea __non è necessaria__: 
+il cliente, il compagno di peer programming e il codice _sono la documentazione_.
 
-### CRC cards (sistema)
-CRC card (class responsability and collaboration card) -> sono un altro modo per dire i metodi che rendo disponibile a chi è esterno (collaborazione) e i miei segreti cioè gli attributi e lo stato che inglobo dentro di me (responsabilità).
-Sono nate in ambiente didattico per spiegare l'object orientation, ma ora sono utilizzate da alciuni team agile per discutere di design, e il modo di utilizzarle è simile a quello del planning game.
-Aiutano a chiarire l'idea su una qualche parte del sistema, ma non persistono, dopo che sono state usate vengono butate.
+La documentazione è sostituita dal codice in quanto:
+- i __test di unità__ che sono delle _specifiche eseguibili_, infatti li scrivo prima di fare il codice (prima dico cosa voglio tramite il test);
+- il __continuo refactoring__ consente di avere un codice estremamente leggibile e quindi elimina il bisogno dei commenti.
+Scrivere codice semplice tramite refactoring in modo che sia facilmente comprensibile è in realtà molto complesso.
+
+### CRC cards
+Le __Class Responsibility and Collaboration cards__ permettono di rappresentare classi e le relazioni tra di esse.
+Nate in ambiente didattico per spiegare l'OOP, sono ora utilizzati da alcuni team agile per discutere di design e il modo di utilizzo è simile a quello del planning game.
+
+> Le carte CRC sono realizzate su piccole schede di carta o cartoncino. Ciascuna carta descrive una classe (o un oggetto) in modo sommario, indicando:
+> 
+> - Il nome della classe
+> - Le sue superclassi e sottoclassi (dove applicabile)
+> - Le sue responsabilità
+> - Il nome di altre classi con cui questa classe collabora per svolgere i compiti di cui è responsabile
+> - L'autore
+> 
+> L'uso di schede di piccole dimensioni ha lo scopo di limitare la complessità della descrizione, evitando che vengano riportate troppe informazioni di dettaglio. Serve anche a impedire che a una classe vengano assegnate troppe responsabilità. Il supporto cartaceo consente una serie di attività gestuali utili in fase di brainstorming, come piazzare le carte su un tavolo e spostarle, riorganizzarle, o anche eliminarle e sostituirle facilmente con altre nel corso della discussione. Il posizionamento delle carte su un tavolo può essere usato intuitivamente per rappresentare informazioni aggiuntive; per esempio, due carte possono essere parzialmente sovrapposte per indicare una relazione di stretta collaborazione, o una carta può essere posta sopra un'altra per indicare una relazione di controllo/supervisione.
+> 
+> _Da [Wikipedia](https://it.wikipedia.org/wiki/Carte_di_Class_Responsibility_Collaboration), l'enciclopedia libera (licenza CC BY-SA 3.0)_.
 
 ## Quando non utilizzare agile
 Back non esclude mai la possibilità di utilizzare agile, lui diceva che si può provare ad utilizzare questo approccio sempre (anche se in realtà non è sempre possibile "provare"), basta che vengano rispettati i 12 punti elencati sopra.
