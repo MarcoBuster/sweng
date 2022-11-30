@@ -5,85 +5,117 @@ date:   2022-10-19 14:45:00 +0200
 toc: true
 ---
 
-# Git workflow
+# Git Workflow
 
-In Git flow, c'è differenziazione tra i tipi di branch. 
-Ci sono delle operazioni "guidate".
+In Git è praticamente impossibile non utilizzare i branch. 
+C'è __libertà completa__ sul loro utilizzo: tutti i branch hanno pari importanza, chiunque può crearli e nominarli in qualunque modo.
 
-## master e develop
+Lavorando in un team, è quindi necessario stabilire delle politiche sui tipi e i nomi di branch, in modo da organizzare il lavoro al meglio. 
 
-Ci sono due rami con _"vita infinita"_:
+## GitFlow
+
+GitFlow è una tecnica di organizzazione dei branch e della repository.
+I branch sono differenziati in tipi e possono avere vita limitata.
+Le operazioni di creazione e _merge_ di branch sono guidate.
+
+È disponibile online una [cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) molto interessante, ma non esaustiva.
+
+I branch e i tipi di branch previsti da GitFlow sono:
+- branch master;
+- branch develop;
+- feature branches;
+- release branches;
+- hotfix branches.
+
+## develop e master
+
+{% responsive_image path: 'assets/06_gitflow-develop-master.png' %}
+
+In GitFlow, ci sono due rami con _"vita infinita"_:
 - __master__: contiene le versioni _"stabili e pronte alla consegna"_;
-- __develop__: è il ramo su cui viene integrata la versione comune in tutti i gruppi.
+- __develop__: è il ramo di integrazione in cui vengono integrati i contribuiti di tutti i gruppi; è anche il punto di partenza degli altri tipi di branch.
 
-Ad ogni rilascio il contenuto di develop va in master.
+Al termine di ogni rilascio il contenuto di develop viene mergiato in master.
 Dal develop vengono rilasciate le _versioni notturne_.
 
 ## feature branch
 
-Possono partire solo dal develop e non da nessun altro branch
+{% responsive_image path: 'assets/06_gitflow-feature.png' width: "400" %}
 
+I feature branch __possono partire solo dal branch develop__ e non da nessun altro branch.
+
+Per iniziare una feature...
 ```bash
-$ git checkout develop
-$ git branch feat1
-$ git checkout feat1
+$ git checkout develop                  # entra nel branch develop
+$ git branch feature/myFeature          # crea un branch di feature
+$ git checkout feature/myFeature        # entra nel branch appena creato
 ```
 
-Dopo aver finito la feature, posso...
+Al termine della feature, integro:
 
 ```bash
-$ git checkout develop
-$ git merge --no-ff feat1
-$ git branch -d feat1
+$ git checkout develop                  # entra nel branch develop
+$ git merge --no-ff feature/myFeature   # mergia il branch di feature
+$ git branch -d feature/myFeature       # elimina il branch di feature
 ```
+### -\-no-fast-forward
 
-No fast forward nel merge in modo da distinguere il punto di inizio e il punto di fine di una feature.
+{% responsive_image path: 'assets/06_gitflow-feature-ff.png' %}
 
-Lo squash è opinabile, se non lo si fa si mantengono i commit originali. 
+Di default, Git risolve il merge di due branch con la stessa storia banalmente eseguendo il _fast forward_, ovvero spostando il puntatore del branch di destinazione all'ultimo commit del branch entrante.
+
+In GitFlow è preferibile esplicitamente __disabilitare il fast forward__ (con l'opzione `-\-no-ff`) durante il merge in develop in quanto è più facile distinguere il punto di inizio e il punto di fine di una feature.
+
+### Squashing
+
+Usando Git è anche possibile eseguire in fase di merge lo _squashing_ dei commit, ovvero la fusione di tutti i commit del branch entrante in uno solo. 
+Questa operazione è utile per migliorare la leggibilità della history dei commit su branch grossi (come develop o master) ma il suo uso in GitFlow è opinabile: il prof. Bellettini consiglia di non utilizzarlo, in modo da mantenere i commit originali.
 
 ## Release
 
-La release è lo freezing delle nuove funzionalità.
-L'insieme delle funzionalità che vado a rilasciare sono quelle presenti su develop nel momento in cui faccio `start-release`.
+{% responsive_image path: 'assets/06_gitflow-release.png' %}
 
+Lo scopo di creare una release è __cristalizzare l'insieme delle funzionalità__ presente sul branch develop all'inizio di essa dedicandosi solo alla sistemazione degli errori o alle attività necessarie per il deploy (modifica del numero di versione, ...). 
+L'insieme delle funzionalità rilasciate è quello presente sul branch develop al momento di inizio di una release 
+
+I bug fix possono essere ri-mergiati in develop, anche utilizzando la funzionalità __cherry-pick__ di Git.
+
+Per iniziare una nuova release è sufficiente creare un nuovo branch da develop:
 ```bash
-$ git checkout -b ver develop
+$ git checkout -b release/v1.2.3 develop
 ```
 
-Viene creato quindi un branch di release in cui vengono stabilizzate le robe presenti nel develop.
-
-Alla fine della rilascio...
+Al termine della creazione della release, occorre mergiarla in master e in develop. 
 ```bash
-$ git checkout master
-$ git merge --no-ff release-ver
-$ git tag -a ver
-$ git checkout develop
-$ git merge --no-ff release-ver
-$ git branch -d release-ver
+$ git checkout master               # entra nel branch master
+$ git merge --no-ff release/v1.2.3  # mergia la feature
+$ git tag -a v1.2.3                 # tagga sul branch master il rilascio
+$ git checkout develop              # entra nel branch develop
+$ git merge --no-ff release/v1.2.3  # mergia la feature
+$ git branch -d release/v1.2.3      # elimina il branch della feature
 ```
 
-La differenza tra tag e branch è che il tag rimane costante sul commit, mette il branch va avanti tra commit e commit.
+La differenza tra tag e branch è che il __tag è puntatore costante al commit__, mette il branch va avanti tra commit e commit.
 
-Un'altra differenza tra release e feature è che posso avere solo una release.
+Un'altra differenza tra release e feature è che posso avere solo una release aperta in un dato istante.
 
 ## Hotfix
 
-Riparazione veloce di difetti urgenti senza aspettare la prossima release.
-
-Non parto dal develop, ma dall'ultima (o da una) versione rilasciata.
+Un hotfix è una riparzione veloce di difetti urgenti senza dover aspettare la prossima release.
+È l'unico caso per cui non si parte da develop, ma dall'ultima - o una particolare - versione rilasciata su master.
 
 ```bash
-$ git checkout -b ver master
+$ git checkout -b hotfix/CVE-123 master # crea un branch di hotfix
 ```
 
 Quando lo chiudo:
 ```bash
-$ git checkout master
-$ git merge --no-ff ver
-$ git tag -a ver
-$ git checkout develop
-$ git merge --no-ff ver
-$ git branch -d ver
+$ git checkout master                   # entra nel branch master
+$ git merge --no-ff hotfix/CVE-123      # mergia l'hotfix
+$ git tag -a hotfix/CVE-123             # tagga sul branch master il rilascio
+$ git checkout develop                  # entra nel branch develop
+$ git merge --no-ff hotfix/CVE-123      # mergia l'hotfix
+$ git branch -d hotfix/CVE-123          # elimina il branch di hotfix
 ```
 
 ## Limiti
