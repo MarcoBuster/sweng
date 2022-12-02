@@ -122,17 +122,57 @@ $ git branch -d hotfix/CVE-123          # elimina il branch di hotfix
 
 Quali sono i limiti di git presentato così?
 
-### Review
-`git-request-pull`: genera un sommario delle modifiche pendenti.
+Git e GitFlow come sono stati esposti presentano numerosi vincoli, tra cui:
+- la __mancanza di autorizzazione granulare__ oltre il primo livello di accesso;
+- l'__assenza di code review__.
 
-Non è la pull request, ma una request pull. 
-È un modo che aveva pensato Linus Torvalds per formattare la proposta di modifiche e inviarla su una mailing list.
+### git request-pull - generates a summary of pending changes
+
+Il tool `git request-pull` serve per formattare la propria proposta di modifiche e inviarla a una mailing list, chiedendo di pullarle.
 
     git request-pull [-p] <start> <URL> [<end>]
 
-Diviso per autore mostra i commenti dei commit creati, file per file le modifiche fatte.
-È una formattazione a 'summary' di cosa si sta cercando di pullare.
-Molto più 'peer to peer' del modello 'pull request' semi-centralizzato attuale.
+Per esempio, i contributori Linux usano questo strumento per chiedere a Linus Torvalds di unire le modifiche nella sua versione.
+L'output generato mostra file per file le modifiche fatte e i commenti dei commit creati, raggruppati per autore.
+
+```
+$ git branch --show-current
+lezioni/06
+$ git request-pull master git@gitlab.di.unimi.it:silab-gang/sweng.git lezioni/06
+The following changes since commit 7a75b799fa0247590cb3f6d545c5b773cdf07f4a:
+
+  Merge branch 'lezioni/03' into 'master' (2022-11-29 16:23:53 +0000)
+
+are available in the Git repository at:
+
+  git@gitlab.di.unimi.it:silab-gang/sweng.git lezioni/06
+
+for you to fetch changes up to 2a9cfd798168b374e8aa33999aafee3e5fcd537c:
+
+  Merge branch 'master' into marco/06-integrazione (2022-11-30 14:49:27 +0100)
+
+----------------------------------------------------------------
+Marco Aceti (3):
+      Add lesson notes
+      Integrate and refactor notes until 'Limiti'
+      Merge branch 'master' into marco/06-integrazione
+
+ _posts/2022-10-19-git-workflow.md    | 250 ++++++++++++++++++++++++++++++++++
+ assets/06_gitflow-develop-master.png | Bin 0 -> 3098301 bytes
+ assets/06_gitflow-feature-ff.png     | Bin 0 -> 2512627 bytes
+ assets/06_gitflow-feature.png        | Bin 0 -> 1774044 bytes
+ assets/06_gitflow-hotfix.png         | Bin 0 -> 131372 bytes
+ assets/06_gitflow-release.png        | Bin 0 -> 4477425 bytes
+ 6 files changed, 250 insertions(+)
+ create mode 100644 _posts/2022-10-19-git-workflow.md
+ create mode 100644 assets/06_gitflow-develop-master.png
+ create mode 100644 assets/06_gitflow-feature-ff.png
+ create mode 100644 assets/06_gitflow-feature.png
+ create mode 100644 assets/06_gitflow-hotfix.png
+ create mode 100644 assets/06_gitflow-release.png
+```
+
+Questo modello è molto più _peer to peer_ delle pull request proposte dai sistemi semi-centralizzati spiegati in seguito.
 
 # Hosting centralizzato
 
