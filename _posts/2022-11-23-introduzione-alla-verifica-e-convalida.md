@@ -26,15 +26,6 @@ Più in generale, possiamo dire che se nella verifica la parte di formalizzazion
 
 
 
-
-
-
-- Convalida
-    - Confronto di software con i requisiti (informali), quello che il cliente ha in mente
-    - è più difficile da testare: spesso si va a vedere l’affidabilità del sw, anche a costo di scostarsi un attimo dall’idea precisa del cliente
-- Verifica
-    - Confronto del sw con le specifiche (formali) prodotte dall’analista
-    - Tipicamente è difficile scrivere le specifiche, ma più facili da testare
     
 
 Abbiamo quindi bisogno di terminologia comune (Con lo stampino di IEEE):
