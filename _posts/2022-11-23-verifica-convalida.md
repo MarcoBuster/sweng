@@ -41,6 +41,8 @@ Requirements and Evaluation (SQuaRE) — Guide to SQuaRE.4.20.
 >2. an event in which a system or system
 component does not perform a required function within specified limits
 
+>_NOTE: A failure may be produced when a fault is encountered_
+
 #### Esempio di malfunzionamento:
 ```java
 static int radoppia (int par) {
@@ -79,7 +81,7 @@ Ad esempio:
 >_NOTE: The fault tolerance discipline distinguishes between a human action (a mistake), its manifestation (a hardware
 or software fault), the result of the fault (a failure), and the amount by which the result is incorrect (the error)._
 
-### Esempio: il caso Ariane 5
+### Esempio notevole: il caso Ariane 5
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PK_yguLapgA?start=67" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -95,33 +97,55 @@ La variabile incriminata non veniva protetta per gli _"ampi margini di sicurezza
 
 Il comportamento della variabile non era mai stato analizzato con i dati relativi alla traiettoria da seguire.
 
-## Tecniche
+## Tecniche di verifica o convalida: statiche vs dinamiche
 
-statiche vs dinamiche.
+Le tecniche statiche sono basate sull'analisi degli elementi sintattici del codice, ad esempio attraverso l'uso di metodi formali, analisi del data flow o modelli statistici.
+
+Diversamente le tecniche dinamiche sono basate sull'esecuzione del programma eseguibile, quindi ad esempio attraverso pratiche di testing e debugging.
+
+In generale è più facile determinare tecniche dinamiche mentre le tecniche statiche sono più difficili da ideare. Per contro, una volta ideate le tecniche statiche sono più veloci nell'analizzare il codice e più complete dato che le tecniche dinamiche lavorano sui possibili stati del programma (ma gli stati possibili possono essere infiniti).
+
+Come possiamo confrontare queste tecniche?
+
+{% responsive_image path: 'assets/12_Classificazione-tecniche-di-verifica-e-convalida.png' %}
+
+In questa immagine possiamo osservare una piramide immaginaria a 3 dimensioni che riassume dove si posizionano le tecniche di verifica e convalida le une con le altre. Possiamo osservare come la cima della piramide rappresenterebbe il punto ideale a cui tendere, in cui nel caso mi trovassi potrei dire che posso verificare perfettamente una proprietà arbitraria attraverso una prova logica (dal lato statico) o una ricerca esaustiva su tutti gli stati del problema (dal lato dinamico).
+
+Questa cima è praticamente impossibile da raggiungere per la stragrande maggioranza dei problemi che siamo interessati a risolvere. Dobbiamo scegliere da quale versante iniziare la scalata della piramide: lato blu (ovvero con un approccio dinamico) o lato verde (con un approccio statico)?
+
+Più siamo posizionati in basso, più siamo vicini alla degnerazione in:
+- Estrema _semplificazione delle proprietà_ (in basso a sinistra)
+    - Se ad esempio voglio dimostrare che sto usando un puntatore in maniera corretta e nel farlo sto semplicemente controllando che non valga `null`, sto _cambiando_ la proprietà che voglio come obiettivo (controllare che un puntatore non valga `null` __non significa che__ lo stia usando nel modo corretto)
+- Estrema _inaccuratezza pessimistica_ (in basso al centro)
+    - È dovuta all'approccio pessimistico che ha come mantra:
+    > _"Se non riesco a dimostrare l'assenza di un problema assumo che il problema sia presente"_
+    - Si manifesta ad esempio nei compilatori quando non riescono a dimostrare che una determinata funzione ritorni un valore per tutti i possibili cammini (magari perchè i return sono compresi in un costrutto ```if  else if```).
+- Estrema _inaccuratezza ottimistica_ (in basso a sinistra)
+    - È dovuta all'approccio ottimistico che ha come mantra:
+    > _"Se non riesco a dimostrare la presenza di un problema assumo che questo non sia presente"_
+    - Possibile dervi degli approcci legati al testing: con il testing sto cercando dei malfunzionamenti, se a seguito dei test non trovo malfunzionamenti allora assumo che il programma funzioni correttamente.
 
 ### Metodi formali
 
-Tento di dimostrare l'_assenza_ di anomalie nel prodotto finali.
+L'approccio dei metodi formali tenta di dimostrare l'_assenza_ di anomalie nel prodotto finali.
 Posso utilizzare, per esempio:
-- analisi di dataflow (?);
+- analisi di dataflow
 - dimostrazione di correttezza delle specifiche logiche.
 
-Principio dell'__inaccuratezza pessimistica__: se non si riesce a dimostrare l'assenza di un problema allora non va bene. 
-Forse un po' troppo pessimista?
+Soffrono di _inaccuratezza pessimistica_
 
 ### Testing
 
-Il testing è l'insieme delle tecniche che si prefiggono di rilevare malfunzionamenti. 
+Il testing è l'insieme delle tecniche che si prefiggono di rilevare malfunzionamenti o, nel caso questi non vengano trovati, aumentare la fiducia nel prodotto.
 
-Non può dimostrare la correttezza ma solo aumentare la fiducia.
+Attraverso il testing non può dimostrare la correttezza ma solo aumentare la fiducia.
 
 Esistono diversi tipi di testing:
-- __white box__: abbiamo accesso al codice da testare e cercare anomalie;
-- __black box__: non abbiamo accesso al codice ma è possibile testare e cercare malfunzionamenti tramite le interfacce esterne;
-- __gray box__: non abbiamo accesso al codice ma solo un'idea dell'implementazione ad alto livello; per esempio, in un modello MVC ci possiamo aspettare chiamate al database.
+- __white box__: abbiamo accesso al codice da testare e possiamo cercare anomalie guardandolo da un punto di vista interno.
+- __black box__: non abbiamo accesso al codice ma è possibile testare e cercare malfunzionamenti tramite le interfacce esterne.
+- __gray box__: non abbiamo accesso al codice ma solo un'idea dell'implementazione ad alto livello. Per esempio in un modello Model View Controller ci possiamo aspettare che certe stimolazioni portino a chiamate al database mentre altre no.
 
-Principio dell'__inaccurattezza ottimistica__: se non si riesce a dimostrare la presenza di problemi allora va bene.
-Forse un po' troppo ottimista?
+L'approccio del testing soffre di _inaccuratezza pessimistica_
 
 ### Debugging
 
