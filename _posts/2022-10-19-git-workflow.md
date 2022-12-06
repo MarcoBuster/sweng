@@ -176,54 +176,59 @@ Questo modello è molto più _peer to peer_ delle pull request proposte dai sist
 
 # Hosting centralizzato
 
-Permettono di superare i limiti della decentralizzazione.
+Un hosting centralizzato Git è un servizio che fornisce una repository centrale per i progetti Git, permettendo di superare i limiti della decentralizzazione senza rinunciare a molti suoi vantaggi.
 
 Inventano nuovi meccanismi, provando a imporre nuovi workflow (GitHub Flow, GitLab Flow, ...).
+Inoltre, molti servizi di hosting centralizzati offrono funzionalità aggiuntive, come la possibilità di eseguire il "fork" di un repository, inviare _pull request_ per le modifiche e di utilizzare strumenti di continuous integration (CI) per testare automaticamente le modifiche apportate al codice.
 
 ## Fork
 
-Risolve un primo problema di autorizzazione: permette di mantenere legami tra repository su sito di hosting ma con owner e autorizzazioni diversi.
+Il "fork" di un repository Git è una __copia del repository originale__ che viene creata su un account di hosting diverso dal proprietario originale. Questo permette a un altro sviluppatore di creare una copia del repository e di lavorare su di essa senza influire sul lavoro del proprietario originale. In questo modo, è possibile mantenere una connessione tra i due repository e condividere facilmente le modifiche apportate.
 
-Ottimizza la condivisione dello spazio degli oggetti.
+L'utilizzo del fork __risolve__ un primo problema di __autorizzazione__ poiché permette a un altro sviluppatore di lavorare su una copia del repository senza dover ottenere le autorizzazioni del proprietario originale.
 
-Praticamente nel 2020 hanno bannato youtube-dl da Github
-Dei geni hanno forkato la repo dei DMCA (reclami copyright) 
+La maggioranza delle piattaforme di hosting centralizzato __ottimizza__ la condivisione dello spazio degli oggetti, utilizzando un'unica repository fisica per tutti i fork.
+Ci sono delle problematiche si sicurezza: è difficile per la piattaforma stabilire in quale fork si trova l'oggetto ([esempio sul kernel Linux](https://github.com/torvalds/linux/commit/b4061a10fc29010a610ff2b5b20160d7335e69bf)). 
 
 ## Review / Pull request
 
 <!-- aggiungere img schema -->
 
-Permette interazioni lasche tra sviluppatori mediante sito di hosting.
+La funzionalità di review/pull request permette di facilitare le interazioni tra gli sviluppatori utilizzando il sito di hosting come luogo comune per la discussione informale e la revisione delle modifiche.
 
-Nella PR si può commentare e discutere in modo informale. 
-
-Ci possono usare dei tool, spesso integrati nella piattaforma, di CI per testare/controllare automaticamente la richiesta.
-
-C'è un sistema che permette di interagire e creare delle basi di conoscenza anche tra sconosciuti in modo da poter implementare la feature.
+Inoltre, molti servizi di hosting centralizzati offrono strumenti di continuous integration (CI) che possono essere utilizzati per testare automaticamente le modifiche proposte nella pull request
 
 # Gerrit
 
 Nasce interno a Google, per sviluppare progetti interni.
 
-Si basa su un meccanismo di _peer review_: non c'è una persona fissa che è l'unico maintainer di una zona, ma tutti fanno review. 
+Gerrit è un __sistema di review__ del codice sviluppato internamente da Google per gestire i progetti interni; si basa sul concetto di "peer review": tutti gli sviluppatori sono autorizzati a fare review delle proposte di modifica di qualsiasi zona di codice.
 
-- I developer possono sottoporre proposte di cambiamento;
-- I reviewer possono validare le suddette proposte;
-
-Una volta che ci sono _tot_ review positivi, la patch approda su un git server _autorativo_ in cui tutti hanno permesso solo di scrittura.
+Nel processo di review di Gerrit, i __developer__ possono sottoporre proposte di cambiamento utilizzando un sistema di "patch" che descrive le modifiche apportate al codice. 
+I __reviewer__, ovvero gli altri sviluppatori del progetto, possono quindi esaminare le patch e decidere se accettarle o rifiutarle. 
+Una volta che una patch ha ricevuto un numero sufficiente di review positivi, viene automaticamente integrata nel __repository principale autorativo__ in cui tutti hanno accesso in sola lettura.
 
 Gerrit obbliga a strutturare le modifiche (changeset) in un unico commit (squash) al momento dell'accettazione; al momento della review rimangono le versioni singole. 
 
 ## Verifier
 
-Scarica la patch, la compila, controlla che ci siano tutti funzioni, controlla che tutto funzioni come dovrebbe.
+Scarica la patch, la compila, esegue i test, controlla che ci siano tutte le funzioni, controlla che tutto funzioni come dovrebbe.
+
+Una volta terminato il proprio processo, approva le modifiche votandole positivamente.
+Solitamente sono necessari 1 o 2 voti per procedere.
 
 ## Approver
 
-Se sei assegnato come approver a una modifica, devi determinare:
-- ...
+Una volta verificata, una proposta di modifiche deve essere anche approvata. 
+L'approvatore deve determinare la risposta alle seguenti domande riguardo la proposta di modifiche:
+- è valida per lo scopo del progetto?
+- è valida per l'architettura del progetto?
+- introduce nuove falle nel design che potrebbero causa problemi in futuro?
+- segue le _best pratices_ stabilite dal progetto?
+- è un buon modo per implementare la propria funzione?
+- introduce rischi per la sicurezza o la stabilità? 
 
-Se approvi la modifica, la puoi approvare con LGTM (_"Looks Good To Me"_).
+Se approva la modifica, allora può scrivere LGTM (_"Looks Good To Me"_).
 
 # Strumenti dell'opensource
 
