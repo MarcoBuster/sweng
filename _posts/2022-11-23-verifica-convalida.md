@@ -338,3 +338,30 @@ Si noti come il criterio di copertura delle decisioni implichi il criterio di co
 Riprendendo l'esempio precedente, se volessi applicare il criterio di copertura delle decisioni dovrei utilizzare almeno due casi di test, ad esempio $<3,7>$ e $<0,5>$, che se compresi nello stesso test mi restituiscono una copertura delle decisioni pari al 100%.
 
 Ma non tutti i malfunzionamenti vengono trovati, ad esempio a riga 6 è possibile che ad x sia assegnato un valore tale per cui se sommo 10 ottengo un overflow.
+
+### Criterio di copertura delle condizioni
+
+Un test T soddisfa il criterio di _copertura delle condizioni_ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T
+
+Similmente ai test precedenti, la metrica è la percentuale delle condizioni che sono state rese sia vere che false su quelle per cui è possibile farlo.
+
+Si noti come questo criterio non implichi i criteri precedenti
+
+#### Esempio
+
+Modifichiamo un po' l'esempio usato fino ad'ora:
+
+```c
+void main(){
+    float x,y;
+    read(x);
+    read(y);
+    if (x!=0)
+        x = x+10;
+    y = y/x;
+    write(x);
+    write(y);
+}
+```
+
+{% responsive_image path: 'assets/12_flowChart-2.png' %}
