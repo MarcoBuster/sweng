@@ -338,3 +338,58 @@ Si noti come il criterio di copertura delle decisioni implichi il criterio di co
 Riprendendo l'esempio precedente, se volessi applicare il criterio di copertura delle decisioni dovrei utilizzare almeno due casi di test, ad esempio $<3,7>$ e $<0,5>$, che se compresi nello stesso test mi restituiscono una copertura delle decisioni pari al 100%.
 
 Ma non tutti i malfunzionamenti vengono trovati, ad esempio a riga 6 è possibile che ad x sia assegnato un valore tale per cui se sommo 10 ottengo un overflow.
+
+### Criterio di copertura delle condizioni
+
+Un test T soddisfa il criterio di _copertura delle condizioni_ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T
+
+Similmente ai test precedenti, la metrica è la percentuale delle condizioni che sono state rese sia vere che false su quelle per cui è possibile farlo.
+
+Si noti come questo criterio non implichi i criteri precedenti
+
+#### Esempio
+
+Modifichiamo un po' l'esempio usato fino ad'ora:
+
+```c
+void main(){
+    float x,y;
+    read(x);
+    read(y);
+    if (x!=0 || y>0)
+        y = y/x;
+    else
+        y = (y+2)/x
+    y = y/x;
+    write(x);
+    write(y);
+}
+```
+
+{% responsive_image path: 'assets/12_flowChart-2.png' %}
+
+
+Prendendo come Test i casi $<0,5>$ e $<5,-5>$ soddisfo al 100% il criterio di copertura delle condizioni (`x!=0` è falsificato da $<0,5>$ e verificato da $<5,-5>$, mentre `y>0` è verificato da $<0,5>$ e falsificato da $<5,-5>$), ma la decisione è sempre vera.
+
+Ci sono quindi anomalie sia alla riga 6 (possibile divisione per 0) che alla riga 8(Overflow e divisione per 0), ma quelle alla riga 8 non verrebbero scoperte dato che non viene coperta.
+
+### Criterio di copertura delle decisioni e condizioni
+
+È intuitivamente l'intersezione del Criterio di copertura delle decisioni con quello di copertura delle condizioni.
+
+### Criterio di copertura delle condizioni composte
+
+Un test T soddisfa il criterio di copertura delle condizioni composte se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di test in T
+
+Si noti come questo criterio comporti il precedente (Criterio di copertura delle decisioni e condizioni)
+
+Data la natura combinatoria di questo criterio, all'aumento del numero di condizioni di base il numero di casi di test cresce __troppo rapidamente__. Inoltre dato che le condizioni di base potrebbero non riusltare indipendenti tra loro, potrebbero esistere combinazioni non fattibili che non sarebbe opportuno testare.
+
+### Criterio di copertura delle condizioni e delle decisioni modificate
+
+Ci si è accorti che certe combinazioni sono "più vicine o più lontane ad altre": se modificando una sola condizione base riesco a modificare la decisione, allora quella modifica è una modifica molto significativa indipendentemente da quanto sia grande. Se invece la decisione rimane la stessa, posso ipotizzare che quella modifcia sia più neutra e meno significativa.
+
+Si va quindi a dare importanza, nella selezione delle combinazioni, al fatto che la modifica di una singola condizione base porti a modificare la decisione. Per ogni condizione base devono quindi esistere 2 casi di test che modificano il valore di una sola condizione base e che modificano il valore della decisione
+
+È inoltre dimostrabile che se ho $N$ condizioni base sono sufficienti $N+1$ casi di test per coprire il criterio.
+
