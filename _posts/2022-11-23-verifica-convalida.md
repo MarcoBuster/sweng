@@ -149,16 +149,33 @@ L'approccio del testing soffre di _inaccuratezza pessimistica_
 
 ### Debugging
 
-Dato un programma e un malfunzionamento noto, il debugging è una tecnica che ci permette di localizzare le __anomalie__ che causano malfunzionamenti.
+Se il testing ha come compiito di scoprire un malfunzionamento dato un programma, il debugging invece, dato un programma e un malfunzionamento noto, ci permette di localizzare le _anomalie_ che causano malfunzionamenti.
+
+Molto spesso viene usato il debugging al posto del testing, almeno a livello di terminologia: questo è un problema perché il debugging non è fatto per la "grande esecuzione" ma al contrario per esaminare in maniera granulare (a volte anche passo passo per istruzioni macchina) una determinata sezione dell'esecuzione allo scopo trovare l'anomalia che provoca un malfunzionamento. Se si usassero le tecniche di debugging per effettuare il testing il tempo speso sarebbe enorme.
+
+Possiamo portare ad esempio 2 possibili approcci per il debugging:
+
+- Produzione degli stati intermedi dell'esecuzione del programma:
+    - Devo partire quindi da un malfunzionamento che deve essere:
+
+        - Noto
+        - Riproducibile
+
+        In modo da poter avviare una procedura di analisi.
+- Divide et impera:
+    - Smonto il codice sezione per sezione, componente per componente in modo da poter trovare il punto in cui c'è l'anomalia
 
 ## Correttezza
 
 Quando un programma si definisce corretto?
 
-- consideriamo un generico programma $$P$$ come una funzione da un insieme di dati $$D$$ (dominio) a un insieme di dati $$R$$ (codominio);
-- $$P(d)$$ indica l'esecuzione di $$P$$ su un dato in ingresso $$d \in D$$;
-- il risultato $$P(d)$$ è corretto se soddisfa le specifiche, altrimenti è scorretto;
-- $$\operatorname{ok}(P, \, d)$$ indicherà la correttezza di $$P$$ per il dato $$d$$;
+Consideriamo un generico programma $P$ come una funzione da un insieme di dati $D$ (dominio) a un insieme di dati $R$ (codominio);
+
+$P(d)$ indica l'esecuzione di $P$ su un dato in ingresso $d \in D$;
+
+il risultato $P(d)$ è corretto se soddisfa le specifiche, altrimenti è scorretto;
+
+$\operatorname{ok}(P, \, d)$ indicherà la correttezza di $P$ per il dato $d$;
 
 allora...
 
@@ -168,33 +185,38 @@ $$
 
 ### Test
 
-- un test $$T$$ per un programma $$P$$ è un sottoinsieme del dominio $$D$$;
-- un elemento $$t$$ di un test $$T$$ è detto _caso di test_;
-- l'esecuzione di un test consiste nell'esecuzione del programma $$\forall t \in T$$;
-- un programma __passa__ o __supera__ un test:
+un test $T$ per un programma $P$ è un sottoinsieme del dominio $D$;
+
+un elemento $t$ di un test $T$ è detto _caso di test_;
+
+l'esecuzione di un test consiste nell'esecuzione del programma $\forall t \in T$;
+
+un programma __passa__ o __supera__ un test:
 
 $$
-\operatorname{ok}(P, \, T) \Leftrightarrow \forall t \in T \: \operatorname{ok}(P, \, t)
+\operatorname{ok}(P, \, T) \Leftrightarrow \forall t \in T | \operatorname{ok}(P, \, t)
 $$
 
-- un test $$T$$ ha successo se rileva uno o più malfunzionamenti presenti nel programma $$P$$
+un test $T$ _ha successo_ se rileva uno o più malfunzionamenti presenti nel programma $P$
 
 $$
-\operatorname{successo}(T, \, P) TODO  
+\operatorname{successo}(T, \, P) \Leftrightarrow \exist t \in T | \neg\operatorname{ok}(P,\,t) 
 $$
 
-#### Test ideale
+### Test ideale
 
-$$T$$ è _ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ cioè se il superamento del test implica la correttezza del programma.
+$T$ è _ideale_ per $P$ se e solo se $\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$ ovvero se il superamento del test implica la correttezza del programma.
 
 In generale, è __impossibile trovare un test ideale__.
 
-> Il test di un prorgamma può rilevare la presenza di malfunzionamenti ma non dimostrarne l'assenza
-> 
-> ~ __Tesi di Dijkstra__
+> __Tesi di Dijkstra__:
+>
+> _Il test di un prorgamma può rilevare la presenza di malfunzionamenti ma non dimostrarne l'assenza._
+>
+>_Non esiste quindi un algoritmo che dato un programma arbitrario $P$ generi un test ideale finito (il caso $T = D$ non va considerato)._
 
-Non esiste quindi un algoritmo che dato un programma arbitrario $$P$$ generi un test ideale finito (il caso $$T = D$$ non va considerato).
-
+Perché è impossibile trovare un test ideale esaustivo? 
+Vediamo il seguente esempio:
 ```java
 class Trivial {
     static int sum(int a, int b) {
@@ -203,25 +225,28 @@ class Trivial {
 }
 ```
 
-Perché è impossibile trovare un test ideale esaustivo? 
 
-In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $$ 2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
+
+In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$.
 Considerando un tempo di 1 nanosecondo per ogni test, ci dovremmo mettere più di 600 anni.
 
-#### Criterio di selezione
+### Criterio di selezione
 
-Come faccio a scegliere un sottoinsieme del dominio _intelligente_ cercando di approssimare il test ideale? 
+Come faccio a scegliere un sottoinsieme del dominio _intelligente_ cercando di approssimare il test ideale? Quali caratteristiche ci interessa che abbia il criterio che usiamo per selezionare questo sottoinsieme?
 
-Un _criterio di selezione_ si dice __affidabile__ se presi due test $$T_1$$ e $$T_2$$ in base al criterio $$C$$ allora o entrambi hanno sucecsso o nessuno dei due ha successo.
+#### Affidabilità
+Un _criterio di selezione_ si dice __affidabile__ se presi due test $T_1$ e $T_2$ in base al criterio $C$ allora o entrambi hanno sucecsso o nessuno dei due ha successo.
 
 $$
 \operatorname{affidabile}(C, \, P) \Leftrightarrow [\forall T_1 \in C, \, \forall T_2 \in C \: \operatorname{successo}(T_1, \, P) \Leftrightarrow \operatorname{successo}(T_2, P)]
 $$
 
-... __valido__ se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo per il programma $$P$$
+
+#### Validità
+Un _criterio di selezione_ si dice __valido__ se qualora $P$ non sia corretto, allora esiste almeno un test $T$ selezionato in base al criterio $C$ che ha successo per il programma $P$
 
 $$
-\operatorname{valido}(C, \, P) \Leftrightarrow (\lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C ..................)
+\operatorname{valido}(C, \, P) \Leftrightarrow (\lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C \ | \ successo(T,\,P))
 $$
 
 __Esempio__: dato il codice
@@ -232,132 +257,84 @@ static int raddoppia(int par) {
     return risultato;
 }
 ```
-un criterio che seleziona...
-- _"sottoinsiemi di $$\{0, \, 2\}$$"_ è ___affidabile__ ma non valido_;
-- _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$"_ è _non affidabile ma __valido___;
-- _"sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$"_ è ___affidabile e valido___.... 
+un criterio che seleziona:
+- _"sottoinsiemi di $\{0, \, 2\}$"_ è ___affidabile__ ma non valido_;
+- _"i sottoinsiemi di $\{0, \, 1, \, 2, \, 3, \, 4\}$"_ è _non affidabile ma __valido___;
+- _"sottoinsieme finiti di $D$ con almeno un valore maggiore di $18$"_ è ___affidabile e valido___ 
 
-    ma siamo davvero sicuri????
+Ma siamo davvero sicuri?
 
-<!-- aggiungere slide 65 (osservazioni) -->
+Se il test non ha successo, ci è utile avere un criterio valido ed affidabile?
+- Il fatto che il test non abbia avuto successo implica che non ci siano stati errori
+- Il fatto che il criterio sia affidabile implica che tutti gli altri test che possiamo trovare per quel criterio non trovo errori
+- Il fatto che il criterio sia valido, se ci fosse stato un errore almeno uno dei test lo avrebbe dovuto trovare
 
-<!-- caratteristiche caso di test (slide 67) -->
+Quindi siamo __sicuri__ che il programma è corretto:
+$$
+\operatorname{affidabile}(C,P) \wedge \operatorname{valido}(C,P) \wedge T \in C \wedge \neg\operatorname{successo}(T,P)
+$$
+$$
+\Longrightarrow
+$$
+$$
+\operatorname{ok}(P,D)
+$$
 
-<!-- anche slide 66 -->
+Ma trovare un criterio che sia _contemporaneamente_ affidabile e valido significherebbe trovare un criterio che selezioni _test ideali_ che sappiamo non esistere per la _tesi di Dijkstra_
 
-<!-- e 68 -->
+#### Utilità di un test
 
-Un test $$T$$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programam è eseguito in corrispondenza di almeno un caso di test $$t \in T$$.
+Quali sono le caratteristiche che rendono utile un caso di test, ovvero che rendono "possibile" o "probabile" che il caso di test mi trovi l'errore?
 
-Notare: nella definizione si parla di _comandi eseguibili_, ovvero la frazione di comandi eseguiti su quelli eseguibili.
-    
+- Eseguire il comando che contiene l'anomalia (altrimenti non è possibile che il malfunzionamento si manifesti)
+- L'esecuzione del comando che contiene l'anomalia deve portare il sistema in uno stato inconsistente
+- Lo stato inconsistente dell'output deve propagarsi fino all'uscita del codice in esame in modo da produrre un output diverso da quello atteso
+
+Possiamo utilizzare un metro di misura legato alle caratteristiche del codice: ad ogni criterio è possibile associare una metrica che misuri la _copertura_ del codice rispetto ad uno specifico test (ovvero la percentuale di codice che vado ad "utilizzare" in tutto il test) e che ci permetta di decidere quando smettere di testare, decidere quali altri casi di test è opportuno aggiungere o confrontare la _bontà_ di Test diversi
 
 
-## Statico vs Dinamico
+## Criteri noti
 
-- Le tecniche statiche sono basate sull’ANALISI DEL CODICE
-    - Modelli formali
-    - Analisi del dataflow
-    - Modelli statistici
-    - In pratica andiamo ad analizzare il codice a priori
-- Tecniche dinamiche sono basate sull’esecuzione del codice e dagli stati raggiungibili durante l’esecuzione
-    - Testing
-    - Debugging
-    - Si cerca di provare tutti gli stati possibili
-        - Ma questo a volte non è possibile perché il numero può esplodere
+### Criterio di copertura dei comandi
 
-## CLASSIFICAZIONE delle tecniche
+Un test $T$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $t \in T$.
 
-≤≤ Disegno di una piramide>>
+#### Esempio
+```c
+void main(){
+    float x,y;
+    read(x);
+    read(y);
+    if (x!=0)
+        x = x+10;
+    y = y/x;
+    write(x);
+    write(y);
+}
+```
 
-## Metodi Formali
+Posso ricostruire un diaramma di flusso di esecuzione del codice trasformando ogni comando in un nodo del diagramma:
 
-- Tecniche che si prefiggono di provare l’assenza di anomalie nel prodotto finale
+{% responsive_image path: 'assets/12_flowChart.png' %}
 
-Ad esempio:
+Dire che voglio _coprire tutti i comandi_, avendo trasformato ogni comando in un nodo, significa voler passare per tutti i nodi raggiungibili.
 
-- Analisi del dataflow
-- Dimostrazione di correttezza delle specifiche logiche
+Applicare il _criterio di copertura dei comandi_ significa quindi trovare un insieme dei casi di test per il cui per ogni nodo esiste un caso di test che passa per quel nodo.
 
-***INACCURATEZZA PESSIMISTICA: se non si riesce a dimostrare l’assenza di un problema dico che non va bene***
+Il caso di test $<3,7>$ risulterebbe quindi sufficiente, dato che soddisfa il criterio di copertura dei comandi al 100%
 
-## Testing
+Questo però _non mi garantisce che il programma si corretto,_ perchè ci sono dei malfunzionamenti che non sono stati trovati, ad esempio il caso di testing $<0,7>$ che provoca una divisione per 0.
 
-- Tecniche che si prefiggono di rilevare malfunzionamenti O fornire fiducia nel prodotto
-    - **WhiteBox**
-        - Posso testare vedendo il componente in maniera trasparente
-    - **BlackBox**
-        - Non posso testare vedendo il componente al suo interno. Vedo solo input e output.
-    - **GrayBox**
-        - Conosco ‘a metà’
 
-***********************************************************************************************************************************************************************INACCURATEZZA OTTIMISTICA: se non si riescono a dimostrare la presenza di problemi dico che va bene***********************************************************************************************************************************************************************
+### Criterio di copertura delle decisioni
 
-## Debugging
+Un test T soddisfa il criterio di copertura delle decisioni se e solo se ogni decisione effettiva viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T
 
-- Tecniche che si prefiggono di localizzare le anomalie che causano malfunzionamenti rilevati in precedenza
-    - Approccio incrementale: permette di limitare la parte in cui ricercare il difetto
-    - Produzione degli stati intermedi dell’esecuzione del programma
+La metrica è la percentuale delle decisioni totali possibili presenti nel codice che sono state rese sia vere che false nel test.
 
-# Correttezza di un programma
+Si noti come il criterio di copertura delle decisioni implichi il criterio di copertura dei comandi: andando ad estrarre il codice in un diagramma di flusso, io copro tutte le decisioni se e solo se attraverso ogni arco presente nel flusso. Considerando un grafo connesso per il diagramma di flusso, se io attraverso tutti gli archi allora ho attraversato tutti i possibili nodi. Non è invece vero l'inverso.
 
-- Consideriamo un programma $P$ come una funzione da un insieme di dati $D$ (dominio) a un insieme di dati $R$ (codominio)
-- $P(d)$ indica l’esecuzione di $P$ sul dato in ingresso $d \in D$
-- $ok(P,D)$  indica la correttezza di $P$ per il dato $d$
+#### Esempio
+Riprendendo l'esempio precedente, se volessi applicare il criterio di copertura delle decisioni dovrei utilizzare almeno due casi di test, ad esempio $<3,7>$ e $<0,5>$, che se compresi nello stesso test mi restituiscono una copertura delle decisioni pari al 100%.
 
-$P$  è corretto $\iff$ [……]
-
-Qui iniziamo con un po’ di formalità, recupera.
-
-## Test ideale:
-
-diciamo che un test è ideale sse il superamento del test implica la correttezza del programma.
-
-**************************Generalmente è impossibile trovare un test ideale.**************************
-
-### Tesi di Dijkstra
-
-- Il test di un programma può rilevare la presenza di malfunzionamenti
-- Non esiste un algoritmo che dato un programma arbitrario P generi un …………….
-
-Dato che è improponibile eseguire esaustivamente tutti i test possibili, devo avere dei criteri di selezione dei test che spero approssimi il più possibile al test ideale
-
-### Criterio affidabile
-
-Si dice affidabile un criterio che se presi T1 e T2 in base al criterio C allora o hanno entrambi successo o nessuno dei due ha successo
-
-### Criterio di validità
-
-Un criterio C si dice valido se qualora P non sia corretto allora esiste almeno un T selezionato in base a C che ha successo per il programma P
-
-**************************************************************************************************************************************************************Se un criterio è valido e affidabile allora se un test appartenente al criterio passa implica che il programma sia corretto**************************************************************************************************************************************************************
-
-Ma SAPPIAMO che questo non è possibile.
-
-## Quindi come ragioniamo?
-
-Un caso di test per poter portare a evidenziare un malfunzionamento causato da una anomalia deve soddisfare tre requisiti:
-
-1. eseguire il comando che contiene l’anomalia
-2. l’esecuzione del comando contenente l’anomalia deve portare il sistema in uno stato scorretto
-3. lo stato scorretto deve propagarsi fino all’uscita del codice in esame, in modo da produrre un output
-
-[…….]
-
-In pratica dobbiamo capire quanto “coprire” i casi che possiamo testare.
-
-Devo decidere quando smettere, quali test è opportuno aggiungere e come confrontare la bontà di test differenti.
-
-### Copertura dei comandi:
-
-**Un test T soddisfa il criterio di copertura dei comandi sse ogni comando eseguibile del programma è eseguita in corrispondenza di almeno un caso di test t contenuto in T.**
-
-### Copertura delle decisioni
-
-**Un test T soddisfa il criterio di copertura delle decisioni sse ogni decisione effettiva viene resa sia vera che falsa[…]**
-
-La metrica è la frazione delle decisioni che sono state rese sia vere che false su quele per cui è possibile farlo.
-
-⚠️Copertura delle decisioni ⇒ Copertura dei comandi ⚠️
-
-### To be continued…
+Ma non tutti i malfunzionamenti vengono trovati, ad esempio a riga 6 è possibile che ad x sia assegnato un valore tale per cui se sommo 10 ottengo un overflow.
