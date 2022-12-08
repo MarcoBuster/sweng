@@ -356,16 +356,22 @@ void main(){
     float x,y;
     read(x);
     read(y);
+<<<<<<< HEAD
     if (x!=0 || y>0)
         y = y/x;
     else
         y = (y+2)/x
+=======
+    if (x!=0)
+        x = x+10;
+>>>>>>> 5e2a4b8d2760a8dc8d1fc4f3edb8fbfeffd864ad
     y = y/x;
     write(x);
     write(y);
 }
 ```
 
+<<<<<<< HEAD
 {% responsive_image path: 'assets/12_flowChart-2.png' %}
 
 
@@ -393,3 +399,6 @@ Si va quindi a dare importanza, nella selezione delle combinazioni, al fatto che
 
 È inoltre dimostrabile che se ho $N$ condizioni base sono sufficienti $N+1$ casi di test per coprire il criterio.
 
+=======
+{% responsive_image path: 'assets/12_flowChart-2.png' %}
+>>>>>>> 5e2a4b8d2760a8dc8d1fc4f3edb8fbfeffd864ad
