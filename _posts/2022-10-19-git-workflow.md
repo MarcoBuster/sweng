@@ -236,62 +236,136 @@ Se approva la modifica, allora può scrivere LGTM (_"Looks Good To Me"_).
 
 ## Build automation
 
-Un pezzo importante è la build automation, ovvero l'insieme delle operazioni che partendo dal codice sorgente arrivano all'eseguibile compilato.
+Un pezzo importante è la build automation, ovvero l'insieme delle operazioni che, partendo dal codice sorgente generano automaticamente l'eseguibile compilato.
 
 ### make
 
-Definisco a livello di shell quali sono i comandi da dare per ottenere certi obiettivi.
+`make` nasce nel mondo UNIX e ne segue la filosofia _pipeline_, ovvero __singoli comandi semplici concatenati__ per svolgere compiti più complessi.
 
-Gestisce le dipendenze tra i file.
+In make si definiscono a livello di shell quali sono i comandi da dare per ottenere certi _targets_ (obiettivi).
+Supporta la __compilazione incrementale__ gestendo le __dipendenze__ tra file.
 
-<!-- esempio -->
+```make
+CC=gcc
+CFLAGS=-I.
+
+%.o: %.c $(DEPS)
+  $(CC) -c -o $@ $< $(FLAGS)
+
+hellomake: hellomake.c hellofunc.o
+  $(CC) -o hellomake hellomake.o hellofunc.o -I.
+```
+
+Nell'esempio, se il _target_ hellomake (definito dai file `hellomake.c` e `hellofunc.o`) è stato aggiornato, occorre ricompilarlo utilizzando i comandi sotto.
 
 È a un livello molto basso ed è prono ad errori.
 Non c'è portatibilità tra macchine (ambienti) diverse.
 
 #### Generazione automatica
 
-Sono stati creati dei tool (`automake`, `autoconf`, `imake`, ...) che _generano_ `Makefile`.
+Sono stati creati dei tool (`automake`, `autoconf`, `imake`, ...) che _generano_ `Makefile` ad-hoc per l'ambiente attuale.
+
+Il _mantra_
+```bash
+$ ./configure
+$ make all
+$ sudo make install
+```
+era largamente utilizzato.
 
 ### Ant 
 Ant nasce in Apache per supportare il progetto Tomcat.
+Data una __definizione in XML__ della struttura del progetto e delle dipendenze invocava comandi programmati tramite classi Java per compilare il progetto.
 
-Scritto in Java per progetti Java. Usa XML per specificare le azioni.
+Il vantaggio è che Java offre un livello d'astrazione sufficiente a rendere il sistema di build portabile su tutte le piattaforme.
 
-Nella versione base supporta già un integrazione per alcuni tool come CVS, Junit, ...
-Non fa solo compilazione, ma anche deployment.
+Nella versione base supporta integrazioni con altri tool come CVS, Junit, FTP, JavaDOCS, JAR, ecc...
+Non solo compila, ma fa anche deployment.
+
+I target possono avere dipendenze da altri target.
+I target contengono task che fanno effettivamente il lavoro; si possono aggiungere nuovi tipi di task definendo nuove classi Java.
+
+Esempio di un build file:
+
+```xml
+<?xml version="1.0"?>
+<project name="Hello" default="compile">
+  <target name="clean" description="remove intermediate files">
+    <delete dir="classes" />
+  </target>
+  <target name="clobber" depends="clean" description="remove all artifact files">
+    <delete file="hello.jar">
+  </target>
+  <target name="compile" description="compile the Java source code to class files">
+    <mkdir dir="classes" />
+    <javac srcdir="." destdir="classes" />
+  </target>
+  <target name="jar" depends="compile" description="create a Jar file for the application">
+    <jar destfile="hello.jar">
+      <fileset dir="classes" includes="**/*.class" />
+      <manifest>
+        <attribute name="Main-Class" value="HelloProgram" />
+      </manifest>
+    </jar>
+  </target>
+</project>
+```
 
 ### Gradle
-Gradle è fatto Kotlin. 
+
+Gradle si basa sui repository Maven dove sono riposte le librerie.
+
+Gradle supporta Groovy o Kotlin come linguaggi di scripting. 
 Approccio dichiarativo e fortemente basato su convenzioni: tutto quello che è già definito come standard non è necessario ridichiarlo un'altra volta.
-Definisce un linguaggio specifico per le dipendenze.
+Definisce un linguaggio specifico per le dipendenze rendendo semplice la loro gestione.
 Permette di creare build multi-progetto.
 
 Scala bene in complessità: permette di fare cose semplici senza usare le funzioni compresse. 
 È estendibile tramite plugin che servono per trattare tool, situazioni, linguaggi legati solitamente al mondo Java.
 
-#### Plugin Java
+#### Plugin
 
-Definisce il:
-- sourceSet: dove è presente il codice sorgente
-- task
+I plugin servono per trattare tool, situazioni, linguaggi definendo task e regole per lavorare più facilmente.
 
-...
+Il plugin Java defisce
+- una serie di __sourceSet__, ovvero dove è presente il codice e le risorse. Principalmente sono:
+  - `src/main/java`: sorgenti Java di produzione;
+  - `src/main/resources`: risorse di produzione;
+  - `src/test/java`: sorgenti Java di test;
+  - `src/test/resources`: sorgenti di test.
+- dei __task__, anche con dipendenze tra loro.
+
+{% responsive_image path: 'assets/06_gradle-tasks.png' %}
+
+Altri plugin sono 
 
 #### Altri plugin
-- application (esecuzione)
-- ...
-- eclipse
-- idea
+- application, per l'esecuzione;
+- FindBugs, jacoco: per la verifica e la convalida;
+- eclipse, idea: per integrazione con gli IDE;
 
 ## Bug tracking
 
 È stato reso necessario nel mondo open source per via della numerosità dei contributi e della alta probabilità di avere segnalazioni duplicate.
 
+Ci sono diversi strumenti, tra cui:
+- `git-bug`: basato su Git;
+- BugZilla;
+- Scarab;
+- GNATS;
+- BugManager;
+- Mantis.
+
 ### Bug workflow
 
+{% responsive_image path: 'assets/06_bug-workflow.png' %}
+
+L'obiettivo del bug tracking è avere più informazioni possibili su ogni bug per saperli riprodurre e quindi arrivare a una soluzione.
+
+È importante verificare i bug una volta che l'_issue_ è stato aperto, in modo da poter confermare la sua esistenza e la completezza delle informazioni fornite.
+
 Ci sono diversi modi per cui può essere chiuso un bug:
-- duplicate
-- wontfix
-- can't reproduce
-- fix verified
+- __duplicate__;
+- __wontfix__: o è una feature o è un errore talmente complesso da risolvere che non ne vale la pena, secondo i progettisti;
+- __can't reproduce__;
+- __fixed__ vs __fix verified__: nel primo stato il bug è stato fixato, nel secondo il fix è stato integrato in una release passando tutti gli step di verifica.
