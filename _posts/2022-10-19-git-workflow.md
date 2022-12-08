@@ -192,7 +192,9 @@ Ci sono delle problematiche si sicurezza: è difficile per la piattaforma stabil
 
 ## Review / Pull request
 
-<!-- aggiungere img schema -->
+Tra la creazione di una pull request e il suo _merge_, specialmente nei progetti open source (dove chiunque può proporre qualsiasi patch) è fondamentale prevedere un processo di __review__.
+
+{% responsive_image path: 'assets/06_pull-request.png' %}
 
 La funzionalità di review/pull request permette di facilitare le interazioni tra gli sviluppatori utilizzando il sito di hosting come luogo comune per la discussione informale e la revisione delle modifiche.
 
