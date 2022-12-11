@@ -7,54 +7,75 @@ toc: true
 
 ## Correttezza di un software
 
-La maggior parte dei problemi quando si lavora ad un progetto sorgono da problemi di comunicazione.
-Ci posso essere incomprensioni quando le informazioni passano da una figura all'altra, per esempio quando ci si interfaccia tra cliente, analista e programmatore.
-Con il cliente il programmatore dovrà cercare di adattare la propria terminologia per farsi comprendere, poi man mano che ci si sposta nel cerchio interno (the Inner Circle) dello sviluppo possiamo richederci uno sforzo in più in termini di formalità e chiarezza. 
+La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da **problemi di comunicazione**.
+
+Ci posso essere incomprensioni quando le informazioni passano da una figura all'altra, come quando ci si interfaccia tra cliente, analista e programmatore.
+
+Per esempio il programmatore dovrà adattare il proprio linguaggio per farsi comprendere dal cliente,
+
+e man mano che si addentra nello sviluppo del progetto sarà necessario prestare maggiore attenzione alla formalità e alla chiarezza della comunicazione.
+
 Più si spiegano le cose in maniera chiara, più è facile che non si incorra in problemi successivi.
 
-Bisogna quindi fare più attenzione alla terminologia che viene usata
+Bisogna quindi fare più attenzione alla terminologia che viene usata.
 
 Quando un programma si definisce corretto?
 
-Consideriamo un generico programma $$P$$ come una funzione da un insieme di dati $$D$$ (dominio) a un insieme di dati $$R$$ (codominio);
+Consideriamo un generico programma $$P$$ come una funzione da un insieme di dati $$D$$ (dominio) a un insieme di dati $$R$$ (codominio):
 
-$$P(d)$$ indica l'esecuzione di $$P$$ su un dato in ingresso $$d \in D$$;
+* $$P(d)$$ indica l'esecuzione di $$P$$ su un dato in ingresso $$d \in D$$
 
-il risultato $$P(d)$$ è corretto se soddisfa le specifiche, altrimenti è scorretto;
+* Il risultato $$P(d)$$ è corretto se soddisfa le specifiche, altrimenti è scorretto
 
-$$\operatorname{ok}(P, \, d)$$ indicherà la correttezza di $$P$$ per il dato $$d$$;
+* $$\operatorname{ok}(P, \, d)$$ indicherà la correttezza di $$P$$ per il dato $$d$$
 
-allora...
+Allora:
 
 $$
 P \text{ è } \textit{corretto} \Leftrightarrow \forall d \in D \: \operatorname{ok}(P, \, d)
 $$
 
+Cioè, possiamo dire che un programma è corretto quando per ogni dato del dominio vale $$\operatorname{ok}(P, \, d)$$,
+
+La correttezza del programma sarà indicata quindi con $${ok}(P, \, D)$$.
+
 ### Test
 
-un test $$T$$ per un programma $$P$$ è un sottoinsieme del dominio $$D$$;
+Un **test** è un sottoinsieme del dominio dei dati e un singolo **caso di test** è un elemento di esso.
 
-un elemento $$t$$ di un test $$T$$ è detto _caso di test_;
+Un test sono più stimolazioni, un caso di test è una singola stimolazione.
 
-l'esecuzione di un test consiste nell'esecuzione del programma $$\forall t \in T$$;
+Per esempio:
 
-un programma __passa__ o __supera__ un test:
+* Un test $$T$$ per un programma $$P$$ è un sottoinsieme del dominio $$D$$
+
+* un elemento $$t$$ di un test $$T$$ è detto _caso di test_
+
+* l'esecuzione di un test consiste nell'esecuzione del programma $$\forall t \in T$$
+
+Se ci poniamo dal punto di vista del programma, esso passa o supera un test:
 
 $$
 \operatorname{ok}(P, \, T) \Leftrightarrow \forall t \in T | \operatorname{ok}(P, \, t)
 $$
 
-un test $$T$$ _ha successo_ se rileva uno o più malfunzionamenti presenti nel programma $$P$$
+Quindi, un programma è corretto per un test quando per ogni caso di test è corretto.
+
+Dal punto di vista del test invece, un test $$T$$ _ha successo_ se rileva uno o più malfunzionamenti presenti nel programma $$P$$:
 
 $$
-\operatorname{successo}(T, \, P) \Leftrightarrow \exist t \in T | \neg\operatorname{ok}(P,\,t) 
+\operatorname{successo}(T, \, P) \Leftrightarrow \exists t \in T | \neg\operatorname{ok}(P,\,t) 
 $$
 
 ### Test ideale
 
+Nel caso in cui il test non rilevi alcun malfunzionamento, non vuol dire che il mio programma sia corretto,
+
+il test è un'attività ottimistica e non può garantire la correttezza del programma.
+
 $$T$$ è _ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ ovvero se il superamento del test implica la correttezza del programma.
 
-In generale, è __impossibile trovare un test ideale__.
+In generale, è **impossibile trovare un test ideale**.
 
 > __Tesi di Dijkstra__:
 >
@@ -76,6 +97,8 @@ class Trivial {
 
 In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $$2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
 Considerando un tempo di 1 nanosecondo per ogni test, ci dovremmo mettere più di 600 anni.
+
+Quindi anche il **test esaustivo è impossibile**.
 
 ### Criterio di selezione
 
