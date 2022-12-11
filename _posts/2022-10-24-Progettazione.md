@@ -193,29 +193,3 @@ CardSource source = deck;
 List<Card> cards;
 cards = drawCards(deck, 5);
 ```
-## Diagrammi UML
-Abbiamo diversi tipi di diagrammi UML, il primo che vediamo è il diagramma delle classi, ovvero una vista statica (ovvero come se fosse una fotografia) di una situazione.
-
-{% responsive_image path: assets/07_UML.png %}
-
-In un diagramma UML delle classi abbiamo:
-- classi
-- interfacce
-- collegamenti tra queste
-
-ecco le caratteristiche principali:
-- Se una scritta è in _italico_ vuol dire che all'elemento manca qualche definizione, quindi è astratto.
-- Se una scritta è <u>sottolineata</u> vuol dire che l'attributo o metodo è statico, ovvero hanno una visibilità a livello di classe e non a livello di istanza (quindi possiamo riferirci a loro anche senza avere un'istanza della classe).
-
-vediamo i tipi di relazioni indicati dalle frecce:
-- __frecce tratteggiate__: sono le più generiche, indica una relazione tra classi, quello che c'è scritto nella classe da cui parte la freccia dipende dal codice che c'è nella classe a cui arriva la freccia (Deck dipende da collections). Questa relazione è chiamata __associazione__.
-- __freccia con rombo bianco__: questo tipo di relazione è chiamata __aggregazione__ ed indica che all'interno della classe (Deck) ho una collezione (in questo caso una lista) di n oggetti (Card). Questa relazione non è più tra classi ma tra istanze delle classi (Un'istanza di Deck aggrega da 0 a 52 carte). Posso specificare anche la cardinalità nel senso opposto, ovvero da Card a Deck, che in questo caso essendo oggetti virtuali (immutabili) non sono vincolato ad avere una carta specifica in un solo mazzo, ma può stare in tanti mazzi.
-- __freccia con rombo nero__:  questa è chiamata __composizione__ ed è utilizzata quando ho degli elementi che sono fisicamente collegati e non solo virtualmente (come le carte), senza l'uno l'altro non può vivere, e viceversa. L'esempio può essere un aereo che senza il motore cade, e il motore non passa ad un altro aereo (a differenza delle carte che possono passare a più mani).
-
-Abbiamo anche la freccia con la punta a triangolo che specifica un'implementazione.
-
-La direzione delle frecce sono importanti perché indicano il senso della relazione, per esempio il mazzo conosce le carte che contiene, ma le carte non conoscono i mazzi in cui sono, è per questo che la direzione della freccia va da Deck a Card e non viceversa.
-Queste sono sempre delle relazioni tra oggetti ma sono utilizzate in contesti differenti.
-
-In questo esempio la visibilità dei metodi è espressa da un pallino verde (public), ma potremmo avere anche l'arancio o il rosso, che indicano protected e private, poi possono essere rappresentati in altri modi ma comunque molto intuitivi.
-
