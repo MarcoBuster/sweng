@@ -7,6 +7,13 @@ toc: true
 
 ## Correttezza di un software
 
+La maggior parte dei problemi quando si lavora ad un progetto sorgono da problemi di comunicazione.
+Ci posso essere incomprensioni quando le informazioni passano da una figura all'altra, per esempio quando ci si interfaccia tra cliente, analista e programmatore.
+Con il cliente il programmatore dovrà cercare di adattare la propria terminologia per farsi comprendere, poi man mano che ci si sposta nel cerchio interno (the Inner Circle) dello sviluppo possiamo richederci uno sforzo in più in termini di formalità e chiarezza. 
+Più si spiegano le cose in maniera chiara, più è facile che non si incorra in problemi successivi.
+
+Bisogna quindi fare più attenzione alla terminologia che viene usata
+
 Quando un programma si definisce corretto?
 
 Consideriamo un generico programma $P$ come una funzione da un insieme di dati $D$ (dominio) a un insieme di dati $R$ (codominio);
@@ -91,10 +98,12 @@ $$
 
 __Esempio__: dato il codice
 ```java
-static int raddoppia(int par) {
-    int risultato;
-    risultato = (par * par);
-    return risultato;
+public class Esempio {
+    static int raddoppia(int par) {
+            int risultato;
+            risultato = (par * par);
+            return risultato;
+    }
 }
 ```
 un criterio che seleziona:
