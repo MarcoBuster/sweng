@@ -16,13 +16,13 @@ Bisogna quindi fare più attenzione alla terminologia che viene usata
 
 Quando un programma si definisce corretto?
 
-Consideriamo un generico programma $P$ come una funzione da un insieme di dati $D$ (dominio) a un insieme di dati $R$ (codominio);
+Consideriamo un generico programma $$P$$ come una funzione da un insieme di dati $$D$$ (dominio) a un insieme di dati $$R$$ (codominio);
 
-$P(d)$ indica l'esecuzione di $P$ su un dato in ingresso $d \in D$;
+$$P(d)$$ indica l'esecuzione di $$P$$ su un dato in ingresso $$d \in D$$;
 
-il risultato $P(d)$ è corretto se soddisfa le specifiche, altrimenti è scorretto;
+il risultato $$P(d)$$ è corretto se soddisfa le specifiche, altrimenti è scorretto;
 
-$\operatorname{ok}(P, \, d)$ indicherà la correttezza di $P$ per il dato $d$;
+$$\operatorname{ok}(P, \, d)$$ indicherà la correttezza di $$P$$ per il dato $$d$$;
 
 allora...
 
@@ -32,11 +32,11 @@ $$
 
 ### Test
 
-un test $T$ per un programma $P$ è un sottoinsieme del dominio $D$;
+un test $$T$$ per un programma $$P$$ è un sottoinsieme del dominio $$D$$;
 
-un elemento $t$ di un test $T$ è detto _caso di test_;
+un elemento $$t$$ di un test $$T$$ è detto _caso di test_;
 
-l'esecuzione di un test consiste nell'esecuzione del programma $\forall t \in T$;
+l'esecuzione di un test consiste nell'esecuzione del programma $$\forall t \in T$$;
 
 un programma __passa__ o __supera__ un test:
 
@@ -44,7 +44,7 @@ $$
 \operatorname{ok}(P, \, T) \Leftrightarrow \forall t \in T | \operatorname{ok}(P, \, t)
 $$
 
-un test $T$ _ha successo_ se rileva uno o più malfunzionamenti presenti nel programma $P$
+un test $$T$$ _ha successo_ se rileva uno o più malfunzionamenti presenti nel programma $$P$$
 
 $$
 \operatorname{successo}(T, \, P) \Leftrightarrow \exist t \in T | \neg\operatorname{ok}(P,\,t) 
@@ -52,7 +52,7 @@ $$
 
 ### Test ideale
 
-$T$ è _ideale_ per $P$ se e solo se $\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$ ovvero se il superamento del test implica la correttezza del programma.
+$$T$$ è _ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ ovvero se il superamento del test implica la correttezza del programma.
 
 In generale, è __impossibile trovare un test ideale__.
 
@@ -60,7 +60,7 @@ In generale, è __impossibile trovare un test ideale__.
 >
 > _Il test di un prorgamma può rilevare la presenza di malfunzionamenti ma non dimostrarne l'assenza._
 >
->_Non esiste quindi un algoritmo che dato un programma arbitrario $P$ generi un test ideale finito (il caso $T = D$ non va considerato)._
+>_Non esiste quindi un algoritmo che dato un programma arbitrario $$P$$ generi un test ideale finito (il caso $$T = D$$ non va considerato)._
 
 Perché è impossibile trovare un test ideale esaustivo? 
 Vediamo il seguente esempio:
@@ -74,7 +74,7 @@ class Trivial {
 
 
 
-In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$.
+In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $$2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
 Considerando un tempo di 1 nanosecondo per ogni test, ci dovremmo mettere più di 600 anni.
 
 ### Criterio di selezione
@@ -82,7 +82,7 @@ Considerando un tempo di 1 nanosecondo per ogni test, ci dovremmo mettere più d
 Come faccio a scegliere un sottoinsieme del dominio _intelligente_ cercando di approssimare il test ideale? Quali caratteristiche ci interessa che abbia il criterio che usiamo per selezionare questo sottoinsieme?
 
 #### Affidabilità
-Un _criterio di selezione_ si dice __affidabile__ se presi due test $T_1$ e $T_2$ in base al criterio $C$ allora o entrambi hanno sucecsso o nessuno dei due ha successo.
+Un _criterio di selezione_ si dice __affidabile__ se presi due test $$T_1$$ e $$T_2$$ in base al criterio $$C$$ allora o entrambi hanno sucecsso o nessuno dei due ha successo.
 
 $$
 \operatorname{affidabile}(C, \, P) \Leftrightarrow [\forall T_1 \in C, \, \forall T_2 \in C \: \operatorname{successo}(T_1, \, P) \Leftrightarrow \operatorname{successo}(T_2, P)]
@@ -90,7 +90,7 @@ $$
 
 
 #### Validità
-Un _criterio di selezione_ si dice __valido__ se qualora $P$ non sia corretto, allora esiste almeno un test $T$ selezionato in base al criterio $C$ che ha successo per il programma $P$
+Un _criterio di selezione_ si dice __valido__ se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo per il programma $$P$$
 
 $$
 \operatorname{valido}(C, \, P) \Leftrightarrow (\lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C \ | \ successo(T,\,P))
@@ -107,9 +107,9 @@ public class Esempio {
 }
 ```
 un criterio che seleziona:
-- _"sottoinsiemi di $\{0, \, 2\}$"_ è ___affidabile__ ma non valido_;
-- _"i sottoinsiemi di $\{0, \, 1, \, 2, \, 3, \, 4\}$"_ è _non affidabile ma __valido___;
-- _"sottoinsieme finiti di $D$ con almeno un valore maggiore di $18$"_ è ___affidabile e valido___ 
+- _"sottoinsiemi di $$\{0, \, 2\}$$"_ è ___affidabile__ ma non valido_;
+- _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$"_ è _non affidabile ma __valido___;
+- _"sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$"_ è ___affidabile e valido___ 
 
 Ma siamo davvero sicuri?
 
@@ -146,7 +146,7 @@ Possiamo utilizzare un metro di misura legato alle caratteristiche del codice: a
 
 ### Criterio di copertura dei comandi
 
-Un test $T$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $t \in T$.
+Un test $$T$$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$.
 
 #### Esempio
 ```c
@@ -170,9 +170,9 @@ Dire che voglio _coprire tutti i comandi_, avendo trasformato ogni comando in un
 
 Applicare il _criterio di copertura dei comandi_ significa quindi trovare un insieme dei casi di test per il cui per ogni nodo esiste un caso di test che passa per quel nodo.
 
-Il caso di test $<3,7>$ risulterebbe quindi sufficiente, dato che soddisfa il criterio di copertura dei comandi al 100%
+Il caso di test $$<3,7>$$ risulterebbe quindi sufficiente, dato che soddisfa il criterio di copertura dei comandi al 100%
 
-Questo però _non mi garantisce che il programma si corretto,_ perchè ci sono dei malfunzionamenti che non sono stati trovati, ad esempio il caso di testing $<0,7>$ che provoca una divisione per 0.
+Questo però _non mi garantisce che il programma si corretto,_ perchè ci sono dei malfunzionamenti che non sono stati trovati, ad esempio il caso di testing $$<0,7>$$ che provoca una divisione per 0.
 
 
 ### Criterio di copertura delle decisioni
@@ -184,7 +184,7 @@ La metrica è la percentuale delle decisioni totali possibili presenti nel codic
 Si noti come il criterio di copertura delle decisioni implichi il criterio di copertura dei comandi: andando ad estrarre il codice in un diagramma di flusso, io copro tutte le decisioni se e solo se attraverso ogni arco presente nel flusso. Considerando un grafo connesso per il diagramma di flusso, se io attraverso tutti gli archi allora ho attraversato tutti i possibili nodi. Non è invece vero l'inverso.
 
 #### Esempio
-Riprendendo l'esempio precedente, se volessi applicare il criterio di copertura delle decisioni dovrei utilizzare almeno due casi di test, ad esempio $<3,7>$ e $<0,5>$, che se compresi nello stesso test mi restituiscono una copertura delle decisioni pari al 100%.
+Riprendendo l'esempio precedente, se volessi applicare il criterio di copertura delle decisioni dovrei utilizzare almeno due casi di test, ad esempio $$<3,7>$$ e $$<0,5>$$, che se compresi nello stesso test mi restituiscono una copertura delle decisioni pari al 100%.
 
 Ma non tutti i malfunzionamenti vengono trovati, ad esempio a riga 6 è possibile che ad x sia assegnato un valore tale per cui se sommo 10 ottengo un overflow.
 
@@ -218,7 +218,7 @@ void main(){
 {% responsive_image path: 'assets/13_flowChart-2.png' %}
 
 
-Prendendo come Test i casi $<0,5>$ e $<5,-5>$ soddisfo al 100% il criterio di copertura delle condizioni (`x!=0` è falsificato da $<0,5>$ e verificato da $<5,-5>$, mentre `y>0` è verificato da $<0,5>$ e falsificato da $<5,-5>$), ma la decisione è sempre vera.
+Prendendo come Test i casi $$<0,5>$$ e $$<5,-5>$$ soddisfo al 100% il criterio di copertura delle condizioni (`x!=0` è falsificato da $$<0,5>$$ e verificato da $$<5,-5>$$, mentre `y>0` è verificato da $$<0,5>$$ e falsificato da $$<5,-5>$$), ma la decisione è sempre vera.
 
 Ci sono quindi anomalie sia alla riga 6 (possibile divisione per 0) che alla riga 8(Overflow e divisione per 0), ma quelle alla riga 8 non verrebbero scoperte dato che non viene coperta.
 
@@ -240,4 +240,4 @@ Ci si è accorti che certe combinazioni sono "più vicine o più lontane ad altr
 
 Si va quindi a dare importanza, nella selezione delle combinazioni, al fatto che la modifica di una singola condizione base porti a modificare la decisione. Per ogni condizione base devono quindi esistere 2 casi di test che modificano il valore di una sola condizione base e che modificano il valore della decisione
 
-È inoltre dimostrabile che se ho $N$ condizioni base sono sufficienti $N+1$ casi di test per coprire il criterio.
+È inoltre dimostrabile che se ho $$N$$ condizioni base sono sufficienti $$N+1$$ casi di test per coprire il criterio.
