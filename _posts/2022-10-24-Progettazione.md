@@ -79,19 +79,91 @@ Il principio tell don't ask dice che piuttosto di __chiedere__ ad un oggetto dei
 ## Chiarimento estrazione delle interfacce (interface segregation)
 Queste interfacce possono nascere in due modi, tramite un approccio up front oppure down front, ovvero partendo direttamente a scrivere l'interfaccia oppure scrivendo il codice e cercare di capire successivamente se possiamo estrarre una classe (quest'ultimo modo si adatta di più al TDD).
 Facciamo quindi un esempio (dal basso) per capire quando possiamo estrarre un'interfaccia.
-{% responsive_image path: assets/07_drawCards.png %}
+
+```java
+public static List<Card> drawCards(Deck deck, int number) {
+    List<Card> result = new ArrayList<>();
+    for (int i = 0; i < number && !deck.isEmpty(); i++) {
+        result.add(deck.draw());
+    }
+    return result;
+}
+```
+
 prendiamo per esempio un metodo drawCards che prende come parametri un deck e un intero, le uniche cose che conosciamo di deck sono che è in grado di dirci se è vuoto (isEmpty) e che sa pescare una carta dal mazzo (draw), questo ci suggerisce che Deck può implementare un'interfaccia mette a disposizione queste capacità.
 Quindi è possibile modificare il codice in questo modo passando a drawCards non un deck ma un qualunque oggetto che è in grado di fare quelle due operazioni, quindi un elemento che implementa CardSource (quindi viene sfruttato il polimorfismo qui).
 
-{% responsive_image path: assets/07_CardSource.png %}
+```java
+public interface CardSource {
+    /**
+     * @return The next available card.
+     * @pre !isEmpty()
+     */
+    Card draw();
 
-Notiamo come alla linea 14 dobbiamo specificare __staticamente__ che Deck implementi CardSource, ovvero devo forzare la dichiarazione del fatto che Deck è un sottotipo di CardSource (java è strong typed) e quindi posso mettere un oggetto Deck ovunque sia richiesto un oggetto CardSource. In altri linguaggi tipo GO abbiamo una maggiore dinamicità perché non abbiamo bisogno di specificare nel codice che un oggetto è sottotipo di qualcos'altro, ci basta solo che implementi il metodo con lo stesso nome, però così facendo il check che l'oggetto passato ad una funzione che richiede un oggetto avente quelle capacità avviene a runtime e non prima.
+    /**
+     * @return True if there is no card in the source
+     */
+    boolean isEmpty();
+}
+```
+
+```java
+public class Deck implements CardSource { ... }
+```
+
+```java
+public static List<Card> drawCards(CardSource deck, int number) {
+    List<Card> result = new ArrayList<>();
+    for (int i = 0; i < number && !deck.isEmpty(); i++) {
+        result.add(deck.draw());
+    }
+    return result;
+}
+```
+
+Notiamo come dobbiamo specificare __staticamente__ che Deck implementi CardSource, ovvero devo forzare la dichiarazione del fatto che Deck è un sottotipo di CardSource (java è strong typed) e quindi posso mettere un oggetto Deck ovunque sia richiesto un oggetto CardSource. 
+In altri linguaggi tipo GO abbiamo una maggiore dinamicità perché non abbiamo bisogno di specificare nel codice che un oggetto è sottotipo di qualcos'altro, ci basta solo che implementi il metodo con lo stesso nome, però così facendo il check che l'oggetto passato ad una funzione che richiede un oggetto avente quelle capacità avviene a runtime e non prima.
 
 Un problema della troppa dinamicità (duck typing) è che se i metodi che deve implementare un oggetto non hanno dei nomi abbastanza specifici possiamo avere dei problemi, per esempio in un programma per il gioco del tennis se una funzione richiede un oggetto che implementa il metodo play, e riceve in input un oggetto che non centra nulla con il tennis (per esempio un oggetto giocatoreDiScacchi) che ha il metodo play, avremo degli errori, perché è un play che fa cose diverse da quelle che ci si aspetta.
 
 Torniamo ora all'interface segregation, ora che abbiamo visto che la classe Deck implementa l'interfaccia CardSource, nulla ci vieta di fare in modo che implementi altre interfaccie, come si vede nell'immagine sotto. Al metodo precedente interessa solo che Deck abbia le capacità viste prima e specificate in CardSource, se poi implementa anche altre interfaccie al metodo non interessa.
 
-{% responsive_image path: assets/07_UML-Deck.png %}
+{% plantuml style="width:100%" %}
+
+class Client1
+class Client2
+class Client3
+
+interface Iterable<Card> << interface >> {
+    + {abstract} Iterator<Card> iterator()
+}
+
+class Deck implements Iterable, Shuffable, CardSource {
+    + void shuffle()
+    + Card draw()
+    + boolean isEmpty()
+    + Iterator<Card> iterator()
+}
+
+interface Shuffable << interface >> {
+    + {abstract} void shuffle()
+}
+
+interface CardSource << interface >> {
+    + {abstract} Card draw()
+    + {abstract} boolean isEmpty()
+}
+
+Client2 ..> Iterable
+Client1 ..> Shuffable
+Client3 ..> Iterable
+Client3 ..> CardSource
+
+hide empty fields
+hide empty methods
+
+{% endplantuml %}
 
 Notiamo ora nell'immagine dell'interfaccia CardSource che ci sono dei commenti javadoc, che specificano valore di ritorno e precondizioni, questo è il principio del __contract based design__, ovvero noi abbiamo un "contratto" in cui diciamo che è possibile richiamare il metodo draw solo se sono sicuro che no sia vuoto, altrimenti non garantisco il funzionamento del mio metodo, se poi chi lo usa non aderisce a questo contratto è un problema del chiamante (per specificare il contratto posso usare delle asserzioni o il @pre, la differenza è che il primo in fase di sviluppo mi avvisa se non sto rispettando il contratto, poi nella fase di deployment questi assert vengono rimossi, mentre nel secondo caso ho solo un commento, quindi non fa nessun controllo). Si potrebbe pensare che basti fare questo controllo all'interno del metodo draw ma questo sarebbe un approccio differente chiamato __programmazione difensiva__, ovvero non faccio assunzioni su ciò che mi viene dato e controllo io che l'input rispetti le condizioni di cui ho bisogno.
 
