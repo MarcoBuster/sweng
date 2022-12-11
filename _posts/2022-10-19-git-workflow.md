@@ -101,7 +101,7 @@ Un'altra differenza tra release e feature è che posso avere solo una release ap
 
 ## Hotfix
 
-Un hotfix è una riparzione veloce di difetti urgenti senza dover aspettare la prossima release.
+Un hotfix è una riparazione veloce di difetti urgenti senza dover aspettare la prossima release.
 È l'unico caso per cui non si parte da develop, ma dall'ultima - o una particolare - versione rilasciata su master.
 
 ```bash
@@ -226,7 +226,7 @@ L'approvatore deve determinare la risposta alle seguenti domande riguardo la pro
 - è valida per lo scopo del progetto?
 - è valida per l'architettura del progetto?
 - introduce nuove falle nel design che potrebbero causa problemi in futuro?
-- segue le _best pratices_ stabilite dal progetto?
+- segue le _best practices_ stabilite dal progetto?
 - è un buon modo per implementare la propria funzione?
 - introduce rischi per la sicurezza o la stabilità? 
 
@@ -259,7 +259,7 @@ hellomake: hellomake.c hellofunc.o
 Nell'esempio, se il _target_ hellomake (definito dai file `hellomake.c` e `hellofunc.o`) è stato aggiornato, occorre ricompilarlo utilizzando i comandi sotto.
 
 È a un livello molto basso ed è prono ad errori.
-Non c'è portatibilità tra macchine (ambienti) diverse.
+Non c'è portabilità tra macchine (ambienti) diverse.
 
 #### Generazione automatica
 
@@ -316,7 +316,7 @@ Esempio di un build file:
 Gradle si basa sui repository Maven dove sono riposte le librerie.
 
 Gradle supporta Groovy o Kotlin come linguaggi di scripting. 
-Approccio dichiarativo e fortemente basato su convenzioni: tutto quello che è già definito come standard non è necessario ridichiarlo un'altra volta.
+Approccio dichiarativo e fortemente basato su convenzioni: tutto quello che è già definito come standard non è necessario ridichiararlo un'altra volta.
 Definisce un linguaggio specifico per le dipendenze rendendo semplice la loro gestione.
 Permette di creare build multi-progetto.
 
@@ -327,7 +327,7 @@ Scala bene in complessità: permette di fare cose semplici senza usare le funzio
 
 I plugin servono per trattare tool, situazioni, linguaggi definendo task e regole per lavorare più facilmente.
 
-Il plugin Java defisce
+Il plugin Java definisce
 - una serie di __sourceSet__, ovvero dove è presente il codice e le risorse. Principalmente sono:
   - `src/main/java`: sorgenti Java di produzione;
   - `src/main/resources`: risorse di produzione;
@@ -369,3 +369,6 @@ Ci sono diversi modi per cui può essere chiuso un bug:
 - __wontfix__: o è una feature o è un errore talmente complesso da risolvere che non ne vale la pena, secondo i progettisti;
 - __can't reproduce__;
 - __fixed__ vs __fix verified__: nel primo stato il bug è stato fixato, nel secondo il fix è stato integrato in una release passando tutti gli step di verifica.
+
+
+
