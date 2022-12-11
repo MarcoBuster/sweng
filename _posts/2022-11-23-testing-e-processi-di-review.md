@@ -164,7 +164,7 @@ void main(){
 
 Posso ricostruire un diaramma di flusso di esecuzione del codice trasformando ogni comando in un nodo del diagramma:
 
-{% responsive_image path: 'assets/12_flowChart.png' %}
+{% responsive_image path: 'assets/13_flowChart.png' %}
 
 Dire che voglio _coprire tutti i comandi_, avendo trasformato ogni comando in un nodo, significa voler passare per tutti i nodi raggiungibili.
 
@@ -215,7 +215,7 @@ void main(){
 }
 ```
 
-{% responsive_image path: 'assets/12_flowChart-2.png' %}
+{% responsive_image path: 'assets/13_flowChart-2.png' %}
 
 
 Prendendo come Test i casi $<0,5>$ e $<5,-5>$ soddisfo al 100% il criterio di copertura delle condizioni (`x!=0` è falsificato da $<0,5>$ e verificato da $<5,-5>$, mentre `y>0` è verificato da $<0,5>$ e falsificato da $<5,-5>$), ma la decisione è sempre vera.
