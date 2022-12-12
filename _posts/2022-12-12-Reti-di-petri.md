@@ -5,7 +5,7 @@ date: 2022-12-12 14:40:00 +0200
 toc: true
 ---
 
-Sono in parte simili a FSM, ma nascono specificatamente per descrivere sistemi concorrenti. Quì però i concetti di stato e di transizione cambiano:
+Sono in parte simili a FSM, ma nascono alcuni particolari ideati specificatamente per descrivere sistemi concorrenti. Quì i concetti di stato e di transizione cambiano:
 * Lo stato non è più visto a livello di sistema ma come composizione di tanti stati parziali
 * Le transizioni non operano più quindi su uno stato globale, ma varieranno una parte dello stato (uno stato parziale per l'appunto)
 
@@ -25,12 +25,12 @@ Come cambio lo stato della rete (ovvero come cambio i token)? Quando una transiz
 Noi vediamo la definizione PT-net, ma esistono diversi dialetti, estensioni e riduzioni
 
 >Una Rete di Petri è (classicamente) una 5-tuple $$<P,T,F,W,M_0>$$ in cui:
-> $$P$$ è l'insieme dei posti 
-> $$T$$ è l'insieme delle transizioni
-> $$F$$ è la relazione di flusso 
->
-> $$W$$ è la funzione che associa un peso ad ogni flusso
-> $$M_0$$ è la marcatura iniziale
+> * $P$ è l'insieme dei posti 
+> * $T$ è l'insieme delle transizioni
+> * $F$ è la relazione di flusso 
+> * $W$ è la funzione che associa un peso ad ogni flusso
+> * $M_0$ è la marcatura iniziale
+> * $$ P \cap T \neq \void, P \cup T \neq \void, F \subseteq (P\timesT)\cup(T\cross P), W:F\rightarrow \N - {0}, M_0 : P \rightarrow \N $$
 
 ## Parte statica
 Useremo un paio di scorciatoie, come dei preset e dei postset:
@@ -83,7 +83,7 @@ Una transizione t1 è in sequenza con una transizione t2 in una marcatura M se e
 
 ## Conflitto
 Due transizioni (t1,t2) sono in conflitto:
-* _Strutturale_ se e solo se $Pre(t_1) \cup $Pre(t_2) \neq \void$
+* _Strutturale_ se e solo se $Pre(t_1) \cap Pre(t_2) \neq \empty$
 * _Effettivo in una marcatura M_ se e solo se `M[t1> AND M[t2> AND` $\exist p \in Pre(t1) \cup ...$
   * t1 e t2 sono abilitate in M
   * esiste un posto in ingresso ad entrambe che non possiede abbastanza token per far scattare entrambe
@@ -92,4 +92,54 @@ Esiste anche una versione rilassata del conflitto, non simmetrica:
 
 `M[t1> AND M[t2> AND NOT(M[t1t2>)`
 
-Quì però non teniamo conto
+
+## Concorrenza
+Quando 2 transizioni "non si danno fastidio"
+
+t1 e t2 sono in relazione di concorrenza:
+* _strutturale_ se e solo se $Pre(t_1) \cap Pre(t_2) = \empty$
+* _effettiva_ se e solo se tutti i posti in ingresso ad entrambe hanno abbastanza token per entrambe
+
+Attenzione: è possibile che siamo in una situazione di concorrenza strutturale ma non effettiva: basta che le due transizioni non siano abilitate
+
+
+# Insieme di Raggiungibilità
+> R È il più piccolo insieme di marcature tale che:
+> * $M\in R(P/T,M)$
+> * $(M'\in R(P/T,M) \& \exists t \in T M' [t>M')) \rightarrow M'' \in R(P/T,M)$
+
+
+# Proprietà di limitatezza
+Una rete P/T con marcatura M si dice limitata se e solo se il numero di token per ogni posto è limitato
+
+
+# Dalle reti di Petri agli Automi a stati finiti
+Se la rete è limitata allora l'insieme di raggiungibilità è finito: è quindi possibile definire un automa a stati finiti corrispondente in cui gli stati sono le possibili marcature dell'insieme di raggiungibilità e le transizioni sono gli archi.
+
+Scrivere una rete di petri in termini di FSM ci permette di utilizzare allo stesso tempo un modo di scrivere le cose in modo più sintetico e comprensibile (Reti di Petri) mentre utilizzare tutta la teoria conosciuta per poter analizzare la FSM corrispondente
+
+# Vitalità di una transizione
+Una transizione t in una marcatura m è detta _viva_ con un certo _grado_ se:
+* Grado 0
+  * Non è abilitata in nessuna marcatura appartenente all'insieme di raggiungibilità (in questo caso diciamo che è morta)
+* Grado 1
+  * Esiste almeno una marcatura raggiungibile in cui è abilitata
+* Grado 2
+  * Per ogni n > 0 esiste almeno una sequenza ammissibile in cui la transizione scatta n volte
+  * "n grande a piacere"
+* Grado 3
+  * Esiste una sequenza di scatti ammissibile in cui scatta infinite volte
+  * infinite volte (!= n grande a piacere)
+* Grado 4
+  * in qualunque marcatura raggiungibile esiste una sequenza ammissibile in cui scatta (in questo caso diciamo che è viva)
+
+> Una rete è __viva__ se tutte le sue transizioni sono __vive__
+
+
+# Dialetti
+Ci sono diversi dialetti delle reti di petri che possono aggiungere certe caratteristiche
+
+## Capacità dei posti
+Una possibile estensione è quella che mette un upper-bound di token possibili in un posto
+
+è un dialetto che si può modellare con una rete di petri classica, ad esempio attraverso l'uso del _posto complementare_. Questo vale però solo per le reti _pure_, ovvero reti in cui non esistono posti che sono in ingresso e uscita contemporaneamente ad una transizione.
