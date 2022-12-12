@@ -5,7 +5,7 @@ date: 2022-11-23 14:40:00 +0200
 toc: true
 ---
 
-## Correttezza di un software
+# Correttezza di un software
 
 La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da **problemi di comunicazione**.
 
@@ -73,7 +73,7 @@ Nel caso in cui il test non rilevi alcun malfunzionamento, non vuol dire che il 
 
 il test è un'attività ottimistica e non può garantire la correttezza del programma.
 
-$$T$$ è _ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ ovvero se il superamento del test implica la correttezza del programma.
+Un test $$T$$ è _ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ ovvero se il superamento del test implica la correttezza del programma.
 
 In generale, è **impossibile trovare un test ideale**.
 
@@ -98,22 +98,22 @@ class Trivial {
 In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $$2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
 Considerando un tempo di 1 nanosecondo per ogni test, ci dovremmo mettere più di 600 anni.
 
-Quindi anche il **test esaustivo è impossibile**.
+Il **test esaustivo** è quindi **impraticabile**.
 
-### Criterio di selezione
+## Criterio di selezione
 
 Come faccio a scegliere un sottoinsieme del dominio _intelligente_ cercando di approssimare il test ideale? Quali caratteristiche ci interessa che abbia il criterio che usiamo per selezionare questo sottoinsieme?
 
-#### Affidabilità
-Un _criterio di selezione_ si dice __affidabile__ se presi due test $$T_1$$ e $$T_2$$ in base al criterio $$C$$ allora o entrambi hanno sucecsso o nessuno dei due ha successo.
+### Affidabilità
+Un _criterio di selezione_ si dice __affidabile__ se presi due test $$T_1$$ e $$T_2$$ in base al criterio $$C$$ allora o entrambi hanno successo o nessuno dei due ha successo.
 
 $$
 \operatorname{affidabile}(C, \, P) \Leftrightarrow [\forall T_1 \in C, \, \forall T_2 \in C \: \operatorname{successo}(T_1, \, P) \Leftrightarrow \operatorname{successo}(T_2, P)]
 $$
 
 
-#### Validità
-Un _criterio di selezione_ si dice __valido__ se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo per il programma $$P$$
+### Validità
+Un _criterio di selezione_ si dice __valido__ se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo e quindi rileva uno o più malfunzionamenti per il programma $$P$$
 
 $$
 \operatorname{valido}(C, \, P) \Leftrightarrow (\lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C \ | \ successo(T,\,P))
@@ -122,21 +122,25 @@ $$
 __Esempio__: dato il codice
 ```java
 public class Esempio {
+    
     static int raddoppia(int par) {
             int risultato;
             risultato = (par * par);
             return risultato;
     }
+    
 }
 ```
 un criterio che seleziona:
-- _"sottoinsiemi di $$\{0, \, 2\}$$"_ è ___affidabile__ ma non valido_;
-- _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$"_ è _non affidabile ma __valido___;
-- _"sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$"_ è ___affidabile e valido___ 
 
-Ma siamo davvero sicuri?
+* _"sottoinsiemi di $$\{0, \, 2\}$$"_ è **affidabile**, perché funziona sia con 0 sia con 2, ma **non valido**, perché sappiamo che il programma non è corretto e non viene trovato nessun malfunzionamento.
 
-Se il test non ha successo, ci è utile avere un criterio valido ed affidabile?
+* _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$"_ è **non affidabile**, perché i risultati dei casi di test non sono tutti coerenti, ma **valido** perché rileva i malfunzionamenti.
+
+* _"sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$"_ è **affidabile**, perché i risultati dei casi di test sono tutti coerenti, e **valido** perché rileva i malfunzionamenti.
+
+Quello che vorremmo è scegliere un criterio affidabile e valido, in astratto, senza conoscerne i malfunzionamenti. Se un criterio viene definito conoscendo già i malfunzionamenti non ha senso.
+Ma se il test non ha successo, ci è utile avere un criterio valido ed affidabile?
 - Il fatto che il test non abbia avuto successo implica che non ci siano stati errori
 - Il fatto che il criterio sia affidabile implica che tutti gli altri test che possiamo trovare per quel criterio non trovo errori
 - Il fatto che il criterio sia valido, se ci fosse stato un errore almeno uno dei test lo avrebbe dovuto trovare
@@ -154,7 +158,7 @@ $$
 
 Ma trovare un criterio che sia _contemporaneamente_ affidabile e valido significherebbe trovare un criterio che selezioni _test ideali_ che sappiamo non esistere per la _tesi di Dijkstra_
 
-#### Utilità di un test
+### Utilità di un test
 
 Quali sono le caratteristiche che rendono utile un caso di test, ovvero che rendono "possibile" o "probabile" che il caso di test mi trovi l'errore?
 
@@ -162,16 +166,15 @@ Quali sono le caratteristiche che rendono utile un caso di test, ovvero che rend
 - L'esecuzione del comando che contiene l'anomalia deve portare il sistema in uno stato inconsistente
 - Lo stato inconsistente dell'output deve propagarsi fino all'uscita del codice in esame in modo da produrre un output diverso da quello atteso
 
-Possiamo utilizzare un metro di misura legato alle caratteristiche del codice: ad ogni criterio è possibile associare una metrica che misuri la _copertura_ del codice rispetto ad uno specifico test (ovvero la percentuale di codice che vado ad "utilizzare" in tutto il test) e che ci permetta di decidere quando smettere di testare, decidere quali altri casi di test è opportuno aggiungere o confrontare la _bontà_ di Test diversi
+Possiamo utilizzare un metro di misura legato alle caratteristiche del codice: ad ogni criterio è possibile associare una metrica che misuri la _copertura_ del codice rispetto ad uno specifico test (ovvero la percentuale di codice che vado ad "utilizzare" in tutto il test) e che ci permetta di decidere quando smettere di testare, decidere quali altri casi di test è opportuno aggiungere o confrontare la _bontà_ di test diversi.
 
+### Criteri noti
 
-## Criteri noti
-
-### Criterio di copertura dei comandi
+#### Criterio di copertura dei comandi
 
 Un test $$T$$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$.
 
-#### Esempio
+Per esempio:
 ```c
 void main(){
     float x,y;
@@ -185,7 +188,7 @@ void main(){
 }
 ```
 
-Posso ricostruire un diaramma di flusso di esecuzione del codice trasformando ogni comando in un nodo del diagramma:
+Posso ricostruire un diagramma di flusso di esecuzione del codice trasformando ogni comando in un nodo del diagramma:
 
 {% responsive_image path: 'assets/13_flowChart.png' %}
 
@@ -198,7 +201,7 @@ Il caso di test $$<3,7>$$ risulterebbe quindi sufficiente, dato che soddisfa il 
 Questo però _non mi garantisce che il programma si corretto,_ perchè ci sono dei malfunzionamenti che non sono stati trovati, ad esempio il caso di testing $$<0,7>$$ che provoca una divisione per 0.
 
 
-### Criterio di copertura delle decisioni
+#### Criterio di copertura delle decisioni
 
 Un test T soddisfa il criterio di copertura delle decisioni se e solo se ogni decisione effettiva viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T
 
@@ -206,12 +209,14 @@ La metrica è la percentuale delle decisioni totali possibili presenti nel codic
 
 Si noti come il criterio di copertura delle decisioni implichi il criterio di copertura dei comandi: andando ad estrarre il codice in un diagramma di flusso, io copro tutte le decisioni se e solo se attraverso ogni arco presente nel flusso. Considerando un grafo connesso per il diagramma di flusso, se io attraverso tutti gli archi allora ho attraversato tutti i possibili nodi. Non è invece vero l'inverso.
 
-#### Esempio
+Per esempio:
+
+
 Riprendendo l'esempio precedente, se volessi applicare il criterio di copertura delle decisioni dovrei utilizzare almeno due casi di test, ad esempio $$<3,7>$$ e $$<0,5>$$, che se compresi nello stesso test mi restituiscono una copertura delle decisioni pari al 100%.
 
 Ma non tutti i malfunzionamenti vengono trovati, ad esempio a riga 6 è possibile che ad x sia assegnato un valore tale per cui se sommo 10 ottengo un overflow.
 
-### Criterio di copertura delle condizioni
+#### Criterio di copertura delle condizioni
 
 Un test T soddisfa il criterio di _copertura delle condizioni_ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T
 
@@ -219,7 +224,8 @@ Similmente ai test precedenti, la metrica è la percentuale delle condizioni che
 
 Si noti come questo criterio non implichi i criteri precedenti
 
-#### Esempio
+Per esempio:
+
 
 Modifichiamo un po' l'esempio usato fino ad'ora:
 
@@ -245,11 +251,11 @@ Prendendo come Test i casi $$<0,5>$$ e $$<5,-5>$$ soddisfo al 100% il criterio d
 
 Ci sono quindi anomalie sia alla riga 6 (possibile divisione per 0) che alla riga 8(Overflow e divisione per 0), ma quelle alla riga 8 non verrebbero scoperte dato che non viene coperta.
 
-### Criterio di copertura delle decisioni e condizioni
+#### Criterio di copertura delle decisioni e condizioni
 
 È intuitivamente l'intersezione del Criterio di copertura delle decisioni con quello di copertura delle condizioni.
 
-### Criterio di copertura delle condizioni composte
+#### Criterio di copertura delle condizioni composte
 
 Un test T soddisfa il criterio di copertura delle condizioni composte se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di test in T
 
@@ -257,7 +263,7 @@ Si noti come questo criterio comporti il precedente (Criterio di copertura delle
 
 Data la natura combinatoria di questo criterio, all'aumento del numero di condizioni di base il numero di casi di test cresce __troppo rapidamente__. Inoltre dato che le condizioni di base potrebbero non riusltare indipendenti tra loro, potrebbero esistere combinazioni non fattibili che non sarebbe opportuno testare.
 
-### Criterio di copertura delle condizioni e delle decisioni modificate
+#### Criterio di copertura delle condizioni e delle decisioni modificate
 
 Ci si è accorti che certe combinazioni sono "più vicine o più lontane ad altre": se modificando una sola condizione base riesco a modificare la decisione, allora quella modifica è una modifica molto significativa indipendentemente da quanto sia grande. Se invece la decisione rimane la stessa, posso ipotizzare che quella modifcia sia più neutra e meno significativa.
 
