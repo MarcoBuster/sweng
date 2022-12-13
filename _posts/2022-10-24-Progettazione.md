@@ -110,8 +110,8 @@ le classi devono essere aperte ai cambiamenti (_opened_) ma senza modificare le 
 Il refactoring è comunque possibile, ma deve essere preferibile estendere la classe attuale.
 3. __<a style="color: darkgreen"><big>L</big></a>ISKOV SUBSTITUTION PRINCIPLE__:
 c'è la garanzia che le caratteristiche eredidate dalla classe padre continuinino ad esistere nelle classi fibre.
-Questo concetto si collega all'aspetto __contract-based__ del metodo Agile: le _pre-condizioni_ di un metodo di una classe figlia devono essere ugualmente o meno restrittive del metodo della classe padre.
-Al contrario, le _post-condizioni_ di un metodo della classe figlia non possono garantire più di quello che garantiva il metodo nella classe padre.
+Questo concetto si collega all'aspetto __contract-based__ del metodo Agile: le _precondizioni_ di un metodo di una classe figlia devono essere ugualmente o meno restrittive del metodo della classe padre.
+Al contrario, le _postcondizioni_ di un metodo della classe figlia non possono garantire più di quello che garantiva il metodo nella classe padre.
 Fare _casting_ bypassa queste regole.
 4. __<a style="color: darkgreen"><big>I</big></a>NTERFACE SEGREGATION__:
 più le capacità e competenze di una classe sono frammentate in tante interfacce più è facile utilizzarla in contesti differenti.
@@ -260,9 +260,19 @@ class Card {
 l'informazione viene ora interamente gestita dalla classe `Card`, che la gestisce nel metodo `toString()` per ritornare la sua rappresentazione testuale.
 
 
-## Chiarimento estrazione delle interfacce (interface segregation)
-Queste interfacce possono nascere in due modi, tramite un approccio up front oppure down front, ovvero partendo direttamente a scrivere l'interfaccia oppure scrivendo il codice e cercare di capire successivamente se possiamo estrarre una classe (quest'ultimo modo si adatta di più al TDD).
-Facciamo quindi un esempio (dal basso) per capire quando possiamo estrarre un'interfaccia.
+## Interface segregation
+
+Le interfacce possono _"nascere"_ tramite due approcci: 
+- __up front__: scrivere direttamente l'interfaccia;
+- __down front__: scrivere il codice e quindi tentare di estrarne un'interfaccia.
+
+L'approccio down-front si adatta meglio al TDD ed è illustrato nel seguente esempio.
+
+## Esempio con gerarchia Card / Deck
+
+In questo esempio sono trattati numerosi principi, come l'_interface segreagation_, _linking dinamico/statico_, _implementazione di interfacce multiple_ e il _contract based design_ vs la _programmazione difensiva_.
+
+### Interface segregation all'opera
 
 ```java
 public static List<Card> drawCards(Deck deck, int number) {
@@ -274,8 +284,13 @@ public static List<Card> drawCards(Deck deck, int number) {
 }
 ```
 
-prendiamo per esempio un metodo drawCards che prende come parametri un deck e un intero, le uniche cose che conosciamo di deck sono che è in grado di dirci se è vuoto (isEmpty) e che sa pescare una carta dal mazzo (draw), questo ci suggerisce che Deck può implementare un'interfaccia mette a disposizione queste capacità.
-Quindi è possibile modificare il codice in questo modo passando a drawCards non un deck ma un qualunque oggetto che è in grado di fare quelle due operazioni, quindi un elemento che implementa CardSource (quindi viene sfruttato il polimorfismo qui).
+Consideriamo il metodo `drawCards` che prende come parametri un `Deck` e un intero. \\
+Le __uniche competenze__ riconosciute a `Deck` sono l'indicazione _se è vuoto_ (`isEmpty()`) e il _pescare una carta_ dal mazzo (`draw()`).
+`Deck` può quindi __implementare un'interfaccia__ che mette a disposizione queste capacità.
+
+È possibile modificare il metodo in modo da accettare un qualunque oggetto in grado di eseguire le operazioni sopra elencate, ovvero che implementi l'interfaccia __`CardSource`__. 
+
+<a id="cardsource" style="display:none;"></a>
 
 ```java
 public interface CardSource {
@@ -306,12 +321,19 @@ public static List<Card> drawCards(CardSource deck, int number) {
 }
 ```
 
-Notiamo come dobbiamo specificare __staticamente__ che Deck implementi CardSource, ovvero devo forzare la dichiarazione del fatto che Deck è un sottotipo di CardSource (java è strong typed) e quindi posso mettere un oggetto Deck ovunque sia richiesto un oggetto CardSource. 
-In altri linguaggi tipo GO abbiamo una maggiore dinamicità perché non abbiamo bisogno di specificare nel codice che un oggetto è sottotipo di qualcos'altro, ci basta solo che implementi il metodo con lo stesso nome, però così facendo il check che l'oggetto passato ad una funzione che richiede un oggetto avente quelle capacità avviene a runtime e non prima.
+### Collegamento statico e dinamico
 
-Un problema della troppa dinamicità (duck typing) è che se i metodi che deve implementare un oggetto non hanno dei nomi abbastanza specifici possiamo avere dei problemi, per esempio in un programma per il gioco del tennis se una funzione richiede un oggetto che implementa il metodo play, e riceve in input un oggetto che non centra nulla con il tennis (per esempio un oggetto giocatoreDiScacchi) che ha il metodo play, avremo degli errori, perché è un play che fa cose diverse da quelle che ci si aspetta.
+Notare come è necessario specificare __staticamente__ che `Deck` implementi `CardSource`, ovvero devo forzare la dichiarazione del fatto che `Deck` è un _sottotipo_ di `CardSource` (Java è strong typed) e quindi posso mettere un oggetto `Deck` ovunque sia richiesto un oggetto `CardSource`. \\
+In altri linguaggi tipo __Go__ c'è una __maggiore dinamicità__ perché non c'è bisogno di specificare nel codice che un oggetto è sottotipo di qualcos'altro, è sufficiente solo che implementi un metodo con la stessa signature.
+Il controllo che l'oggetto passato ad una funzione abbia le capacità necessarie avviene a runtime e non prima.
 
-Torniamo ora all'interface segregation, ora che abbiamo visto che la classe Deck implementa l'interfaccia CardSource, nulla ci vieta di fare in modo che implementi altre interfaccie, come si vede nell'immagine sotto. Al metodo precedente interessa solo che Deck abbia le capacità viste prima e specificate in CardSource, se poi implementa anche altre interfaccie al metodo non interessa.
+Un problema della troppa dinamicità (__duck typing__) è che se i metodi di un oggetto non hanno dei nomi abbastanza specifici si possono avere dei problemi. 
+Per esempio, in un programma per il gioco del tennis se una funzione richiede un oggetto che implementa il metodo `play()`, e riceve in input un oggetto che non c'entra nulla con il tennis (per esempio un oggetto di tipo `GiocatoreDiScacchi`) che ha il metodo `play()`, si possono avere degli effetti indesiderati.
+
+### Interfacce multiple
+
+Tornando all'esempio, la classe `Deck` (che implementa `CardSource`) __può implementare anche altre interfacce__, come `Shuffable` o `Iterable<Card>`. 
+Al metodo precedente interessa solo che Deck abbia le capacità specificate in `CardSource`, se poi implementa anche altre interfaccie è ininfluente.
 
 {% plantuml style="width:100%" %}
 
@@ -349,22 +371,49 @@ hide empty methods
 
 {% endplantuml %}
 
-Notiamo ora nell'immagine dell'interfaccia CardSource che ci sono dei commenti javadoc, che specificano valore di ritorno e precondizioni, questo è il principio del __contract based design__, ovvero noi abbiamo un "contratto" in cui diciamo che è possibile richiamare il metodo draw solo se sono sicuro che no sia vuoto, altrimenti non garantisco il funzionamento del mio metodo, se poi chi lo usa non aderisce a questo contratto è un problema del chiamante (per specificare il contratto posso usare delle asserzioni o il @pre, la differenza è che il primo in fase di sviluppo mi avvisa se non sto rispettando il contratto, poi nella fase di deployment questi assert vengono rimossi, mentre nel secondo caso ho solo un commento, quindi non fa nessun controllo). Si potrebbe pensare che basti fare questo controllo all'interno del metodo draw ma questo sarebbe un approccio differente chiamato __programmazione difensiva__, ovvero non faccio assunzioni su ciò che mi viene dato e controllo io che l'input rispetti le condizioni di cui ho bisogno.
+### _Contract-based_ design vs programmazione difensiva
 
-Abbiamo detto che una classe che implementa un'interfaccia deve implementare tutti i metodi dell'interfaccia, però abbiamo un'altra possibilità, ovvero quella di mettere la classe che implementa come classe astratta, ovvero una classe da cui non si possono istanziare oggetti.
-Usando questo modo è come dire che la classe non è ancora completa, e quindi non ancora utilizzabile, però possiamo usare questo modo dell'abstract anche per classi complete ma che non ha senso che vengano istanziate. Un esempio è la classe Subject e l'interfaccia Observer di java, la classe Subject non è stata messa abstract ma non aveva alcun senso istanziarla, era necessario creare un sottotipo di Subject. Questo caso è un buon esempio di situazione in cui sarebbe stato necessario mettere la parola chiave abstract a Subject anche se era una classe completa ma non aveva senso istanziarla.
+Tornando alla <a href="#cardsource">specificazione</a> dell'interfaccia di `CardSource`, è possibile notare dei commenti in formato Javadoc che specificano le __precondizioni__ e le __postcondizioni__ (il valore di ritorno) del metodo. Secondo il ___contract-based_ design__, esiste un _"contratto"_ tra chi implementa un metodo e chi lo chiama.
+
+Per esempio, considerando il metodo `draw()`, __è responsabilità del chiamante__ verificare il soddisfacimento delle precondizioni (_"il mazzo non è vuoto"_) prima di invocare il metodo.
+Se `draw()` viene chiamato quando il mazzo è vuoto ci troviamo in una situazione di __violazione di contratto__ e può anche esplodere la centrale nucleare.
+
+Per specificare il contratto si possono utilizzare delle __asserzioni__ o il `@pre` nei __commenti__. 
+Le prime sono particolarmenti utili in fase di sviluppo perché interrompono l'esecuzione del programma in caso di violazione, ma vengono solitamente rimosse in favore delle seconde nella fase di deployment.
+
+Un'altro approccio è la __programmazione difensiva__ che al contrario delega la responsabilità del soddisfacimento delle precondizioni al _chiamato_, e non al chiamato. 
+
+### Classi astratte
+
+Una classe astratta che implementa un'interfaccia __non deve necessariamente implementarne__ tutti i metodi, ma può delegarne l'implementazione alle sottoclassi impedendo l'istanziamento di oggetti del suo tipo.
 
 Le interfacce diminuiscono leggermente le performance, però migliorano estremamente la generalità (che aiutano l'espandibilità ed evolvibilità del programma), quindi vale la pena di perdere leggermente in efficienza.
 
-### Esempio nella libreria standard Java
-Un esempio di ciò che abbiamo visto fino ad ora è quello usato nella libreria standard di java, infatti se noi abbiamo una classe Deck che ha come attributo una lista di carte, e vogliamo mettere a disposizione un metodo che mescola il deck, ci basterà sfruttare Collections.shuffle che accetta come parametro una lista di qualcosa (List<?> list). Infatti non è necessario conoscere le carte per poterle mescolare, quindi possiamo dire che non abbiamo bisogno di sapere cosa contiene la lista per poter cambiare la loro posizione all'interno di essa.
-La stessa cosa si può dire se vogliamo ordinare il mazzo di carte? no perché dobbiamo aver bisogno di un criterio per comparare gli elementi, quindi il metodo sort di collection dovrà prendere come parametro una lista di T con il vincolo che questo T estenda l'interfaccia comparable di qualcosa antenato di T (quindi T deve avere un metodo compareTo usabile, presente in T o in un suo antenato), in altre parole sort ha bisogno che gli elementi della lista da ordinare siano confrontabili tra di loro.
+È possibile utilizzare le __classi astratte__ anche per classi complete, ma che __non ha senso che siano istanziate__.
+Un buon esempio sono le classi _utility_ della libreria standard di Java.
+
+<!--Un esempio è la classe Subject e l'interfaccia Observer di java, la classe Subject non è stata messa abstract ma non aveva alcun senso istanziarla, era necessario creare un sottotipo di Subject. Questo caso è un buon esempio di situazione in cui sarebbe stato necessario mettere la parola chiave abstract a Subject anche se era una classe completa ma non aveva senso istanziarla.-->
+
+#### Classe utility della libreria standard di Java
+
+Un esempio è __`Collections.shuffle(List<?> list)`__ che accetta una lista omogenea di elementi e la mischia.
+Il _tipo_ degli elementi è volutamente ignorato in quanto non è necessario conoscerlo per mischiarli.
+
+Per l'__ordinamento__, invece, è necessario conoscere il tipo degli oggetti in quanto bisogna confrontarli tra loro per poterli ordinare.
+La responsabilità della comparazione è però delegata all'oggetto, che deve aderire all'interfaccia `Comparable<T>`.
+
+__`Collections.sort(...)`__ ha, infatti, la seguente signature:
 ```java
 public static <T extends Comparable<? super T>> void sort(List<T> list)
 ```
-Comparable è un altro esempio di interface segregation, è un'interfaccia tirata fuori per specificare che un oggetto ha bisogno della caratteristica di essere comparabile.
 
-Digressione: la classe Collections era l'unico modo per definire dei metodi sulle interfacce (es: dare la possibilità di avere dei metodi sulle collezioni, ovvero liste, mappe, ecc), questo andrà a sparire siccome ora esistono i metodi di default.
+La notazione di generico __aggiunge dei vincoli__ su `T`, ovvero il tipo degli elementi contenuti nella lista:
+- `T extends Comparable<...>` significa che `T` deve estendere - e quindi implementare - l'interfaccia `Comparable<...>`;
+- `Comparable<? super T>` significa che tale interfaccia può essere implementata su un antenato di `T` (o anche `T` stesso).
+
+`Comparable` è un altro esempio di _interface segregation_: serve per specificare che un oggetto ha bisogno della caratteristica di essere comparabile.
+
+__Digressione__: la classe Collections era l'unico modo per definire dei metodi sulle interfacce (es: dare la possibilità di avere dei metodi sulle collezioni, ovvero liste, mappe, ecc), ma ora si possono utilizzare i metodi di default.
 
 ## polimorfismo e loose coupling
 Passando ora al polimorfismo vediamo come viene affiancato dal concetto di __loose coupling__, ovvero la capacità di una variabile o parametro di accettare l'assegnazione di oggetti aventi tipo diverso da quello della variabile/parametro, a patto però che sia un sottotipo.
