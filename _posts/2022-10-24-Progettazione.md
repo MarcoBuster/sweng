@@ -65,12 +65,6 @@ In questo caso, se il _refactoring_ non è banale è bene fermarsi, tornare indi
 - presenza di __debito tecnico__ su lavoro fatto in precendenza, ovvero debolezze e "scorciatoie" che ostacolano notevolmente evoluzioni future: _"ogni debito tecnico lo si ripaga con gli interessi"_.
 
 ## Design knowledge
-Il design knowledge è dove la conoscenza del nostro design risiede, possiamo utilizzare:
-- Memoria: non è efficace, nel tempo posso dimenticarmi. Se si lavora in coppia a maggior ragione non basta la memoria.
-- Documenti di design (linguaggio naturale o diagrammi) : se non viene aggiornato di pari passo con il codice rimane disallineato, di conseguenza può risultare più dannoso che d'aiuto.
-- Piattaforme di discussione (version control, issue management) : può aiutare ma avremmo le informazioni sparse in luoghi diversi e di conseguenza difficili da reperire, inoltre rimane il problema di mantenere aggiornate queste informazioni.
-- UML: tramite diagrammi UML si è cercato di sfruttare l'approccio generative programming, quindi noi da una specificazioni tramite UML generavamo il codice, e anche se modificavamo il codice l'UML cambiava, con l'esperienza però si è visto che non poteva funzionare questa soluzione.
-- Nel codice: tramite la scrittura del codice è possibile capire il design ma è difficile rappresentare le ragioni della scelta.
 
 La design knowledge è la __conoscenza del design__ architetturale di un progetto. 
 È possibile utilizzare:
@@ -93,20 +87,53 @@ I pattern non si concentrano sulle prestazioni di un particolare sistema ma sull
 - __principi__: per esempio i principi SOLID.
 
 ## Conoscenze preliminari di concetti e termini
-Prima di proseguire vediamo dei concetti e termini fondamentali per proseguire nel corso:
-- __Object orientation__: Cosa deve supportare un linguaggio per poter essere definito object oriented? abbiamo 3 cose, ovvero:
-    - __Ereditarietà__, ovvero il concetto di classe in modo da spiegare per differenza da un'altra classe.
-    - __Polimorfismo__, Può assumere diverse forme, quindi per far si che una classe sfrutti il polimorfismo deve implementare una o più interfacce. per esempio se abbiamo un'interfaccia animali, e creiamo una lista di animali, all'interno della lista possiamo metterci dentro diversi oggetti con caratteristiche diverse, ma tutti devono implementare l'interfaccia animali, ovvero deve avere almeno tutte le competenze di un animale, fa niente se poi ne ha altre. Questo collegamento tra capacità e oggetto è fatto __a tempo di compilazione__, quindi di fatto non ci interessa se la capacità non è ancora definita, basta che la abbia.
-    - __Collegamento dinamico__, riprendendo l'esempio di prima tutti gli elementi che andranno nella lista sono elementi di cui sappiamo solo che hanno un collegamento con le capacità (metodi) di un animale, però non per forza uno di questi metodi al livello in cui lo stiamo considerando è definito, quindi qui entra in gioco il collegamento dinamico, ovvero a __tempo di esecuzione__ viene risolto il collegamento tra oggetto e metodo che effettivamente viene eseguito. Possiamo quindi dire che il collegamento dinamico ci permette di chiamare codice non ancora scritto, e grazie a questo meccanismo possiamo non toccare il codice appena scritto ma modificare e aggiungere funzionalità mettendo classi il cui codice verrà chiamato da qello già presente, in questo modo possiamo avere l'open-close principle che vedremo a breve.
-- __Principi SOLID__: Abbiamo 5 parti che compongono questo principio:
-    - __<a style="color: green">S</a>ingle responsability__, ovvero una classe ha un solo scopo, e questo si fa per mantenere la classe semplice e per avere una buona riusabilità.
-    - __<a style="color: green">O</a>pen close principle__, cioè le classi devono essere aperte ai cambiamenti (open) senza toccare ciò che è stato scritto (close, qui si intende ciò che già è stato consegnato ed è in produzione, non ciò che ho scritto e a cui sto ancora lavorando).
-    - __<a style="color: green">L</a>iskov substitution principle__, ovvero devo garantire che se nella classe padre garantisco delle caratteristiche anche tutte le classi che derivano da quella devono continuare a garantire quelle caratteristiche. Questo si collega all'aspetto __contract based__ del metodo agile (pre e post condizioni), ovvero se una funzione nella classe base funziona date certe pre-condizioni anche nella classe figlia devo far sì che la mia implementazione rispetti almeno tutte le pre-condizioni, poi volendo le può ampliare; al contrario nelle post condizioni dell'implementazione della classe figlia non posso garantire più di quello che nella classe padre garantivo. Quindi possiamo dire che questo è un altro modo per esprimere lo stesso principio (fare il casting bypassa queste regole).
-    - __<a style="color: green">I</a>nterface segregation__, ovvero più separo le capacità di una classe in tante interfacce (che tra loro abbiano senso) più è facile usare la classe in contesti differenti. Queste interfacce possono essere viste come classi, come interfacce differenti ma che comunque possono non essere disgiunte, quindi ogni vista può essere usata indipendentemente dalle altre. In questo modo riusciamo a far sì che un client non dipenda da metodi che non usa, meglio avere tante interfacce specifiche e piccole (composte da pochi metodi), piuttosto che poche, grandi e generali. 
-    - __<a style="color: green">D</a>ependency inversion__, cioè per far sì che una classe funzioni deve dipendere da dell'altro codice, e se questo codice è più concreto della mia classe ho dei problemi, perché a questo punto sono vincolato dalla concretezza di quello specifico codice da cui dipendo (esempio: telaio della 500 dipende dal motore x -> ho un problema perché posso usare il telaio solo se ho quello specifico motore, se invece telaio della 500 dipende dal concetto di motore con le diverse caratteristiche che deve avere (interfaccia), ma senza dettagli tecnici -> posso usare il telaio con qualsiasi motore che aderisce a quell'interfaccia). In conclusione le cose concrete devono dipendere da cose astratte, e mai da cose concrete.
-- __Reference escaping__: Violazione dell'incapsulamento, quando restituisco un oggetto interno alla classe che non sarebbe da esporre, questo può avvenire tramite dei getter in cui si ritorna un riferimento ad un oggetto interno (quindi anche se quell'oggetto è privato potrò accederci da fuori), tramite un setter che assegna all'oggetto interno un riferimento che gli viene passato oppure tramite il costruttore che assegna ad un oggetto interno un riferimento passato.
-- __Encapsulation e information hiding__: Solo ciò che è nascosto può essere cambiato liberamente senza pericoli, ovvero se mostro all'esterno qualcosa devo impegnarmi a non modificarle come voglio, ma quello che ho nascosto posso modificarlo senza problemi. questo serve per facilitare la comprensione del codice e rendere più facile modificare una parte senza fare danni.
-- __Immutabilità__: l'oggetto dopo la sua inizializzazione non può essere modificato il suo stato in alcun modo, per fare ciò dobbiamo:
+
+Prima di proseguire è bene richiamare concetti e termini fondamentali presumibilmente visti durante il corso di Programmazione II.
+
+### Object orientation
+
+Per essere definito _object oriented_, un linguaggio di programmazione deve soddisfare tre proprietà:
+- __ereditarietà__: ovvero la possibilità di poter spiegare una classe come _differenza_ da un'altra classe.
+- __polimorfismo__: quando una classe può assumere diverse forme in base alle interfacce che implementa. 
+Il prof fa l'esempio del _tennista scacchista_: in un torneo di tennis è poco utile sostituire una persona che gioca a tennis ed è brava con gli scacchi (quindi una classe che implementa entrambe le interfacce) con una che gioca a scacchi.
+Il collegamento tra capacità e oggetto è fatto __a tempo di compilazione__: non è importante quindi se la capacità non è ancora definita;
+- __collegamento dinamico__: in Java il tipo concreto degli oggetti e quindi quale metodo chiamare viene risolto durante l'esecuzione. 
+In C++ occorre esplicitare questo comportamento utilizzando la keyword `virtual`.
+
+### <a style="color: darkgreen">SOLID</a> principles
+
+Abbiamo 5 parti che compongono questo principio:
+1. __<a style="color: darkgreen"><big>S</big></a>INGLE RESPONSIBILITY__: una classe, un solo scopo.
+Così facendo le classi rimangono semplici e si agevola la riusabilità.
+2. __<a style="color: darkgreen"><big>O</big></a>PEN-CLOSE PRINCIPLE__:
+le classi devono essere aperte ai cambiamenti (_opened_) ma senza modificare le parti già consegnate e in produzione (_closed_).
+Il refactoring è comunque possibile, ma deve essere preferibile estendere la classe attuale.
+3. __<a style="color: darkgreen"><big>L</big></a>ISKOV SUBSTITUTION PRINCIPLE__:
+c'è la garanzia che le caratteristiche eredidate dalla classe padre continuinino ad esistere nelle classi fibre.
+Questo concetto si collega all'aspetto __contract-based__ del metodo Agile: le _pre-condizioni_ di un metodo di una classe figlia devono essere ugualmente o meno restrittive del metodo della classe padre.
+Al contrario, le _post-condizioni_ di un metodo della classe figlia non possono garantire più di quello che garantiva il metodo nella classe padre.
+Fare _casting_ bypassa queste regole.
+4. __<a style="color: darkgreen"><big>I</big></a>NTERFACE SEGREGATION__:
+più le capacità e competenze di una classe sono frammentate in tante interfacce più è facile utilizzarla in contesti differenti.
+In questo modo un client non dipende da metodi che non usa. 
+Meglio quindi avere __tante interfacce specifiche__ e piccole (composte da pochi metodi), piuttosto che poche, grandi e generali. 
+5. __<a style="color: darkgreen"><big>D</big></a>EPENDENCY INVERSION__:
+il codice dal quale una classe dipende non deve essere più __concreto__ di tale classe.
+Per esempio, se il _telaio della FIAT 500_ dipende da uno specifico motore, è possibile utilizzarlo solo per quel specifico motore.
+Se invece il telaio dipende da _un_ concetto di motore non c'è questa limitazione.
+In conlusione, le classi concrete devono tendenzialmente dipendere da classi astratte e non da altre classi concrete.
+
+### Reference escaping
+
+Violazione dell'incapsulamento, quando restituisco un oggetto interno alla classe che non sarebbe da esporre, questo può avvenire tramite dei getter in cui si ritorna un riferimento ad un oggetto interno (quindi anche se quell'oggetto è privato potrò accederci da fuori), tramite un setter che assegna all'oggetto interno un riferimento che gli viene passato oppure tramite il costruttore che assegna ad un oggetto interno un riferimento passato.
+
+### Encapsulation e information hiding
+
+Solo ciò che è nascosto può essere cambiato liberamente senza pericoli, ovvero se mostro all'esterno qualcosa devo impegnarmi a non modificarle come voglio, ma quello che ho nascosto posso modificarlo senza problemi. questo serve per facilitare la comprensione del codice e rendere più facile modificare una parte senza fare danni.
+
+### Immutabilità
+
+L'oggetto dopo la sua inizializzazione non può essere modificato il suo stato in alcun modo, per fare ciò dobbiamo:
     - Non fornire metodi di modifica allo stato.
     - Ha attributi tutti privati (in realtà non è obbligatorio, posso mostrare cose attributi che non sono a loro volta mutabili)
     - Ha tutti gli attributi final (anche qui non è obbligatorio dichiararlo)
@@ -127,7 +154,7 @@ I seguenti sono dei segnali che ci permettono di capire che qualcosa non va:
 - Codice morto: Non deve essere presente del codice irraggiungibile o commentato nel programma, perché avendo a disposizione il versioning da cui possiamo riprenderlo in caso di necessità, non è necessario averlo nel risultato finale.
 - Getter e setter: Vediamo nel principio di __Tell don't ask__.
 
-## <a src="https://martinfowler.com/bliki/TellDontAsk.html">Principio Tell-Don't-Ask</a>
+## <a href="https://martinfowler.com/bliki/TellDontAsk.html">Principio Tell-Don't-Ask</a>
 Il principio tell don't ask dice che piuttosto di __chiedere__ ad un oggetto dei dati e fare delle operazioni con quei dati è meglio __dire__ a questo oggetto cosa fare con i dati che contiene, quindi per esempio piuttosto che farsi dare i dati da una classe e cercare di stampare una stringa creata con quei dati in un certo formato è meglio dire all'oggetto di utilizzare il metodo toString che ci restituisce una stringa con la rappresentazione dello stato dell'oggetto, e noi semplicemente la stampiamo.
 
 ## Chiarimento estrazione delle interfacce (interface segregation)
