@@ -6,22 +6,63 @@ toc: true
 ---
 
 # Progettazione
-Per capire lo scopo della progettazione siamo partiti da un esempio, ovvero abbiamo preso un programma che stampa una canzone, il codice era fatto appositamente per essere difficilmente leggibile, abbiamo visto una seconda versione in cui il codice era molto più leggibile ma comunque difficilmente modificabile perché modificando quel codice sarebbe stato facile commettere degli errori.
-Successivamente abbiamo scomposto il codice per renderlo logicamente più sensato e facilmente modificabile, sono state estratte le parti comuni e messe in una funzione apposita, mentre le parti che cambiano sono state salvate in alcune strutture dati, in questo modo tramite un ciclo abbiamo ricreato la canzone. In questo modo scrivendo un codice più semplice siamo stati in grado di creare una soluzione più generale e più aperta ai cambiamenti.
 
-È importante quindi quando si scrive un programma adottare la soluzione più semplice (che non è quella più stupida!), e una misura convenzionale per dire quanto una cosa è semplice (qui all'università dove stiamo imparando, ma vale in linea generale anche sul lavoro) si esprime in termini di quanto tempo ci dedico per fare quella cosa.
-Questo modo di misurare la semplicità è molto utile perché ci permette di capire se stiamo sfruttando il TDD nel modo corretto, ovvero se ogni breve lasso di tempo (una decina di minuti) abbiamo un feedback, infatti se per una sola iterazione ci mettiamo molto tempo è facile intuire che non stiamo sfruttando il TDD nel modo corretto perché stiamo affrontando un problema troppo complesso senza scomporlo (quindi dobbiamo ridurre la portata di quello che c'è da fare nei 10 minuti), oppure ho frainteso ciò che dovevo fare, e questo non rispetta le regole del TDD.
+## Introduzione
 
-### Digressione sul Refactoring
-Diamo una spiegazione un po' più specifica del refactoring visto nelle lezioni precedenti, prima però vediamo delle regole da rispettare durante il refactoring:
-- Modifiche al codice che non modificano le funzionalità. il cliente da fuori non deve accorgersi di queste modifiche.
-- Non devo passare dei test in più rispetto alla fase verde appena raggiunta.
-- Se durante il refactoring mi dilungo per troppo tempo allora possiamo fare rollback all'ultima versione verde e provare a ragionare di nuovo sul refactoring (posso scomporre in più step? posso farlo meglio? in questo caso quindi vale la regola del "do it twice", ovvero la seconda volta posso farlo più velocemente e meglio).
+Durante le lezioni, per discutere di progettazione siamo partiti da un esempio di programma in C che stampa una canzone.
+Il [codice considerato](https://paste.studentiunimi.it/paste/JS+VOUKO#Rj3CMN-TmbNu3zeTleTTM0JdjjROWeVySXTgzG6aWKY) è talmente illeggibile che Jekyll rifiuta di compilare se lo si prova ad includere in un file Markdown.
 
-Quindi perché faccio il refactoring? vediamo le motivazioni:
-- Il design precedente era molto complesso e poco leggibile, appositamente per passare ad uno scenario verde, quindi ora tramite il refactoring lo semplifico e lo miglioro
-- Sul lavoro fatto in precedenza (non quello appena concluso) mi posso accorgere di avere dei problemi, o meglio un debito tecnico, ovvero delle debolezze che se lascio li mi causano difficoltà sempre maggiori man mano che proseguo nel lavoro. Qui possiamo notare un richiamo alla legge di bohem<!-- Non ho capito se fosse la legge di bohem oppure un'altra -->, inizialmente contestata da xp ma poi in parte reintrodotta confermando che se vengono lasciati indietro degli errori pagheremo questo fatto con gli interessi, ovvero più lavoro si fa trascurando questo problema e più fatica faremo per risolverlo.
-- Una volta che abbiamo raggiunto uno stato di verde nella feature e passiamo all'iterazione successiva possiamo accorgerci che se avessimo fatto il codice in maniera differente nell'iterazione precedente ora sarebbe molto più semplice proseguire nell'iterazione. Allora se notiamo che questa aggiunta non è banale (ci mettiamo più di un minuto per farla) al posto di integrarla nella nuova feature torno indietro alla fase verde e faccio un'operazione di refactoring per far evolvere il codice verso una nuova direzione, ovvero quella per facilitare l'iterazione successiva (design for change).
+Successivamente abbiamo scomposto il codice per renderlo logicamente più sensato e facilmente modificabile, sono state __estratte le parti comuni__ e spostate in una funzione apposita, mentre le __parti mutabili sono state salvate in alcune strutture dati__; la canzone viene così stampata tramite un ciclo. 
+In questo modo scrivendo un codice più semplice siamo stati in grado di creare una soluzione più generale e più aperta ai cambiamenti.
+
+```java
+public class TwelveDaysOfChristmas {
+    static String[] days = {"first", "second", ..., "twelfth"};
+    static String[] gifts = { "a partdrige in a pear tree", "two turtle doves", ... };
+
+    static String firstLine(int day) {
+        return "On the " + days[day] +
+               " day of Christmas my true love gave to me:\n";
+    }
+
+    static String allGifts(int day) {
+        if (day == 0) {
+            return "and " + gifts[0];
+        } else {
+            return gifts[day] + "\n" + allGifts(day-1);
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(firstLine(0));
+        System.out.println(gifts[0]);
+        for (int day == 1; day < 12; day++) {
+            System.out.println(firstLine(day));
+            System.out.println(allGifts(day));
+        }
+    }
+}
+```
+
+È importante quindi __adottare la soluzione più semplice__ (che __non è quella più stupida__!) e una misura convenzionale per dire quanto una cosa è semplice - almeno in Università - si esprime in termini del tempo dedicato dal programmatore all'implementazione.
+Tale misura si sposa bene con il __TDD__, che richiede __brevi iterazioni__ di circa 10 minuti: se la feature attuale richiede più tempo è opportuno ridurre la portata scomponendo il problema.
+
+## Refactoring
+Durante il refactoring è opportuno rispettare le seguenti regole:
+- le __modifiche al codice non devono modificare le funzionalità__:
+il refactoring DEVE essere invisibile al cliente;
+- __non possono essere aggiunti test aggiuntivi__ rispetto alla fase verde appena raggiunta.
+
+Se la fase di refactoring sta richiedendo troppo tempo allora è possibile fare rollback all'ultima versione verde e __pianificare meglio__ l'attività di refactoring, per esempio scomponendolo in più step.
+Vale la regola del _"do it twice"_: il secondo approccio a un problema è solitamente più veloce e migliore.
+
+### Motivazioni
+
+Spesso le motivazioni dietro un refactoring sono:
+- precedente __design molto complesso e poco leggibile__, a causa della velocità del passare ad uno _scenario verde_;
+- __preparare il design di una funzionalità__ che non si integra bene in quello esistente; dopo aver raggiunto uno _scenario verde_ in una feature, è possibile che la feature successiva sia difficile da integrare. 
+In questo caso, se il _refactoring_ non è banale è bene fermarsi, tornare indietro e evolvere il codice per facilitare l'iterazione successiva (__design for change__). 
+- presenza di __debito tecnico__ su lavoro fatto in precendenza, ovvero debolezze e "scorciatoie" che ostacolano notevolmente evoluzioni future: _"ogni debito tecnico lo si ripaga con gli interessi"_.
 
 ## Design knowledge
 Il design knowledge è dove la conoscenza del nostro design risiede, possiamo utilizzare:
