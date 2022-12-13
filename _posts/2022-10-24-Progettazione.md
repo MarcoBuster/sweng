@@ -180,22 +180,85 @@ Per assicurare tale proprietà è necessario:
 - assicurare l'__accesso esclusivo__ a tutte le parti non mutabili, ovvero non avere reference escaping.
 
 ## Code smell
-I seguenti sono dei segnali che ci permettono di capire che qualcosa non va:
-- Codice duplicato: Posso farlo per arrivare velocemente al verde ma poi lo devo togliere con il refactoring, siccome se ho codice duplicato vuol dire che quei pezzi di codice hanno qualcosa in comune ed è possibile fattorizzare.
-- Metodi troppo lunghi: sono poco leggibili e poco riusabili.
-- Troppi livelli di indentazione: anche qui abbiamo una scarsa leggibilità e riusabilità, quando ho tanti livelli di indentazione a causa di cicli per esempio è facile fattorizzare il codice.
-- Troppi attributi: suggerisce che la classe non rispetta la single responsability, ovvero fa troppe cose.
-- Lunghezza sequenze di _if-else_ o _switch_
-- Classe troppo grande
-- Lista parametri troppo lunga
-- numeri _magici_: Quando si hanno delle costanti numeriche all'interno del codice non si capisce cosa rappresentano, essendo adimensionali e non danno informazioni. Allora bisogna dargli un nome per fare in modo che si capisca a cosa serve.
-- Commenti: Se sono presenti vuol dire che il codice non era abbastanza chiaro.
-- Nomi oscuri o inconsistenti: bisogna dare dei nomi sensati a metodi/classi/variabili.
-- Codice morto: Non deve essere presente del codice irraggiungibile o commentato nel programma, perché avendo a disposizione il versioning da cui possiamo riprenderlo in caso di necessità, non è necessario averlo nel risultato finale.
-- Getter e setter: Vediamo nel principio di __Tell don't ask__.
+
+I _code smell_ sono dei segnali che suggeriscono problemi nella progettazione del codice. 
+Di seguito ne sono elencati alcuni:
+- __codice duplicato__: si può fare per arrivare velocemente al verde ma è da togliere togliere con il refactoring. 
+Le parti di codice in comune possono quindi essere fattorizzate.
+- __metodi troppo lunghi__: sono poco leggibili e poco riusabili;
+- __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice;
+- __troppi attributi__: suggerisce che la classe non rispetta la single responsability, ovvero fa troppe cose;
+- __lunghe sequenze di _if-else_ o _switch___;
+- __classe troppo grande__;
+- __lista parametri troppo lunga__;
+- __numeri _magici___: è importante assegnare alle costanti numeriche all'interno del codice un nome per comprendere meglio il loro scopo;
+- __commenti che spiegano cosa fa il codice__: indicazione che il codice non è abbastanza chiaro;
+- __nomi oscuri o inconsistenti__;
+- __codice morto__: nel programma non deve essere presente del codice irraggiungibile o commentato. Utilizzando strumenti di versioning è possibile riaccedere a codice precedentemente scritto con facilità.
+- __getter e setter__: vedi principio di __tell don't ask__.
 
 ## <a href="https://martinfowler.com/bliki/TellDontAsk.html">Principio Tell-Don't-Ask</a>
-Il principio tell don't ask dice che piuttosto di __chiedere__ ad un oggetto dei dati e fare delle operazioni con quei dati è meglio __dire__ a questo oggetto cosa fare con i dati che contiene, quindi per esempio piuttosto che farsi dare i dati da una classe e cercare di stampare una stringa creata con quei dati in un certo formato è meglio dire all'oggetto di utilizzare il metodo toString che ci restituisce una stringa con la rappresentazione dello stato dell'oggetto, e noi semplicemente la stampiamo.
+
+{% responsive_image path: 'assets/07_tell-dont-ask.png' %}
+
+> Non chiedere i dati, ma dì cosa vuoi che si faccia sui dati
+
+Il responsabile di un'informazione è anche responsabile di tutte le operazioni su quell'informazione.
+
+Il principio tell don't ask che piuttosto di __chiedere__ ad un oggetto dei dati e fare delle operazioni con quei dati è meglio __dire__ a questo oggetto cosa fare con i dati che contiene. 
+
+#### Esempio
+
+Per esempio, se desideriamo stampare il contenuto di tutte le carte in un mazzo possiamo partire da questo codice.
+
+```java
+class Main {
+    public static void main(String[] args) {
+        Deck deck = new Deck();
+        Card card = new Card();
+
+        card.setSuit(Suit.DIAMONDS);
+        card.setRank(Rank.THREE);
+        deck.getCards().add(card);
+        deck.getCards().add(new Card());    // <-- !!!
+
+        System.out.println("There are " + deck.getCards().size() + " cards:");
+        for (Card currentCard : deck.getCards()) {
+            System.out.println(
+                currentCard.getRank() + 
+                " of " + 
+                currentCard.getSuit()
+            );
+        }
+    }
+}
+```
+
+All'interno del ciclo reperiamo gli attributi della carta e li utilizziamo per stampare le sue informazioni.
+Inoltre, nella riga evidenziata viene aggiunta una carta senza settare i suoi attributi. 
+La responsabilità della gestione dell'informazione della carta è quindi __erroneamente delegata__ alla classe chiamante.
+
+Per risolvere, è possibile trasformare la classe `Card` nel seguente modo:
+
+```java
+class Card {
+    private Suit suit;
+    private Rank rank;
+
+    public Card(@NotNull Suit s, @NotNull Rank r) {
+        suit = s;
+        rank = r;
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
+    }
+}
+```
+
+l'informazione viene ora interamente gestita dalla classe `Card`, che la gestisce nel metodo `toString()` per ritornare la sua rappresentazione testuale.
+
 
 ## Chiarimento estrazione delle interfacce (interface segregation)
 Queste interfacce possono nascere in due modi, tramite un approccio up front oppure down front, ovvero partendo direttamente a scrivere l'interfaccia oppure scrivendo il codice e cercare di capire successivamente se possiamo estrarre una classe (quest'ultimo modo si adatta di più al TDD).
