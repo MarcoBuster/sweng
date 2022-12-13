@@ -125,19 +125,59 @@ In conlusione, le classi concrete devono tendenzialmente dipendere da classi ast
 
 ### Reference escaping
 
-Violazione dell'incapsulamento, quando restituisco un oggetto interno alla classe che non sarebbe da esporre, questo può avvenire tramite dei getter in cui si ritorna un riferimento ad un oggetto interno (quindi anche se quell'oggetto è privato potrò accederci da fuori), tramite un setter che assegna all'oggetto interno un riferimento che gli viene passato oppure tramite il costruttore che assegna ad un oggetto interno un riferimento passato.
+Il _reference escaping_ è una violazione dell'incapsulamento. 
+
+Può capitare, per esempio: 
+- quando un getter ritorna un riferimento a un segreto;
+```java
+public Deck {
+    private List<Card> cards;
+        
+    public List<Card> getCards() {
+        return this.cards;
+    }
+}
+```
+- quando un setter assegna a un segreto un riferimento che gli viene passato;
+```java
+public Deck {
+    private List<Card> cards;
+
+    public setCards(List<Card> cards) {
+        this.cards = cards;
+    }
+}
+```
+
+- quando il costruttore assegna al segreto un riferimento che gli viene passato;
+```java
+public Deck {
+    private List<Card> cards;
+
+    public Deck(List<Card> cards) {
+        this.cards = cards;
+    }
+}
+```
 
 ### Encapsulation e information hiding
 
-Solo ciò che è nascosto può essere cambiato liberamente senza pericoli, ovvero se mostro all'esterno qualcosa devo impegnarmi a non modificarle come voglio, ma quello che ho nascosto posso modificarlo senza problemi. questo serve per facilitare la comprensione del codice e rendere più facile modificare una parte senza fare danni.
+__Legge di Parnas (L8)__.
+> Solo ciò che è nascosto può essere cambiato liberamente e senza pericoli.
+
+Lo stato mostrato all'esterno non può essere modificato, mentre quello nascosto sì.
+
+Questo principio serve per __facilitare la comprensione del codice__ e renderne più facile la modifica parziale senza fare danni.
 
 ### Immutabilità
 
-L'oggetto dopo la sua inizializzazione non può essere modificato il suo stato in alcun modo, per fare ciò dobbiamo:
-    - Non fornire metodi di modifica allo stato.
-    - Ha attributi tutti privati (in realtà non è obbligatorio, posso mostrare cose attributi che non sono a loro volta mutabili)
-    - Ha tutti gli attributi final (anche qui non è obbligatorio dichiararlo)
-    - Assicura accesso esclusivo a tutte le parti non mutabili, ovvero non ci sono reference escaping.
+Una classe è immutabile quando non c'è modo di modificare lo stato di ogni suo oggetto dopo la creazione.
+
+Per assicurare tale proprietà è necessario:
+- __non fornire metodi di modifica__ allo stato;
+- avere tutti gli __attributi privati__ per i tipi potenzialmente mutabili (come `List<T>`);
+- avere tutti gli __attributi final__ se non già privati;
+- assicurare l'__accesso esclusivo__ a tutte le parti non mutabili, ovvero non avere reference escaping.
 
 ## Code smell
 I seguenti sono dei segnali che ci permettono di capire che qualcosa non va:
