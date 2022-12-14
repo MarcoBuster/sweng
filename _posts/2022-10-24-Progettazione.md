@@ -330,6 +330,18 @@ Il controllo che l'oggetto passato ad una funzione abbia le capacità necessarie
 Un problema della troppa dinamicità (__duck typing__) è che se i metodi di un oggetto non hanno dei nomi abbastanza specifici si possono avere dei problemi. 
 Per esempio, in un programma per il gioco del tennis se una funzione richiede un oggetto che implementa il metodo `play()`, e riceve in input un oggetto che non c'entra nulla con il tennis (per esempio un oggetto di tipo `GiocatoreDiScacchi`) che ha il metodo `play()`, si possono avere degli effetti indesiderati.
 
+### _Loose coupling_
+Il _loose coupling_ è la capacità di una variabile o un parametro di accettare l'assegnamento di oggetti aventi tipo diverso da quello della variabile o parametro, a patto che sia un sottotipo.
+
+```java
+Deck deck = new Deck();
+
+CardSource source = deck;
+
+List<Card> cards;
+cards = drawCards(deck, 5);
+```
+
 ### Interfacce multiple
 
 Tornando all'esempio, la classe `Deck` (che implementa `CardSource`) __può implementare anche altre interfacce__, come `Shuffable` o `Iterable<Card>`. 
@@ -392,8 +404,6 @@ Le interfacce diminuiscono leggermente le performance, però migliorano estremam
 È possibile utilizzare le __classi astratte__ anche per classi complete, ma che __non ha senso che siano istanziate__.
 Un buon esempio sono le classi _utility_ della libreria standard di Java.
 
-<!--Un esempio è la classe Subject e l'interfaccia Observer di java, la classe Subject non è stata messa abstract ma non aveva alcun senso istanziarla, era necessario creare un sottotipo di Subject. Questo caso è un buon esempio di situazione in cui sarebbe stato necessario mettere la parola chiave abstract a Subject anche se era una classe completa ma non aveva senso istanziarla.-->
-
 #### Classe utility della libreria standard di Java
 
 Un esempio è __`Collections.shuffle(List<?> list)`__ che accetta una lista omogenea di elementi e la mischia.
@@ -415,14 +425,3 @@ La notazione di generico __aggiunge dei vincoli__ su `T`, ovvero il tipo degli e
 
 __Digressione__: la classe Collections era l'unico modo per definire dei metodi sulle interfacce (es: dare la possibilità di avere dei metodi sulle collezioni, ovvero liste, mappe, ecc), ma ora si possono utilizzare i metodi di default.
 
-## polimorfismo e loose coupling
-Passando ora al polimorfismo vediamo come viene affiancato dal concetto di __loose coupling__, ovvero la capacità di una variabile o parametro di accettare l'assegnazione di oggetti aventi tipo diverso da quello della variabile/parametro, a patto però che sia un sottotipo.
-
-```java
-Deck deck = new Deck();
-
-CardSource source = deck;
-
-List<Card> cards;
-cards = drawCards(deck, 5);
-```
