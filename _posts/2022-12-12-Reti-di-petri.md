@@ -5,7 +5,7 @@ date: 2022-12-12 14:40:00 +0200
 toc: true
 ---
 
-Sono in parte simili a FSM, ma nascono alcuni particolari ideati specificatamente per descrivere sistemi concorrenti. Quì i concetti di stato e di transizione cambiano:
+Sono in parte simili a FSM, ma nascondono alcuni particolari ideati specificatamente per descrivere sistemi concorrenti. Quì i concetti di stato e di transizione cambiano:
 * Lo stato non è più visto a livello di sistema ma come composizione di tanti stati parziali
 * Le transizioni non operano più quindi su uno stato globale, ma varieranno una parte dello stato (uno stato parziale per l'appunto)
 
@@ -143,3 +143,111 @@ Ci sono diversi dialetti delle reti di petri che possono aggiungere certe caratt
 Una possibile estensione è quella che mette un upper-bound di token possibili in un posto
 
 è un dialetto che si può modellare con una rete di petri classica, ad esempio attraverso l'uso del _posto complementare_. Questo vale però solo per le reti _pure_, ovvero reti in cui non esistono posti che sono in ingresso e uscita contemporaneamente ad una transizione.
+
+### Posto complementare
+>Un posto è complementare di p se e solo se .....
+<!Latex required>
+
+### Abilitazione con capacità
+In caso di reti con capacità sui posti la definizione di abilitazione quale sarebbe?
+
+Abbiamo 2 opzioni:
+- t è abilitata in M se e solo se [...]
+  - <!Latex requires>
+  - Per ogni arco di ingresso al posto dobbiamo avere il posto alla transizione con lo stesso peso
+- t è abilitata in M se e solo se [...]
+  - <!Latex required>
+
+
+## Archi inibitori
+È un'altra estensione che dice che non ci devono essere più di un certo numero di token in un posto per abilitare una transizione (anche 0).
+In caso di rete limitata non cambia la potenza espressiva di una Rete di Petri perchè se sappiamo che un posto è limitato/limitabile, creo un posto complementare (trattato differentementa dal caso precedente), facciamo che tutti i k token siano nel posto complementare che inibirà {in qualche modo che ora vedremo} la transizione nel caso ci siano più gettoni.
+In caso di rete non limitata invece cambia la potenza della rete.
+
+Ha qualche downside però, non riusciamo ad adattare alcune tecniche di analisi che vedremo, quindi {Per il Prof. Bellettini} è bene limitarne l'uso ai casi in cui si riveli necessario.
+
+## Eliminazione dei pesi sugli archi
+Possiamo eliminare i pesi sugli archi combinando scatti di più transizioni in posti complementari.
+Ci porta ad avere la stessa marcatura avendo componenti omogenei, ma siamo legati a sequenze di scatti di transizioni che, se non avvenissero correttamente, potremmo cadere in problemi di concorrenza.
+Se vogliamo produrre più token, possiamo avere un altro posto complementare globale, collegato quindi a tutte le transizioni, che fa prendere il lock a tutte le transizioni che ci portano in uno stato parziale e lo fa rilasciare dopo che le altre transizioni "aggiuntive" si sono concluse.
+Se invece vogliamo consumare più gettoni... Diciamo che è complicato. Si può fare, ma se ne esce generalmente overingegnerizzati
+
+## Reti Condizioni - Eventi
+Sono in realtà proprio un'altra cosa rispetto alle P/T
+Una rete viene detta C/E se:
+- Tutti gli archi hanno peso 1
+- Tutti i posti hanno capacità 1
+
+Se i posti (Condizioni) in ingresso a t contengono un token, allora la transizione t (Evento) può scattare
+
+Una rete P/T limitata ha una corrispondente nella classe C/E
+
+
+# Caratteristiche che ci interessano
+
+## Conservatività
+Per ogni posto della rete abbiamo un peso.
+>Data una funzione H che assegna i pesi, una rete P/T con marcatura M si dice conservativa se e solo se per ogni marcatura raggiungibile la somma pesata dei gettoni della marcatura rimane uguale a quella della marcatura di partenza.
+
+Una rete che garantisce la conservatività __garantisce__ che la rete è limitata.
+Non è vero il contrario.
+
+### Rete strettamente conservativa
+È un caso speciale della rete conservativa:
+
+>Una rete conservativa rispetto alla funzione che assegna tutti pesi uguali a 1 si dice __fortemente conservativa__.
+
+Il numero di token nella rete __non cambia mai__:
+<!Latex>
+
+Posso pensarla anche così: Il numero di token consumati dallo scatto di una transizione è uguale al numero di gettoni generati dallo stesso
+<!Latex>
+
+La prima formula è un'analisi che lavora sulle marcature.
+È dinamica.
+
+La seconda formula è un analisi che lavora sulla topologia.
+È statica.
+
+Sono quindi equivalente pur lavorando su aspetti diversi?
+NO.
+La seconda formula tiene conto anche delle transizioni non morte. È quindi più generale, ma potrebbe anche considerare non strettamente conservativi casi che invece lo sono.
+<!Abbiamo Dubbi signori????????>
+
+## Stato base e Rete reversibile
+Una marcatura M' è detta stato base se per ogni marcatura M in R(M0) M' è raggiungibile da M
+Una rete di petri è detta reversibile se per ogni marcatura M in R(M0) M0 è raggiungibile da M (Ovvero: lo stato iniziale è stato base)
+
+# Analisi
+
+Che domande possiamo farci durante l'analisi delle reti di petri?
+- Può essere raggiunta una determinata marcatura?
+- è possibile una certa sequenza di transizione?
+- ci possono essere in un certo stato di deadlock?
+- La rete è viva?
+
+
+## Tecniche di analisi
+Le dividiamo in tecniche:
+* Dinamiche
+  * Albero (grafo) delle marcature raggiungibili
+  * Albero (grafo) della copertura delle marcatura raggiungibili
+* Statiche
+  * Identificazione delle P-invarianti
+  * Identificazione delle T-invarianti
+
+## Albero di raggiungibilità
+
+Per creare l'albero di raggiungibilità:
+
+1. Crea la radice corrispondente alla marcatura iniziale e etichettalo come "nuovo"
+2. Finchè esistono nodi "nuovi" esegui questi passi:
+   1. Seleziona una Marcatura M con etichetta "nuovo" e togli l'etichetta
+   2. Se M è identica ad una marcatura sul cammino dalla radice M, etichetta M come "duplicata" e passa ad un'altra marcatura
+   3. Se in questa nuova marcatura M' non è abilitata nessuna marcatura, etichettala come "finale"
+   4. Altrimenti finchè esistono transizioni abilitatein M esegui i seguenti passi per ogni transizione abilitata in M
+      1. Crea la marcatura M' prodotta dallo stato di t
+      2. crea un nodo corrispondente a M', aggingi arco da M a M' e segna M' come "nuovo"
+
+In questo albero abbiamo rappresentate tutte le marcature possibili nella rete in maniera esaustiva.
+Una volta realizzato, è possibile analizzare se ci sono deadlock (stati terminali non previsti), se possiamo raggiungere una marcatura (le abbiamo tutte rappresentate), se è possibile una certa sequenza di transizioni e anche capire se la rete e viva {aggiungi il come}
