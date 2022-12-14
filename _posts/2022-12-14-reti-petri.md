@@ -153,3 +153,86 @@ Si può forzare la limitatezza.
 
 Tale estensione aumenta la potenza espressiva oppure è semplicemente una scorciatoia? 
 È solo una scorciatoia, sono equipollenti.
+
+### Posto complementare
+
+Un posto $$pc$$ è complementare di $$p$$ se e solo se:
+
+$$
+\forall t \in T ( \exists \langle p, t \rangle \in F) \Leftrightarrow \exists \langle t,pc \rangle \in F \quad W(\langle ......... \rangle) .........
+$$
+
+### Abilitazione co ncapacità
+
+In caso di reti con capacità sui posti la definizione di _abilitazione_ è
+
+$$t \in T$$ è __abilitata__ in $$M$$ se e solo se 
+
+$$
+\begin{align*}
+\forall p \in \operatorname{Pre}(t) &\quad M(p) \geq W(\langle p, t \rangle) \\
+\forall p \in \operatorname{Post}(t) &\quad M(p) + W(\langle t, p \rangle) \leq C(p)
+\end{align*}
+$$
+
+oppure si può ragionare diversamente
+
+$$t \in T$$ è __abilitata__ in $$M$$ se solo se:
+
+$$
+\begin{align*}
+\forall p \in \operatorname{Pre}(t) &\quad M(p) \geq W(\langle p, t \rangle) \\
+\forall p \in \operatorname{Post}(t) \setminus \operatorname{Pre}(t) &\quad M(p) + W(\langle t, p \rangle) \leq C(p) \\
+\forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t) &\quad M(p) + W(\langle p, t \rangle) - W(\langle t, p \rangle) \leq C(p)
+\end{align*}
+$$
+
+<!-- aggiungere esempio / marcature pure / pure-equivalenti / ecc .. -->
+
+## Archi inibitori
+Permettono di dire che non deve essere presente un token perché la transizione sia abilitata.
+
+Permettono di impedire che ci siano più di $$k$$ gettoni in un posto.
+
+In caso di rete limitata non cambia la potenza. Perché?
+se sappiamo già che un posto è limitato o non ci sono più di $$k$$ gettoni generabili in ogni caso allora diventa inutile.
+
+Un arco inibitore può avere un peso che è di fatto $$k$$ citato prima.
+Normalmente il peso è 1.
+
+## Eliminazione pesi archi
+
+primo caso.
+
+secondo caso.
+
+### Reti C/E
+
+- tutti gli archi hanno peso 1
+- tutti i posti hanno capacità 1
+
+## Conservatività 
+
+Esiste una funzione di pesi $$H: P \rightarrow \mathbb N \setminus \{ 0 \}$$ una rete P/T con una marcatura $$M$$ si dice conservativa rispetto a tale funzione se e solo se
+
+$$
+\forall M' \in R(P/T, \, M) \quad \sum_{p \in P} H(p) M'(p) = \sum_{p \in P} H(p) M(p)
+$$
+
+relazione conservatività e limitatezza.
+
+### Rete strettamente conservativa
+
+Una rete P/T conservativa rispetto alla funzione che assegna pesi tutti uguale a 1 si dice _strettamente conservativa_.
+
+$$
+\forall M' \in R(P/T, \, M) \quad \sum_{p \in P} M'(p) = \sum_{p \in P} M(p)
+$$
+
+Il numero di token consumati dallo scatto di una trnaiszione è uguale al numero di gettoni generati dallo stesso
+
+$$
+\forall t \in T \quad \sum_{p \in \operatorname{Pre}(t)} W(\langle p, t \rangle) = \sum_{p \in \operatorname{Post}(t)} W(\langle t, p \rangle)
+$$
+
+t non è morta
