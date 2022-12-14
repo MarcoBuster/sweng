@@ -425,3 +425,31 @@ La notazione di generico __aggiunge dei vincoli__ su `T`, ovvero il tipo degli e
 
 __Digressione__: la classe Collections era l'unico modo per definire dei metodi sulle interfacce (es: dare la possibilità di avere dei metodi sulle collezioni, ovvero liste, mappe, ecc), ma ora si possono utilizzare i metodi di default.
 
+# Progettazione 2
+
+<!-- da unire con la lezione precedente? -->
+
+
+## Come si identificano le classi e le relazioni?
+
+### Noun extraction
+In questa fase vengono estratti tutti i sostantivi o frasi sostantivizzate.
+...
+
+## Esempio
+
+// inserire testo da slide 123
+
+## Criteri di _sfoltimento_
+
+Dato un testo con dei sostantivi evidenziati, quali sono i criteri di sfoltimento? 
+
+- Ridondanza: sinonimi, nomi diversi per lo stesso concetto. Nell'esempio: _library member_ e _member of the library_, _loan_ e _short term loan_. 
+- Vaghezzza: nomi generici. Nell'esmepio: _items_
+- Nomi di eventi e operazioni
+- Metalinguaggio: per esempio, le _"rules"_ indicate sono forse meglio da considerare come configurazioni e non come classi in sé.
+- Esterne al sistema. Esempio: _libreria_, _week_.
+- Attributi. Per esempio, il nome del lavoratore in libreria è un attributo non una classe.
+
+Alla fine di questa fase, avremo una lista di classi _"certe"_ e incerte (_lista grigia_).
+
