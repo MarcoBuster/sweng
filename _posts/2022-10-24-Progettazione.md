@@ -97,30 +97,30 @@ Per essere definito _object oriented_, un linguaggio di programmazione deve sodd
 - __polimorfismo__: quando una classe può assumere diverse forme in base alle interfacce che implementa. 
 Il prof fa l'esempio del _tennista scacchista_: in un torneo di tennis è poco utile sostituire una persona che gioca a tennis ed è brava con gli scacchi (quindi una classe che implementa entrambe le interfacce) con una che gioca a scacchi.
 Il collegamento tra capacità e oggetto è fatto __a tempo di compilazione__: non è importante quindi se la capacità non è ancora definita;
-- __collegamento dinamico__: in Java il tipo concreto degli oggetti e quindi quale metodo chiamare viene risolto durante l'esecuzione. 
+- __collegamento dinamico__: in Java il tipo concreto degli oggetti e quindi il problema di stabilire _quale metodo chiamare_ viene risolto durante l'esecuzione. 
 In C++ occorre esplicitare questo comportamento utilizzando la keyword `virtual`.
 
 ### <a style="color: darkgreen">SOLID</a> principles
 
-Abbiamo 5 parti che compongono questo principio:
-1. __<a style="color: darkgreen"><big>S</big></a>INGLE RESPONSIBILITY__: una classe, un solo scopo.
-Così facendo le classi rimangono semplici e si agevola la riusabilità.
-2. __<a style="color: darkgreen"><big>O</big></a>PEN-CLOSE PRINCIPLE__:
+Ci sono 5 parti che compongono questo principio:
+1. __<span style="color: darkgreen"><big>S</big></span>INGLE RESPONSIBILITY__: una classe, un solo scopo.
+Così facendo, le classi rimangono semplici e si agevola la riusabilità.
+2. __<span style="color: darkgreen"><big>O</big></span>PEN-CLOSE PRINCIPLE__:
 le classi devono essere aperte ai cambiamenti (_opened_) ma senza modificare le parti già consegnate e in produzione (_closed_).
 Il refactoring è comunque possibile, ma deve essere preferibile estendere la classe attuale.
-3. __<a style="color: darkgreen"><big>L</big></a>ISKOV SUBSTITUTION PRINCIPLE__:
-c'è la garanzia che le caratteristiche eredidate dalla classe padre continuinino ad esistere nelle classi fibre.
+3. __<span style="color: darkgreen"><big>L</big></span>ISKOV SUBSTITUTION PRINCIPLE__:
+c'è la garanzia che le caratteristiche eredidate dalla classe padre continuinino ad esistere nelle classi figlie.
 Questo concetto si collega all'aspetto __contract-based__ del metodo Agile: le _precondizioni_ di un metodo di una classe figlia devono essere ugualmente o meno restrittive del metodo della classe padre.
 Al contrario, le _postcondizioni_ di un metodo della classe figlia non possono garantire più di quello che garantiva il metodo nella classe padre.
 Fare _casting_ bypassa queste regole.
-4. __<a style="color: darkgreen"><big>I</big></a>NTERFACE SEGREGATION__:
+4. __<span style="color: darkgreen"><big>I</big></span>NTERFACE SEGREGATION__:
 più le capacità e competenze di una classe sono frammentate in tante interfacce più è facile utilizzarla in contesti differenti.
 In questo modo un client non dipende da metodi che non usa. 
 Meglio quindi avere __tante interfacce specifiche__ e piccole (composte da pochi metodi), piuttosto che poche, grandi e generali. 
-5. __<a style="color: darkgreen"><big>D</big></a>EPENDENCY INVERSION__:
+5. __<span style="color: darkgreen"><big>D</big></span>EPENDENCY INVERSION__:
 il codice dal quale una classe dipende non deve essere più __concreto__ di tale classe.
 Per esempio, se il _telaio della FIAT 500_ dipende da uno specifico motore, è possibile utilizzarlo solo per quel specifico motore.
-Se invece il telaio dipende da _un_ concetto di motore non c'è questa limitazione.
+Se invece il telaio dipende da _un_ concetto di motore, non c'è questa limitazione.
 In conlusione, le classi concrete devono tendenzialmente dipendere da classi astratte e non da altre classi concrete.
 
 ### Reference escaping
@@ -205,11 +205,11 @@ Le parti di codice in comune possono quindi essere fattorizzate.
 
 Il responsabile di un'informazione è anche responsabile di tutte le operazioni su quell'informazione.
 
-Il principio tell don't ask che piuttosto di __chiedere__ ad un oggetto dei dati e fare delle operazioni con quei dati è meglio __dire__ a questo oggetto cosa fare con i dati che contiene. 
+Il principio _Tell-Don't-Ask_ sancisce che piuttosto di __chiedere__ ad un oggetto dei dati e fare delle operazioni con quei dati è meglio __dire__ a questo oggetto cosa fare con i dati che contiene. 
 
 #### Esempio
 
-Per esempio, se desideriamo stampare il contenuto di tutte le carte in un mazzo possiamo partire da questo codice.
+Se desideriamo stampare il contenuto di tutte le carte in un mazzo possiamo partire da questo codice.
 
 ```java
 class Main {
@@ -258,7 +258,6 @@ class Card {
 ```
 
 l'informazione viene ora interamente gestita dalla classe `Card`, che la gestisce nel metodo `toString()` per ritornare la sua rappresentazione testuale.
-
 
 ## Interface segregation
 
@@ -323,8 +322,8 @@ public static List<Card> drawCards(CardSource deck, int number) {
 
 ### Collegamento statico e dinamico
 
-Notare come è necessario specificare __staticamente__ che `Deck` implementi `CardSource`, ovvero devo forzare la dichiarazione del fatto che `Deck` è un _sottotipo_ di `CardSource` (Java è strong typed) e quindi posso mettere un oggetto `Deck` ovunque sia richiesto un oggetto `CardSource`. \\
-In altri linguaggi tipo __Go__ c'è una __maggiore dinamicità__ perché non c'è bisogno di specificare nel codice che un oggetto è sottotipo di qualcos'altro, è sufficiente solo che implementi un metodo con la stessa signature.
+Notare come è necessario specificare __staticamente__ che `Deck` implementi `CardSource`, ovvero occorre forzare la dichiarazione del fatto che `Deck` sia un _sottotipo_ di `CardSource` (Java è strong typed) e quindi sia possibile mettere un oggetto `Deck` ovunque sia richiesto un oggetto `CardSource`. \\
+In altri linguaggi come __Go__ c'è una __maggiore dinamicità__ perché non c'è bisogno di specificare nel codice che un oggetto è sottotipo di qualcos'altro, è sufficiente solo che implementi un metodo con la stessa signature.
 Il controllo che l'oggetto passato ad una funzione abbia le capacità necessarie avviene a runtime e non prima.
 
 Un problema della troppa dinamicità (__duck typing__) è che se i metodi di un oggetto non hanno dei nomi abbastanza specifici si possono avere dei problemi. 
@@ -335,11 +334,8 @@ Il _loose coupling_ è la capacità di una variabile o un parametro di accettare
 
 ```java
 Deck deck = new Deck();
-
 CardSource source = deck;
-
-List<Card> cards;
-cards = drawCards(deck, 5);
+List<Card> cards = drawCards(deck, 5);
 ```
 
 ### Interfacce multiple
@@ -399,7 +395,7 @@ Un'altro approccio è la __programmazione difensiva__ che al contrario delega la
 
 Una classe astratta che implementa un'interfaccia __non deve necessariamente implementarne__ tutti i metodi, ma può delegarne l'implementazione alle sottoclassi impedendo l'istanziamento di oggetti del suo tipo.
 
-Le interfacce diminuiscono leggermente le performance, però migliorano estremamente la generalità (che aiutano l'espandibilità ed evolvibilità del programma), quindi vale la pena di perdere leggermente in efficienza.
+Le interfacce diminuiscono leggermente le performance, però migliorano estremamente la generalità (che aiutano l'espandibilità ed evolvibilità del programma), quindi vale la pena di utilizzarle.
 
 È possibile utilizzare le __classi astratte__ anche per classi complete, ma che __non ha senso che siano istanziate__.
 Un buon esempio sono le classi _utility_ della libreria standard di Java.
@@ -457,9 +453,9 @@ I criteri di _sfoltimento_ servono per diminuire il numero di sostantivi conside
 In questa fase, in caso di dubbi è possibile rimandare la decisione a un momento successivo.
 
 Di seguito ne sono riportati alcuni:
-- __Ridondanza__: sinonimi, termini diversi per indicare lo stesso concetto. Anche se è setata utilizzata una locuzione diversa potrebbe essere comunque ridondante, sopratutto in lingue diverse dall'inglese in cui ci sono molti sinonimi. \\
+- __Ridondanza__: sinonimi, termini diversi per indicare lo stesso concetto. Anche se è stata utilizzata una locuzione diversa potrebbe essere comunque ridondante, sopratutto in lingue diverse dall'inglese in cui ci sono molti sinonimi. \\
 Nell'esempio: _library member_ e _member of the library_, _loan_ e _short term loan_.
-- __Vaghezzza__: nomi generici, comuni a qualunque specifica. Potrebbe essere sintomo di una _classe comune astratta_. \\
+- __Vaghezzza__: nomi generici, comuni a qualunque specifica; potrebbero essere sintomo di una _classe comune astratta_. \\
 Nell'esempio: _items_.
 - __Nomi di eventi e operazioni__: nomi che indicano azioni e non hanno un concetto di _stato_. \\
 Nell'esempio: _loan_.
