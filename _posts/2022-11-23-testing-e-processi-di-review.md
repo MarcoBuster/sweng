@@ -7,16 +7,10 @@ toc: true
 
 # Correttezza di un software
 
-La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da **problemi di comunicazione**.
-
-Ci posso essere incomprensioni quando le informazioni passano da una figura all'altra, come quando ci si interfaccia tra cliente, analista e programmatore.
-
+La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da _problemi di comunicazione_. Ci posso essere incomprensioni quando le informazioni passano da una figura all'altra, come quando ci si interfaccia tra cliente, analista e programmatore.
 Per esempio il programmatore dovrà adattare il proprio linguaggio per farsi comprendere dal cliente,
-
 e man mano che si addentra nello sviluppo del progetto sarà necessario prestare maggiore attenzione alla formalità e alla chiarezza della comunicazione.
-
 Più si spiegano le cose in maniera chiara, più è facile che non si incorra in problemi successivi.
-
 Bisogna quindi fare più attenzione alla terminologia che viene usata.
 
 Quando un programma si definisce corretto?
@@ -35,14 +29,12 @@ $$
 P \text{ è } \textit{corretto} \Leftrightarrow \forall d \in D \: \operatorname{ok}(P, \, d)
 $$
 
-Cioè, possiamo dire che un programma è corretto quando per ogni dato del dominio vale $$\operatorname{ok}(P, \, d)$$,
-
-La correttezza del programma sarà indicata quindi con $${ok}(P, \, D)$$.
+Cioè, possiamo dire che _un programma è corretto quando per ogni dato del dominio vale $$\operatorname{ok}(P, \, d)$$_,
+_La correttezza del programma sarà indicata quindi con $${ok}(P, \, D)$$_.
 
 ### Test
 
-Un **test** è un sottoinsieme del dominio dei dati e un singolo **caso di test** è un elemento di esso.
-
+_Un **test** è un sottoinsieme del dominio dei dati_ e _un singolo **caso di test** è un elemento di esso_.
 Un test sono più stimolazioni, un caso di test è una singola stimolazione.
 
 Per esempio:
@@ -59,9 +51,9 @@ $$
 \operatorname{ok}(P, \, T) \Leftrightarrow \forall t \in T | \operatorname{ok}(P, \, t)
 $$
 
-Quindi, un programma è corretto per un test quando per ogni caso di test è corretto.
+Quindi, _un programma è corretto per un test quando per ogni caso di test è corretto_.
 
-Dal punto di vista del test invece, un test $$T$$ _ha successo_ se rileva uno o più malfunzionamenti presenti nel programma $$P$$:
+Dal punto di vista del test invece, _un test $$T$$ ha successo se rileva uno o più malfunzionamenti presenti nel programma $$P$$_:
 
 $$
 \operatorname{successo}(T, \, P) \Leftrightarrow \exists t \in T | \neg\operatorname{ok}(P,\,t) 
@@ -70,12 +62,11 @@ $$
 ### Test ideale
 
 Nel caso in cui il test non rilevi alcun malfunzionamento, non vuol dire che il mio programma sia corretto,
+il test è un'attività ottimistica e non garantisce la correttezza del programma.
 
-il test è un'attività ottimistica e non può garantire la correttezza del programma.
+_Un test $$T$$ è ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ ovvero _se il superamento del test implica la correttezza del programma_.
 
-Un test $$T$$ è _ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ ovvero se il superamento del test implica la correttezza del programma.
-
-In generale, è **impossibile trovare un test ideale**.
+_In generale, è **impossibile trovare un test ideale**._
 
 > __Tesi di Dijkstra__:
 >
@@ -98,14 +89,14 @@ class Trivial {
 In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $$2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
 Considerando un tempo di 1 nanosecondo per ogni test, ci dovremmo mettere più di 600 anni.
 
-Il **test esaustivo** è quindi **impraticabile**.
+_Il **test esaustivo** è quindi **impraticabile**._
 
 ## Criterio di selezione
 
-Come faccio a scegliere un sottoinsieme del dominio _intelligente_ cercando di approssimare il test ideale? Quali caratteristiche ci interessa che abbia il criterio che usiamo per selezionare questo sottoinsieme?
+Come faccio a scegliere un _sottoinsieme del dominio_ intelligente cercando di approssimare il test ideale? Quali caratteristiche ci interessa che abbia il criterio che usiamo per selezionare questo sottoinsieme?
 
 ### Affidabilità
-Un _criterio di selezione_ si dice __affidabile__ se presi due test $$T_1$$ e $$T_2$$ in base al criterio $$C$$ allora o entrambi hanno successo o nessuno dei due ha successo.
+_Un criterio di selezione si dice **affidabile**_ _se presi due test $$T_1$$ e $$T_2$$ in base al criterio $$C$$ allora o entrambi hanno successo o nessuno dei due ha successo_.
 
 $$
 \operatorname{affidabile}(C, \, P) \Leftrightarrow [\forall T_1 \in C, \, \forall T_2 \in C \: \operatorname{successo}(T_1, \, P) \Leftrightarrow \operatorname{successo}(T_2, P)]
@@ -113,7 +104,7 @@ $$
 
 
 ### Validità
-Un _criterio di selezione_ si dice __valido__ se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo e quindi rileva uno o più malfunzionamenti per il programma $$P$$
+_Un criterio di selezione si dice **valido**_ _se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo e quindi rileva uno o più malfunzionamenti per il programma $$P$$_
 
 $$
 \operatorname{valido}(C, \, P) \Leftrightarrow (\lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C \ | \ successo(T,\,P))
@@ -131,16 +122,16 @@ public class Esempio {
     
 }
 ```
-un criterio che seleziona:
+Un criterio che seleziona:
 
-* _"sottoinsiemi di $$\{0, \, 2\}$$"_ è **affidabile**, perché funziona sia con 0 sia con 2, ma **non valido**, perché sappiamo che il programma non è corretto e non viene trovato nessun malfunzionamento.
+* _"sottoinsiemi di $$\{0, \, 2\}$$"_ è **affidabile**, perché il programma funziona sia con 0 sia con 2, ma **non valido**, perché sappiamo che il programma non è corretto e non viene trovato nessun malfunzionamento.
 
 * _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$"_ è **non affidabile**, perché i risultati dei casi di test non sono tutti coerenti, ma **valido** perché rileva i malfunzionamenti.
 
 * _"sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$"_ è **affidabile**, perché i risultati dei casi di test sono tutti coerenti, e **valido** perché rileva i malfunzionamenti.
 
 Quello che vorremmo è scegliere un criterio affidabile e valido, in astratto, senza conoscerne i malfunzionamenti. Se un criterio viene definito conoscendo già i malfunzionamenti non ha senso.
-Ma se il test non ha successo, ci è utile avere un criterio valido ed affidabile?
+Ma se il test non ha successo, ci è utile avere un criterio valido e affidabile?
 - Il fatto che il test non abbia avuto successo implica che non ci siano stati errori
 - Il fatto che il criterio sia affidabile implica che tutti gli altri test che possiamo trovare per quel criterio non trovo errori
 - Il fatto che il criterio sia valido, se ci fosse stato un errore almeno uno dei test lo avrebbe dovuto trovare
@@ -166,13 +157,13 @@ Quali sono le caratteristiche che rendono utile un caso di test, ovvero che rend
 - L'esecuzione del comando che contiene l'anomalia deve portare il sistema in uno stato inconsistente
 - Lo stato inconsistente dell'output deve propagarsi fino all'uscita del codice in esame in modo da produrre un output diverso da quello atteso
 
-Possiamo utilizzare un metro di misura legato alle caratteristiche del codice: ad ogni criterio è possibile associare una metrica che misuri la _copertura_ del codice rispetto ad uno specifico test (ovvero la percentuale di codice che vado ad "utilizzare" in tutto il test) e che ci permetta di decidere quando smettere di testare, decidere quali altri casi di test è opportuno aggiungere o confrontare la _bontà_ di test diversi.
+Possiamo utilizzare un metro di misura legato alle caratteristiche del codice: _a ogni criterio è possibile associare una **metrica**_ che misuri la _copertura del codice rispetto a uno specifico test_ (ovvero la percentuale di codice che vado ad "utilizzare" in tutto il test) e che _ci permetta di decidere quando smettere di testare_, decidere _quali altri casi di test è opportuno aggiungere_ o _confrontare la bontà di test diversi_.
 
 ### Criteri noti
 
 #### Criterio di copertura dei comandi
 
-Un test $$T$$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$.
+_Un test $$T$$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$._
 
 Per esempio:
 ```c
@@ -198,27 +189,26 @@ Applicare il _criterio di copertura dei comandi_ significa quindi trovare un ins
 
 Il caso di test $$<3,7>$$ risulterebbe quindi sufficiente, dato che soddisfa il criterio di copertura dei comandi al 100%
 
-Questo però _non mi garantisce che il programma si corretto,_ perchè ci sono dei malfunzionamenti che non sono stati trovati, ad esempio il caso di testing $$<0,7>$$ che provoca una divisione per 0.
+Questo però _non mi garantisce che il programma si corretto,_ perché ci sono dei malfunzionamenti che non sono stati trovati, ad esempio il caso di testing $$<0,7>$$ che provoca una divisione per 0.
 
 
 #### Criterio di copertura delle decisioni
 
-Un test T soddisfa il criterio di copertura delle decisioni se e solo se ogni decisione effettiva viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T
-
+_Un test T soddisfa il criterio di copertura delle decisioni se e solo se ogni decisione effettiva viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
+s
 La metrica è la percentuale delle decisioni totali possibili presenti nel codice che sono state rese sia vere che false nel test.
 
-Si noti come il criterio di copertura delle decisioni implichi il criterio di copertura dei comandi: andando ad estrarre il codice in un diagramma di flusso, io copro tutte le decisioni se e solo se attraverso ogni arco presente nel flusso. Considerando un grafo connesso per il diagramma di flusso, se io attraverso tutti gli archi allora ho attraversato tutti i possibili nodi. Non è invece vero l'inverso.
+Si noti come il criterio di copertura delle decisioni implichi il criterio di copertura dei comandi: andando a estrarre il codice in un diagramma di flusso, io copro tutte le decisioni se e solo se attraverso ogni arco presente nel flusso. Considerando un grafo connesso per il diagramma di flusso, se io attraverso tutti gli archi allora ho attraversato tutti i possibili nodi. Non è invece vero l'inverso.
 
 Per esempio:
 
-
-Riprendendo l'esempio precedente, se volessi applicare il criterio di copertura delle decisioni dovrei utilizzare almeno due casi di test, ad esempio $$<3,7>$$ e $$<0,5>$$, che se compresi nello stesso test mi restituiscono una copertura delle decisioni pari al 100%.
+Riprendendo l'esempio precedente, se si volesse applicare il criterio di copertura delle decisioni si dovrebbero utilizzare almeno due casi di test, ad esempio $$<3,7>$$ e $$<0,5>$$, che se compresi nello stesso test restituirebbero una copertura delle decisioni pari al 100%.
 
 Ma non tutti i malfunzionamenti vengono trovati, ad esempio a riga 6 è possibile che ad x sia assegnato un valore tale per cui se sommo 10 ottengo un overflow.
 
 #### Criterio di copertura delle condizioni
 
-Un test T soddisfa il criterio di _copertura delle condizioni_ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T
+_Un test T soddisfa il criterio di copertura delle condizioni se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
 
 Similmente ai test precedenti, la metrica è la percentuale delle condizioni che sono state rese sia vere che false su quelle per cui è possibile farlo.
 
@@ -257,16 +247,34 @@ Ci sono quindi anomalie sia alla riga 6 (possibile divisione per 0) che alla rig
 
 #### Criterio di copertura delle condizioni composte
 
-Un test T soddisfa il criterio di copertura delle condizioni composte se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di test in T
+_Un test T soddisfa il criterio di copertura delle condizioni composte se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di test in T_
 
 Si noti come questo criterio comporti il precedente (Criterio di copertura delle decisioni e condizioni)
 
-Data la natura combinatoria di questo criterio, all'aumento del numero di condizioni di base il numero di casi di test cresce __troppo rapidamente__. Inoltre dato che le condizioni di base potrebbero non riusltare indipendenti tra loro, potrebbero esistere combinazioni non fattibili che non sarebbe opportuno testare.
+Data la natura combinatoria di questo criterio, all'aumento del numero di condizioni di base _il numero di casi di test cresce troppo rapidamente_. Inoltre dato che le condizioni di base potrebbero non risultare indipendenti tra loro, potrebbero esistere combinazioni non fattibili che non sarebbe opportuno testare.
 
 #### Criterio di copertura delle condizioni e delle decisioni modificate
 
-Ci si è accorti che certe combinazioni sono "più vicine o più lontane ad altre": se modificando una sola condizione base riesco a modificare la decisione, allora quella modifica è una modifica molto significativa indipendentemente da quanto sia grande. Se invece la decisione rimane la stessa, posso ipotizzare che quella modifcia sia più neutra e meno significativa.
+Ci si è accorti che certe combinazioni sono "più vicine o più lontane ad altre": se modificando una sola condizione base riesco a modificare la decisione, allora quella modifica è una modifica molto significativa indipendentemente da quanto sia grande. Se invece la decisione rimane la stessa, posso ipotizzare che quella modifica sia più neutra e meno significativa.
 
 Si va quindi a dare importanza, nella selezione delle combinazioni, al fatto che la modifica di una singola condizione base porti a modificare la decisione. Per ogni condizione base devono quindi esistere 2 casi di test che modificano il valore di una sola condizione base e che modificano il valore della decisione
 
-È inoltre dimostrabile che se ho $$N$$ condizioni base sono sufficienti $$N+1$$ casi di test per coprire il criterio.
+È inoltre dimostrabile che se si hanno $$N$$ condizioni base sono sufficienti $$N+1$$ casi di test per coprire il criterio.
+
+#### Implicazioni tra criteri di copertura
+
+<!--- immagine implicazioni tra criteri di copertura --->
+
+Il criterio delle condizioni composte va considerato troppo oneroso e quindi non applicabile. Gli altri criteri invece possono essere applicati.
+
+### Altri criteri
+
+_I criteri visti finora non considerano i **cicli**_ e possono essere soddisfatti da test che percorrono ogni ciclo al più una volta. 
+
+Molti errori però si verificano durante iterazioni successive alla prima, come per esempio quando si superano i limiti di un array.
+
+Occorre quindi un criterio che tenga conto anche delle iterazioni.
+
+#### Criterio di copertura dei cammini
+
+
