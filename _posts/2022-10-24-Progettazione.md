@@ -93,7 +93,7 @@ Prima di proseguire è bene richiamare concetti e termini fondamentali presumibi
 ### Object orientation
 
 Per essere definito _object oriented_, un linguaggio di programmazione deve soddisfare tre proprietà:
-- __ereditarietà__: ovvero la possibilità di poter spiegare una classe come _differenza_ da un'altra classe.
+- __ereditarietà__: ovvero la possibilità di poter definire una classe ereditando proprietà e comportamenti di un'altra classe.
 - __polimorfismo__: quando una classe può assumere diverse forme in base alle interfacce che implementa. 
 Il prof fa l'esempio del _tennista scacchista_: in un torneo di tennis è poco utile sostituire una persona che gioca a tennis ed è brava con gli scacchi (quindi una classe che implementa entrambe le interfacce) con una che gioca a scacchi.
 Il collegamento tra capacità e oggetto è fatto __a tempo di compilazione__: non è importante quindi se la capacità non è ancora definita;
@@ -455,7 +455,7 @@ In questa fase, in caso di dubbi è possibile rimandare la decisione a un moment
 Di seguito ne sono riportati alcuni:
 - __Ridondanza__: sinonimi, termini diversi per indicare lo stesso concetto. Anche se è stata utilizzata una locuzione diversa potrebbe essere comunque ridondante, sopratutto in lingue diverse dall'inglese in cui ci sono molti sinonimi. \\
 Nell'esempio: _library member_ e _member of the library_, _loan_ e _short term loan_.
-- __Vaghezzza__: nomi generici, comuni a qualunque specifica; potrebbero essere sintomo di una _classe comune astratta_. \\
+- __Vaghezza__: nomi generici, comuni a qualunque specifica; potrebbero essere sintomo di una _classe comune astratta_. \\
 Nell'esempio: _items_.
 - __Nomi di eventi e operazioni__: nomi che indicano azioni e non hanno un concetto di _stato_. \\
 Nell'esempio: _loan_.
@@ -463,7 +463,7 @@ Nell'esempio: _loan_.
 Nell'esempio: _system_, _rules_.
 - __Esterne al sistema__: concetti esterni o verità _"assolute"_ al di fuori del controllo del programma. \\
 Esempio: _library_, _week_ (una settimana ha 7 giorni).
-- __Attributi__: informazioni atomiche e premitive (stringhe, interi, ...) relative a una classe, che quindi non necessitano la creazione di una classe di per sé. \\
+- __Attributi__: informazioni atomiche e primitive (stringhe, interi, ...) relative a una classe, che quindi non necessitano la creazione di una classe di per sé. \\
 Esempio: _name of the member_ (se ci fosse stato).
 
 Al termine di questa fase, si avrà una lista di classi _"certe"_ e _"incerte"_.
