@@ -70,7 +70,7 @@ _In generale, è **impossibile trovare un test ideale**._
 
 > __Tesi di Dijkstra__:
 >
-> _Il test di un prorgamma può rilevare la presenza di malfunzionamenti ma non dimostrarne l'assenza._
+> _Il test di un programma può rilevare la presenza di malfunzionamenti ma non dimostrarne l'assenza._
 >
 >_Non esiste quindi un algoritmo che dato un programma arbitrario $$P$$ generi un test ideale finito (il caso $$T = D$$ non va considerato)._
 
@@ -276,5 +276,105 @@ Molti errori però si verificano durante iterazioni successive alla prima, come 
 Occorre quindi un criterio che tenga conto anche delle iterazioni.
 
 #### Criterio di copertura dei cammini
+
+_Un test T soddisfa il criterio di copertura dei cammini se e solo se ogni cammino del grafo di controllo del programma viene percorso per almeno un caso di test in T._
+
+La metrica è il rapporto tra i cammini percorsi e quelli effettivamente percorribili.
+
+Molto generale, ma spesso impraticabile (anche per programmi semplici).
+
+Consideriamo quindi questo criterio **non applicabile**.
+
+#### Criterio di $$n$$-copertura dei cicli
+
+_Un test soddisfa il criterio di $$n$$-copertura se e solo se ogni cammino del
+grafo contenente al massimo un numero d'iterazioni di ogni ciclo non
+superiore a $$n$$ viene percorso per almeno un caso di test._
+
+Il che non significa che il mio test deve eseguire $$n$$ volte un ciclo, ma significa che per ogni numero compreso tra 0 e $$n$$ ci deve essere un caso di test che esegue quel ciclo $$n$$ volte. Si sta quindi limitando il numero massimo di percorrenze dei cicli.
+
+Di conseguenza però al crescere di $$n$$ il numero di test aumenta molto rapidamente.
+
+Inoltre fissare questa variabile a livello di programma può non essere un'azione così semplice, il numero d'iterazioni che necessita un ciclo per essere testato può essere molto differente.
+
+Per cercare di minimizzare il numero di test, può bastare coprire solamente le casistiche: zero iterazioni, un'iterazione e molte iterazioni.
+
+Il caso $$n = 2$$ è il minimo per considerare queste casistiche.
+Se $$n = 1$$ un ciclo (`while`) sarebbe stato indistinguibile da una semplice
+selezione (`if`), testando due iterazioni incomincio a testare le caratteristiche del ciclo.
+
+A differenza del criterio di copertura dei cammini, questo lo consideriamo **applicabile**.
+
+## Analisi statica
+
+_Si basa sull'esame di un insieme finito di elementi (le istruzioni del programma) contrariamente all'analisi dinamica (insieme degli stati delle esecuzioni)._
+È un'attività meno costosa del testing, poiché non soffre del problema della "esplosione dello spazio degli stati". 
+Non può rilevare anomalie dipendenti da uno specifico valore assunto a run-time, perché non ragione sui valori specifici delle variabili.
+
+### Complilatori
+
+I compilatori fanno analisi statica per fornire un eseguibile e per identificare errori sintattici nel codice.
+Il lavoro dei compilatori si può dividere in quattro fasi:
+* **Analisi lessicale**: viene fatta l'identificazione dei token del linguaggio, permette d'identificare la presenza di simboli non appartenenti al linguaggio.
+* **Analisi sintattica**: identifica le relazioni tra token e controlla la conformità del codice alla grammatica del linguaggio.
+* **Controllo dei tipi**: si cercano d'individuare violazioni delle regole d'uso dei tipi
+* **Analisi flusso dei dati**: si cercano di rilevare problemi relativi alle evoluzioni dei valori associati alle variabili
+
+## Analisi Data Flow
+
+I primi utilizzi sono stati fatti nel campo dell'ottimizzazione dei compilatori.
+
+Il flusso dei dati sarebbe una analisi prettamente dinamica, ma il sottoinsieme dei controlli statici è significativo.
+
+Staticamente è possibile identificare il tipo di operazione che un comando esegue su una variabile:
+
+* **d** $$\Rightarrow$$ **definizione** se il comando assegna un valore alla variabile.
+* **u** $$\Rightarrow$$ **uso** se il comando richiede il valore di una variabile.
+* **a** $$\Rightarrow$$ **annullamento** se al termine dell'esecuzione dell'istruzione il valore della variabile non è significativo/affidabile.
+
+È possibile ridurre una sequenza d'istruzioni a una sequenza di _**d**efinizioni_, _**u**si_ e _**a**nnullamenti_.
+
+Questo viene fatto per cercare di capire se ci sono delle situazioni anomale, con una serie di regole:
+
+* L'_uso_ di una variabile deve essere sempre preceduto in ogni sequenza da una _definizione_ senza _annullamenti_ intermedi $$\Rightarrow$$ **au**
+
+* La _definizione_ di una variabile deve sempre essere seguita da un _uso_ prima di un suo _annullamento_ o _definizione_ $$\Rightarrow$$ **da** e **dd**
+
+* L'_annullamento_ di una variabile deve essere sempre seguito da una _definizione_ prima di un _uso_ o di un altro _annullamento_ $$\Rightarrow$$ **aa**
+
+**au**, **da**, **dd** e **aa** sono quindi sequenze che identificano situazioni anomale.
+
+Esempio DF:
+
+```c
+void swap(int &x1, int &x2) {
+    int x;
+    x2 = x;
+    x2 = x1;
+    x1 = x;
+}
+```
+Costruiamo le sequenze per ogni variabile:
+
+* `x` $$\Rightarrow$$ **auu**a
+
+* `x1` $$\Rightarrow$$ ...dud...
+
+* `x2` $$\Rightarrow$$ ...**ddd**...
+
+Anomalie rilevabili:
+
+* `x` viene usata senza (2 volte) senza essere stata prima definita
+
+* `x1` ok
+
+* `x2` viene definita più volte senza essere usata nel frattempo
+
+
+
+
+
+
+
 
 
