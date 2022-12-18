@@ -285,7 +285,7 @@ Molto generale, ma spesso impraticabile (anche per programmi semplici).
 
 Consideriamo quindi questo criterio **non applicabile**.
 
-#### Criterio di $$n$$-copertura dei cicli
+#### Criterio di n-copertura dei cicli
 
 _Un test soddisfa il criterio di $$n$$-copertura se e solo se ogni cammino del
 grafo contenente al massimo un numero d'iterazioni di ogni ciclo non
@@ -320,7 +320,7 @@ Il lavoro dei compilatori si può dividere in quattro fasi:
 * **Controllo dei tipi**: si cercano d'individuare violazioni delle regole d'uso dei tipi
 * **Analisi flusso dei dati**: si cercano di rilevare problemi relativi alle evoluzioni dei valori associati alle variabili
 
-## Analisi Data Flow
+### Analisi Data Flow
 
 I primi utilizzi sono stati fatti nel campo dell'ottimizzazione dei compilatori.
 
@@ -336,15 +336,15 @@ Staticamente è possibile identificare il tipo di operazione che un comando eseg
 
 Questo viene fatto per cercare di capire se ci sono delle situazioni anomale, con una serie di regole:
 
-* L'_uso_ di una variabile deve essere sempre preceduto in ogni sequenza da una _definizione_ senza _annullamenti_ intermedi $$\Rightarrow$$ **au**
+* L'_uso_ di una variabile deve essere sempre preceduto in ogni sequenza da una _definizione_ senza _annullamenti_ intermedi $$\Rightarrow$$ **au** ERR
 
-* La _definizione_ di una variabile deve sempre essere seguita da un _uso_ prima di un suo _annullamento_ o _definizione_ $$\Rightarrow$$ **da** e **dd**
+* La _definizione_ di una variabile deve sempre essere seguita da un _uso_ prima di un suo _annullamento_ o _definizione_ $$\Rightarrow$$ **da** e **dd** ERR
 
-* L'_annullamento_ di una variabile deve essere sempre seguito da una _definizione_ prima di un _uso_ o di un altro _annullamento_ $$\Rightarrow$$ **aa**
+* L'_annullamento_ di una variabile deve essere sempre seguito da una _definizione_ prima di un _uso_ o di un altro _annullamento_ $$\Rightarrow$$ **aa** ERR
 
-**au**, **da**, **dd** e **aa** sono quindi sequenze che identificano situazioni anomale.
+**au**, **da**, **dd** e **aa** sono sequenze che identificano **situazioni anomale**.
 
-Esempio DF:
+Esempio _analisi data flow_:
 
 ```c
 void swap(int &x1, int &x2) {
@@ -370,10 +370,77 @@ Anomalie rilevabili:
 
 * `x2` viene definita più volte senza essere usata nel frattempo
 
+#### Sequenze Data Flow
 
+```c
+1   void main() {
+2       float a, b, x, y;
+3       read(x);
+4       read(y);
+5       a = x;
+6       b = y;
+7       while(a != b) {
+8           if(a > b) {
+9               a = a - b;
+10          } else {
+11              b = b - a;
+12          }
+13      }
+14      write(a);
+15  }
+```
 
+$$\operatorname{P}(p,a)$$ indica la **sequenza** ottenuta per la variabile $$a$$ eseguendo il cammino $$p$$.
 
+Es. $$\operatorname{P}([1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 12, 13], a) = a2, d5, u7, u8, u9, d9, u7, u12,  a13$$
 
+Eseguendo questo tipo di operazione su tutte le variabili si potrebbero verificare le eventuali anomalie. Il problema è che per fare ciò bisognerebbe simulare l'esecuzione del programma e questo significherebbe uscire dal campo dell'analisi statica.
+
+Quindi quello che si può fare è usare **espressioni regolari** per rappresentare $$P$$ in caso di cammini contenenti _cicli_ e _decisioni_.
+
+Es. $$\operatorname{P}([1 →], a)$$ significa rappresentare tutti i cammini che partono dall'istruzione $$1$$ per la variabile $$a$$: 
+
+<!--- 
+a2  d5
+
+a2  d5  u7  (        while-body        )*  u12  a13
+
+a2  d5  u7  (       u8  if-body        )*  u12  a13
+
+a2  d5  u7  (  u8  (u9  d9 | u11)  u7  )*  u12  a13
+--->
+
+Rappresentando la sequenza in questo modo è possibile identificare eventuali anomalie anche nel caso di cicli e decisioni.
+
+### Analisi statica e Testing
+
+Ma cosa c'entra l'**analisi statica** con il **testing**?
+
+L'_analisi statica_ può aiutare a _selezionare i casi di test_ basandosi sulle _sequenze_ _definizione_-_uso_ delle variabili.
+
+Per esempio:
+
+* perché si presenti un malfunzionamento dovuto a una anomalia in una _definizione_, deve essere _usato_ il valore che è stato assegnato
+
+* un ciclo dovrebbe essere ripetuto (di nuovo) se verrà _usato_ un valore _definito_ alla iterazione precedente
+
+### Definizioni
+
+$$\operatorname{def}(i)$$ è l'insieme delle variabili che sono definite in $$i$$
+
+$$\operatorname{du}(x, i)$$ è l'insieme dei nodi j tali che:
+
+* $$x$$ $$\in \operatorname{def}(i)$$
+
+* $$x$$ usato in $$j$$
+
+* esiste un cammino da $$i$$ a $$j$$, libero da definizione di $$x$$
+
+#### Criterio copertura definizioni
+
+_Un test $$T$$ soddisfa il criterio di copertura delle definizioni se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad almeno uno degli elementi di $$\operatorname{du}(x, i)$$_
+
+$$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\exists j \in \operatorname{du}(x, i)$$ $$\exists t \in T$$ che esegue un cammino $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$
 
 
 
