@@ -354,7 +354,7 @@ void swap(int &x1, int &x2) {
     x1 = x;
 }
 ```
-Costruiamo le sequenze per ogni variabile:
+Le sequenze per ogni variabile sono le seguenti:
 
 * `x` $$\Rightarrow$$ **auu**a
 
@@ -428,7 +428,7 @@ Per esempio:
 
 $$\operatorname{def}(i)$$ è l'insieme delle variabili che sono definite in $$i$$
 
-$$\operatorname{du}(x, i)$$ è l'insieme dei nodi j tali che:
+$$\operatorname{du}(i, x)$$ è l'insieme dei nodi j tali che:
 
 * $$x$$ $$\in \operatorname{def}(i)$$
 
@@ -438,10 +438,169 @@ $$\operatorname{du}(x, i)$$ è l'insieme dei nodi j tali che:
 
 #### Criterio copertura definizioni
 
-_Un test $$T$$ soddisfa il criterio di copertura delle definizioni se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad almeno uno degli elementi di $$\operatorname{du}(x, i)$$_
+_Un test $$T$$ soddisfa il criterio di copertura delle definizioni se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad almeno uno degli elementi di $$\operatorname{du}(i, x)$$_
 
-$$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\exists j \in \operatorname{du}(x, i)$$ $$\exists t \in T$$ che esegue un cammino $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$
+$$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\exists j \in \operatorname{du}(i, x)$$ $$\exists t \in T$$ che esegue un cammino $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$
 
+Esempio:
 
+```c
+1   void main() {
+2       float a, b, x, y;
+3       read(x);
+4       read(y);
+5       a = x;
+6       b = y;
+7       while(a != b) {
+8           if(a > b) {
+9               a = a - b;
+10          } else {
+11              b = b - a;
+12          }
+13      }
+14      write(a);
+15  }
+```
+
+Ad esempio consideriamo la variabile $$a$$:
+
+Due definizioni: 
+* $$\operatorname{def}(5)$$ = $$\{a\}$$
+* $$\operatorname{def}(9)$$ = $$\{a\}$$
+
+$$\operatorname{du}(5, a)$$ $$=$$ $$\{7, 8, 9, 11, 12\}$$
+$$\operatorname{du}(9, a)$$ $$=$$ $$\{7, 8, 9, 11, 12\}$$
+
+Sia la definizione data alla riga $$5$$ che quella data alla riga $$9$$ possono essere usate alla riga $$7, 8, 9, 11, 12$$.
+
+Si vuole controllare che per ognuna delle definizioni si abbia un uso di quella definizione
+
+$$d5$$ $$u7$$ viene gratis
+
+$$d9$$ $$u7$$ basta entrare una volta nel ciclo
+
+$$T$$ = $${ <8, 4> }$$ è un caso di test che soddisfa il criterio.
+
+Il criterio di copertura delle definizioni non copre tutti i comandi e di conseguenza non implica il criterio di copertura dei comandi.
+
+#### Criterio copertura degli usi
+
+_Un test $$T$$ soddisfa il criterio di copertura degli usi se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad **ogni elemento** di $$\operatorname{du}(i, x)$$_
+
+$$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\forall j \in \operatorname{du}(i, x)$$ $$\exists t \in T$$ che esegue un cammino $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$
+
+Cioè, per ogni definizione di una variabile, tutti i possibili usi di quella definizione devono essere coperti.
+
+Anche questo criterio non copre i comandi.
+
+Esempio:
+
+```c
+1   void main() {
+2       int a, b, c;
+3       read(a);
+4       read(b);
+5       read(c);
+6       if(a > b) {
+7           if(b > c) {
+8               write(a);
+9           } else {
+10              write(b);
+11          }
+12      } else {
+13          if(a > c) {
+14              write(a);
+15          } else {
+16              write(c);
+17          }
+18      }
+19  }
+```
+
+Consideriamo la variabile $$a$$:
+
+$$\operatorname{def}(3)$$ = $$\{a\}$$
+
+$$\operatorname{du}(3, a)$$ = $$\{6, 7, 8, 10, 13, 14, 16, 17\}$$
+
+$$T$$ = $${ <6, 4>, <13, 4> }$$
+
+Il test non copre $$\operatorname{du}(3, a)$$.
+
+#### Criterio copertura dei comandi
+
+_Un test $$T$$ soddisfa il criterio di copertura dei comandi se e solo se per ogni nodo $$i$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad **ogni nodo** di $$P$$
+
+$$T \in C$$ sse $$ \forall i \in P$$ $$\forall j \in P$$ $$\exists t \in T$$ che esegue un cammino $$i$$ a $$j$$ senza ulteriori definizioni
+
+Cioè, per ogni comando, tutti i possibili comandi devono essere coperti.
+
+Esempio:
+
+```c
+1   void main() {
+2       int a, b, c;
+3       read(a);
+4       read(b);
+5       read(c);
+6       if(a > b) {
+7           if(b > c) {
+8               write(a);
+9           } else {
+10              write(b);
+11          }
+12      } else {
+13          if(a > c) {
+14              write(a);
+15          } else {
+16              write(c);
+17          }
+18      }
+19  }
+```
+
+Per ogni definizione dobbiamo coprire tutti gli usi.
+
+$$\operatorname{du}(5, a)$$ = $$\{7, 8, 9, 11, 12\}$$ e $$\operatorname{du}(9, a)$$ = $$\{7, 8, 9, 11, 12\}$$
+
+$$d5$$ $$u7$$ $$u8$$ $$u11$$ $$u7$$ $$u12$$ 
+
+...$$d5$$ $$u7$$ $$u8$$ $$u9$$...
+
+...$$d9$$ $$u7$$ $$u8$$ $$u9$$...
+
+...$$d9$$ $$u7$$ $$u8$$ $$u12$$...
+
+...$$d9$$ $$u7$$ $$u8$$ $$u11$$...
+
+almeno due iterazioni ad esempio:
+
+$$T$$ = $${ <4, 8>, <12, 8>, <12, 4> }$$
+
+#### Criterio copertura dei cammini DU
+
+Esistono diversi cammini che soddisfano il criterio precedente.
+Questo criterio richede che siano selezionati tutti.
+
+$$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\forall j \in \operatorname{du}(i, x)$$ per ogni cammino da $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$, esiste un caso di test in $$T$$ che esegue quel cammino.
+
+Criterio **utile da ipotizzar**e, ma **impraticabile**.
+
+### Oltre alle variabili
+
+L'analisi del flusso si può fare anche con altri "oggetti".
+
+Esempio: 
+
+File
+* **a**pertura
+* **c**hiusura
+* **l**ettura
+* **s**crittura
+
+Regole:
+* **l** deve essere preceduta da **a** senza **c** intermedie
+* **a** deve essere seguita da **c** prima di un'altra **a**
+* legame tipo apertura e operazioni...
 
 
