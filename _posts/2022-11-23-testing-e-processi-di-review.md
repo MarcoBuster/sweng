@@ -469,6 +469,7 @@ Due definizioni:
 * $$\operatorname{def}(9)$$ = $$\{a\}$$
 
 $$\operatorname{du}(5, a)$$ $$=$$ $$\{7, 8, 9, 11, 12\}$$
+
 $$\operatorname{du}(9, a)$$ $$=$$ $$\{7, 8, 9, 11, 12\}$$
 
 Sia la definizione data alla riga $$5$$ che quella data alla riga $$9$$ possono essere usate alla riga $$7, 8, 9, 11, 12$$.
@@ -518,48 +519,6 @@ Esempio:
 ```
 
 Consideriamo la variabile $$a$$:
-
-$$\operatorname{def}(3)$$ = $$\{a\}$$
-
-$$\operatorname{du}(3, a)$$ = $$\{6, 7, 8, 10, 13, 14, 16, 17\}$$
-
-$$T$$ = $${ <6, 4>, <13, 4> }$$
-
-Il test non copre $$\operatorname{du}(3, a)$$.
-
-#### Criterio copertura dei comandi
-
-_Un test $$T$$ soddisfa il criterio di copertura dei comandi se e solo se per ogni nodo $$i$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad **ogni nodo** di $$P$$
-
-$$T \in C$$ sse $$ \forall i \in P$$ $$\forall j \in P$$ $$\exists t \in T$$ che esegue un cammino $$i$$ a $$j$$ senza ulteriori definizioni
-
-Cioè, per ogni comando, tutti i possibili comandi devono essere coperti.
-
-Esempio:
-
-```c
-1   void main() {
-2       int a, b, c;
-3       read(a);
-4       read(b);
-5       read(c);
-6       if(a > b) {
-7           if(b > c) {
-8               write(a);
-9           } else {
-10              write(b);
-11          }
-12      } else {
-13          if(a > c) {
-14              write(a);
-15          } else {
-16              write(c);
-17          }
-18      }
-19  }
-```
-
-Per ogni definizione dobbiamo coprire tutti gli usi.
 
 $$\operatorname{du}(5, a)$$ = $$\{7, 8, 9, 11, 12\}$$ e $$\operatorname{du}(9, a)$$ = $$\{7, 8, 9, 11, 12\}$$
 
