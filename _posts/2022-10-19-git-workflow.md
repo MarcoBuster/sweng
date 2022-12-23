@@ -84,7 +84,7 @@ Per iniziare una nuova release è sufficiente creare un nuovo branch da develop:
 $ git checkout -b release/v1.2.3 develop
 ```
 
-Al termine della creazione della release, occorre mergiarla in master e in develop. 
+Al termine della creazione della release, è necessario fare il merge della release nel branch master e nel branch develop. Il merge in master rappresenta il rilascio della nuova versione del codice, che diventa disponibile per il pubblico o per il cliente. Il merge in develop, invece, integra le modifiche apportate durante la creazione della release nel branch di sviluppo, in modo che siano disponibili per le release future. In questo modo, è possibile gestire in modo organizzato il ciclo di vita del codice e il flusso di lavoro.
 ```bash
 $ git checkout master               # entra nel branch master
 $ git merge --no-ff release/v1.2.3  # mergia la feature
@@ -94,9 +94,9 @@ $ git merge --no-ff release/v1.2.3  # mergia la feature
 $ git branch -d release/v1.2.3      # elimina il branch della feature
 ```
 
-La differenza tra tag e branch è che il __tag è puntatore costante al commit__, mette il branch va avanti tra commit e commit.
+In Git, i tag sono etichette che possono essere applicate a un commit per segnalarne l'importanza o per marcare un punto specifico dello storico del repository. Un __tag è un puntatore costante al commit__ a cui è stato applicato, quindi non cambia mai e permette di fare riferimento in modo stabile a una versione specifica del codice. Al contrario, i branch sono puntatori dinamici che vanno avanti nel tempo, seguendo l'evoluzione del codice attraverso i nuovi commit
 
-Un'altra differenza tra release e feature è che posso avere solo una release aperta in un dato istante.
+In GitFlow, le release sono versioni stabili del codice che vengono rilasciate al pubblico o al cliente. Ogni release viene creata partendo dal branch develop e viene gestita come un branch a sé stante, che viene chiuso una volta che tutte le modifiche previste sono state integrate. Al contrario, le feature sono branch temporanei utilizzati per sviluppare nuove funzionalità o per correggere bug. È possibile avere più feature aperte contemporaneamente, ma solo una release può essere aperta in un dato istante.
 
 ## Hotfix
 
@@ -122,12 +122,12 @@ $ git branch -d hotfix/CVE-123          # elimina il branch di hotfix
 Quali sono i limiti di git presentato così?
 
 Git e GitFlow come sono stati esposti presentano numerosi vincoli, tra cui:
-- la __mancanza di autorizzazione granulare__ oltre il primo livello di accesso;
-- l'__assenza di code review__.
+- la __mancanza di un sistema di autorizzazione granulare__, ovvero la possibilità di assegnare permessi in modo specifico e mirato a diverse funzionalità o risorse. Inoltre, non esiste una distinzione tra diversi livelli di accesso, quindi o si ha accesso completo a tutte le funzionalità o non si ha accesso a niente;
+- l'__assenza di code review__, ovvero il processo di revisione del codice sorgente da parte di altri sviluppatori prima che venga integrato nel codice base.
 
 ### git request-pull - generates a summary of pending changes
 
-Il tool `git request-pull` serve per formattare la propria proposta di modifiche e inviarla a una mailing list, chiedendo di pullarle.
+Il tool `git request-pull` era un comando di Git che serviva per formattare e inviare una proposta di modifiche a un repository tramite una mailing list. Il comando creava un messaggio di posta elettronica che chiedeva al maintainer del repository di "pullare" le modifiche, ovvero di integrarle nel codice base. Oggi, questa pratica è stata sostituita dalle pull request, che sono richieste di integrazione delle modifiche presentate attraverso un'interfaccia web. Le pull request offrono una serie di vantaggi rispetto alle richieste via email, come una maggiore trasparenza del processo di integrazione, una maggiore efficienza e una maggiore facilità di utilizzo.
 
     git request-pull [-p] <start> <URL> [<end>]
 
@@ -175,9 +175,9 @@ Questo modello è molto più _peer to peer_ delle pull request proposte dai sist
 
 # Hosting centralizzato
 
-Un hosting centralizzato Git è un servizio che fornisce una repository centrale per i progetti Git, permettendo di superare i limiti della decentralizzazione senza rinunciare a molti suoi vantaggi.
+Un hosting centralizzato Git è un servizio che fornisce una repository centrale per i progetti Git, permettendo di superare alcuni limiti della decentralizzazione, ovvero il modello di collaborazione tipico di Git in cui ogni copia del repository è autonoma e indipendente. L'hosting centralizzato consente di avere una repository centrale dove tutti i contributi vengono integrati e gestiti, garantendo una maggiore trasparenza e controllo del processo di sviluppo. Tuttavia, l'hosting centralizzato mantiene molti dei vantaggi della decentralizzazione, come la possibilità di lavorare in modo asincrono e la possibilità di fare il fork di progetti.
 
-Inventano nuovi meccanismi, provando a imporre nuovi workflow (GitHub Flow, GitLab Flow, ...).
+Gli hosting centralizzati come GitHub e GitLab, nella loro costante evoluzione, spesso inventano nuovi meccanismi e provano a imporre nuovi workflow, come il GitHub Flow o il GitLab Flow, per semplificare e ottimizzare il processo di sviluppo. Tuttavia, è importante valutare attentamente questi nuovi approcci e verificare se si adattano alle esigenze specifiche del progetto e della squadra di sviluppo.
 Inoltre, molti servizi di hosting centralizzati offrono funzionalità aggiuntive, come la possibilità di eseguire il "fork" di un repository, inviare _pull request_ per le modifiche e di utilizzare strumenti di continuous integration (CI) per testare automaticamente le modifiche apportate al codice.
 
 ## Fork
@@ -186,8 +186,7 @@ Il "fork" di un repository Git è una __copia del repository originale__ che vie
 
 L'utilizzo del fork __risolve__ un primo problema di __autorizzazione__ poiché permette a un altro sviluppatore di lavorare su una copia del repository senza dover ottenere le autorizzazioni del proprietario originale.
 
-La maggioranza delle piattaforme di hosting centralizzato __ottimizza__ la condivisione dello spazio degli oggetti, utilizzando un'unica repository fisica per tutti i fork.
-Ci sono delle problematiche si sicurezza: è difficile per la piattaforma stabilire in quale fork si trova l'oggetto ([esempio sul kernel Linux](https://github.com/torvalds/linux/commit/b4061a10fc29010a610ff2b5b20160d7335e69bf)). 
+La maggioranza delle piattaforme di hosting centralizzato ottimizza la condivisione dello spazio degli oggetti, utilizzando un'unica repository fisica per tutti i fork. Tuttavia, questo può comportare alcune problematiche di sicurezza, come ad esempio la difficoltà per la piattaforma di stabilire in quale fork si trova un determinato oggetto in caso di conflitto o la possibilità che un utente malintenzionato possa modificare o eliminare accidentalmente oggetti di altri fork. Per questo motivo, è importante che le piattaforme di hosting centralizzato implementino misure di sicurezza adeguate per proteggere i dati dei fork e garantire la tracciabilità delle modifiche ([esempio sul kernel Linux](https://github.com/torvalds/linux/commit/b4061a10fc29010a610ff2b5b20160d7335e69bf)). 
 
 ## Review / Pull request
 
@@ -197,7 +196,7 @@ Tra la creazione di una pull request e il suo _merge_, specialmente nei progetti
 
 La funzionalità di review/pull request permette di facilitare le interazioni tra gli sviluppatori utilizzando il sito di hosting come luogo comune per la discussione informale e la revisione delle modifiche.
 
-Inoltre, molti servizi di hosting centralizzati offrono strumenti di continuous integration (CI) che possono essere utilizzati per testare automaticamente le modifiche proposte nella pull request
+Come accennato in precedenza, molti servizi di hosting centralizzati offrono strumenti di continuous integration (CI) che possono essere utilizzati per testare automaticamente le modifiche proposte nella pull request. Questi strumenti consentono di verificare che le modifiche non introducano errori o vulnerabilità e di garantire che il codice sia pronto per essere integrato nel repository principale.
 
 # Gerrit
 
