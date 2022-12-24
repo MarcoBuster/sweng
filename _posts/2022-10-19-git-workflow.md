@@ -201,19 +201,17 @@ Come accennato in precedenza, molti servizi di hosting centralizzati offrono str
 
 # Gerrit
 
-Nasce interno a Google, per sviluppare progetti interni.
-
 Gerrit è un __sistema di review__ del codice sviluppato internamente da Google per gestire i progetti interni; si basa sul concetto di "peer review": tutti gli sviluppatori sono autorizzati a fare review delle proposte di modifica di qualsiasi zona di codice.
 
 Nel processo di review di Gerrit, i __developer__ possono sottoporre proposte di cambiamento utilizzando un sistema di "patch" che descrive le modifiche apportate al codice. 
 I __reviewer__, ovvero gli altri sviluppatori del progetto, possono quindi esaminare le patch e decidere se accettarle o rifiutarle. 
-Una volta che una patch ha ricevuto un numero sufficiente di review positivi, viene automaticamente integrata nel __repository principale autorativo__ in cui tutti hanno accesso in sola lettura.
+Una volta che una patch ha ricevuto un numero sufficiente di review positivi, viene automaticamente integrata nel __repository principale autoritativo__   in cui tutti hanno accesso in sola lettura.
 
-Gerrit obbliga a strutturare le modifiche (changeset) in un unico commit (squash) al momento dell'accettazione; al momento della review rimangono le versioni singole. 
+Gerrit obbliga a strutturare le modifiche (changeset) in un unico commit (squash) al momento dell'accettazione. Ciò significa che tutte le modifiche apportate devono essere fuse in un unico commit, in modo da rendere più facile la gestione del repository. Al momento della review, invece, le modifiche rimangono separate in versioni singole, ovvero ogni modifica viene presentata come un commit separato, in modo che i reviewer possano esaminarle più facilmente.
 
 ## Verifier
 
-Scarica la patch, la compila, esegue i test, controlla che ci siano tutte le funzioni, controlla che tutto funzioni come dovrebbe.
+Il verifier è uno strumento o un processo che viene utilizzato in Gerrit per verificare che le modifiche proposte siano corrette e funzionino come dovrebbero. In particolare, il verifier scarica la patch, la compila, esegue i test e controlla che ci siano tutte le funzioni necessarie. Se il verifier rileva dei problemi, può segnalarli al team di sviluppo perché vengano corretti prima che la patch venga accettata.
 
 Una volta terminato il proprio processo, approva le modifiche votandole positivamente.
 Solitamente sono necessari 1 o 2 voti per procedere.
@@ -224,22 +222,25 @@ Una volta verificata, una proposta di modifiche deve essere anche approvata.
 L'approvatore deve determinare la risposta alle seguenti domande riguardo la proposta di modifiche:
 - è valida per lo scopo del progetto?
 - è valida per l'architettura del progetto?
-- introduce nuove falle nel design che potrebbero causa problemi in futuro?
+- introduce nuove falle nel design che potrebbero causare problemi in futuro?
 - segue le _best practices_ stabilite dal progetto?
 - è un buon modo per implementare la propria funzione?
 - introduce rischi per la sicurezza o la stabilità? 
 
-Se approva la modifica, allora può scrivere LGTM (_"Looks Good To Me"_).
+Se l'approver ritiene che la proposta di modifiche sia valida, può approvarla scrivendo "LGTM" (acronimo di _"Looks Good To Me"_) nei commenti della pull request.
 
 # Strumenti dell'opensource
 
+Gli strumenti dell'opensource sono una serie di programmi, librerie e servizi che vengono utilizzati per sviluppare progetti open source. Questi strumenti sono pensati per semplificare il processo di sviluppo e gestione di progetti open source, rendendoli accessibili a una comunità di sviluppatori e contribuenti.
+
+
 ## Build automation
 
-Un pezzo importante è la build automation, ovvero l'insieme delle operazioni che, partendo dal codice sorgente generano automaticamente l'eseguibile compilato.
+La build automation è un processo fondamentale nello sviluppo di software open source, che consiste nel creare un sistema automatizzato per compilare il codice sorgente in un eseguibile. Questo processo è importante perché consente di risparmiare tempo e risorse, evitando di dover compilare manualmente il codice ogni volta che si apportano modifiche. Inoltre, la build automation garantisce una maggiore qualità e coerenza del software, poiché il processo di compilazione viene eseguito in modo uniforme ogni volta.
 
 ### make
 
-`make` nasce nel mondo UNIX e ne segue la filosofia _pipeline_, ovvero __singoli comandi semplici concatenati__ per svolgere compiti più complessi.
+`make` è uno strumento di build automation che viene utilizzato per automatizzare il processo di compilazione di un progetto. In particolare, "make" viene utilizzato per specificare come ottenere determinati "targets" (obiettivi), ovvero file o azioni che devono essere eseguite, partendo dal codice sorgente. Ad esempio, in un progetto di sviluppo software, un target potrebbe essere il file eseguibile del programma, che viene ottenuto compilando il codice sorgente. "Make" segue la filosofia "pipeline", ovvero prevede l'utilizzo di singoli comandi semplici concatenati per svolgere compiti più complessi.
 
 In make si definiscono a livello di shell quali sono i comandi da dare per ottenere certi _targets_ (obiettivi).
 Supporta la __compilazione incrementale__ gestendo le __dipendenze__ tra file.
@@ -326,7 +327,7 @@ Scala bene in complessità: permette di fare cose semplici senza usare le funzio
 
 I plugin servono per trattare tool, situazioni, linguaggi definendo task e regole per lavorare più facilmente.
 
-Il plugin Java definisce
+Il plugin Java definisce:
 - una serie di __sourceSet__, ovvero dove è presente il codice e le risorse. Principalmente sono:
   - `src/main/java`: sorgenti Java di produzione;
   - `src/main/resources`: risorse di produzione;
