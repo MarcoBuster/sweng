@@ -239,10 +239,9 @@ La build automation è un processo fondamentale nello sviluppo di software open 
 
 ### make
 
-`make` è uno strumento di build automation che viene utilizzato per automatizzare il processo di compilazione di un progetto. In particolare, "make" viene utilizzato per specificare come ottenere determinati "targets" (obiettivi), ovvero file o azioni che devono essere eseguite, partendo dal codice sorgente. Ad esempio, in un progetto di sviluppo software, un target potrebbe essere il file eseguibile del programma, che viene ottenuto compilando il codice sorgente. "Make" segue la filosofia "pipeline", ovvero prevede l'utilizzo di singoli comandi semplici concatenati per svolgere compiti più complessi.
+`make` è uno strumento di build automation che viene utilizzato per automatizzare il processo di compilazione di un progetto. In particolare, `make` viene utilizzato per specificare come ottenere determinati _targets_ (obiettivi), ovvero file o azioni che devono essere eseguite, partendo dal codice sorgente. Ad esempio, in un progetto di sviluppo software, un target potrebbe essere il file eseguibile del programma, che viene ottenuto compilando il codice sorgente. `make` segue la filosofia _pipeline_, ovvero prevede l'utilizzo di singoli comandi semplici concatenati per svolgere compiti più complessi.
 
-In make si definiscono a livello di shell quali sono i comandi da dare per ottenere certi _targets_ (obiettivi).
-Supporta la __compilazione incrementale__ gestendo le __dipendenze__ tra file.
+Supporta la _compilazione incrementale_, ovvero il fatto di compilare solo le parti del progetto che sono state modificate dall'ultima volta, al fine di velocizzare il processo. Inoltre, gestisce le _dipendenze_ tra file, ovvero le relazioni tra i diversi file che compongono il progetto: se un file dipende da un altro file, make assicura che il file dipendente venga compilato solo dopo che il file di cui dipende è stato compilato. Ciò garantisce che il progetto venga compilato in modo coerente e che le modifiche apportate a un file siano considerate correttamente nella compilazione dei file dipendenti.
 
 ```make
 CC=gcc
@@ -257,14 +256,19 @@ hellomake: hellomake.c hellofunc.o
 
 Nell'esempio, se il _target_ hellomake (definito dai file `hellomake.c` e `hellofunc.o`) è stato aggiornato, occorre ricompilarlo utilizzando i comandi sotto.
 
-È a un livello molto basso ed è prono ad errori.
+Tuttavia, make lavora a un livello molto basso, il che può rendere facile commettere errori durante la sua configurazione e utilizzo.
+
 Non c'è portabilità tra macchine (ambienti) diverse.
+
+#### Makefile
+
+Un Makefile è un file di testo che contiene le istruzioni per il programma make su come compilare e linkare i file sorgente di un progetto. Ogni riga del Makefile definisce un obiettivo o una dipendenza, insieme ai comandi che devono essere eseguiti per raggiungerlo. L'utilizzo del Makefile permette di automatizzare la compilazione e il linkaggio dei file sorgente, semplificando il processo di sviluppo di un progetto. Nell'esempio menzionato, il Makefile definisce il target hellomake, che dipende dai file hellomake.c e hellofunc.o, e fornisce i comandi per compilarli e linkarli insieme.
 
 #### Generazione automatica
 
 Sono stati creati dei tool (`automake`, `autoconf`, `imake`, ...) che _generano_ `Makefile` ad-hoc per l'ambiente attuale.
 
-Il _mantra_
+Il _mantra_:
 ```bash
 $ ./configure
 $ make all
