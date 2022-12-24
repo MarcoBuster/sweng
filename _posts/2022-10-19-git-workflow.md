@@ -7,18 +7,16 @@ toc: true
 
 # Git Workflow
 
-In Git è praticamente impossibile non utilizzare i branch. 
+In Git, l'utilizzo dei branch è fortemente incentivato dal suo design e dalle sue funzionalità, rendendo praticamente impossibile lavorare senza utilizzarli. I branch consentono di creare versioni separate del codice, permettendo di lavorare su diverse funzionalità o correzioni di bug in modo indipendente e senza interferire con il codice principale. 
 C'è __libertà completa__ sul loro utilizzo: tutti i branch hanno pari importanza, chiunque può crearli e nominarli in qualunque modo.
 
 Lavorando in un team, è quindi necessario stabilire delle politiche sui tipi e i nomi di branch, in modo da organizzare il lavoro al meglio. 
 
 ## GitFlow
 
-GitFlow è una tecnica di organizzazione dei branch e della repository.
-I branch sono differenziati in tipi e possono avere vita limitata.
-Le operazioni di creazione e _merge_ di branch sono guidate.
+GitFlow è una tecnica di organizzazione dei branch e delle repository che prevede la creazione di diversi tipi di branch a vita limitata e il loro _merge_ guidato.
 
-È disponibile online una [cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) molto interessante, ma non esaustiva.
+È disponibile online una [cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) che fornisce una panoramica veloce delle principali operazioni e dei comandi di GitFlow. Si tratta di uno strumento utile per chi è alle prime armi con questa tecnica di organizzazione dei branch, ma non esaustivo e potrebbe essere utile integrarlo con altre risorse per una comprensione più approfondita del metodo.
 
 I branch e i tipi di branch previsti da GitFlow sono:
 - branch master;
@@ -27,22 +25,23 @@ I branch e i tipi di branch previsti da GitFlow sono:
 - release branches;
 - hotfix branches.
 
-## develop e master
+### develop e master
 
 {% responsive_image path: 'assets/06_gitflow-develop-master.png' %}
 
-In GitFlow, ci sono due rami con _"vita infinita"_:
-- __master__: contiene le versioni _"stabili e pronte alla consegna"_;
+In GitFlow, ci sono due branch che hanno una durata più lunga rispetto ai branch temporanei utilizzati per lavorare su specifiche funzionalità o correzioni di bug:
+- __master__: contiene le versioni stabili del codice sorgente, pronte per essere consegnate o rilasciate al cliente o al pubblico. Queste versioni sono considerate affidabili e testate, quindi possono essere utilizzate in produzione;
 - __develop__: è il ramo di integrazione in cui vengono integrati i contribuiti di tutti i gruppi; è anche il punto di partenza degli altri tipi di branch.
 
-Al termine di ogni rilascio il contenuto di develop viene mergiato in master.
-Dal develop vengono rilasciate le _versioni notturne_.
+Al termine di ogni rilascio, il contenuto del branch develop viene integrato nel branch master, che rappresenta la versione stabile del codice. Le _versioni notturne_, invece, sono versioni di sviluppo che vengono rilasciate periodicamente e contengono le ultime modifiche apportate al codice. Esse vengono create partendo dal branch develop, che rappresenta il punto di integrazione di tutti i contributi dei gruppi di lavoro.
 
 ## feature branch
 
 {% responsive_image path: 'assets/06_gitflow-feature.png' width: "400" %}
 
-I feature branch __possono partire solo dal branch develop__ e non da nessun altro branch.
+I feature branch sono branch temporanei utilizzati per sviluppare nuove funzionalità o per correggere bug. __Possono essere creati solo a partire dal branch develop__ e vengono utilizzati per isolare il lavoro su una specifica funzionalità o problema dal resto del codice. Quando il lavoro è completato, il feature branch viene integrato di nuovo nel develop tramite un merge. In questo modo, è possibile lavorare in modo organizzato su diverse funzionalità o problemi senza interferire tra loro.
+Per integrare il lavoro svolto in un feature branch nel branch develop, è necessario eseguire un merge del feature branch nel develop. Ci sono diversi modi di fare ciò, a seconda delle preferenze e delle esigenze specifiche.
+Un modo semplice di fare il merge è utilizzare il comando git merge dalla riga di comando. Se il merge non è possibile a causa di conflitti, sarà necessario risolverli manualmente prima di poter completare l'operazione. Una volta risolti i conflitti, sarà necessario creare un nuovo commit per finalizzare il merge.
 
 Per iniziare una feature...
 ```bash
@@ -76,7 +75,7 @@ Questa operazione è utile per migliorare la leggibilità della history dei comm
 {% responsive_image path: 'assets/06_gitflow-release.png' %}
 
 Lo scopo di creare una release è __cristalizzare l'insieme delle funzionalità__ presente sul branch develop all'inizio di essa dedicandosi solo alla sistemazione degli errori o alle attività necessarie per il deploy (modifica del numero di versione, ...). 
-L'insieme delle funzionalità rilasciate è quello presente sul branch develop al momento di inizio di una release 
+L'insieme delle funzionalità rilasciate è quello presente sul branch develop al momento di inizio di una release. 
 
 I bug fix possono essere ri-mergiati in develop, anche utilizzando la funzionalità __cherry-pick__ di Git.
 
