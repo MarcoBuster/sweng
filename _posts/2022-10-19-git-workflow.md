@@ -285,6 +285,8 @@ Il vantaggio è che Java offre un livello d'astrazione sufficiente a rendere il 
 
 Nella versione base supporta integrazioni con altri tool come CVS, Junit, FTP, JavaDOCS, JAR, ecc...
 Non solo compila, ma fa anche deployment.
+Il deployment consiste nell'installare e configurare un'applicazione o un sistema su uno o più server o ambienti di esecuzione. Nel contesto di Ant, il deployment può includere l'invocazione di comandi per copiare i file del progetto sui server di destinazione, configurare le impostazioni di sistema o dell'applicazione, avviare o fermare servizi o processi, e così via. In questo modo, Ant può essere utilizzato non solo per compilare il progetto, ma anche per distribuirlo e rendere disponibile l'applicazione o il sistema ai suoi utenti.
+
 
 I target possono avere dipendenze da altri target.
 I target contengono task che fanno effettivamente il lavoro; si possono aggiungere nuovi tipi di task definendo nuove classi Java.
@@ -338,8 +340,6 @@ Il plugin Java definisce:
 
 {% responsive_image path: 'assets/06_gradle-tasks.png' %}
 
-Altri plugin sono 
-
 #### Altri plugin
 - application, per l'esecuzione;
 - FindBugs, jacoco: per la verifica e la convalida;
@@ -359,10 +359,12 @@ L'obiettivo del bug tracking è avere più informazioni possibili su ogni bug pe
 
 È importante verificare i bug una volta che l'_issue_ è stato aperto, in modo da poter confermare la sua esistenza e la completezza delle informazioni fornite.
 
+Un issue è un problema o una richiesta di funzionalità segnalata all'interno di un progetto di software. Gli issue vengono solitamente utilizzati per tenere traccia dei problemi noti o delle richieste di nuove funzionalità all'interno di un progetto, e possono essere gestiti attraverso un sistema di bug tracking o gestione delle richieste. Gli issue possono essere aperti da qualsiasi membro del team o dalla comunità, e possono essere risolti o chiusi da un membro del team responsabile.
+
 Ci sono diversi modi per cui può essere chiuso un bug:
-- __duplicate__;
-- __wontfix__: o è una feature o è un errore talmente complesso da risolvere che non ne vale la pena, secondo i progettisti;
-- __can't reproduce__;
+- __duplicate__: quando è stato già segnalato in precedenza e quindi non rappresenta un problema nuovo. In questo caso, viene solitamente fatto riferimento al numero del bug originale che ha già ricevuto una risoluzione;
+- __wontfix__: il bug viene chiuso come "non risolvibile" perché o rappresenta una funzionalità voluta dal progetto o è troppo complesso da risolvere per essere considerato conveniente farlo dal punto di vista dei progettisti;
+- __can't reproduce__: non è stato possibile riprodurre il bug, ovvero che non è stato possibile ottenere lo stesso risultato o il comportamento segnalato dal bug. Ciò può essere dovuto a una mancanza di dettagli o a un errore nella segnalazione del bug stesso;
 - __fixed__ : il bug è stato fixato;
 vs __fix verified__: il fix è stato integrato in una release passando tutti gli step di verifica.
 
