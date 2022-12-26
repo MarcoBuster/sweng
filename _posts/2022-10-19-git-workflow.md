@@ -78,6 +78,7 @@ Lo scopo di creare una release è __cristalizzare l'insieme delle funzionalità_
 L'insieme delle funzionalità rilasciate è quello presente sul branch develop al momento di inizio di una release. 
 
 I bug fix possono essere ri-mergiati in develop, anche utilizzando la funzionalità __cherry-pick__ di Git.
+La funzionalità cherry-pick di Git permette di selezionare un commit specifico da un ramo e applicarlo ad un altro ramo. Ad esempio, se si ha un ramo di sviluppo ("develop") e un ramo di release ("release"), è possibile utilizzare il cherry-pick per selezionare i commit che contengono fix per bug e applicarli al ramo di release, senza dover fare un merge di tutto il ramo di sviluppo. Ciò può essere utile in casi in cui si vuole mantenere la stabilità del ramo di release, includendo solo i fix per bug che sono considerati essenziali per la release.
 
 Per iniziare una nuova release è sufficiente creare un nuovo branch da develop:
 ```bash
@@ -274,7 +275,7 @@ $ ./configure
 $ make all
 $ sudo make install
 ```
-era largamente utilizzato.
+ era largamente utilizzato per generare un Makefile ad-hoc per l'ambiente attuale e installare il software sulla macchina in modo automatico. `automake`, `autoconf`, e `imake` sono strumenti che aiutano a questo scopo, generando Makefile che possono essere utilizzati per compilare e installare il software in modo automatico.
 
 ### Ant 
 Ant nasce in Apache per supportare il progetto Tomcat.
@@ -316,14 +317,11 @@ Esempio di un build file:
 
 ### Gradle
 
-Gradle si basa sui repository Maven dove sono riposte le librerie.
+Gradle è uno strumento di build automation che utilizza le repository Maven come punto di accesso alle librerie di terze parti. Maven è una piattaforma di gestione delle dipendenze e della build automation per il linguaggio di programmazione Java. Le repository Maven sono archivi online che contengono librerie Java, plugin e altri componenti utilizzati nella build di progetti Java. Gradle utilizza queste repository per cercare e scaricare le librerie di cui ha bisogno per eseguire la build del progetto.
 
-Gradle supporta Groovy o Kotlin come linguaggi di scripting. 
-Approccio dichiarativo e fortemente basato su convenzioni: tutto quello che è già definito come standard non è necessario ridichiararlo un'altra volta.
-Definisce un linguaggio specifico per le dipendenze rendendo semplice la loro gestione.
-Permette di creare build multi-progetto.
+Gradle, che supporta Groovy o Kotlin come linguaggi di scripting, adotta un approccio dichiarativo e fortemente basato su convenzioni. Ciò significa che tutto ciò che è già stato definito come standard non deve essere ridichiarato. Inoltre, Gradle definisce un linguaggio specifico per la gestione delle dipendenze e permette di creare build multi-progetto.
 
-Scala bene in complessità: permette di fare cose semplici senza usare le funzioni compresse. 
+Scala bene in complessità: permette di fare cose semplici senza usare le funzioni complesse. 
 È estendibile tramite plugin che servono per trattare tool, situazioni, linguaggi legati solitamente al mondo Java.
 
 #### Plugin
@@ -349,15 +347,9 @@ Altri plugin sono
 
 ## Bug tracking
 
-È stato reso necessario nel mondo open source per via della numerosità dei contributi e della alta probabilità di avere segnalazioni duplicate.
+Il bug tracking è stato reso necessario nel mondo open source per via della numerosità dei contributi e della alta probabilità di avere segnalazioni duplicate.
 
-Ci sono diversi strumenti, tra cui:
-- `git-bug`: basato su Git;
-- BugZilla;
-- Scarab;
-- GNATS;
-- BugManager;
-- Mantis.
+Inoltre, per gestire le segnalazioni di bug nell'ambito dello sviluppo open source, esistono diversi strumenti come git-bug, BugZilla, Scarab, GNATS, BugManager e Mantis.
 
 ### Bug workflow
 
@@ -371,7 +363,6 @@ Ci sono diversi modi per cui può essere chiuso un bug:
 - __duplicate__;
 - __wontfix__: o è una feature o è un errore talmente complesso da risolvere che non ne vale la pena, secondo i progettisti;
 - __can't reproduce__;
-- __fixed__ vs __fix verified__: nel primo stato il bug è stato fixato, nel secondo il fix è stato integrato in una release passando tutti gli step di verifica.
-
-
+- __fixed__ : il bug è stato fixato;
+vs __fix verified__: il fix è stato integrato in una release passando tutti gli step di verifica.
 
