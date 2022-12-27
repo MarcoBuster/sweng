@@ -195,7 +195,7 @@ Questo però _non mi garantisce che il programma si corretto,_ perché ci sono d
 #### Criterio di copertura delle decisioni
 
 _Un test T soddisfa il criterio di copertura delle decisioni se e solo se ogni decisione effettiva viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
-s
+
 La metrica è la percentuale delle decisioni totali possibili presenti nel codice che sono state rese sia vere che false nel test.
 
 Si noti come il criterio di copertura delle decisioni implichi il criterio di copertura dei comandi: andando a estrarre il codice in un diagramma di flusso, io copro tutte le decisioni se e solo se attraverso ogni arco presente nel flusso. Considerando un grafo connesso per il diagramma di flusso, se io attraverso tutti gli archi allora ho attraversato tutti i possibili nodi. Non è invece vero l'inverso.
@@ -295,7 +295,7 @@ Il che non significa che il mio test deve eseguire $$n$$ volte un ciclo, ma sign
 
 Di conseguenza però al crescere di $$n$$ il numero di test aumenta molto rapidamente.
 
-Inoltre fissare questa variabile a livello di programma può non essere un'azione così semplice, il numero d'iterazioni che necessita un ciclo per essere testato può essere molto differente.
+Inoltre fissare questa variabile a livello di programma può non essere un'azione così semplice, il numero d'iterazioni che necessita un ciclo per essere testato può essere molto differente tra cicli diversi.
 
 Per cercare di minimizzare il numero di test, può bastare coprire solamente le casistiche: zero iterazioni, un'iterazione e molte iterazioni.
 
@@ -366,7 +366,7 @@ Anomalie rilevabili:
 
 * `x` viene usata senza (2 volte) senza essere stata prima definita
 
-* `x1` ok
+* `x1` nessuna anomalia
 
 * `x2` viene definita più volte senza essere usata nel frattempo
 
@@ -424,7 +424,7 @@ Per esempio:
 
 * un ciclo dovrebbe essere ripetuto (di nuovo) se verrà _usato_ un valore _definito_ alla iterazione precedente
 
-### Definizioni
+### Definizioni e altri criteri
 
 $$\operatorname{def}(i)$$ è l'insieme delle variabili che sono definite in $$i$$
 
@@ -436,7 +436,7 @@ $$\operatorname{du}(i, x)$$ è l'insieme dei nodi j tali che:
 
 * esiste un cammino da $$i$$ a $$j$$, libero da definizione di $$x$$
 
-#### Criterio copertura definizioni
+#### Criterio di copertura delle definizioni
 
 _Un test $$T$$ soddisfa il criterio di copertura delle definizioni se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad almeno uno degli elementi di $$\operatorname{du}(i, x)$$_
 
@@ -484,7 +484,7 @@ $$T$$ = $${ <8, 4> }$$ è un caso di test che soddisfa il criterio.
 
 Il criterio di copertura delle definizioni non copre tutti i comandi e di conseguenza non implica il criterio di copertura dei comandi.
 
-#### Criterio copertura degli usi
+#### Criterio di copertura degli usi
 
 _Un test $$T$$ soddisfa il criterio di copertura degli usi se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad **ogni elemento** di $$\operatorname{du}(i, x)$$_
 
@@ -536,30 +536,49 @@ almeno due iterazioni ad esempio:
 
 $$T$$ = $${ <4, 8>, <12, 8>, <12, 4> }$$
 
-#### Criterio copertura dei cammini DU
+#### Criterio di copertura dei cammini DU
 
 Esistono diversi cammini che soddisfano il criterio precedente.
-Questo criterio richede che siano selezionati tutti.
+Questo criterio richiede che siano selezionati tutti.
 
 $$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\forall j \in \operatorname{du}(i, x)$$ per ogni cammino da $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$, esiste un caso di test in $$T$$ che esegue quel cammino.
 
 Criterio **utile da ipotizzar**e, ma **impraticabile**.
 
-### Oltre alle variabili
+#### Beebugging
 
-L'analisi del flusso si può fare anche con altri "oggetti".
+Il problema è che può capitare che non si trovino errori, ciò può dipendere dal fatto che il programma è corretto oppure dal fatto che chi sta testando non lo sta facendo nella maniera corretta.
+Per risolvere questo problema si può usare il beebugging, che consiste nel inserire deliberatamente $$n$$ errori dentro il codice prima di mandare il programma a chi lo deve testare. 
+Questo è un incentivo per il team di testing, perché sa che ci sono degli errori e deve solo trovarli. La metrica che viene utilizzata è la percentuale di errori trovati.
 
-Esempio: 
+_Quello che si cerca di fare è di trovare tutti gli errori inseriti per cercare nel frattempo di trovarne di nuovi._ 
 
-File
-* **a**pertura
-* **c**hiusura
-* **l**ettura
-* **s**crittura
+#### Analisi mutazionale
 
-Regole:
-* **l** deve essere preceduta da **a** senza **c** intermedie
-* **a** deve essere seguita da **c** prima di un'altra **a**
-* legame tipo apertura e operazioni...
+Partendo da un programma e un test vengono aggiunti degli errori al programma per verificare se il test li trova.
+Vengono generate delle mutazioni, 
+per esempio, 
+viene generato un insieme di programmi $$II$$ _simili_ al programma $$P$$ in esame e su di essi viene eseguito lo stesso test $$T$$ previsto per il programma $$P$$.
 
+Cosa ci si aspetta?
+* se $$P$$ è corretto allora i programmi in $$II$$ devono essere sbagliati
+* per almeno un caso di test devono quindi produrre un risultato diverso
 
+_Un test $$T$$ soddisfa il criterio di copertura dei mutanti se e solo se per ogni mutante $$π \in II$$ esiste almeno un caso di test in $$T$$ la cui esecuzione produca per $$π$$ un risultato diverso da quello prodotto da $$P$$._
+
+La metrica è la frazione di mutanti riconosciuta come diversa da $$P$$ sul totale di mutanti generati.
+
+Quello che deve essere fatto è l'analisi delle classi e la generazioni dei mutanti, successivamente la selezione dei casi di test e infine l'esecuzione.
+
+Nel caso ideale si vorrebbero avere dei mutanti simili al programma di partenza, con delle differenze minime, cioè, praticamente identici dappertutto tranne dove sono stati aggiunti gli errori.
+I mutanti sono virtualmente infiniti, ma facili da automatizzare.
+
+Gli **operatori mutanti** sono delle funzioni che, dato $$P$$, generano uno o più mutanti. I più semplici effettuano modifiche sintattiche che comportino modifiche semantiche, ma non errori sintattici bloccati in compilazione.
+
+Nella variante **HOM** _(Hing Order Mutation)_ può venire fatta più di una modifica e a volte sono più difficili da identificare le modifiche prese singolarmente.
+
+Tra le **classi di operatori** si distinguono rispetto all'oggetto su cui operano:
+
+* _costanti_, _variabili_, es. scambiando l'occorrenza di una con l'altra
+* _operatori_ ed _espressioni_, es. `<` in `<=`, oppure `true` in `false`
+* _comandi_, es. un `while` in `if`
