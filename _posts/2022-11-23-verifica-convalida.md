@@ -19,7 +19,8 @@ Molto spesso i _requisiti_, essendo scritti dal committente, sono scritti in un 
 Diversamente, le _specifiche_ sono scritte in un linguaggio più vicino al dominio dello sviluppatore, spesso in maniera formale e poco ambigua;
 - è facile che i requisiti __cambino__ in corso d'opera mentre le specifiche rimangano congelate; questo aspetto dipende molto dai contratti tra committente e il team di sviluppo.
 
-Più in generale, si può dire che se la parte di formalizzazione è più difficile a favore di un'operazione di confronto con il test più semplice per quanto riguarda la _verifica_, nella _convalida_ è l'inverso (ovvero, non essendoci alcuna formalizzazione è tipicamente più difficile confrontare il proprio software direttamente con i requisiti del committente)
+La definizione dei _requisiti_ forniti dal cliente è immediata ma informale: scrivere dei test che li _convalidano_ può risultare molto complicato.
+Invece, è più semplice validare le _specifiche_ attraverso test in quanto sono scritte dal team di sviluppo e sono quindi più formali e complete.
 
 Ad ogni modo, nelle attività di verifica e convalida si cercano degli __errori__, ma la parola "errore" stessa può assumere molti significati a seconda del contesto.
 È quindi importante capire di quale _errore_ si sta parlando, introducendo termini diversi, come _malfunzionamento_ e _difetto_.
