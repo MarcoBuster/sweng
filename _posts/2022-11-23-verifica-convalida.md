@@ -15,7 +15,7 @@ Verifica e convalida sono due termini con un significato apparentemente molto si
 
 Ci sono quindi due punti critici che vanno a sottolineare maggiormente questa differenza:
 - requisiti e specifiche sono spesso __formulati diversamente__.
-Molto spesso i _requisiti_, essendo scritti dal committente, sono scritti in un linguaggio più vicino al dominio di quest'ultimo.
+Solitamente i _requisiti_, essendo scritti dal committente, sono formulati in un linguaggio più vicino al dominio di quest'ultimo.
 Diversamente, le _specifiche_ sono scritte in un linguaggio più vicino al dominio dello sviluppatore, spesso in maniera formale e poco ambigua;
 - è facile che i requisiti __cambino__ in corso d'opera mentre le specifiche rimangano congelate; questo aspetto dipende molto dai contratti tra committente e il team di sviluppo.
 
@@ -94,16 +94,18 @@ Si tratta in genere di un errore umano.
 or software fault), the result of the fault (a failure), and the amount by which the result is incorrect (the error)._
 
 
-Relativamente all'esempio precedente, può essere:
+Relativamente all'esempio precedente, possibili sbagli possono essere:
 - __errori di battitura__ (scrivere `*` invece di `+`);
-- __concettuale__ (non sapere cosa vuol dire _raddoppiare_);
-- __padronanza del linguaggio__ (credere che `*` sia il simbolo dell’addizione).
+- __concettuali__ (non sapere cosa vuol dire _raddoppiare_);
+- relativi alla __padronanza del linguaggio__ (credere che `*` sia il simbolo dell’addizione).
 
 ### Esempio notevole: _il caso Ariane 5_
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/PK_yguLapgA?start=67" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [Wikipedia: Ariane 5 notable launches](https://en.wikipedia.org/wiki/Ariane_5#Notable_launches 'Ariane 5 - Notable Launches')
+
+Il 4 giugno 1996 il primo volo di prova del razzo Ariane 5 è fallito a causa di un problema al software di controllo che ha portato all'autodistruzione del missile.
 
 Il _malfunziamento_ è palese: il razzo è esploso e chiaramente non era il comportamento richiesto.
 
@@ -127,15 +129,15 @@ Ad esempio: testing e debugging.
 In generale, __è più facile determinare tecniche dinamiche__ rispetto alle tecniche statiche.
 Per contro, una volta ideate le __tecniche statiche sono più veloci__ nell'analizzare il codice e più complete dato che le tecniche dinamiche lavorano sui possibili stati del programma - che possono essere infiniti.
 
-Come possiamo confrontare queste tecniche?
+Come si possono confrontare queste tecniche?
 
 {% responsive_image path: 'assets/12_classificazione-tecniche-di-verifica-e-convalida.jpg' %}
 
-In questa immagine è possibile osservare una _piramide immaginaria a 3 dimensioni_ che riassume dove si posizionano le tecniche di verifica e convalida relativamente le une con le altre.
-La cima della piramide rappresenta il __punto ideale__ a cui tendere, nel quale è possibile affermare di riuscire a verificare perfettamente una proprietà arbitraria attraverso una prova logica (dal lato statico) o una ricerca esaustiva su tutti gli stati del problema (dal lato dinamico).
+Nell'immagine sopra è possibile osservare una _piramide immaginaria a 3 dimensioni_ che riassume dove si posizionano le tecniche di verifica e convalida relativamente le une con le altre.
+La cima della piramide rappresenta il __punto ideale__ a cui tendere, nel quale è possibile affermare di esser riusciti a verificare perfettamente una proprietà arbitraria attraverso una prova logica (dal lato statico) o una ricerca esaustiva su tutti gli stati del problema (dal lato dinamico).
 
 Tale punto ideale è __praticamente impossibile__ da raggiungere per la stragrande maggioranza dei problemi che siamo interessati a risolvere. 
-Bisogna scegliere da quale versante iniziare la scalata della piramide: __lato blu__ (con un approccio dinamico) o __lato verde__ (con uno statico)?
+Bisogna scegliere da quale versante iniziare la scalata della piramide: __lato verde__ (con uno statico) o __lato blu__ (con un approccio dinamico)?
 
 Più ci si posiziona verso il basso, più si degenera in:
 - __estrema semplificazione delle proprietà__ (in basso a sinistra): si stanno in qualche modo _rilassando_ eccessivamente gli obiettivi che si vogliono raggiungere.
@@ -152,7 +154,7 @@ Più ci si posiziona verso il basso, più si degenera in:
 
 ## Metodi formali
 
-L'approccio dei metodi formali tenta di dimostrare l'_assenza_ di anomalie nel prodotto finale.
+L'approccio dei metodi formali tenta di dimostrare l'_assenza_ di anomalie nel prodotto finale. \\
 Si possono utilizzare diverse tecniche (spiegate nelle lezioni successive), come:
 - analisi di dataflow;
 - dimostrazione di correttezza delle specifiche logiche.
@@ -161,23 +163,23 @@ Questo approccio soffre di _<a href="#innaccuratezza_pessimistica">inaccuratezza
 
 ## Testing
 
-Il testing è l'insieme delle tecniche che si prefiggono di rilevare malfunzionamenti.
+Il testing è l'insieme delle tecniche che si prefiggono di rilevare malfunzionamenti. \\
 Attraverso il testing non si può dimostrare la correttezza ma solo aumentare la _fiducia_ dei clienti rispetto all'affidabilità del prodotto.
 
 Le tecniche di testing possono essere molto varie e si raggruppano in:
 - __white box__: si ha accesso al codice da testare e si possono cercare anomalie guardandolo da un punto di vista interno;
 - __black box__: non si ha accesso al codice ma è possibile testare e cercare malfunzionamenti tramite le interfacce esterne;
-- __gray box__: non si ha accesso al codice ma solo un'idea dell'implementazione ad alto livello. \\
-Per esempio, in un modello <big>M</big>ODEL <big>V</big>IEW <big>C</big>ONTROLLER ci si può aspettare che certe stimolazioni portino a chiamate al database mentre altre no.
+- __gray box__: non si ha accesso al codice ma si ha solo un'idea dell'implementazione ad alto livello. \\
+Per esempio, in un modello <big>M</big>ODEL <big>V</big>IEW <big>C</big>ONTROLLER ci si può aspettare che certe stimilazioni portino a chiamate al database mentre altre no.
 
 Questo approccio soffre di _<a href="#innaccuretezza_ottimistica">inaccuratezza ottimistica</a>_.
 
 ## Debugging
 
-Il debugging, dato un _programma_ e un _malfunzionamento noto_, permette di localizzare le _anomalie_ che causano malfunzionamenti.
+Dato un _programma_ e un _malfunzionamento noto_, il debugging permette di localizzare le _anomalie_ che causano malfunzionamenti.
 A differenza del testing, infatti, è richiesta la conoscenza a priori di un malfunzionamento prima di procedere con il debugging.
 
-Molto spesso viene usato il debugging al posto del __testing__, almeno a livello di terminologia: questo è un problema perché il debugging non è fatto per la "grande esecuzione" ma al contrario per esaminare in maniera granulare (a volte anche passo passo per istruzioni macchina) una determinata sezione dell'esecuzione allo scopo trovare l'anomalia che provoca un malfunzionamento.
+Molto spesso viene usato il debugging al posto del __testing__, almeno a livello di terminologia: questo è un problema perché il debugging non è fatto per la "grande esecuzione" ma al contrario per esaminare in maniera granulare (a volte anche passo passo per istruzioni macchina) una determinata sezione dell'esecuzione con lo scopo di trovare l'anomalia che provoca un malfunzionamento.
 Se si usassero le tecniche di debugging per effettuare il testing il tempo speso sarebbe enorme.
 
 Due possibili approcci al debugging sono:
