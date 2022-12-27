@@ -120,7 +120,7 @@ Il comportamento della variabile non era mai stato analizzato con i dati relativ
 # Tecniche di verifica e convalida
 ## Classificazione delle tecniche
 
-Nell'ambito della _verifica e convalida_ è possibile le tecniche di analisi in due categorie:
+Nell'ambito della _verifica e convalida_ è possibile classificare le tecniche di analisi in due categorie:
 - __tecniche statiche__, basate sull'analisi degli elementi sintattici del codice. \\
 Ad esempio: metodi formali, analisi del dataflow e modelli statistici;
 - __tecniche dinamiche__, basate sull'esecuzione del programma eseguibile. \\
