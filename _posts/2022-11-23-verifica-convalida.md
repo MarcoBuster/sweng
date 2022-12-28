@@ -146,7 +146,8 @@ Più ci si posiziona verso il basso, più si degenera in:
 - __<span id="innaccuratezza_pessimistica">estrema inaccuratezza pessimistica</span>__ (in basso al centro): è dovuta all'approccio pessimistico che ha come mantra:
 > _"Se non riesco a dimostrare l'assenza di un problema assumo che il problema sia presente"_
 
-    Ad esempio, si manifesta nei compilatori quando non riescono a dimostrare che una determinata funzione ritorni un valore per tutti i possibili cammini (magari perchè i `return` sono compresi in un costrutto ```if  else if```);
+    Ad esempio, si manifesta nei compilatori quando non riescono a dimostrare che una determinata funzione che deve ritornare un valore ritorni effettivamente un valore per tutti i possibili cammini `if` / `else if` / eccetera.
+    La mancanza di capacità nel dimostrare l'assenza di un problema non ne implica la presenza di uno.
 - __estrema <span id="innaccurettezza_ottimistica">inaccuratezza ottimistica</span>__ (in basso a destra): è dovuta all'approccio ottimistico che ha come mantra:
 > _"Se non riesco a dimostrare la presenza di un problema assumo che questo non sia presente"_
 
