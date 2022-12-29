@@ -270,11 +270,15 @@ Nel processo di review di Gerrit, i __developer__ possono sottoporre proposte di
 I __reviewer__, ovvero gli altri sviluppatori del progetto, possono quindi esaminare le patch e decidere se accettarle o rifiutarle. 
 Una volta che una patch ha ricevuto un numero sufficiente di review positivi, viene automaticamente integrata nel __repository principale autoritativo__   in cui tutti hanno accesso in sola lettura.
 
-Gerrit obbliga a strutturare le modifiche (changeset) in un unico commit (squash) al momento dell'accettazione. Ciò significa che tutte le modifiche apportate devono essere fuse in un unico commit, in modo da rendere più facile la gestione del repository. Al momento della review, invece, le modifiche rimangono separate in versioni singole, ovvero ogni modifica viene presentata come un commit separato, in modo che i reviewer possano esaminarle più facilmente.
+Gerrit obbliga a strutturare le modifiche (_changeset_) in un unico commit (tecnica _squash_) al momento dell'accettazione. 
+Ciò significa che tutte le modifiche apportate devono essere fuse in un unico commit, in modo da rendere più facile la gestione del repository. 
+Al momento della review, invece, le modifiche rimangono separate in versioni singole, ovvero ogni modifica viene presentata come un commit separato, in modo che i reviewer possano esaminarle più facilmente.
 
 ## Verifier
 
-Il verifier è uno strumento o un processo che viene utilizzato in Gerrit per verificare che le modifiche proposte siano corrette e funzionino come dovrebbero. In particolare, il verifier scarica la patch, la compila, esegue i test e controlla che ci siano tutte le funzioni necessarie. Se il verifier rileva dei problemi, può segnalarli al team di sviluppo perché vengano corretti prima che la patch venga accettata.
+Il verifier è uno strumento o un processo che viene utilizzato in Gerrit per verificare che le modifiche proposte siano corrette e funzionino come dovrebbero. 
+In particolare, il verifier scarica la patch, la compila, esegue i test e controlla che ci siano tutte le funzioni necessarie. 
+Se il verifier rileva dei problemi, può segnalarli al team di sviluppo perché vengano corretti prima che la patch venga accettata.
 
 Una volta terminato il proprio processo, approva le modifiche votandole positivamente.
 Solitamente sono necessari 1 o 2 voti per procedere.
@@ -283,29 +287,36 @@ Solitamente sono necessari 1 o 2 voti per procedere.
 
 Una volta verificata, una proposta di modifiche deve essere anche approvata. 
 L'approvatore deve determinare la risposta alle seguenti domande riguardo la proposta di modifiche:
-- è valida per lo scopo del progetto?
-- è valida per l'architettura del progetto?
-- introduce nuove falle nel design che potrebbero causare problemi in futuro?
-- segue le _best practices_ stabilite dal progetto?
-- è un buon modo per implementare la propria funzione?
-- introduce rischi per la sicurezza o la stabilità? 
+- _è valida per lo scopo del progetto?_
+- _è valida per l'architettura del progetto?_
+- _introduce nuove falle nel design che potrebbero causare problemi in futuro?_
+- _segue le best practices stabilite dal progetto?_
+- _è un buon modo per implementare la propria funzione?_
+- _introduce rischi per la sicurezza o la stabilità?_
 
 Se l'approver ritiene che la proposta di modifiche sia valida, può approvarla scrivendo "LGTM" (acronimo di _"Looks Good To Me"_) nei commenti della pull request.
 
 # Strumenti dell'opensource
 
-Gli strumenti dell'opensource sono una serie di programmi, librerie e servizi che vengono utilizzati per sviluppare progetti open source. Questi strumenti sono pensati per semplificare il processo di sviluppo e gestione di progetti open source, rendendoli accessibili a una comunità di sviluppatori e contribuenti.
-
+Gli strumenti dell'opensource sono una serie di programmi, librerie e servizi che vengono utilizzati per sviluppare progetti open source. 
+Questi strumenti sono pensati per semplificare il processo di sviluppo e gestione di progetti open source, rendendoli accessibili a una comunità di sviluppatori e contribuenti.
 
 ## Build automation
 
-La build automation è un processo fondamentale nello sviluppo di software open source, che consiste nel creare un sistema automatizzato per compilare il codice sorgente in un eseguibile. Questo processo è importante perché consente di risparmiare tempo e risorse, evitando di dover compilare manualmente il codice ogni volta che si apportano modifiche. Inoltre, la build automation garantisce una maggiore qualità e coerenza del software, poiché il processo di compilazione viene eseguito in modo uniforme ogni volta.
+La build automation è un processo fondamentale nello sviluppo di software open source, che consiste nel creare un sistema automatizzato per compilare il codice sorgente in un eseguibile. 
+Questo processo è importante perché consente di risparmiare tempo e risorse, evitando di dover compilare manualmente il codice ogni volta che si apportano modifiche. 
+Inoltre, la build automation garantisce una maggiore qualità e coerenza del software, poiché il processo di compilazione viene eseguito in modo uniforme ogni volta.
 
 ### make
 
-`make` è uno strumento di build automation che viene utilizzato per automatizzare il processo di compilazione di un progetto. In particolare, `make` viene utilizzato per specificare come ottenere determinati _targets_ (obiettivi), ovvero file o azioni che devono essere eseguite, partendo dal codice sorgente. Ad esempio, in un progetto di sviluppo software, un target potrebbe essere il file eseguibile del programma, che viene ottenuto compilando il codice sorgente. `make` segue la filosofia _pipeline_, ovvero prevede l'utilizzo di singoli comandi semplici concatenati per svolgere compiti più complessi.
+`make` è uno strumento di build automation che viene utilizzato per automatizzare il processo di compilazione di un progetto. 
+In particolare, `make` viene utilizzato per specificare come ottenere determinati _targets_ (obiettivi), ovvero file o azioni che devono essere eseguite, partendo dal codice sorgente. 
+Ad esempio, in un progetto di sviluppo software, un _target_ potrebbe essere il file eseguibile del programma, che viene ottenuto compilando il codice sorgente. 
+`make` segue la filosofia _pipeline_, ovvero prevede l'utilizzo di singoli comandi semplici concatenati per svolgere compiti più complessi.
 
-Supporta la _compilazione incrementale_, ovvero il fatto di compilare solo le parti del progetto che sono state modificate dall'ultima volta, al fine di velocizzare il processo. Inoltre, gestisce le _dipendenze_ tra file, ovvero le relazioni tra i diversi file che compongono il progetto: se un file dipende da un altro file, make assicura che il file dipendente venga compilato solo dopo che il file di cui dipende è stato compilato. Ciò garantisce che il progetto venga compilato in modo coerente e che le modifiche apportate a un file siano considerate correttamente nella compilazione dei file dipendenti.
+È supportata la _compilazione incrementale_, ovvero il fatto di compilare solo le parti del progetto che sono state modificate dall'ultima volta, al fine di velocizzare il processo. 
+Inoltre, vengono gestite le _dipendenze_ tra file, ovvero le relazioni tra i diversi file che compongono il progetto: se un file sorgente dipende da un altro file, make assicura che il file dipendente venga compilato solo dopo che il file da cui dipende è stato compilato. 
+Ciò garantisce che il progetto venga compilato in modo coerente e che le modifiche apportate a un file siano considerate correttamente nella compilazione dei file dipendenti.
 
 ```make
 CC=gcc
@@ -326,7 +337,10 @@ Non c'è portabilità tra macchine (ambienti) diverse.
 
 #### Makefile
 
-Un Makefile è un file di testo che contiene le istruzioni per il programma make su come compilare e linkare i file sorgente di un progetto. Ogni riga del Makefile definisce un obiettivo o una dipendenza, insieme ai comandi che devono essere eseguiti per raggiungerlo. L'utilizzo del Makefile permette di automatizzare la compilazione e il linkaggio dei file sorgente, semplificando il processo di sviluppo di un progetto. Nell'esempio menzionato, il Makefile definisce il target hellomake, che dipende dai file hellomake.c e hellofunc.o, e fornisce i comandi per compilarli e linkarli insieme.
+Un _Makefile_ è un file di testo che contiene le istruzioni per il programma make su come compilare e linkare i file sorgente di un progetto. 
+Ogni riga del Makefile definisce un obiettivo o una dipendenza, insieme ai comandi che devono essere eseguiti per raggiungerlo. 
+L'utilizzo del Makefile permette di automatizzare la compilazione e il linkaggio dei file sorgente, semplificando il processo di sviluppo di un progetto. 
+Nell'esempio menzionato, il Makefile definisce il target `hellomake`, che dipende dai file `hellomake.c` e `hellofunc.o`, e fornisce i comandi per compilarli e linkarli insieme.
 
 #### Generazione automatica
 
@@ -338,7 +352,8 @@ $ ./configure
 $ make all
 $ sudo make install
 ```
- era largamente utilizzato per generare un Makefile ad-hoc per l'ambiente attuale e installare il software sulla macchina in modo automatico. `automake`, `autoconf`, e `imake` sono strumenti che aiutano a questo scopo, generando Makefile che possono essere utilizzati per compilare e installare il software in modo automatico.
+era largamente utilizzato per generare un Makefile ad-hoc per l'ambiente attuale e installare il software sulla macchina in modo automatico. 
+`automake`, `autoconf`, e `imake` sono strumenti che aiutano a questo scopo, generando Makefile che possono essere utilizzati per compilare e installare il software in modo automatico.
 
 ### Ant 
 Ant nasce in Apache per supportare il progetto Tomcat.
@@ -348,8 +363,9 @@ Il vantaggio è che Java offre un livello d'astrazione sufficiente a rendere il 
 
 Nella versione base supporta integrazioni con altri tool come CVS, Junit, FTP, JavaDOCS, JAR, ecc...
 Non solo compila, ma fa anche deployment.
-Il deployment consiste nell'installare e configurare un'applicazione o un sistema su uno o più server o ambienti di esecuzione. Nel contesto di Ant, il deployment può includere l'invocazione di comandi per copiare i file del progetto sui server di destinazione, configurare le impostazioni di sistema o dell'applicazione, avviare o fermare servizi o processi, e così via. In questo modo, Ant può essere utilizzato non solo per compilare il progetto, ma anche per distribuirlo e rendere disponibile l'applicazione o il sistema ai suoi utenti.
-
+Il deployment consiste nell'installare e configurare un'applicazione o un sistema su uno o più server o ambienti di esecuzione. 
+Nel contesto di Ant, il deployment può includere l'invocazione di comandi per copiare i file del progetto sui server di destinazione, configurare le impostazioni di sistema o dell'applicazione, avviare o fermare servizi o processi, e così via. 
+In questo modo, Ant può essere utilizzato non solo per compilare il progetto, ma anche per distribuirlo e rendere disponibile l'applicazione o il sistema ai suoi utenti.
 
 I target possono avere dipendenze da altri target.
 I target contengono task che fanno effettivamente il lavoro; si possono aggiungere nuovi tipi di task definendo nuove classi Java.
@@ -382,18 +398,23 @@ Esempio di un build file:
 
 ### Gradle
 
-Gradle è uno strumento di build automation che utilizza le repository Maven come punto di accesso alle librerie di terze parti. Maven è una piattaforma di gestione delle dipendenze e della build automation per il linguaggio di programmazione Java. Le repository Maven sono archivi online che contengono librerie Java, plugin e altri componenti utilizzati nella build di progetti Java. Gradle utilizza queste repository per cercare e scaricare le librerie di cui ha bisogno per eseguire la build del progetto.
+Gradle è uno strumento di build automation che utilizza le repository Maven come punto di accesso alle librerie di terze parti. 
+Maven è una piattaforma di gestione delle dipendenze e della build automation per il linguaggio di programmazione Java. 
+Le repository Maven sono archivi online che contengono librerie Java, plugin e altri componenti utilizzati nella build di progetti Java. 
+Gradle utilizza queste repository per cercare e scaricare le librerie di cui ha bisogno per eseguire la build del progetto.
 
-Gradle, che supporta Groovy o Kotlin come linguaggi di scripting, adotta un approccio dichiarativo e fortemente basato su convenzioni. Ciò significa che tutto ciò che è già stato definito come standard non deve essere ridichiarato. Inoltre, Gradle definisce un linguaggio specifico per la gestione delle dipendenze e permette di creare build multi-progetto.
+Gradle, che supporta Groovy o Kotlin come linguaggi di scripting, adotta un approccio dichiarativo e fortemente basato su convenzioni. 
+Ciò significa che tutto ciò che è già stato definito come standard non deve essere ridichiarato. 
+Inoltre, Gradle definisce un linguaggio specifico per la gestione delle dipendenze e permette di creare build multi-progetto.
 
-Scala bene in complessità: permette di fare cose semplici senza usare le funzioni complesse. 
+Gradle scala bene in complessità: permette di fare cose semplici senza usare le funzioni complesse. 
 È estendibile tramite plugin che servono per trattare tool, situazioni, linguaggi legati solitamente al mondo Java.
 
 #### Plugin
 
 I plugin servono per trattare tool, situazioni, linguaggi definendo task e regole per lavorare più facilmente.
 
-Il plugin Java definisce:
+Il plugin _Java_ definisce:
 - una serie di __sourceSet__, ovvero dove è presente il codice e le risorse. Principalmente sono:
   - `src/main/java`: sorgenti Java di produzione;
   - `src/main/resources`: risorse di produzione;
@@ -422,7 +443,9 @@ L'obiettivo del bug tracking è avere più informazioni possibili su ogni bug pe
 
 È importante verificare i bug una volta che l'_issue_ è stato aperto, in modo da poter confermare la sua esistenza e la completezza delle informazioni fornite.
 
-Un issue è un problema o una richiesta di funzionalità segnalata all'interno di un progetto di software. Gli issue vengono solitamente utilizzati per tenere traccia dei problemi noti o delle richieste di nuove funzionalità all'interno di un progetto, e possono essere gestiti attraverso un sistema di bug tracking o gestione delle richieste. Gli issue possono essere aperti da qualsiasi membro del team o dalla comunità, e possono essere risolti o chiusi da un membro del team responsabile.
+Un _issue_ è un problema o una richiesta di funzionalità segnalata all'interno di un progetto di software. 
+Gli issue vengono solitamente utilizzati per tenere traccia dei problemi noti o delle richieste di nuove funzionalità all'interno di un progetto, e possono essere gestiti attraverso un sistema di bug tracking o gestione delle richieste. 
+Gli issue possono essere aperti da qualsiasi membro del team o dalla comunità, e possono essere risolti o chiusi da un membro del team responsabile.
 
 Ci sono diversi modi per cui può essere chiuso un bug:
 - __duplicate__: quando è stato già segnalato in precedenza e quindi non rappresenta un problema nuovo. In questo caso, viene solitamente fatto riferimento al numero del bug originale che ha già ricevuto una risoluzione;
@@ -430,4 +453,3 @@ Ci sono diversi modi per cui può essere chiuso un bug:
 - __can't reproduce__: non è stato possibile riprodurre il bug, ovvero che non è stato possibile ottenere lo stesso risultato o il comportamento segnalato dal bug. Ciò può essere dovuto a una mancanza di dettagli o a un errore nella segnalazione del bug stesso;
 - __fixed__ : il bug è stato fixato;
 vs __fix verified__: il fix è stato integrato in una release passando tutti gli step di verifica.
-
