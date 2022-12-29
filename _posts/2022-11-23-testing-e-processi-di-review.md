@@ -582,3 +582,27 @@ Tra le **classi di operatori** si distinguono rispetto all'oggetto su cui operan
 * _costanti_, _variabili_, es. scambiando l'occorrenza di una con l'altra
 * _operatori_ ed _espressioni_, es. `<` in `<=`, oppure `true` in `false`
 * _comandi_, es. un `while` in `if`
+
+### Criteri di copertura
+
+I criteri di copertura sono delle strategie utilizzate per determinare quali parti di un programma devono essere testate. In particolare, i criteri di copertura possono essere utilizzati per definire quali casi di test sono necessari per coprire il maggior numero possibile di stati dell'oggetto e di transizioni tra questi stati.
+{% responsive_image path: 'assets/13_criteri-copertura-grafo.png' %}
+
+In riferimento a un diagramma, i criteri di copertura possono includere:
+
+- Coprire tutti i nodi: questo criterio prevede di creare un caso di test per ogni nodo del diagramma, al fine di verificare che tutte le parti del codice siano eseguite almeno una volta;
+- Coprire tutti gli archi: questo criterio prevede di creare un caso di test per ogni arco del diagramma, al fine di verificare che tutte le transizioni tra gli stati dell'oggetto siano eseguite almeno una volta;
+- Coprire tutte le coppie di archi in/out: questo criterio prevede di creare un caso di test per ogni coppia di archi in/out (cioè per ogni arco che entra in un nodo e per ogni arco che esce da un nodo). In questo modo, si potranno verificare tutte le possibili combinazioni di transizioni tra gli stati dell'oggetto;
+- Coprire tutti i cammini identificabili nel grafo: questo criterio prevede di creare un caso di test per ogni cammino identificabile nel grafo, cioè per ogni sequenza di archi che porta da un nodo ad un altro. In questo modo, si potranno verificare tutte le possibili combinazioni di transizioni tra gli stati dell'oggetto.
+
+In generale, i criteri di copertura più completi sono anche quelli che richiedono più tempo e risorse per essere implementati, pertanto è importante valutare attentamente quali criteri di copertura sono più adeguati per il proprio programma e per il proprio obiettivo di testing.
+
+#### Tipi di test: white o black box
+
+I tipi di test possono essere classificati in base alla conoscenza che si ha del sistema che si sta testando. I due tipi principali di test sono i test white box e i test black box.
+
+I test white box, anche noti come test di integrazione o di glass box, sono dei test in cui il tester ha conoscenza del funzionamento interno del sistema che si sta testando. In questo tipo di test, il tester può utilizzare questa conoscenza per creare casi di test che verifichino il comportamento del sistema in modo più accurato e dettagliato.
+
+I test black box, invece, sono dei test in cui il tester non ha conoscenza del funzionamento interno del sistema che si sta testando. In questo tipo di test, il tester si basa solo sull'interfaccia del sistema e sui requisiti specificati per creare i casi di test. I test black box sono più adatti per verificare il comportamento del sistema dal punto di vista dell'utente finale, senza dover considerare il funzionamento interno del sistema.
+
+In generale, entrambi i tipi di test sono importanti e possono essere utilizzati in modo complementare per garantire la qualità di un sistema. Ad esempio, i test white box possono essere utilizzati per verificare il funzionamento interno del sistema, mentre i test black box possono essere utilizzati per verificare il comportamento del sistema dal punto di vista dell'utente finale.
