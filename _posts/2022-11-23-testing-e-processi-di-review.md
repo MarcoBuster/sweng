@@ -666,3 +666,44 @@ I test white box, anche noti come test di integrazione o di glass box, sono dei 
 I test black box, invece, sono dei test in cui il tester non ha conoscenza del funzionamento interno del sistema che si sta testando. In questo tipo di test, il tester si basa solo sull'interfaccia del sistema e sui requisiti specificati per creare i casi di test. I test black box sono più adatti per verificare il comportamento del sistema dal punto di vista dell'utente finale, senza dover considerare il funzionamento interno del sistema.
 
 In generale, entrambi i tipi di test sono importanti e possono essere utilizzati in modo complementare per garantire la qualità di un sistema. Ad esempio, i test white box possono essere utilizzati per verificare il funzionamento interno del sistema, mentre i test black box possono essere utilizzati per verificare il comportamento del sistema dal punto di vista dell'utente finale.
+
+
+### Test funzionale
+
+Il test funzionale è un tipo di test che si concentra sulla verifica del comportamento del sistema dal punto di vista dell'utente finale, senza considerare il funzionamento interno del sistema. In altre parole, il test funzionale è un approccio black box, in cui non si ha conoscenza del codice sorgente del sistema che si sta testando.
+
+Uno dei principali vantaggi del test funzionale è che può essere l'unico approccio possibile in alcune situazioni, ad esempio quando si sta testando il lavoro di un fornitore esterno. In questo caso, non si ha accesso al codice sorgente e si deve quindi basare il test solo sull'interfaccia del sistema e sui requisiti specificati.
+
+I dati di test per il test funzionale possono essere derivati dalle specifiche del sistema, cioè dai requisiti funzionali che descrivono il comportamento atteso del sistema. In questo modo, si può concentrare l'attenzione sul dominio delle informazioni invece che sulla struttura di controllo del codice.
+
+Il test funzionale permette di identificare errori che non possono essere individuati con criteri strutturali, come funzionalità non implementate o flussi di esecuzione dimenticati. Inoltre, il test funzionale si pone come obiettivo anche di trovare errori di interfaccia e di prestazioni del sistema.
+
+In generale, il test funzionale è un tipo di test molto utile per verificare il comportamento del sistema dal punto di vista dell'utente finale e per individuare errori che potrebbero altrimenti essere trascurati. Tuttavia, è importante notare che il test funzionale non garantisce la correttezza del codice sorgente del sistema e può quindi essere utilizzato in modo complementare ad altri tipi di test, come i test strutturali o i test di integrazione, per garantire la qualità del sistema nel suo insieme.
+
+#### Tecniche di testing
+
+Ci sono diverse tecniche di testing che possono essere utilizzate per verificare la qualità di un sistema. Ecco una panoramica di alcune tecniche comunemente utilizzate:
+
+- Metodi basati sui grafi: come abbiamo già visto, i metodi basati sui grafi si basano sulla rappresentazione grafica delle sequenze di istruzioni e delle decisioni presenti nel programma. Utilizzando questi grafi, è possibile individuare i punti del programma che richiedono maggiore attenzione durante il testing e creare casi di test per coprire questi punti. Ad esempio, la tecnica _BUGS_ è un metodo basato sui grafi;
+- Suddivisioni del dominio in classi di equivalenza: la tecnica delle category partition (suddivisioni del dominio in classi di equivalenza) consiste nel suddividere il dominio delle possibili input del sistema in classi di equivalenza, cioè in gruppi di input che dovrebbero comportarsi in modo simile. Utilizzando questa tecnica, è possibile individuare casi di test che coprano il maggior numero possibile di classi di equivalenza, garantendo così una copertura accurata del sistema;
+- Analisi dei valori limite (test di fronitiera): la tecnica dei test di fronitiera consiste nell'analizzare i valori limite del sistema, cioè i valori di input che si trovano al confine tra due classi di equivalenza o che rappresentano limiti estremi del sistema. Utilizzando questa tecnica, è possibile verificare il comportamento del sistema in presenza di input particolari o estremi, che potrebbero non essere stati considerati durante il testing normale. I test di fronitiera sono particolarmente utili per individuare errori di gestione delle condizioni limite o per verificare il comportamento del sistema in presenza di input insoliti o imprevisti;
+- Collaudo per confronto: il collaudo per confronto consiste nel verificare il comportamento di un sistema confrontando i risultati ottenuti con quelli attesi. Questa tecnica è particolarmente utile quando il sistema ha un comportamento noto o documentato, ad esempio quando si sta testando una nuova implementazione di un algoritmo già esistente. Utilizzando il collaudo per confronto, è possibile verificare che il sistema funzioni correttamente e che i risultati ottenuti siano coerenti con le aspettative.
+
+In generale, queste sono solo alcune delle tecniche di testing che possono essere utilizzate per verificare la qualità di un sistema. Ognuna di queste tecniche può essere utilizzata in modo complementare alle altre e può essere adattata alle specifiche esigenze di un dato progetto. È importante scegliere la tecnica o le tecniche più adatte in base alle caratteristiche del sistema che si sta testando e ai requisiti specificati.
+
+### Testing delle interfacce
+
+Il testing delle interfacce è una fase importante del processo di testing di un sistema, che mira a verificare il corretto funzionamento delle interfacce tra componenti o sottosistemi. Esistono diverse tipologie di interfacce che possono essere testate, ognuna delle quali presenta caratteristiche e sfide specifiche. Ecco alcune informazioni sui tipi di interfacce e sui tipi di errore che possono essere riscontrati durante il testing delle interfacce:
+
+Tipi di interfacce:
+
+- A invocazione di parametri: in questo tipo di interfaccia, un componente invoca una funzione o un metodo di un altro componente passando come parametri i valori necessari per l'esecuzione della funzione;
+- A condivisione di memoria: in questo tipo di interfaccia, i componenti condividono una zona di memoria per scambiarsi informazioni;
+- A metodi sincroni: in questo tipo di interfaccia, i componenti comunicano tra loro attraverso metodi sincroni, cioè metodi che richiedono l'attesa della risposta prima di continuare l'esecuzione;
+- A passaggio di messaggi: in questo tipo di interfaccia, i componenti comunicano tra loro attraverso il passaggio di messaggi, cioè di pacchetti di informazioni scambiati attraverso una rete o un altro canale di comunicazione.
+
+
+Tipi di errore:
+
+- Sbaglio nell'uso dell'interfaccia: durante il testing delle interfacce, è possibile riscontrare errori legati all'uso improprio dell'interfaccia da parte di un componente. Ad esempio, può accadere che un componente invochi una funzione con un ordine o un tipo di parametri non corretti, o che faccia assunzioni sbagliate circa ciò che la funzione si attende. Questi errori possono causare malfunzionamenti o crash del sistema;
+- Errori di tempistica e sincornizzazione: Questi errori possono verificarsi quando i componenti coinvolti nell'interfaccia non rispettano i tempi o le sequenze di esecuzione previsti, causando conflitti o malfunzionamenti. Ad esempio, può accadere che un componente invochi una funzione prima che un altro componente abbia terminato l'elaborazione di una richiesta precedente, causando un errore di sincronizzazione. Oppure, può accadere che un componente richieda una risposta entro un determinato tempo, ma che l'altro componente non riesca a fornire la risposta entro i tempi previsti, causando un errore di tempistica. È importante prestare particolare attenzione a questi errori durante il testing delle interfacce, in modo da garantire il corretto funzionamento del sistema.
