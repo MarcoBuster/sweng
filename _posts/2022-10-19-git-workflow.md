@@ -45,7 +45,7 @@ Quando il lavoro è completato, il feature branch viene integrato di nuovo nel `
 In questo modo, è possibile lavorare in modo organizzato su diverse funzionalità o problemi senza interferire tra loro.
 Per integrare il lavoro svolto in un feature branch nel branch `develop`, è necessario eseguire un merge del feature branch nel `develop`. 
 Ci sono diversi modi di fare ciò, a seconda delle preferenze e delle esigenze specifiche.
-Un modo semplice di fare il merge è utilizzare il comando git merge dalla riga di comando. 
+Un modo semplice di fare il merge è utilizzare il comando `git merge` dalla riga di comando. 
 Se il merge non è possibile a causa di conflitti, sarà necessario risolverli manualmente prima di poter completare l'operazione. 
 Una volta risolti i conflitti, sarà necessario creare un nuovo commit per finalizzare il merge.
 
@@ -296,9 +296,9 @@ L'approvatore deve determinare la risposta alle seguenti domande riguardo la pro
 
 Se l'approver ritiene che la proposta di modifiche sia valida, può approvarla scrivendo "LGTM" (acronimo di _"Looks Good To Me"_) nei commenti della pull request.
 
-# Strumenti dell'opensource
+# Strumenti dell'open source
 
-Gli strumenti dell'opensource sono una serie di programmi, librerie e servizi che vengono utilizzati per sviluppare progetti open source. 
+Gli strumenti dell'open source sono una serie di programmi, librerie e servizi che vengono utilizzati per sviluppare progetti open source. 
 Questi strumenti sono pensati per semplificare il processo di sviluppo e gestione di progetti open source, rendendoli accessibili a una comunità di sviluppatori e contribuenti.
 
 ## Build automation
@@ -323,10 +323,10 @@ CC=gcc
 CFLAGS=-I.
 
 %.o: %.c $(DEPS)
-  $(CC) -c -o $@ $< $(FLAGS)
+  $(CC) -c -o $@ $< $(CFLAGS)
 
 hellomake: hellomake.c hellofunc.o
-  $(CC) -o hellomake hellomake.o hellofunc.o -I.
+  $(CC) -o hellomake hellomake.o hellofunc.o $< $(CFLAGS)
 ```
 
 Nell'esempio, se il _target_ hellomake (definito dai file `hellomake.c` e `hellofunc.o`) è stato aggiornato, occorre ricompilarlo utilizzando i comandi sotto.
@@ -419,7 +419,7 @@ Il plugin _Java_ definisce:
   - `src/main/java`: sorgenti Java di produzione;
   - `src/main/resources`: risorse di produzione;
   - `src/test/java`: sorgenti Java di test;
-  - `src/test/resources`: sorgenti di test.
+  - `src/test/resources`: risorse di test.
 - dei __task__, anche con dipendenze tra loro.
 
 {% responsive_image path: 'assets/06_gradle-tasks.png' %}
@@ -451,5 +451,5 @@ Ci sono diversi modi per cui può essere chiuso un bug:
 - __duplicate__: quando è stato già segnalato in precedenza e quindi non rappresenta un problema nuovo. In questo caso, viene solitamente fatto riferimento al numero del bug originale che ha già ricevuto una risoluzione;
 - __wontfix__: il bug viene chiuso come "non risolvibile" perché o rappresenta una funzionalità voluta dal progetto o è troppo complesso da risolvere per essere considerato conveniente farlo dal punto di vista dei progettisti;
 - __can't reproduce__: non è stato possibile riprodurre il bug, ovvero che non è stato possibile ottenere lo stesso risultato o il comportamento segnalato dal bug. Ciò può essere dovuto a una mancanza di dettagli o a un errore nella segnalazione del bug stesso;
-- __fixed__ : il bug è stato fixato;
+- __fixed__: il bug è stato fixato;
 vs __fix verified__: il fix è stato integrato in una release passando tutti gli step di verifica.
