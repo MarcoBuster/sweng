@@ -583,6 +583,7 @@ Tra le **classi di operatori** si distinguono rispetto all'oggetto su cui operan
 * _operatori_ ed _espressioni_, es. `<` in `<=`, oppure `true` in `false`
 * _comandi_, es. un `while` in `if`
 
+<<<<<<< HEAD
 ### Criteri di copertura
 
 I criteri di copertura sono delle strategie utilizzate per determinare quali parti di un programma devono essere testate. In particolare, i criteri di copertura possono essere utilizzati per definire quali casi di test sono necessari per coprire il maggior numero possibile di stati dell'oggetto e di transizioni tra questi stati.
@@ -606,3 +607,63 @@ I test white box, anche noti come test di integrazione o di glass box, sono dei 
 I test black box, invece, sono dei test in cui il tester non ha conoscenza del funzionamento interno del sistema che si sta testando. In questo tipo di test, il tester si basa solo sull'interfaccia del sistema e sui requisiti specificati per creare i casi di test. I test black box sono più adatti per verificare il comportamento del sistema dal punto di vista dell'utente finale, senza dover considerare il funzionamento interno del sistema.
 
 In generale, entrambi i tipi di test sono importanti e possono essere utilizzati in modo complementare per garantire la qualità di un sistema. Ad esempio, i test white box possono essere utilizzati per verificare il funzionamento interno del sistema, mentre i test black box possono essere utilizzati per verificare il comportamento del sistema dal punto di vista dell'utente finale.
+
+Vediamo con uno schema come ci si può comportare per capire quali sono i problemi:
+{% responsive_image path: 'assets/13_analisi-mutazionale-schema.png' %}
+
+Il problema di questo approccio è che non garantisce la terminazione, ovvero non c'è un modo sicuro per stabilire quando il processo di analisi è completato. Ciò è dovuto a diversi fattori:
+- Quando si estrae un valore casuale, c'è sempre il rischio di estrarre sempre lo stesso valore.
+- Si potrebbe essere particolarmente sfortunati e non trovare il valore corretto.
+- Esistono infinite varianti di programmi che svolgono la stessa funzione, anche se non sono sintatticamente identici. Di conseguenza, una modifica sintattica potrebbe non avere alcun effetto sul funzionamento del programma.
+
+Per verificare se il test è valido, è necessario controllare il numero di mutanti generati. Se questo numero è elevato, il test non è affidabile. In alternativa, è possibile "nascondere" i mutanti, a patto che non sia richiesta una copertura totale. In questo modo, è possibile analizzare programmi che sono funzionalmente uguali ma sintatticamente diversi, al fine di dimostrare l'equivalenza o scoprire casi in cui essa non è valida.
+
+#### Analis mutazionale in un linguaggio OO
+
+In un linguaggio OOP, l'analisi mutazionale viene spesso utilizzata per verificare la robustezza e la qualità delle classi e degli oggetti definiti nel codice sorgente. Ad esempio, si potrebbero apportare modifiche alle proprietà o ai metodi di una classe e verificare come queste modifiche influiscono sugli oggetti creati a partire da questa classe. Oppure, si potrebbe modificare il comportamento di un oggetto in modo da verificare se questo influisce sulla correttezza del programma nel suo insieme.
+
+Inoltre, l'analisi mutazionale può essere utilizzata per verificare la robustezza delle relazioni di ereditarietà e polimorfismo all'interno di un programma OOP. Ad esempio, si potrebbero apportare modifiche alle proprietà o ai metodi di una superclasse e verificare come queste modifiche influiscono sulla correttezza delle sottoclassi che ne ereditano le proprietà e i metodi. Oppure, si potrebbe modificare il comportamento di un oggetto polimorfo in modo da verificare se questo influisce sulla correttezza del programma nel suo insieme.
+
+### OO testing e ereditarietà
+
+Il testing di oggetti (OO testing) è un tipo di testing specifico per i programmi scritti utilizzando i principi della programmazione a oggetti (OOP). Si concentra sulla verifica della correttezza del comportamento degli oggetti e delle loro interazioni all'interno del programma.
+
+Per eseguire il testing di oggetti, è spesso necessario creare dei casi di test che simulino determinate situazioni e interazioni tra gli oggetti. Ad esempio, si potrebbero creare casi di test che verifichino il comportamento di un oggetto quando viene invocato uno dei suoi metodi, o che verifichino la correttezza delle relazioni di ereditarietà tra le diverse classi del programma.
+
+L'ereditarietà è un concetto chiave della programmazione a oggetti, che permette di creare una gerarchia di classi e di ereditare proprietà e metodi da una classe base (chiamata superclasse) a una classe derivata (chiamata sottoclasse). In questo modo, è possibile definire un comportamento comune per un gruppo di classi e personalizzarlo per ogni classe specifica.
+
+Durante il testing di oggetti, è importante verificare la correttezza delle relazioni di ereditarietà all'interno del programma. Ad esempio, si potrebbero creare casi di test che verifichino se gli oggetti di una sottoclasse ereditano correttamente le proprietà e i metodi della superclasse, o che verifichino se il comportamento della sottoclasse è coerente con quello della superclasse. Inoltre, è importante verificare che le modifiche apportate alla superclasse non abbiano effetti indesiderati sulle sottoclassi.
+
+### OO testing e collegamento dinamico
+
+Il collegamento dinamico è un concetto legato alla programmazione a oggetti che si riferisce alla capacità di un programma di decidere quali metodi o proprietà utilizzare in base al tipo di oggetto con cui si lavora.
+
+In un linguaggio OOP, il collegamento dinamico viene solitamente implementato attraverso il polimorfismo, cioè la capacità di un oggetto di assumere diverse forme e di essere trattato come un'istanza di diverse classi a seconda del contesto. Ad esempio, se un oggetto è un'istanza di una sottoclasse di una determinata superclasse, può essere trattato come un'istanza della superclasse o della sottoclasse a seconda del contesto.
+
+Durante il testing di oggetti, è importante verificare che il collegamento dinamico funzioni correttamente. Ad esempio, si potrebbero creare casi di test che verifichino se un oggetto polimorfo viene trattato come un'istanza della superclasse o della sottoclasse corretta a seconda del contesto, o che verifichino se gli oggetti di diverse classi possono essere utilizzati in modo intercambiabile in determinate situazioni. Inoltre, è importante verificare che le modifiche apportate a una classe non abbiano effetti indesiderati sugli oggetti di altre classi che ne ereditano le proprietà o i metodi.
+
+### Class testing
+
+Il testing di oggetti è una tecnica utilizzata per verificare la correttezza del comportamento degli oggetti e delle loro interazioni all'interno di un programma scritto utilizzando i principi della programmazione a oggetti (OOP).
+
+Una delle strategie utilizzate in questo tipo di testing è la costruzione di classi stub e driver. Una classe stub è una classe fittizia che viene utilizzata per sostituire una classe reale in un determinato contesto di test. Ad esempio, si potrebbe utilizzare una classe stub per sostituire una classe che dipende da una risorsa esterna, come un database o un servizio web, in modo da poter eseguire il test in modo indipendente dal contesto esterno.
+
+Una volta costruita la classe stub, è importante implementare eventuali metodi astratti (cioè metodi che devono essere definiti dalle sottoclassi ma non hanno un comportamento predefinito nella superclasse). In questo modo, sarà possibile utilizzare la classe stub per eseguire il test senza che sorga un'eccezione per la mancanza di implementazione dei metodi astratti.
+
+Inoltre, può essere utile aggiungere una funzione che permetta di estrarre e esaminare lo stato dell'oggetto, al fine di bypassare l'incapsulamento (cioè la protezione delle proprietà e dei metodi di un oggetto da accessi esterni non autorizzati). Questa funzione può essere utilizzata per verificare che l'oggetto si comporti in modo coerente durante il test.
+
+Infine, si può creare una classe driver che permetta di istanziare oggetti e di chiamare i loro metodi secondo il criterio di copertura scelto (ad esempio, per verificare che tutti i metodi vengano eseguiti almeno una volta durante il test). In questo modo, sarà possibile eseguire il test in modo automatizzato e riprodurre facilmente i risultati.
+
+### Copertura della classe
+
+La copertura della classe è un concetto legato al testing di oggetti che si riferisce alla quantità di codice di una classe che viene eseguita durante un test. Più in generale, la copertura di un programma indica quante parti del codice vengono eseguite durante i test.
+
+Per determinare la copertura di una classe, è importante considerare lo stato dell'oggetto. Lo stato dell'oggetto è l'insieme delle proprietà e dei valori che assumono in un determinato momento. A seconda dello stato dell'oggetto, alcuni metodi potrebbero essere eseguiti o meno, o potrebbero avere comportamenti differenti.
+
+Una volta definito lo stato dell'oggetto, è possibile definire in modo "statico" cosa è lo stato dell'oggetto. Ad esempio, si potrebbero considerare come stati dell'oggetto i valori di alcune proprietà, o il risultato di alcuni metodi. In questo modo, sarà possibile determinare quali casi di test sono necessari per coprire tutti gli stati dell'oggetto.
+
+In alcuni casi, potrebbe esistere una rappresentazione dello stato dell'oggetto come una macchina a stati, che descrive gli stati possibili dell'oggetto e le transizioni tra questi stati. In questo modo, sarà possibile determinare quali casi di test sono necessari per coprire tutte le transizioni possibili.
+
+In generale, il testing di oggetti mira a coprire il maggior numero possibile di stati dell'oggetto e di transizioni tra questi stati, al fine di garantire la correttezza del comportamento dell'oggetto e delle sue interazioni all'interno del programma. Tuttavia, è importante notare che la copertura completa potrebbe non essere sempre possibile o auspicabile, a causa della complessità del programma o dei costi associati al testing. Di conseguenza, è importante valutare attentamente quali casi di test sono necessari per garantire una copertura adeguata della classe senza essere troppo onerosi da un punto di vista del tempo o dei costi.
+
+Inoltre, è importante tenere presente che la copertura della classe non è l'unico criterio per valutare la qualità del testing. Ad esempio, è importante anche verificare che i casi di test siano indipendenti l'uno dall'altro e che il codice sia testato in modo adeguato anche in situazioni di errore o di eccezione. Inoltre, è importante considerare anche altre metriche, come la qualità del codice o la robustezza del programma, per valutare la qualità del testing nel suo insieme.
