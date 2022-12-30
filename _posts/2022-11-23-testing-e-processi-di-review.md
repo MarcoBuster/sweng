@@ -667,7 +667,6 @@ I test black box, invece, sono dei test in cui il tester non ha conoscenza del f
 
 In generale, entrambi i tipi di test sono importanti e possono essere utilizzati in modo complementare per garantire la qualità di un sistema. Ad esempio, i test white box possono essere utilizzati per verificare il funzionamento interno del sistema, mentre i test black box possono essere utilizzati per verificare il comportamento del sistema dal punto di vista dell'utente finale.
 
-
 ### Test funzionale
 
 Il test funzionale è un tipo di test che si concentra sulla verifica del comportamento del sistema dal punto di vista dell'utente finale, senza considerare il funzionamento interno del sistema. In altre parole, il test funzionale è un approccio black box, in cui non si ha conoscenza del codice sorgente del sistema che si sta testando.
@@ -707,3 +706,31 @@ Tipi di errore:
 
 - Sbaglio nell'uso dell'interfaccia: durante il testing delle interfacce, è possibile riscontrare errori legati all'uso improprio dell'interfaccia da parte di un componente. Ad esempio, può accadere che un componente invochi una funzione con un ordine o un tipo di parametri non corretti, o che faccia assunzioni sbagliate circa ciò che la funzione si attende. Questi errori possono causare malfunzionamenti o crash del sistema;
 - Errori di tempistica e sincornizzazione: Questi errori possono verificarsi quando i componenti coinvolti nell'interfaccia non rispettano i tempi o le sequenze di esecuzione previsti, causando conflitti o malfunzionamenti. Ad esempio, può accadere che un componente invochi una funzione prima che un altro componente abbia terminato l'elaborazione di una richiesta precedente, causando un errore di sincronizzazione. Oppure, può accadere che un componente richieda una risposta entro un determinato tempo, ma che l'altro componente non riesca a fornire la risposta entro i tempi previsti, causando un errore di tempistica. È importante prestare particolare attenzione a questi errori durante il testing delle interfacce, in modo da garantire il corretto funzionamento del sistema.
+<<<<<<< HEAD
+
+### Classi di Equivalenza
+
+Le classi di equivalenza sono una tecnica di testing basata sulla suddivisione del dominio dei dati in ingresso in classi di dati, dalle quali derivare i casi di test. L'obiettivo di questa tecnica è quello di individuare casi di test che possano rivelare eventuali classi di errori, cioè insiemi di errori che si verificano in modo analogo per dati appartenenti a una stessa classe.
+
+In pratica, le classi di equivalenza rappresentano un insieme di stati validi o non validi per i dati in input, e un insieme di stati validi per i dati in output. Ad esempio, una classe di equivalenza potrebbe rappresentare un insieme di valori che il sistema deve elaborare in modo corretto, oppure un intervallo di valori che il sistema deve considerare come non validi.
+
+Un dato può appartenere a una classe di equivalenza se è un valore, un intervallo, un insieme di valori corretti o un insieme di valori non corretti. Ad esempio, un dato potrebbe appartenere alla classe di equivalenza dei numeri interi positivi, oppure alla classe di equivalenza dei caratteri alfabetici maiuscoli.
+
+Utilizzando le classi di equivalenza, è possibile definire i casi di test in modo più efficace e individuare gli errori del sistema in modo più mirato. Tuttavia, è importante notare che le classi di equivalenza non sono sempre facili da individuare e che possono variare a seconda delle specifiche del sistema che si sta testando.
+
+#### Suddivisione in classi
+
+La suddivisione in classi di equivalenza può essere effettuata in base a diverse variabili, come ad esempio il tipo di valore atteso o l'intervallo di valori validi.
+Nel caso in cui ci si aspetti un valore specifico, vengono definite due classi di equivalenza: una classe valida, che rappresenta i valori corretti, e una classe non valida, che rappresenta i valori non corretti. Ad esempio, se il sistema deve accettare come input un codice PIN di 4 cifre, le classi di equivalenza potrebbero essere:
+- Classe valida: tutti i codici PIN di 4 cifre corretti.
+- Classe non valida: tutti i codici PIN di lunghezza diversa da 4 cifre.
+
+Nel caso in cui ci si aspetti un valore in un intervallo, vengono definite tre classi di equivalenza: una classe valida, che rappresenta i valori compresi nell'intervallo, e due classi non valide, che rappresentano i valori al di fuori dell'intervallo. Ad esempio, se il sistema deve accettare come input un numero intero compreso tra 100 e 700.
+
+### Test di frontiera
+
+Il test di frontiera è una tecnica di testing che si basa sulla selezione dei casi di test che esercitano i valori limite del sistema, cioè i valori di input o di output che si trovano al confine tra due classi di equivalenza. L'obiettivo di questa tecnica è quello di individuare gli errori che tendono ad accumularsi ai limiti del dominio, cioè gli errori che si verificano per valori di input o di output estremi.
+
+Gli errori ai limiti del dominio possono essere causati da diverse ragioni. Ad esempio, potrebbero essere dovuti a una implementazione scorretta dei limiti del sistema, a una mancata gestione degli errori o a una scarsa tolleranza agli errori. Per questo motivo, è importante prestare particolare attenzione ai test di frontiera, in modo da individuare gli errori che potrebbero verificarsi ai limiti del dominio.
+
+Il test di frontiera è complementare alla tecnica delle classi di equivalenza, poiché non si seleziona a caso un elemento della classe, ma si sceglie un elemento ai confini della classe. Ad esempio, se si definisce una classe di equivalenza che rappresenta gli interi compresi tra 1 e 10, il test di frontiera potrebbe consistere nella selezione dei valori 1 e 10, che rappresentano i confini della classe. In questo modo, è possibile verificare come il sistema gestisce gli input ai limiti del dominio.
