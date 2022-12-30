@@ -722,7 +722,7 @@ Utilizzando le classi di equivalenza, è possibile definire i casi di test in mo
 
 La suddivisione in classi di equivalenza può essere effettuata in base a diverse variabili, come ad esempio il tipo di valore atteso o l'intervallo di valori validi.
 Nel caso in cui ci si aspetti un valore specifico, vengono definite due classi di equivalenza: una classe valida, che rappresenta i valori corretti, e una classe non valida, che rappresenta i valori non corretti. Ad esempio, se il sistema deve accettare come input un codice PIN di 4 cifre, le classi di equivalenza potrebbero essere:
-- Classe valida: tutti i codici PIN di 4 cifre corretti.
+- Classe valida: tutti i codici PIN di 4 cifre corretti;
 - Classe non valida: tutti i codici PIN di lunghezza diversa da 4 cifre.
 
 Nel caso in cui ci si aspetti un valore in un intervallo, vengono definite tre classi di equivalenza: una classe valida, che rappresenta i valori compresi nell'intervallo, e due classi non valide, che rappresentano i valori al di fuori dell'intervallo. Ad esempio, se il sistema deve accettare come input un numero intero compreso tra 100 e 700.
@@ -734,3 +734,15 @@ Il test di frontiera è una tecnica di testing che si basa sulla selezione dei c
 Gli errori ai limiti del dominio possono essere causati da diverse ragioni. Ad esempio, potrebbero essere dovuti a una implementazione scorretta dei limiti del sistema, a una mancata gestione degli errori o a una scarsa tolleranza agli errori. Per questo motivo, è importante prestare particolare attenzione ai test di frontiera, in modo da individuare gli errori che potrebbero verificarsi ai limiti del dominio.
 
 Il test di frontiera è complementare alla tecnica delle classi di equivalenza, poiché non si seleziona a caso un elemento della classe, ma si sceglie un elemento ai confini della classe. Ad esempio, se si definisce una classe di equivalenza che rappresenta gli interi compresi tra 1 e 10, il test di frontiera potrebbe consistere nella selezione dei valori 1 e 10, che rappresentano i confini della classe. In questo modo, è possibile verificare come il sistema gestisce gli input ai limiti del dominio.
+
+### Category partition
+
+La category partition (partizione per categorie) è una tecnica di testing basata sulla suddivisione del dominio dei dati in categorie di equivalenza. Questa tecnica è particolarmente utile per la definizione dei casi di test a diversi livelli di granularità, come ad esempio i test di unità, di integrazione o di sistema.
+
+La category partition è composta da diversi passi:
+- Analizzare le specifiche: in questa fase, si analizzano le specifiche del sistema e si individuano le unità funzionali che possono essere verificate singolarmente. Per ogni unità, si identificano le caratteristiche (categorie) dei parametri e dell'ambiente;
+- Scegliere dei valori (scelte) per le categorie: in questa fase, si definiscono i valori che appartengono a ogni categoria. Ad esempio, si potrebbero definire le categorie "numeri interi positivi", "numeri interi negativi" e "numeri interi nulli";
+- Determinare eventuali vincoli tra le scelte: in questa fase, si analizzano eventuali vincoli tra le scelte effettuate per ogni categoria. Ad esempio, si potrebbe verificare se esistono vincoli tra il numero;
+- Scrivere test e documentazione: in questa fase, si scrivono i casi di test e la relativa documentazione. Ad esempio, si potrebbero definire i casi di test per ogni categoria, specificando i valori di input e le aspettative di output per ogni caso. Inoltre, si potrebbe includere nella documentazione informazioni sui vincoli tra le categorie e su eventuali altre considerazioni rilevanti.
+
+La tecnica della category partition è molto utile per la definizione dei casi di test, poiché permette di suddividere il dominio dei dati in categorie di equivalenza e di individuare gli errori del sistema in modo più mirato. Inoltre, questa tecnica è adattabile a diverse situazioni e può essere utilizzata a diversi livelli di granularità, a seconda delle esigenze del progetto.
