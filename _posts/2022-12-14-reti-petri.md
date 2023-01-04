@@ -5,65 +5,101 @@ date: 2022-12-12 14:40:00 +0200
 toc: true
 ---
 
-# Reti di Petri
+# [Reti di Petri](https://www2.informatik.uni-hamburg.de/TGI/PetriNets/index.php)
 
-Servono per formalizzare le specifiche.
+In questa lezione verranno mostrate le reti di Petri come esempio di linguaggio formale; fin dall'inizio del corso è stato possibile apprendere come l'ingegneria del software si occupi di linguaggi e comunicazione.
+Infatti partendo dai processi, che sfruttano un linguaggio poco formale e con poca terminologia tecnica (ad esempio le user story), passando per la progettazione in cui è stato utilizzato un linguaggio più rigoroso, si arriva infine a un vero linguaggio formale utile a raccogliere delle specifiche.
+Per descrivere le reti di Petri esistono diversi modi, noi vedremo alcuni dialetti di cui uno utile a descrivere i sistemi real time (temporizzati), che avendo diverse criticità è fondamentale andare formalizzare i requisiti per ridurle al minimo.
+Formalizzare e utilizzare linguaggi complessi può essere costoso, infatti questa pratica viene utilizzata quando l'applicazione può avere delle conseguenze gravi in caso di fallimento (ad esempio un software per gestire un razzo spaziale se dovesse avere dei problemi potrebbe causare molti danni, economici e non solo);
+Quindi bisogna almeno garantire la safety prima di mettere in funzione il software.
 
-Sono in parte simili alle macchine a stati finiti, ma nascono specificatamente per descrivere sistemi concorrenti.
+Le reti di Petri sono in parte simili agli automi a stati finiti, ma nascono specificatamente per descrivere sistemi concorrenti.
+Cambiano però il concetto di stato e transizione, in quanto lo __stato__ non è più un'informazione atomica vista a livello di sistema ma è divisa in tante parti diverse, e la sua composizione avverrà tramite la visione generale di tutti questi stati parziali.
+Quindi sarà rappresentare entità distinte, avente ognuna un suo stato, ma allo stesso tempo avere un'evoluzione globale del sistema.
+Di conseguenza le __transazioni__ non operano sullo stato globale ma si limitano a variarne una parte, da ciò è possibile notare la differenza con gli automi a stati finiti in cui esisteva un unico stato attivo, e gli stati disponibili erano dati dal prodotto cartesiano di tutti i possibili valori delle diverse entità.
 
-A differenza delle FSM, infatti:
-- lo __stato__ non è più a livello di sistema ma come una composizione di stati parziali; le entità sono distinte ognuna con il proprio stato ma .... 
-- le __transazioni__ non operano sullo stato globale ma si limitano a variarne una prte.
+## Definizione informale
+Un vantaggio delle reti di Petri è che possono essere viste in maniera informale dal cliente, infatti è facile definire una rete di Petri in cui i nodi sono _posti_ e _transizioni_, collegati tra loro tramite degli archi.
+Possiamo quindi dire che questa struttura è un grafo bipartito, ovvero un grafo in cui i nodi sono messi in relazione __solo__ con nodi dell'altro tipo, quindi i posti possono essere collegati soltanto a transizioni e viceversa.
+Ai posti sono assegnati dei ___token___, ovvero degli elementi che vengono assegnati ai posti.
+Ogni posto può contenere da 0 a un numero potenzialmente infinito di token (successivamente si approfondirà questo punto per capire se ha senso o no assegnare infiniti gettoni a un posto), ed è proprio la disposizione di questi gettoni nella rete a determinarne il suo stato complessivo.
 
-Un vantaggio delle reti di Petri è che possono essere viste anche in maniera informale dal cliente: i nodi sono _posti_ collegati alle _transizioni_ tramite archi di un grafo bipartito.
-Ai posti sono assegnati dei ___token___, cui disposizione determina lo stato attuale della rete.
+{% responsive_image path: 'assets/14_Rete-Petri-informale.png' %}
 
-<!-- NON CHIARA QUESTA PARTE, SICURAMENTE IMPORTANTE -->
-Una transizione è _abilitata_ quando ha negli archi entranti dei nodi con un certo numero di gettoni;
-viene quindi _fireata_ (quale era il termine italiano?) i gettoni in ingresso vengono __distrutti__ e ne vengono creati altri verso i nodi uscenti. 
+Essendo che i gettoni determinano lo stato di ogni parte della rete, allora sicuramente il loro assegnamento ai posti può cambiare, questo perché lo stato della rete può evolvere.
+Ciò accade tramite la trasformazione effettuata dalla transizione; possiamo quindi dire che una transizione è _abilitata_ quando all'interno dei posti collegati in ingresso a essa esistono un certo numero di gettoni.
+Inoltre una transizione abilitata si dice che __scatta__ (fire) quando consuma i gettoni nei posti in ingresso e ne vengono generati altri nei posti collegati in uscita.
+È importante notare come i gettoni __non si spostano__ da un posto a un altro conseguentemente a uno scatto, ma vengono proprio __distrutti__ nei posti in ingresso alla transizione e __generati__ nei posti in uscita.
+Quest'ultima considerazione è importante per capire che i gettoni non sono sempre nello stesso numero.
+
+Tramite questa struttura è facile mostrare al cliente quando qualcosa cambia all'interno del sistema, quindi è molto utile perché risulta essere più intuitivo rispetto a un linguaggio logico e descrittivo.
+Questo è il vantaggio dei __modelli operativi__ come questo, la cui pecca però è che oltre a descrivere che cosa fa il sistema da informazioni anche su come lo fa, quindi rischia di diventare una via di mezzo tra una specifica ed un oggetto di design.
+Il motivo per cui è possibile chiamarla specifica è che non viene effettivamente detto come il sistema deve svolgere il suo compito ma si deve comportare nello stesso modo descritto. <!-- Questa frase può essere scritta meglio -->
+Quindi la rete descritta è una macchina di riferimento da utilizzare come confronto per capire se il funzionamento del sistema finale si comporta come dovrebbe (si può quindi dire che è come se fosse un oracolo).
 
 ## Definizione matematica
 
-Una rete di Petri è una 5-tupla $$[P, \, T; \; F, \, W, \, M_0]$$:
-- $$P$$ è l'insieme dei posti; 
-- $$T$$ è l'insieme delle transizioni (_gettoni_);
+Di reti di Petri ne esistono numerosi dialetti, in questo caso vediamo le __PT net__ (reti con posti e transizioni) che sono le più classiche, successivamente verranno descritte delle estensioni e riduzioni di queste reti.
+
+Una rete di Petri classicamente è una 5-tupla $$[P, \, T; \; F, \, W, \, M_0]$$:
+- $$P$$ è l'insieme degli identificatori dei posti;
+- $$T$$ è l'insieme degli identificatori delle transizioni;
 - $$F$$ è la relazione di flusso;
 - $$W$$ è una funzione che associa un peso ad ogni flusso; 
-- $$M_0$$: la marcatura iniziale, ovvero l'assegnamento iniziale dei _gettoni_,
+- $$M_0$$ è la marcatura iniziale, ovvero l'assegnamento iniziale dei _gettoni_.
 
-con:
+Da notare che P e T a livello matematico sono degli insiemi di identificatori che non si sovrappongono (ovvero sono tutti entità differenti) a cui poi verrà assegnato un significato, quindi precedentemente sono stati associati a posti e transizioni, ma di fatto sono tutti identificatori.
+
+Data la 5-tupla appena descritta esistono le seguenti proprietà:
 - $$P \cap T = \varnothing$$; 
-- $$P \cup T \neq \varnothing$$;
+- $$P \cup T \neq \varnothing$$ (una rete in cui non c'è nulla non è una rete, almeno un posto o una transizione ci devono essere);
 - $$F \subseteq (P \times T) \cup (T \times P)$$;
-- $$W: \: F \rightarrow \mathbb N \setminus \{ 0 \}$$;
+- $$W: \: F \rightarrow \mathbb N - \{ 0 \}$$;
 - $$M_0: P \rightarrow \mathbb N$$.
 
 Utilizziamo alcune _scorciatoie_:
 - $$\operatorname{Pre}(a) = \{ d \in (P \cup T) \ \text{t.c.} \ \langle d, \, a \rangle \in F \}$$;
 - $$\operatorname{Post}(a) = \{ d \in (P \cup T) \ \text{t.c.} \ \langle a,\, d \rangle \in F \}$$.
 
+esplicitando queste ultime due scritture:
+- Il preset di un nodo _a_ è un insieme di quegli elementi _d_ appartenenti all'unione degli insiemi degli identificatori di posti e transizioni tali che esiste una relazione di flusso tra _d_ e _a_ appartenente a F, in sostanza questo insieme rappresenta l'insieme degli identificatori precedenti di _a_ <!-- al posto di precedenti si può mettere antecedenti -->
+- Il postset di un nodo _a_ è un insieme di quegli elementi _d_ appartenenti all'unione degli insiemi degli identificatori di posti e transizioni tali che esiste una relazione di flusso tra _a_ e _d_ appartenente a F, in sostanza questo insieme rappresenta l'insieme degli identificatori successivi di _a_ <!-- al posto di precedenti si può mettere conseguenti, anche se forse è un po brutto -->
+
+Tutto questo rappresente la parte statica delle reti di Petri, ovvero prendendo la situazione in un preciso istante, senza considerare i cambiamenti che potrebbero avvenire.
+
 ### Comportamento dinamico
 
-Una transizione $$t \in T$$ è __abilitata__ in una particolare marcatura $$M$$ se e solo se
+Una transizione $$t \in T$$ è __abilitata__ in una particolare marcatura $$M$$, ovvero dato un particolare assegnamento di gettoni (marcatura iniziale oppure una sua evoluzione) se e solo se
 
 $$
 \forall p \in \operatorname{Pre}(t) \quad M(p) \geq W( \langle p, \, t \rangle )
 $$
 
-significa che ......... __località dell'analisi__ ..........
-
 In notazione, `M [ t >` significa che $$t$$ è abilitata in $$M$$. 
+
+Significa che per ogni elemento collegato in ingresso a t esiste un numero di gettoni maggiore del peso dell'arco che collega $$p$$ a $$t$$.
+Un aspetto interessante di questa definizione è che non si sta ragionando su tutti i posti della rete, ma solo su quelli collegati in ingresso a _t_, di conseguenza non è necessario conoscere l'intera rete per poter affermare che una transizione sia abilitata o meno, ma basta controllare la zona che comprende i posti appartenenti a $$ \operatorname{Pre}(a) $$, questa situazione è chiamata __località dell'analisi__.
 
 Lo __scatto__ di una transizione $$t \in T$$ in una particolare marcatura $$M$$, produce nel momento successivo una nuova marcatura $$M'$$ tale per cui
 
 $$
 \begin{align*}
-\forall p \in \operatorname{Pre}(t) \setminus \operatorname{Post}(t)& \quad M'(p) = M(p) - W(\langle p, \, t \rangle) \\
-\forall p \in \operatorname{Post}(t) \setminus \operatorname{Pre}(t)& \quad M'(p) = M(p) + W(\langle t, \, p \rangle) \\
+\forall p \in \operatorname{Pre}(t) - \operatorname{Post}(t)& \quad M'(p) = M(p) - W(\langle p, \, t \rangle) \\
+\forall p \in \operatorname{Post}(t) - \operatorname{Pre}(t)& \quad M'(p) = M(p) + W(\langle t, \, p \rangle) \\
 \forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t)& \quad M'(p) = M(p) - W(\langle p, \, t \rangle) + W(\langle t, \, p \rangle) \\
-\forall p \in P \setminus \left ( \operatorname{Post}(t) \cap \operatorname{Pre}(t) \right )& \quad M'(p) = M(p)
+\forall p \in P - \left ( \operatorname{Post}(t) \cap \operatorname{Pre}(t) \right )& \quad M'(p) = M(p)
 \end{align*}
 $$
+
+<!-- L'ultimo elemento di questa lista di formule non viene allineato bene non so per quale motivo -->
+
+specificando in modo descrittivo le notazioni precedenti:
+- Per ogni identificatore $$p$$ appartenenti al preset ma non al postset della transizione in esame, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ meno il peso dell'arco che collega $$p$$ a $$t$$;
+- Per ogni identificatore $$p$$ appartenenti al postset ma non al preset della transizione in esame, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ più il peso dell'arco che collega $$p$$ a $$t$$;
+- Per ogni identificatore $$p$$ appartenenti sia al preset sia al postset della transizione in esame, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ meno il peso dell'arco che collega $$p$$ a $$t$$ più il peso dell'arco che collega $$t$$ a $$p$$;
+- Per ogni identificatore $$p$$ appartenenti all'insieme dei posti meno l'intersezione tra preset e postset di $$p$$ la marcatura non cambia.
+
+In notazione, `M [ t > M'` significa che lo scatto di $$t$$ in $$M$$ produce $$M'$$.
 
 ## Da FSM a Petri
 
