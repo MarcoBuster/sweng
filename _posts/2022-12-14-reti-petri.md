@@ -24,7 +24,7 @@ Possiamo quindi dire che questa struttura è un grafo bipartito, ovvero un grafo
 Ai posti sono assegnati dei ___token___, ovvero degli elementi che vengono assegnati ai posti.
 Ogni posto può contenere da 0 a un numero potenzialmente infinito di token (successivamente si approfondirà questo punto per capire se ha senso o no assegnare infiniti gettoni a un posto), ed è proprio la disposizione di questi gettoni nella rete a determinarne il suo stato complessivo.
 
-{% responsive_image path: 'assets/14_Rete-Petri-informale.png' %}
+{% responsive_image path: 'assets/14_rete-Petri-informale.png' %}
 
 Essendo che i gettoni determinano lo stato di ogni parte della rete, allora sicuramente il loro assegnamento ai posti può cambiare, questo perché lo stato della rete può evolvere.
 Ciò accade tramite la trasformazione effettuata dalla transizione; possiamo quindi dire che una transizione è _abilitata_ quando all'interno dei posti collegati in ingresso a essa esistono un certo numero di gettoni.
@@ -101,17 +101,77 @@ specificando in modo descrittivo le notazioni precedenti:
 
 In notazione, `M [ t > M'` significa che lo scatto di $$t$$ in $$M$$ produce $$M'$$.
 
-## Da FSM a Petri
+È importante notare come una transizione può scattare nel caso in cui non abbia alcun elemento nel suo preset, questo significa che la transizione in questione non possiede prerequisiti per scattare.
 
-È _meccanicamente_ possibile trasformare una macchina a stati finiti in una reti di Petri. 
+## Da FSM a rete di Petri
 
-## Ordine di esecuzione
+È _meccanicamente_ possibile trasformare una macchina a stati finiti in una rete di Petri.
 
-L'ordine è non deterministico. 
-Nel caso in cui è possibile scattare due transizioni, abbiamo tre scelte:
-- attiviamo la prima;
-- attiviamo la seconda;
-- non ne attiviamo nessuna (è la _non evoluzione_ è comunque un'evoluzione).
+{% responsive_image path: 'assets/14_produttore.png' %}
+
+Riferendosi all'esempio produttore, l'unico problema è che ci sono dei collegamenti diretti tra posti, ma come è stato detto in precedenza questo non è possibile in una rete di Petri, di conseguenza basterà interporre tra i posti delle transizioni per avere una rete di Petri valida.
+Immaginando di mettere un solo token in uno dei due posti della rete appena creata, questo indicherà lo stato attivo che avevamo nella macchina a stati finiti.
+Seguendo questi passaggi diventa banale mappare una macchina a stati finiti su una rete di Petri, quindi applicandoli anche all'esempio del consumatore e del buffer avremo altre due reti valide.
+
+{% responsive_image path: 'assets/14_consumatore-buffer.png' %}
+
+Componendole, andranno a creare la seguente rete di Petri.
+
+{% responsive_image path: 'assets/14_produttore-consumatore-buffer.png' %}
+
+A questo punto se stessimo parlando di automi a stati finiti per trovare gli stati raggiungibili da quest'ultima composizione sarebbe stato necessario fare il prodotto cartesiano tra gli stati delle altre tre macchine a stati finiti ricavate precedentemente.
+In questo caso però siamo davanti ad una rete di Petri, quindi basterà fondere tutti gli identificatori uguali (ad esempio la transizione deposita della reteproduttore e della rete buffer) e aggiungere i collegamenti che possedevano.
+
+<span style="Color: red">__ATTENZIONE__</span>: nell'esempio della rete composta le transizioni "preleva" e "deposita" dovrebbero avere due nomi differenti, ma siccome sono indicate con due rettangoli diversi è stato omesso questo partivolare, matematicamente però devono avere due nomi differenti.
+
+Precedentemente è stato detto che il con un token nella rete si andava a rappresentare lo stato attivo, di conseguenza portando all'interno della rete composta tutti i token delle varie reti si arriva ad ottenere un risultato descritto dall'immagine sopra, in cui tutte le "entità"mantengono la propria individualità.
+Quindi in questo caso si può notare che il produttore è pronto a produrre, il buffer è vuoto e il consumatore è pronto a consumare una volta che il buffer avrà al suo interno qualcosa.
+
+### Come evolve questa rete?
+Per rispondere a questa domanda la prima cosa da considerare è quali sono le transizioni abilitate, che in questo caso è solo la transizione produci sotto a $$P0$$, in quanto è l'unica ad avere tutti gli elementi del suo preset con un numero di gettoni necessari a farla scattare, infatti $$P0$$ possiede un gettone e l'arco ha peso 1 (quando non è specificato il peso è 1).
+Una rete di Petri non forza lo scatto di alcuna transizione, quindi volendo si potrebbe rimanere nello stato corrente senza far scattare "produci" all'infinito, però se scatta il risultato è che il gettone in $$P0$$ viene bruciato, e in $$P1$$ viene generato un nuovo token.
+
+{% responsive_image path: 'assets/14_primo-scatto.png' %}
+
+Dopo questo scatto la rete di Petri si trova in una situazione in cui il produttore ha prodotto qualcosa, ed è pronto a depositarlo nel buffer, e a questo punto non resta che porsi nuovamente la domanda "quali transizioni sono abilitate?" per capire come può procedere l'evoluzione della rete.
+È facile notare come la transizione "deposita" sotto $$B0$$ sia l'unica abilitata, e di conseguenza se dovesse scattare il risultato sarebbe il seguente.
+
+{% responsive_image path: 'assets/14_secondo-scatto.png' %}
+
+Ora è possibile identificare una situazione particolare, ovvero quella in cui le transizioni pronte a scattare sono due, e la domanda sorge spontanea, ovvero "quale delle due transizioni scatta prima?".
+Nelle reti di Petri descritte fino ad ora non è stato presentato lo scatto simultaneo delle transizioni, nulla vieta che possa avvenire in un contesto reale, ma in questo caso non è una solizione ammissibile, quindi quale delle due transizioni scatta per prima? e secondo quale criterio?
+Questo è un caso di non determinismo, ovvero non posso dire quale transizione deve scattare, quindi abbiamo 3 situazioni che si possono verificare:
+- viene attivata la prima transizione;
+- viene attivata la seconda transizione;
+- non viene attivata nessuna transizione (la _non evoluzione_ è comunque un'evoluzione).
+
+Nel caso in cui fosse stato necessario definire che una delle due transizioni scattasse prima dell'altra, ci si troverebbe di fronte ad una rete non corretta, in quanto sarebbe possibile modificare la rete in modo tale che imponga un ordine di scatto alle transizioni. <!-- forse si potrebbe scrivere meglio -->
+
+### Sfruttare le reti di Petri
+A questo punto è possibile chiedersi se si stiano sfruttando realmente tutte le potenzialità delle reti di Petri, siccome la rete dell'esempio precedente è stata ricavata da un automa a stati finiti.
+Per capire ciò è possibile osservare un secondo esempio in cui abbiamo una rete alternativa alla precedente, ma con lo stesso scopo.
+
+{% responsive_image path: 'assets/14_rete-alternativa.png' %}
+
+La differenza che salta subito all'occhio è il numero di gettoni presenti all'interno di $$P0$$, e stanno ad indicare il numero di posizioni libere nel buffer.
+Questo è un vantaggio perché se dovessimo cambiare lo scenario e avere una situazione in cui il buffer passa da avere capienza due, ad avere capienza 20, sfruttando questa rete basta modificare la marcatura di $$B0$$ e il problema sarebbe risolto, la rete precedente invece avrebbe bisogno di una pesante modifica per essere adattata.
+Di conseguenza si può applicare lo stesso concetto per il consumatore e per il produttore, che aumentandone il numero dei gettoni (rispettivamente in $$P0$$ e $$C0$$) aumenterebbe il numero di entità in grado di produrre e consumare.
+
+{% responsive_image path: 'assets/14_rete-alternativa-diverse-entità.png' %}
+
+È possibile affermare quindi che cambiando il numero di gettoni è possibile moltiplicare gli elementi del sistema di cui si vuole tracciare l'evoluzione, e questo sarebbe molto oneroso in termini di dimensioni se fosse stato fatto con una macchina a stati finiti.
+
+Per definizioni le macchine a stati finiti __non__ possono rappresentare situazioni _infinite_, quindi se si volesse modificare ulteriormente l'esempio appena visto imponendo una capienza illimitata al buffer, con una macchina a stati finiti non sarebbe possibile.
+Con le reti di Petri invece basterebbe eliminare l'identificatore del posto $$B0$$, in questo modo avremmo una situazione in cui i produttori possono depositare senza limiti all'interno del buffer, mentre i consumatori non potrebbero prelevare più elementi di quelli presenti nel buffer.
+Questo vincolo è imposto dalla marcatura di $$B1$$, infatti, la transizione "preleva" potrebbe scattare al massimo _n_ volte consecutivamente, dove _n_ è la marcatura di $$B1$$ (assumendo che nel metre non avvengano depositi da parte dei produttori).
+
+Un altra modifica applicabile all'esempio sfrutta i pesi degli archi, ovvero ponendo un peso di 3 all'arco che collega "deposita" a $$B1$$ si potrebbe dire che il produttore crea e deposita tre prodotti, occupando tre posizioni nel buffer.
+Invece ponendo un peso di 2 all'arco che collega $$B1$$ a "preleva" si specifica che vengono prelevati dal buffer due elementi alla volta.
+Questo esempio, in parte forzato, è utile per chiarire il fatto che nelle reti di Petri gli archi non sono semplici collegamenti, ma è possibile attribuirgli un significato.
+Infatti informalemente sono chiamati archi, ma in realtà indicano una relazione che coinvolge due identificatori, e in questo esempio esiste una relazione per cui ogni elemento prodotto occupa tre posizioni all'interno del buffer, e un'altra relazione in cui ogni consumatore può prelevare obbligatoriamente due elementi alla volta.
+Tramite il peso degli archi è possibile creare delle situazioni ambigue, ad esempio se la relazione che coinvolge "deposita" e $$P0$$ avesse un peso di 2, ogni volta che viene prodotto qualcosa i produttori si moltiplicherebbero, e ovviamente questa situazione indicherebbe che la rete è sbagliata, quindi è necessario fare attenzio ad evitare queste strane situazioni.
+
+{% responsive_image path: 'assets/14_archi-con-pesi.png' %}
 
 ## Relazioni
 
