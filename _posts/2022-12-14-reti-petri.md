@@ -128,13 +128,13 @@ Precedentemente è stato detto che il con un token nella rete si andava a rappre
 Quindi in questo caso si può notare che il produttore è pronto a produrre, il buffer è vuoto e il consumatore è pronto a consumare una volta che il buffer avrà al suo interno qualcosa.
 
 ### Come evolve questa rete?
-Per rispondere a questa domanda la prima cosa da considerare è quali sono le transizioni abilitate, che in questo caso è solo la transizione produci sotto a $$P0$$, in quanto è l'unica ad avere tutti gli elementi del suo preset con un numero di gettoni necessari a farla scattare, infatti $$P0$$ possiede un gettone e l'arco ha peso 1 (quando non è specificato il peso è 1).
-Una rete di Petri non forza lo scatto di alcuna transizione, quindi volendo si potrebbe rimanere nello stato corrente senza far scattare "produci" all'infinito, però se scatta il risultato è che il gettone in $$P0$$ viene bruciato, e in $$P1$$ viene generato un nuovo token.
+Per rispondere a questa domanda la prima cosa da considerare è quali sono le transizioni abilitate, che in questo caso è solo la transizione produci sotto a $$p_0$$, in quanto è l'unica ad avere tutti gli elementi del suo preset con un numero di gettoni necessari a farla scattare, infatti $$p_0$$ possiede un gettone e l'arco ha peso 1 (quando non è specificato il peso è 1).
+Una rete di Petri non forza lo scatto di alcuna transizione, quindi volendo si potrebbe rimanere nello stato corrente senza far scattare "produci" all'infinito, però se scatta il risultato è che il gettone in $$p_0$$ viene bruciato, e in $$p_1$$ viene generato un nuovo token.
 
 {% responsive_image path: 'assets/14_primo-scatto.png' %}
 
 Dopo questo scatto la rete di Petri si trova in una situazione in cui il produttore ha prodotto qualcosa, ed è pronto a depositarlo nel buffer, e a questo punto non resta che porsi nuovamente la domanda "quali transizioni sono abilitate?" per capire come può procedere l'evoluzione della rete.
-È facile notare come la transizione "deposita" sotto $$B0$$ sia l'unica abilitata, e di conseguenza se dovesse scattare il risultato sarebbe il seguente.
+È facile notare come la transizione "deposita" sotto $$b_0$$ sia l'unica abilitata, e di conseguenza se dovesse scattare il risultato sarebbe il seguente.
 
 {% responsive_image path: 'assets/14_secondo-scatto.png' %}
 
@@ -153,27 +153,29 @@ Per capire ciò è possibile osservare un secondo esempio in cui abbiamo una ret
 
 {% responsive_image path: 'assets/14_rete-alternativa.png' %}
 
-La differenza che salta subito all'occhio è il numero di gettoni presenti all'interno di $$P0$$, e stanno ad indicare il numero di posizioni libere nel buffer.
-Questo è un vantaggio perché se dovessimo cambiare lo scenario e avere una situazione in cui il buffer passa da avere capienza due, ad avere capienza 20, sfruttando questa rete basta modificare la marcatura di $$B0$$ e il problema sarebbe risolto, la rete precedente invece avrebbe bisogno di una pesante modifica per essere adattata.
-Di conseguenza si può applicare lo stesso concetto per il consumatore e per il produttore, che aumentandone il numero dei gettoni (rispettivamente in $$P0$$ e $$C0$$) aumenterebbe il numero di entità in grado di produrre e consumare.
+La differenza che salta subito all'occhio è il numero di gettoni presenti all'interno di $$p_0$$, e stanno ad indicare il numero di posizioni libere nel buffer.
+Questo è un vantaggio perché se dovessimo cambiare lo scenario e avere una situazione in cui il buffer passa da avere capienza due, ad avere capienza 20, sfruttando questa rete basta modificare la marcatura di $$b_0$$ e il problema sarebbe risolto, la rete precedente invece avrebbe bisogno di una pesante modifica per essere adattata.
+Di conseguenza si può applicare lo stesso concetto per il consumatore e per il produttore, che aumentandone il numero dei gettoni (rispettivamente in $$p_0$$ e $$c_0$$) aumenterebbe il numero di entità in grado di produrre e consumare.
 
 {% responsive_image path: 'assets/14_rete-alternativa-diverse-entità.png' %}
 
 È possibile affermare quindi che cambiando il numero di gettoni è possibile moltiplicare gli elementi del sistema di cui si vuole tracciare l'evoluzione, e questo sarebbe molto oneroso in termini di dimensioni se fosse stato fatto con una macchina a stati finiti.
 
 Per definizioni le macchine a stati finiti __non__ possono rappresentare situazioni _infinite_, quindi se si volesse modificare ulteriormente l'esempio appena visto imponendo una capienza illimitata al buffer, con una macchina a stati finiti non sarebbe possibile.
-Con le reti di Petri invece basterebbe eliminare l'identificatore del posto $$B0$$, in questo modo avremmo una situazione in cui i produttori possono depositare senza limiti all'interno del buffer, mentre i consumatori non potrebbero prelevare più elementi di quelli presenti nel buffer.
-Questo vincolo è imposto dalla marcatura di $$B1$$, infatti, la transizione "preleva" potrebbe scattare al massimo _n_ volte consecutivamente, dove _n_ è la marcatura di $$B1$$ (assumendo che nel metre non avvengano depositi da parte dei produttori).
+Con le reti di Petri invece basterebbe eliminare l'identificatore del posto $$b_0$$, in questo modo avremmo una situazione in cui i produttori possono depositare senza limiti all'interno del buffer, mentre i consumatori non potrebbero prelevare più elementi di quelli presenti nel buffer.
+Questo vincolo è imposto dalla marcatura di $$b_1$$, infatti, la transizione "preleva" potrebbe scattare al massimo _n_ volte consecutivamente, dove _n_ è la marcatura di $$b_1$$ (assumendo che nel metre non avvengano depositi da parte dei produttori).
 
-Un altra modifica applicabile all'esempio sfrutta i pesi degli archi, ovvero ponendo un peso di 3 all'arco che collega "deposita" a $$B1$$ si potrebbe dire che il produttore crea e deposita tre prodotti, occupando tre posizioni nel buffer.
-Invece ponendo un peso di 2 all'arco che collega $$B1$$ a "preleva" si specifica che vengono prelevati dal buffer due elementi alla volta.
+Un altra modifica applicabile all'esempio sfrutta i pesi degli archi, ovvero ponendo un peso di 3 all'arco che collega "deposita" a $$b_1$$ si potrebbe dire che il produttore crea e deposita tre prodotti, occupando tre posizioni nel buffer.
+Invece ponendo un peso di 2 all'arco che collega $$b_1$$ a "preleva" si specifica che vengono prelevati dal buffer due elementi alla volta.
 Questo esempio, in parte forzato, è utile per chiarire il fatto che nelle reti di Petri gli archi non sono semplici collegamenti, ma è possibile attribuirgli un significato.
 Infatti informalemente sono chiamati archi, ma in realtà indicano una relazione che coinvolge due identificatori, e in questo esempio esiste una relazione per cui ogni elemento prodotto occupa tre posizioni all'interno del buffer, e un'altra relazione in cui ogni consumatore può prelevare obbligatoriamente due elementi alla volta.
-Tramite il peso degli archi è possibile creare delle situazioni ambigue, ad esempio se la relazione che coinvolge "deposita" e $$P0$$ avesse un peso di 2, ogni volta che viene prodotto qualcosa i produttori si moltiplicherebbero, e ovviamente questa situazione indicherebbe che la rete è sbagliata, quindi è necessario fare attenzio ad evitare queste strane situazioni.
+Tramite il peso degli archi è possibile creare delle situazioni ambigue, ad esempio se la relazione che coinvolge "deposita" e $$p_0$$ avesse un peso di 2, ogni volta che viene prodotto qualcosa i produttori si moltiplicherebbero, e ovviamente questa situazione indicherebbe che la rete è sbagliata, quindi è necessario fare attenzio ad evitare queste strane situazioni.
 
 {% responsive_image path: 'assets/14_archi-con-pesi.png' %}
 
 ## Relazioni
+
+Di seguito verranno elencati dei tipi di relazioni che possono coinvolgere i diversi identificatori e cosa comporta la loro presenza.
 
 ### Sequenza
 
@@ -181,23 +183,48 @@ Una transazione $$t_1$$ è __in sequenza__ con una transizione $$t_2$$ in una ma
 
 $$M \ [ \ t_1 > \land \ M \ [ \ t_2 > \land \ M \ [ \ t_1 t_2 >$$
 
+Questa formula sta ad indicate:
 - $$t_1$$ è abilitata in $$M$$;
 - $$t_2$$ NON è abilitata in $$M$$;
-- $$t_2$$ viene abilitata dallo scatto di $$t_1$$ in $$M$$.
+- $$t_2$$ viene abilitata dallo scatto di $$t_1$$ in $$M$$
+
+in questo caso abbiamo una relazione d'ordine non simmetrica, in cui lo scatto di $$t_1$$ è una condizione succificente per cui $$t_2$$ possa scattare, quindi questo tipo di relazione permette di andare a creare un ordine di scatto delle transizioni.
+Condizione sufficiente perché osservando l'esempio sottostante è facile capire che lo sacatto di $$t_0$$ non è necessario per far si che $$t_2$$ scatti, infatti anche se dovesse avvenire lo scatto di $$t_2$$ la transizione $$t_2$$ diventerebbe comunque abilitata.
+
+{% responsive_image path: 'assets/14_sequenza.png' %}
 
 ### Conflitto
 
 Due transazioni $$(t_1, \, t_2)$$ sono in:
-- __conflitto strutturale__ se e solo se $$\operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) = \ !?$$
+- __conflitto strutturale__ se e solo se $$\operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \neq \varnothing $$
 - __conflitto effettivo__ in una marcatura $$M$$ se e solo se:
     - $$M \ [ \ t_1 > \cap \ M \ [ \ t_2 > $$: $$t_1$$ e $$t_2$$ sono abilitate in $$M$$;
-    - $$\exists p \in \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \text{ t.c. } (M(p) < W(\langle p, \, t_1 \rangle)>) + W(\langle  p, \, t_2\rangle)$$: esistono .......................
+    - $$\exists p \in \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \mid (M(p) < W(\langle p, \, t_1 \rangle)>) + W(\langle  p, \, t_2\rangle)$$.
 
-#### Versione 'rilassata'
+Analizzando i due tipi di conflitto è possibile notare che:
+- due transizioni sono in conflitto effettivo se l'interesezione dei due preset è vuota, quindi non hanno posti in ingresso in comune, e di conseguenza non possono interferire tra loro per quanto riguarda le condizioni di abilitazione.
+Il conflitto strutturale dipende solo dalla topologia dela rete, infatti non vengono citate le marcature;
+- due transizioni sono in conflitto effettivo se sono entrambe abilitate in una marcatura $$M$$ ed esiste un posto in ingresso in comune ai due preset tale per cui il numero di gettoni in quel posto è minore della somma dei pesi dei due flussi che vanno dal posto alla transizione (quindi il posto in ingresso non ha abbastanza gettoni per far scattare entrambe le transizioni).
+Quindi entrano in conflitto sulla disponibilità di gettoni nel preset.
+
+Esiste una versione rilassata del conflitto, ed è esplicitata dalla seguente formula:
 
 $$
 M \ [ \ t_1 > \land \ M \ [ \ t_2 > \land \ \lnot M \ [ \ t_1 t_2 > 
 $$
+
+Andandola ad analizzare il suo significato è che $$t_1$$ e $$t_2$$ sono abilitate in una marcatura $$M$$ e non è possibile la sequenza $$t_1$$ $$t_2$$ a partire da $$M$$.
+Ma cosa vuol dire che è una versione rilassata? per capirlo si osservi questo l'esempio sottostante:
+
+{% responsive_image path: 'assets/14_esempio-conflitto1.png' %}
+
+Questa prima versione rimane in conflitto secondo la prima e la seconda definizione, ma facendo una piccola modifica è facile fare in modo che il conflitto rimanga per la prima definizione ma non per la seconda.
+
+{% responsive_image path: 'assets/14_esempio-conflitto1-differenza.png' %}
+
+Aggiungendo una relazione tra $$t_1$$ a $$p_1$$ è facile notare che dopo lo scatto di $$t_1$$ quest'ultima è ancora abilitata, e quindi la seconda definizione non è più rispettata.
+Da questo possiamo capire che la prima definizione si basa solo sui preset, ignorando qualsiasi arco in uscita, invece la seconda ragiona anche sugli effetti dello scatto, ma allora perchè viene usata la prima definizione solitamente?
+Perché denota come le transizioni non possiedono abbastanza risorse per scattare entrambe nello stesso istante, ma solo in momenti diversi e a seguito di uno scatto hanno questa capacità, quindi di fatto è possibile vederli come due conflitti differenti <!-- Verificare se questa parte è abbastanza chiara -->
 
 ### Concorrenza
 
