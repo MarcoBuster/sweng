@@ -56,7 +56,7 @@ Data la 5-tupla appena descritta esistono le seguenti proprietà:
 - $$F \subseteq (P \times T) \cup (T \times P)$$;
 - $$W: \: F \rightarrow \mathbb N - \{ 0 \}$$;
 - $$M_0: P \rightarrow \mathbb N$$.
-
+|
 Utilizziamo alcune _scorciatoie_:
 - $$\operatorname{Pre}(a) = \{ d \in (P \cup T) \ \text{t.c.} \ \langle d, \, a \rangle \in F \}$$;
 - $$\operatorname{Post}(a) = \{ d \in (P \cup T) \ \text{t.c.} \ \langle a,\, d \rangle \in F \}$$.
@@ -157,7 +157,7 @@ La differenza che salta subito all'occhio è il numero di gettoni presenti all'i
 Questo è un vantaggio perché se dovessimo cambiare lo scenario e avere una situazione in cui il buffer passa da avere capienza due, ad avere capienza 20, sfruttando questa rete basta modificare la marcatura di $$b_0$$ e il problema sarebbe risolto, la rete precedente invece avrebbe bisogno di una pesante modifica per essere adattata.
 Di conseguenza si può applicare lo stesso concetto per il consumatore e per il produttore, che aumentandone il numero dei gettoni (rispettivamente in $$p_0$$ e $$c_0$$) aumenterebbe il numero di entità in grado di produrre e consumare.
 
-{% responsive_image path: 'assets/14_rete-alternativa-diverse-entità.png' %}
+{% responsive_image path: 'assets/14_rete-alternativa-diverse-entita.png' %}
 
 È possibile affermare quindi che cambiando il numero di gettoni è possibile moltiplicare gli elementi del sistema di cui si vuole tracciare l'evoluzione, e questo sarebbe molto oneroso in termini di dimensioni se fosse stato fatto con una macchina a stati finiti.
 
