@@ -266,7 +266,7 @@ procedendo ricorsivamente con questa definizione è possibile ottenere tutte le 
 ## Limitatezza
 
 Una proprietà importante delle reti di Petri è la __limitatezza__, ovvero la proprietà che indica se le possibili evoluzioni della rete possono essere limitate o illimitate, quindi se gli stati raggiungibili sono infiniti oppure infiniti.
-Volendo dare una definizione più formale è possibile dire che una rete posti-transizioni $$(P/T)$$ con marcatura $$$M$$ si dice __limitata__ se e solo se:
+Volendo dare una definizione più formale è possibile dire che una rete posti-transizioni $$(P/T)$$ con marcatura $$M$$ si dice __limitata__ se e solo se:
 
 $$\exists k \in \mathbb N \quad \forall M' \in R(P/T, \, M) \\
 \forall p \in P \quad M'(p) \leq k$$
@@ -277,33 +277,63 @@ Se ciò non si verifica esiste almeno un posto in cui è possibile aumentare ten
 
 {% responsive_image path: 'assets/14_esempio-rete-illimitata.png' %}
 
-## Da RtP a automi
+## Da reti di Petri a Automi
 
-Se la rete è limitata allora l'insieme di raggiungibilità è finito allora è possibile definire un automa a stati finiti corrispondente.
+Precedentemente è stato mostrato come a partire da un'automa sia possibile ricavare una rete di petri, ma è possibile fare il contrario?
+Se la rete è limitata allora l'insieme di raggiungibilità è finito, di conseguenza è possibile definire un automa a stati finiti corrispondente che prende ogni marcatura raggiungibile come un proprio stato e ne traccia le transizioni di stato dell'automa conseguenti alla transizione scattata nella rete di Petri.
 
-- gli stati sono le possibili marcature dell'insieme di raggiungibilità
-- le transizioni sono ...
+- gli stati sono le possibili marcature dell'insieme di raggiungibilità;
+- le transizioni sono gli eventi che permettono il passaggio da una configurazione alla successiva.
+
+Riuscire a passare dalle reti di Petri agli automi ci permette di modellare un problema in modo più sintetico, ma allo stesso tempo rimane possibile utilizzare i tool di analisi che sfrutta cose già esistenti per gli automi a stati finiti, l'unico problema è che questo vale solo per reti limitate.
 
 ## Vitalità di una transizione
 
-Una transazione $$t$$ in una marcatura $$M$$ è detta _viva_ in..
-- __grado 0__ se non è abilitata in nessuna marcatura appartanente all'insieme di raggiungibilità (è __morta__);
-- __grado 1__ se esiste almeno una marcatura raggiungibil$$ in cui è abilitata;
-- __grado 2__ se per ogni numero $$n$$ esiste almeno una sequenza ammissibile in cui la transizione scatta $$n$$ volte;
-- __grado 3__ se esiste una sequenza di scatti ammissibile in cui scatta infinite volte;
-- __grado 4__ se in qualunque marcatura raggiungibile esiste una sequenza ammissibile in cui scatta (è __viva__).
+Una transazione $$t$$ in una marcatura $$M$$ è detta _viva_ con un certo __grado__ se:
+- __grado 0__ non è abilitata in nessuna marcatura appartanente all'insieme di raggiungibilità (è __morta__), quindi qualunque evoluzione avvenga nella rete, la transizione non portà mai scattare (non è sempre un aspetto negativo);
+- __grado 1__ esiste almeno una marcatura raggiungibile a partire da $$M$$ in cui la transizione è abilitata;
+- __grado 2__ per ogni numero $$n$$ naturale escluso lo zero esiste almeno una sequenza di scatti ammissibile a partire da $$M$$ in cui la transizione scatta $$n$$ volte, ovvero è possibile far scattare la transizione un numero grande a piacere di volte; <!-- differenza tra 2 e 3 da chiarire meglio, si capisce meglio dal'esempio sotto l'immagine -->
+- __grado 3__ esiste una sequenza di scatti ammissibile a partire da $$M$$ per cui la transizione scatta infinite volte;
+- __grado 4__ in qualunque marcatura raggiungibile esiste una sequenza ammissibile in cui è possibile far scattare la transizione almeno una volta, di conseguenza può scattare  infinite volte in qualunque situazione ci si trovi (ovvero in qualunque marcatura), inq questo caso si dice che la transizione è __viva__ in maniera assoluta.
+
+Gli esempi seguenti rappresentano delle situazioni verosimili riguardanti la Vitalità delle transizioni:
+- __grado 0__: qualunque cosa accada la centrale nucleare non può esplodere;
+- __grado 1__: in un certo momento se si assume il controllo di tutto ciò che avverrà è possibile portare la centrale nucleare allo spegnimento;
+<!-- che esempi si possono mettere per 2 e 3? -->
+- __grado 4__: se succede qualcosa fuori dal mio controllo all'interno della centrale posso comunque riuscire ad eseguire lo spegnimento
+
+Una rete viene chiamata __viva__ quando tutte le sue transizioni sono vive.
+
+{% responsive_image path: 'assets/14_esempio-vitalità-transizioni.png' %}
+
+Da questo esempio pratico è possibile notare come la transizione $$t_0$$ è di grado 0 in quanto non potrà mai scattare, perché è impossibile che abbia i token necessari nel preset per scattare (al massimo o in $$p_0$$ o in $$p_1$$).
+La transizione $$t_1$$ è fi grado 1 perché esiste almeno una marcatura raggiungibile per cui essa scatti, infatti la marcatura corrente è quella che ne permette lo scatto, questo però non è obbliatorio, infatti sarebbe potuto accadere che la marcatura corretta fosse un'altra.
+Osservando la transizione $$t_3$$ è possibile notare che essa scatti infinite volte (e non $$n$$ grande a piacere, quindi non si tratta di una transizione di grado 2), però nel caso avvenga lo scatto di $$t_1$$ la transizione $$t_3$$ non potrà mai più essere abilitata (quindi esiste una marcatura in cui non sarà possibile il suo scatto), e questo ci garantisce che non si tratta di una transizione di grado 4, ma bensi di grado 3.
+Il caso più particolare è quello della transizione $$t_2$$, è noto che $$t_3$$ può scattare infinite volte, e quindi in $$p_2$$ possono esserci infiniti gettoni, inoltre conseguentemente allo scatto di $$t_1$$ il posto $$p_1$$ conterrà un gettone, ma comunque la transizione $$t_2$$ non può scattare infinite volte.
+Quseto perché è vero che all'infinito posso generare gettoni in $$p_2$$, ma dal momento che scatta $$t_1$$ si perde questa possibilità, permettendo a $$t_2$$ di scattare tante volte quanti sono i gettoni in $$p_2$$.
+Infine $$t_4$$ è una transazione viva (di grado 4), perchè qualunque sia la marcatura raggiungibile dalla marcatura corrente è possibile prendere il controllo e sicuramente esiste una sequenza di scatti tale per cui $$t_4$$ diventi abilitata.
 
 ## Capacità dei posti 
 
-Una possibile estensione delle reti di Petri consiste nel fissare un massimo numero di token ammissibili in un posto.
-Si può forzare la limitatezza.
+Inizialmente è stato detto che esistono diversi dialetti riguardanti le reti di Petri, infatti una possibile estensione consiste nel fissare una capacità massima rispetto al numero di token ammissibili in un posto.
+Un esempio potrebbe essere quello in cui in un sistema possono essere presenti $$k$$ lettori contemporaneamente e non più di $$k$$.
+Avendo la possibilità di definire una capacità dei posti, è facile intuire che diventa possibile forzare la limitatezza della rete.
 
-Tale estensione aumenta la potenza espressiva oppure è semplicemente una scorciatoia? 
-È solo una scorciatoia, sono equipollenti.
+Tale estensione aumenta la potenza espressiva oppure è semplicemente una scorciatoia?
+Tramite l'esempio sottostate si può notare che questa estensione non è altro che una tecnica per facilitare la scrittura della rete.
+
+{% responsive_image path: 'assets/14_simulazione-capacità-posti.png' %}
+
+Nella rete con la capacità dei posti limitata per far sì che ad esempio la transizione $$t_0$$ scatti, è necessario che sia i posti nel suo preset abbiano gettoni sufficienti, sia che dopo il suo scatti il posto $$p_0$$ non superi il limite assegnatogli.
+Volendo scrivere la stessa rete utilizzando il metodo classico visto fino ad ora basta aggiungere un __posto complementare__, e in questo modo l due reti mostrarte sopra sono equipollenti, ossia hanno lo stesso valore.
+Infatti fino a che nel posto complementare esistono dei gettoni la transizione $$t_0$$ può scattare, ma dal momento che tutti i gettoni di $$p_0(compl)$$ vengono bruciati $$t_0$$ non sarà più abilitata, e nel posto $$p_0$$ ci sarà il numero massimo di gettoni possibili (da notare come la somma dei gettoni del posto condiserato sia esattamente la capacità massima scelta in precedenza).
+Questo vale però solo per le reti __pure__, ovvero le reti che per ogni transizione hanno preset e postset disgiunti.
 
 ### Posto complementare
+Un posto complementare è un posto che ha in uscita verso ognuna delle transizioni del posto considerato, un arco di ugual peso ma direzione opposta.
+Matematicamente possiamo scivere questa definizione nel seguente modo:
 
-Un posto $$pc$$ è complementare di $$p$$ se e solo se:
+Un posto $$pc$$ è complementare di $$p$$ se e solo se
 
 $$
 \forall t \in T ( \exists \langle p, t \rangle \in F) \Leftrightarrow \exists \langle t,pc \rangle \in F \quad W(\langle ......... \rangle) .........
