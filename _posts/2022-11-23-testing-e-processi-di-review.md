@@ -746,3 +746,439 @@ La category partition è composta da diversi passi:
 - Scrivere test e documentazione: in questa fase, si scrivono i casi di test e la relativa documentazione. Ad esempio, si potrebbero definire i casi di test per ogni categoria, specificando i valori di input e le aspettative di output per ogni caso. Inoltre, si potrebbe includere nella documentazione informazioni sui vincoli tra le categorie e su eventuali altre considerazioni rilevanti.
 
 La tecnica della category partition è molto utile per la definizione dei casi di test, poiché permette di suddividere il dominio dei dati in categorie di equivalenza e di individuare gli errori del sistema in modo più mirato. Inoltre, questa tecnica è adattabile a diverse situazioni e può essere utilizzata a diversi livelli di granularità, a seconda delle esigenze del progetto.
+
+### Test funzionale e OO?
+
+Come ci siamo posti la domanda per il testing strutturale anche qui ci chiediamo come si relazionano il testing funzionale
+e l'object orientation?
+
+Visto che il testing funzionale non si dovrebbe basare sul codice in realtà non dovrebbe essere così d'interessare questa
+domanda, tuttavia necessità di una più attenta analisi.  
+Per quanto riguarda il testing funzionale, nel senso più stretto del termine, quando è completamente black box e non si sa 
+assolutamente nulla del codice che si sta testando è inevitabilmente vero che l'object orientation cambia poco niente a
+quello che è il lavoro del tester.  
+Tuttavia il testing funzionale viene fatto anche su codice che si conosce e un esempio possono essere i test fatti
+in fase di integrazione dove si vuole testare i vari componenti dal punto di vista esterno mettendoli insieme per 
+ricostruire il sistema finale. I testi di integrazione possono essere fatti seguendo logiche diverse ma nella maggiorparte
+dei casi si segue una logica bottom-up o top-down seguendo una qualche forma di albero di composizione dei vari componenti.
+
+La differenza principale è proprio questa: nel caso della object orientation questi alberi di composizione dei componenti
+di solito non ci sono o comunque la situazione è molto più caotica. In fase di integrazione possono esserci problemi legati al 
+fatto che non esiste una struttura gerarchica che possa guidare l'integrazione delle unità: le relazioni tra componenti 
+o classi sono spesso cicliche, tranne per l'ereditarietà che paradossalmente in questo caso è quella che ci 
+interessa meno. Relazioni interessanti in questa fase sono infatti associazioni, aggregazioni o dipendenze e tutte rendono 
+molto più complicato identificare il sottoinsieme di classi da testare.
+
+È possibile però trovare dei cluster significativi grazie agli strumenti che abbiamo già visto:
+- Use cases e scenari
+
+- Sequence Diagram e copertura dei thrad de messaggi (?)
+
+- State Diagram
+
+### Software inspection
+
+Un'altra classe di tecniche di verifica e convalida è la software inspection. Sono tecniche manuali per individuare e 
+correggere gli errori basati su una attività di gruppo come per esempio la pair programming che abbiamo visto a laboratorio.
+
+Sono tecniche molto interessanti in quanto hanno pochissimi requisiti, no tool, sono tecniche manuali in cui il tool è umano. 
+Questo deve guardare il codice in quelle che sono delle riunioni di gruppo. Essendo tecniche umane queste godono di una 
+certa flessibilità che altre tecniche come il testing non hanno: oggetto di ispezione può essere codice sorgente sia 
+che possa essere compilato che non, ma soprattutto queste tecniche possono essere estesa anche alle fasi di progetto e 
+raccolta dei requisiti e dunque alle specifiche formali e non.
+
+La Fagan code inspection è una metodologia sviluppata da Michael Fagan alla IBM negli anni '70. La metodologia prevede 
+che un gruppo di esperti esegua una serie di passi per verificare il codice sorgente, al fine di individuare eventuali 
+errori, incongruenze o altri problemi. È la più diffusa tra le tecniche di ispezione (più rigorosa e definita).
+
+#### Ruoli
+
+Come detto la software inspection è un'attività di gruppo per cui vanno identificati alcuni ruoli all'interno di tale gruppo:
+
+- **Moderatore**: è colui che coordina i meeting e sceglie i partecipanti, ha la responsabilità di mantenere e far 
+  rispettare le regole; è di solito preso da un altro processo/progetto in modo da non avere interessi. 
+- **Readers e Testers**: non sono persone diverse, semplicemente a seconda dei momenti i partecipanti possono coprire 
+  uno di questi due ruoli: i primi leggono il codice al gruppo, mentre i secondi cercano difetti; la lettura del codice 
+  è una vera e propria parafrasi di esso, interpretazione del codice spiegando quello che fa ma seguendo comunque la struttura di esso.
+- **Autore**: colui che ha scritto il codice sotto ispezione; è un partecipante passivo che risponde a eventuali domande. 
+  È simile al ruolo del cliente dell'eXtreme Programming: pronto a rispondere a qualsiasi domanda per accelerare il lavoro degli altri.
+
+#### Processo
+
+Abbiamo visto le persone, vediamo ora come si articola il processo di ispezione del codice. Questo prevede una serie di passi, 
+dalla pianificazione alla verifica del codice, all'eventuale rilavorazione e alla verifica finale.
+
+1.  **Planning**: in questa prima fase il moderatore sceglie i partecipanti, si definiscono i loro ruoli e il tempo da dedicare alla ispezione fissando anche i vari incontri.
+2.  **Overview**: fase in cui si dà a tutti i partecipanti del materiale sul progetto che permetterà ai vari partecipanti di costruirsi un background sul progetto stesso e all'intero gruppo di risparmiare tempo prezioso in ottica della riunione vera e propria.
+3.  **Preparation**: attività svolta offline per la comprensione del codice o della struttura del sistema sulla base ovviamente anche del materiale distribuito durante la fase di overview.
+4.  **Inspection**: vera e propria fase di inspection. In questa fase si esegue la ispezione dettagliata del codice, verificando che esso soddisfi le regole definite in precedenza e segnalando eventuali problemi o anomalie. Durante l'ispezione, il gruppo di esperti esamina il codice riga per riga, confrontando il codice con le specifiche e cercando di individuare errori, incongruenze o altri problemi.
+5.  **Rework**: una volta individuati i problemi, l'autore del codice si occupa di correggere i difetti individuati.
+6.  **Followup**: possibile re-ispezione del nuovo codice ottenuto dopo la fase di rework.
+
+#### Ispezione
+
+Il **goal** di questa fase è quello di trovare e registrare il maggior numero di difetti, ma non correggerli. È importante
+capire l'importanza del goal e rispettarlo, la tentazione di correggere i difetti e sicuramente fortissima ma non è 
+compito dei partecipanti farlo, anche perché come detto questi spesso sono capi progetto ognuno con le proprie idee e 
+preferenze e metterli d'accordo può non essere facile.
+
+Consiste in al massimo 2 sessioni di 2 ore al giorno durante le quali lavorare approssimativamente a 150 source lines all'ora.  
+Quest'ultimo vincolo molto indicativo in quanto cambia da linguaggio a linguaggio ma anche da progetto a progetto in base 
+all'attenzione ai dettagli richiesta e alla complessità del codice.
+
+Come detto, l'**approccio** consiste nel parafrasare linea per linea il codice con il fine quindi di risalire alla semantica
+del codice sorgente sotto ispezione a partire dal codice stesso e nel mentre registrare il maggior numero di difetti possibile. 
+Una possibilità è anche fare il "test a mano".
+
+#### Checklist
+
+A differenza del testing dove a partire dai malfunzionamenti si risale ai difetti e dunque agli sbagli commessi, qui il 
+thought-process è l'inverso: l'ispezione, per trovare le anomalie, parte dai motivi, gli sbagli, che più frequentemente 
+hanno portato a inserire determinate anomalie nel codice e controlla che nessuno di questi sia stato commesso.  
+Invece di concentrarsi sul manifestarsi di un malfunzionamento come fa di solito il testing, l'ispezione si concentra sul
+perché le anomalie vengono inserite nel codice e man mano che si raccolgono nuovi sbagli questi vengono inseriti in una 
+checklist: dall'esperienza, dal passato, dalla storia si raccoglie della conoscenza utile a non ripetere gli stessi errori. 
+
+Ovviamente vi è una qualche conoscenza già nota a priori, reperibile dalla letteratura, di tutte le cose 
+che è meglio evitare perché hanno portato più volte ad avere anomalie nel codice: tale conoscenza è raccolta in quelle
+che sono le checklist comuni per i vari linguaggi. Tuttavia se l'ispezione del codice è una tecnica così efficace lo è 
+soprattutto per la sua capacità di imparare dalla nostra esperienza, dalla storia di un determinato progetto. Questo apprendere
+man mano che un progetto va avanti si traduce in checklist che evolveranno man mano che si incontrano nuovi sbagli.
+
+#### Checklist - esempio NASA
+
+_From "Software Formal Inspections Guidebook", Office of Safety and Mission Assurance, NASA-GB-A302 August 1993_
+
+Circa 2.5 pagine per it C, 4 per FORTRAN
+
+Divise in: Functionality, Data Usage, Control, Linkage, Computation, Maintenance, Clarity
+
+- Esempio:
+
+  - Does each module have a single function?
+
+  - Does the code match the Detailed Design?
+
+  - Are all constant names upper case?
+
+  - Are pointers not typecast (except assignment of NULL)?
+
+  - Are nested "#include" files avoided?
+
+  - Are non-standard usage isolated in subroutines and well documented?
+
+  - Are there sufficient comments to understand the code?
+
+#### Incentive structure
+
+Perché l'ispezione funzioni però, essendo un'attività di gruppo devono esserci delle dinamiche positive, degli incentivi
+o almeno non ci devono essere elementi disturbanti. In quest'ottica i difetti trovati durante l'ispezione non devono 
+essere utilizzati per la valutazione del personale: lo sviluppatore non va incentivato a nascondere i difetti.  
+
+Dall'altra parte i difetti trovati dopo che è stata fatta l'ispezione sono da tenere in considerazione
+per la valutazione del personale: in questo modo si è incentivati a trovare tutti i difetti durante l'ispezione.
+
+
+#### Variante: Active Design Reviews
+
+L'active design reviews è una piccola variante che sempre Fagan introdusse qualche anno dopo per migliorare il processo
+di ispezione basandosi sul fatto che perché questo funzione al meglio le persone coinvolte devono partecipare: per come
+l'abbiamo strutturato nel processo di ispezione un revisore non preparato può stare seduto tranquillamente e non parrtecipare.
+
+Per sopperire a questa possibile non partecipazione di personale non preparato ovviamente i partecipanti vanno scelti 
+aventi adeguata esperienza e soprattutto in modo tale che nel team vi siano diversi revisori per diversi aspetti del progetto.
+Inoltre è l'autore a leggere e porre le checklist ai revisori, ponendo loro quindi anche domande: i revisori dovendo 
+rispondere sono costretti a partecipare.
+
+#### Automazione dell'ispezione
+
+Sebbene sia una tecnica manuale esistono tool di supporto per:
+
+- Automatizzazione di controlli banali (e.g., formattazione)
+
+- Riferimenti: Checklists, Standard con esempi, formati elettronici più facilmente consultabile e compilabili
+
+- Aiuti alla comprensione del codice quindi tool comuni a quelli di attività di reengineering
+
+  - Evidenziazione di parti rilevanti
+
+  - Navigazione nel codice
+
+  - Diversi tipi di rappresentazione dei dati e delle architetture
+
+- Annotazioni & comunicazioni
+
+- Guida al processo e rinforzo: non permettere di chiudere il processo se non sono soddisfatti alcuni
+
+Vedi: Reengineering vs reverse engineering
+
+#### Funziona?
+
+Principalmente sì. La pratica ci dice che è cost-effective. Perché?
+
+- Processo rigoroso e dettagliato
+
+- Basato su accumulo di esperienza (es. Checklist) si auto migliora il prof è molto convinto di questo punto
+
+- Aspetti sociali del processo (riguardo all'autore soprattutto): tenere conto delle dinamiche di incentivi e non disturbanti
+
+- Si considera l'intero dominio dei dati: a differenza del testing dove è impossibile fare del testing esaustivo, con la mente umana riusciamo spesso ad astrarre e trattare l'intero dominio dei dati contemporaneamente.
+
+- E applicabile anche a programmi incompleti
+
+#### Limiti
+
+- Livello del test: solo a livello di unità. La mente umana funziona bene se si astrae ma nel momento in cui si deve 
+lavorare su molte informazioni contemporaneamente può andare in difficoltà.
+
+- Non incrementale: evoluzione del software? Si esiste la fase di follow-up ma non è così banale: la re-ispezione che 
+si fa a questo punto spesso è una vera e priopria nuova ispezione e quindi per nulla incrementale, vanno ripetute tutte 
+le fasi come se fosse la prima volta che le facciamo.
+
+#### Conclusione: Fagans's Law L17
+
+Inspections significantly increase productivity, quality, and project stability.
+
+### Confronto tra le varie tecniche
+#### È un confronto sensato?
+
+Forse vale la pena estendere la domanda sul fatto se l'ispezione funzioni o meno a tutte altre tecniche viste finora,
+magari anche confrontandole?
+
+[Link consignliato dal prof](https://web.archive.org/web/20060920113729/http:/www2.umassd.edu/SWPI/ISERN/ISERN-98-10.pdf)
+
+{% responsive_image path: assets/13_tabella-confronto-tecnicheV&V.png %}
+
+Possiamo vedere come a seconda degli studi e agli autori una tecnica risulta essere più efficace di altre tuttavia è 
+bene fare ulteriori osservazioni.
+
+- Ovviamente l'efficacia di una tecnica rispetto alle altre dipende dalla tipologia dei progetti;
+
+- Non è detto inoltre che tecniche diverse trovino gli stessi errori: l'ispezione potrebbe aver trovato una certa 
+tipologia di errore mentre il testing funzionale un'altra.
+
+- Le diverse tecniche controllano cose diverse, in maniera diversa partendo da punti di osservazione diversi.
+
+Tenendo ciò a mente diventa un po' difficile confrontare le varie percentuali di errori trovati, anzi proprio il 
+confronto tra le diverse tecniche lascia il tempo che trova. Attenzione non che confrontare le varie tecniche sia una 
+perdita di tempo, ma soprattutto quando il confronto viene condensato in soli tre numerini come in questo caso va preso 
+con mille molle. Già il fatto che studi tutti validi portano a risultati diversi è un indicatore di come il confronto 
+non sia cosi banale.
+
+Tra l'altro con un riassunto del genere in tabella si perdono anche tutte quelle che abbiamo chiamato le modality 
+(e anche le espressioni del tipo: comunemente, in media, solo nei nostri progetti, per progetti junior): 
+prendendo i numeri così assoluti stiamo assumendo che siano confrontabili e soprattutto che tutti gli studi abbiano fatto
+la stessa tipologia di esperimento, bene non è cosi.
+
+La tabella il professore l'ha inclusa solo per dire che il confronto tra tecniche è una questione su cui si può e si 
+deve ragionare, tuttavia non vi è una risposta banale, non c'è una tecnica che è migliore in tutto per tutto rispetto 
+alle altre.
+
+#### E se le mettessimo insieme? Hetzel-Meyer's Law L20
+
+Una domanda che quasi sorge naturale a questo punto è chiedersi cosa succede se si combinano insieme le varie tecniche.
+
+Il professore è convinto che applicando tutte e quattro le tecniche qui descritte, anche se solo in modo superficiale, 
+sicuramente il risultato è molto più performante delle singole tecniche prese singolarmente.
+
+Per lo stesso motivo sono valide e funzionano le tecniche agili: hanno un pezzettino di tante cose e l'unione di queste 
+cose fatte in modo rigoroso producono risultati di qualità.
+
+{% responsive_image path: assets/13_tabella-tecnicheV&V-insieme.png %}
+
+**Hetzel-Meyer's Law L20**: A combination of different V&V methods outperforms any single method alone.
+
+### Chi è che fa il testing?
+
+In generale c'è la convinzione che colui che ha sviluppato il codice sia la persona meno adatta a testarlo. Di conseguenza
+si preferisce che il testing sia effettuato da quello che è un gruppo di testing autonomo.
+
+#### Vantaggi di un gruppo di test autonomo
+
+Avere un gruppo di test autonomo risulta avere numerosi vantaggi che possiamo dividere in quelli che riguardano aspetti
+tecnici e quelli che riguardano aspetti psicologici. Per quanto riguarda gli aspetti tecnici abbiamo:
+
+- una maggiore specializzazione;
+
+- una maggiore conoscenza delle tecniche e degli strumenti: chi fa test di lavoro avrà acquisito competenze specifiche 
+  su quelli che sono i tool testing, spesso complessi, sia quelli con interfacce grafiche che le librerie di testing, 
+  i vari tool di copertura e di mutazioni.
+
+Mentre per quanto riguarda gli aspetti psicologici abbiamo che se il testing è fatto da un gruppo autonomo questo risulta 
+essere distaccato dal codice e quindi:
+
+- un testing indipendente da conoscenza codice: non conosce come funziona, non ha alcun modello mentale su come il software
+  debba operare, non sembra ma è molto importante e aiuta a trovare anomalie;
+
+- attenzione ad aspetti dimenticati
+
+Inoltre se non è lo sviluppatore a fare il testing si può avere una certa indipendenza della valutazione: una persona 
+che testa il proprio codice è incentivata a non trovarne molti in quanto potrebbe suggerire un lavoro di dubbia qualità 
+in fase di sviluppo, mentre un gruppo specializzato nel testing è incentivato a farne il più possibile in quanto se 
+valutati lo saranno sulla base di quanti ne trovano.
+
+#### Svantaggi di un gruppo di testing autonomo
+
+Tuttavia ci sono anche svantaggi ad avere un gruppo di testing autonomo e quelli più ovvi sono sicuramente legati
+ad un aspetto più tecnico: il fatto che i tester diventino specializzati significa per forza di cose una progressiva 
+perdita di capacità di progetto e codifica e sicuramente una minore conoscenza dei requisiti del progetto. 
+
+Da un punto di vista psicologico le cose sono un po' più delicata. Nella nostra analisi ci può aiutare la domanda 
+"Better testing, Worse quality?". Come è possibile che un maggiore investimento nel team di testing può portare a un 
+calo nelle prestazioni in termini di numero di errori nel codice?
+
+Quando si investe di più nel gruppo di testing uno dei problemi principali sono le responsabilità. Seppure vero che il testing
+sia compito dei tester è anche vero che è lo sviluppatore stesso che solitamente ha il compito di fare
+quello che è il testing di unità mentre i tester fanno altre forme di testing come quello funzionale o d'integrazione. 
+A fronte di aumento di personale il team di testing funziona sicuramente meglio ma quasi come conseguenza il team di sviluppo
+quando vicino a deadline sposta tutta la responsabilità di trovare errori su quest'ultimo, iniziando quindi a consegnare 
+codice di qualità più bassa. Il team di testing troverà gli errori e riconsegnerà il codice agli sviluppatori che possono
+correggerli, tuttavia questa è una perdita di tempo e risorse (si accumulano ritardi).
+
+Inoltre ci possono essere pressioni negative sul team di sviluppo in quanto si potrebbe creare un ambiente tossico dove 
+gli sviluppatori si sentono sotto valutazione da parte del team di testing.
+
+[https://web.archive.org/web/20220526084408/http://testobsessed.com/wp-content/uploads/2011/04/btwq.pdf](https://web.archive.org/web/20220526084408/http:/testobsessed.com/wp-content/uploads/2011/04/btwq.pdf)
+
+#### Possibili alternative
+
+**Rotazione del personale**: su progetti diversi una persona ricopre ruoli diversi
+
+- permette di evitare progressivo depuramento tecnico dovuto a eccessiva specializzazione;
+
+- permette di evitare svuotamento dei ruoli;
+
+- tuttavia aumenta i costi di formazione: più persone devono saper ricoprire più ruoli (sviluppatore, tester) in momenti diversi;
+
+- aumenta le difficoltà di pianificazione: progetti diversi possono in qualche modo sovrapporsi anche se inizialmente 
+  disaccoppiati e dunque una persona potrebbe trovarsi a coprire ruoli diversi contemporaneamente in progetti diversi 
+  rischiando di non poter performare al meglio in nessuno.
+
+**Condivisione del personale**: all'interno di uno stesso progetto una persona ricopre più ruoli
+
+- Permette di supplire a scarsa conoscenza del prodotto in esame;
+
+- Aumenta le difficoltà di gestione dei ruoli.
+
+### Modelli statistici
+
+Il professore non ne impazzisce e riconosce il fatto che non siano il suo campo. Ne parla male ma potrebbero essere una cosa bella
+
+Relazione statistica tra metriche e
+
+- presenza di errori (per classi di errori)
+
+- numero di errori (per classi di errori)
+
+Possibile predire distribuzione errori per modulo.
+
+Tentativi di trovare e misurare correlazioni tra metriche (cose che posso misurare come numero di righe di codice, tipo 
+di processo, tipo di linguaggio...) e presenza/numero di errori.
+
+Bisogna stare attenti però a capire per cosa ci possono essere utili le conclusioni di tali analisi statistiche. Utilizzare i 
+risultati di tali modelli come indicazione del fatto che su determinati moduli vada fatto più attività di testing che 
+su altri potrebbe sembrare la conclusione più logica tuttavia è necessario analizzare meglio la situazione. Infatti anche
+dopo aver testato questi moduli con maggiore attenzione e corretto i possibili errori che vengono trovati le conclusioni
+del modello non cambiano: questi moduli hanno una alta probabilità di contenere errori per caratteristiche misurate e 
+riguardanti la loro struttura e questa non cambia dopo aver corretto gli errori.
+
+Quello che forse è più logico fare, ma purtroppo quasi mai fatto è un'attività di refactoring: i moduli hanno una grande
+probabilità di contenere errori per via della loro struttura allora se ne cambia la struttura, o in casi più estremi li 
+si riscrive completamente.
+
+**Pareto/Zipf Laws L24**  
+Approximately 80 per cent of defects come from 20 per cent of modules.
+
+Ok vero, capita, tuttavia è difficile sfruttare questa cosa per farci qualcosa in quanto non so in principio quali sono
+questi moduli e devo per forza di cose testare anche tutti gli altri.
+
+### Debugging
+
+Per debugging si intende quell'insieme di tecniche che mirano a localizzare e rimuovere anomalie che causano un 
+malfunzionamento noto. Non deve essere usato per rilevare malfunzionamenti.  
+L'attività di debbugging è definita per un programma e un insieme di dati, che causano malfunzionamenti nel programma. 
+Si basa sulla riproducibilità del malfunzionamento, infatti se quest'ultimo non fosse riproducibile non potremmo fare 
+debugging. Inoltre, va verificato che il malfunzionamento non sia dovuto a specifiche errate o a problemi di altro tipo,
+ad esempio a una configurazione del sistema non corretta.
+
+Il debugging richiede una comprensione approfondita del codice e del funzionamento del programma, e può essere un 
+processo complesso e articolato. Tuttavia, può contribuire in modo significativo a migliorare la qualità e la stabilità del codice.
+
+"Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as 
+possible, you are, by definition, not smart enough to debug it" --- Brian W Kernighan
+
+È importante dunque scrivere codice il più semplice possibile in modo tale da poterne fare anche il debugging laddove necessario.
+
+#### Problemi
+
+Una delle cose che rende l'attività di debugging complessa è il fatto che non sempre è facile stabilire una relazione 
+anomalia-malfunzionamento. Non è un legame banale, potremmo avere anomalie che prima di manifestarsi sotto forma di 
+malfunzionamenti abbiano avuto molte evoluzioni.  
+Inoltre non esiste una relazione biunivoca tra anomalie e malfunzionamenti: non è detto che un'anomalia causa un unico 
+malfunzionamento, ma nemmeno che un malfunzionamento sia causato da un'unica anomalia.  
+Un altro problema è dovuto al fatto che la correzione di anomalie non garantisce affatto un software migliore o con meno
+errori: per correggere un'anomalia dobbiamo per forza di cose mettere mano al codice sorgente e ogni qualvolta lo 
+facciamo apriamo alla possibilità di introdurre nuove anomalie e bug nel codice stesso.
+
+Vediamo le tecniche che abbiamo a disposizione.
+
+#### Tecnica naïve
+
+Consiste nell'introdurre nel modulo in esame comandi di uscita che stampino il valore intermedio assunto dalle variabili.
+
+-   facile da applicare (bastano un compilatore e un esecutore);
+-   richiede la modifica del codice (e quindi la sua rimodifica una volta individuata la anomalia);
+-   poco flessibile (modifica e compilazione per ogni nuovo stato).
+
+Può andare bene in pochi casi laddove il codice è progettato talmente bene e il modulo è così ben isolato che basta 
+scrivere una unica printf da cui si è in grado di risalire all'anomalia: scenario un po' troppo idealistico.
+
+#### Tecnica naïve avanzata
+
+Un miglioramento parziale si può ottenere sfruttando funzionalità del linguaggio oppure alcuni tool:
+
+- Utilizzare costrutti come #ifdef e -D (in C)
+- Usare librerie di logging (con messaggi differenziati)
+- Usare asserzioni: possono essere viste come oracoli interni al codice, sono la valutazione di uno stato non una sua
+  rappresentazione e permettono di avere un riscontro solo laddove lo stato non è valido.
+
+Resta comunque una tecnica naïve in quanto stiamo ancora modificando il codice in modo tale che ci fornisca informazioni
+aggiuntive.
+
+#### Dump di memoria
+
+Consiste nel produrre una immagine esatta della memoria dopo un passo di esecuzione: scrivere su un file il contenuto 
+intero della memoria a livello di linguaggio macchina.
+
+Non richiede modifica del codice, ma è spesso difficile da gestire per la differenza tra la rappresentazione astratta 
+dello stato (legata alle strutture dati del linguaggio utilizzato) e la rappresentazione fornita dallo strumento.
+
+#### Debugging simbolico
+
+Gli stati intermedi sono prodotti usando una rappresentazione compatibile con quella del linguaggio usato, in termini 
+quindi di variabili e nello stesso domino di astrazione di come l'abbiamo scritto. Gli stati sono rappresentati come 
+strutture dati e valori a esse associati. 
+I debugger simbolici forniscono ulteriori strumenti (*watch* o *spy monitor*) che permettono di visualizzare il 
+comportamento del programma in maniera selettiva. È possibile inserire breakpoint e watch su variabili.
+
+È possibile anche scegliere e gestire la granularità del passo di esecuzione:
+
+- Singolo passo;
+
+- entrare dentro a una funzione;
+
+- drop/reset del frame.
+
+Inoltre, si può:
+
+-   modificare il contenuto di una variabile (o zona di memoria)
+-   modificare il codice, anche se non è sempre possibile. Necessita ricompilazione ma poi si prosegue dal punto in cui ci si era interrotti
+-   Rappresentazioni grafiche dei dati
+
+#### È possibile automatizzare il debugging?
+
+<http://debuggingbook.org/>
+
+Delta (differential) debugging
+
+Andreas Zeller
