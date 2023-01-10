@@ -27,23 +27,30 @@ Nelle FSM esiste un unico stato attivo e gli stati disponibili sono dati dal pro
 Nelle reti di Petri ci sono __diversi stati attivi__ in un dato momento, semplificando notevolmente la rappresentazione e l'analisi.
 
 ## Definizione informale
-Un vantaggio delle reti di Petri è che possono essere viste in maniera informale dal cliente, infatti è facile definire una rete di Petri in cui i nodi sono _posti_ e _transizioni_, collegati tra loro tramite degli archi.
-Possiamo quindi dire che questa struttura è un grafo bipartito, ovvero un grafo in cui i nodi sono messi in relazione __solo__ con nodi dell'altro tipo, quindi i posti possono essere collegati soltanto a transizioni e viceversa.
-Ai posti sono assegnati dei ___token___, ovvero degli elementi che vengono assegnati ai posti.
-Ogni posto può contenere da 0 a un numero potenzialmente infinito di token (successivamente si approfondirà questo punto per capire se ha senso o no assegnare infiniti gettoni a un posto), ed è proprio la disposizione di questi gettoni nella rete a determinarne il suo stato complessivo.
+
+Un vantaggio delle reti di Petri è che possono essere viste in maniera informale dal cliente.
+È infatti facile rappresentare una rete di Petri come un grafo cui nodi sono __posti__ e __transizioni__ e archi i collegamenti.
+Il grafo è bipartito, ovvero un grafo in cui i nodi sono messi in relazione __solo__ con nodi dell'altro tipo: i posti possono essere collegati soltano a transazioni e viceversa.
+
+Ad ogni posto è assegnato da 0 a un numero potenzialmente infinito di ___token___ (o __gettoni__) – sarà successivamente approfondito il senso dell'assegnamento di un numero infinito di gettoni a un posto.
+
+La **disposizione dei gettoni nei posti** in un dato momento determina il suo __stato complessivo__.
 
 {% responsive_image path: 'assets/14_rete-petri-informale.png' %}
 
-Essendo che i gettoni determinano lo stato di ogni parte della rete, allora sicuramente il loro assegnamento ai posti può cambiare, questo perchè lo stato della rete può evolvere.
-Ciò accade tramite la trasformazione effettuata dalla transizione; possiamo quindi dire che una transizione è _abilitata_ quando all'interno dei posti collegati in ingresso a essa esistono un certo numero di gettoni.
-Inoltre una transizione abilitata si dice che __scatta__ (fire) quando consuma i gettoni nei posti in ingresso e ne vengono generati altri nei posti collegati in uscita.
-È importante notare come i gettoni __non si spostano__ da un posto a un altro conseguentemente a uno scatto, ma vengono proprio __distrutti__ nei posti in ingresso alla transizione e __generati__ nei posti in uscita.
-Quest'ultima considerazione è importante per capire che i gettoni non sono sempre nello stesso numero.
+Per far evolvere lo stato della rete, l'__assegnamento dei gettoni deve poter variare__.
+La trasformazione dello stato è effettuata dallo scatto di una transizione:
+- una transizione si dice ___abilitata___ quando la somma dei gettoni dei posti collegati ingresso è maggiore di un certo numero;
+- una transizione ___scatta___ (_fire_) quando consuma i gettoni dei posti collegati in ingresso e ne genera altri nei posti collegati in uscita.
+È importante notare come i gettoni __non si spostano__ da un posto a un altro conseguentemente a uno scatto, ma vengono __distrutti__ nei posti in ingresso alla transizione e __generati__ nei posti in uscita.
+Quest'ultima considerazione è importante per capire che i gettoni non sono necessariamente sempre dello stesso numero in ingresso e in uscita.
 
-Tramite questa struttura è facile mostrare al cliente quando qualcosa cambia all'interno del sistema, quindi è molto utile perchè risulta essere più intuitivo rispetto a un linguaggio logico e descrittivo.
-Questo è il vantaggio dei __modelli operativi__ come questo, la cui pecca però è che oltre a descrivere che cosa fa il sistema da informazioni anche su come lo fa, quindi rischia di diventare una via di mezzo tra una specifica ed un oggetto di design.
-Il motivo per cui è possibile chiamarla specifica è che non viene effettivamente detto come il sistema deve svolgere il suo compito ma si deve comportare nello stesso modo descritto. <!-- Questa frase può essere scritta meglio -->
-Quindi la rete descritta è una macchina di riferimento da utilizzare come confronto per capire se il funzionamento del sistema finale si comporta come dovrebbe (si può quindi dire che è come se fosse un oracolo).
+Tramite questo __modello operativo__ è facile mostrare al cliente quando qualcosa cambia all'interno del sistema, perché risulta più intuitiva rispetto a un linguaggio logico e descrittivo.
+
+Lo **svantaggio** è che fornisce informazioni parziali su _come_ il sistema compie le azioni che dovrebbe eseguire, rischiando di essere una via di mezzo tra _specifica_ e _documento di design_.
+Si può comunque chiamare specifica perché viene definito totalmente e inequivocabilmente il comportamento del sistema.
+
+La rete descritta è quindi una **macchina di riferimento** da utilizzare come confronto per stabilire la validità del sistema sotto esame, come se fosse un _oracolo_.
 
 ## Definizione matematica
 
