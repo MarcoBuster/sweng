@@ -7,16 +7,24 @@ toc: true
 
 # [Reti di Petri](https://www2.informatik.uni-hamburg.de/TGI/PetriNets/index.php)
 
-In questa lezione verranno mostrate le reti di Petri come esempio di linguaggio formale; fin dall'inizio del corso è stato possibile apprendere come l'ingegneria del software si occupi di linguaggi e comunicazione.
-Infatti partendo dai processi, che sfruttano un linguaggio poco formale e con poca terminologia tecnica (ad esempio le user story), passando per la progettazione in cui è stato utilizzato un linguaggio più rigoroso, si arriva infine a un vero linguaggio formale utile a raccogliere delle specifiche.
-Per descrivere le reti di Petri esistono diversi modi, noi vedremo alcuni dialetti di cui uno utile a descrivere i sistemi real time (temporizzati), che avendo diverse criticità è fondamentale andare formalizzare i requisiti per ridurle al minimo.
-Formalizzare e utilizzare linguaggi complessi può essere costoso, infatti questa pratica viene utilizzata quando l'applicazione può avere delle conseguenze gravi in caso di fallimento (ad esempio un software per gestire un razzo spaziale se dovesse avere dei problemi potrebbe causare molti danni, economici e non solo);
-Quindi bisogna almeno garantire la safety prima di mettere in funzione il software.
+In questa lezione verranno mostrate le reti di Petri come esempio di **linguaggio formale**: fin dall'inizio del corso è stato possibile apprendere come l'ingegneria del software si occupi di linguaggi e comunicazione.
 
-Le reti di Petri sono in parte simili agli automi a stati finiti, ma nascono specificatamente per descrivere sistemi concorrenti.
-Cambiano però il concetto di stato e transizione, in quanto lo __stato__ non è più un'informazione atomica vista a livello di sistema ma è divisa in tante parti diverse, e la sua composizione avverrà tramite la visione generale di tutti questi stati parziali.
-Quindi sarà rappresentare entità distinte, avente ognuna un suo stato, ma allo stesso tempo avere un'evoluzione globale del sistema.
-Di conseguenza le __transazioni__ non operano sullo stato globale ma si limitano a variarne una parte, da ciò è possibile notare la differenza con gli automi a stati finiti in cui esisteva un unico stato attivo, e gli stati disponibili erano dati dal prodotto cartesiano di tutti i possibili valori delle diverse entità.
+Partendo infatti dai processi che sfruttano un linguaggio poco formale e con poca terminologia tecnica (ad esempio le _user story_) e passando per la progettazione in cui è stato utilizzato un linguaggio più rigoroso, si arriva infine a un vero linguaggio formale utile a **raccogliere delle specifiche**.
+
+Per descrivere le reti di Petri esistono diversi modi: oltre allo standard, durante le lezioni vedremo alcuni dialetti come le **reti temporizzate**.
+Quest'ultimo è utile a descrivere i sistemi real time che necessitano requisiti formali per ridurne le criticità.
+
+Utilizzare linguaggi complessi e formali per descrivere le specifiche può essere costoso: applicazioni comuni si trovano nei **contesti critici** dove i fallimenti provocano conseguenze molto gravi. \\
+La **sicurezza deve essere garantita** prima di mettere in funzione il software.
+Ad esempio, malfunzionamenti in un software per gestire un razzo spaziale causerebbero enormi danni.
+
+Le reti di Petri sono in parte simili agli __automi a stati finiti__ (FSM), ma nascono specificatamente per descrivere sistemi concorrenti.
+Differiscono i concetti di stato e transizione:
+- lo __stato__ non è più un'informazione atomica osservata a livello di sistema ma è frammentata in __parti diverse__, la cui composizione avviene tramite la loro visione generale;
+- di conseguenza le __transazioni__ non operano sullo stato globale ma si limitano a variarne una parte.
+
+Nelle FSM esiste un unico stato attivo e gli stati disponibili sono dati dal prodotto cartesiano di tutti i possibili valori delle diverse entità.
+Nelle reti di Petri ci sono __diversi stati attivi__ in un dato momento, semplificando notevolmente la rappresentazione e l'analisi.
 
 ## Definizione informale
 Un vantaggio delle reti di Petri è che possono essere viste in maniera informale dal cliente, infatti è facile definire una rete di Petri in cui i nodi sono _posti_ e _transizioni_, collegati tra loro tramite degli archi.
