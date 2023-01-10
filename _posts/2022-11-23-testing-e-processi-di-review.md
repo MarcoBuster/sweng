@@ -7,157 +7,166 @@ toc: true
 
 # Correttezza di un software
 
-La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da _problemi di comunicazione_. Ci posso essere incomprensioni quando le informazioni passano da una figura all'altra, come quando ci si interfaccia tra cliente, analista e programmatore.
-Per esempio il programmatore dovrà adattare il proprio linguaggio per farsi comprendere dal cliente,
-e man mano che si addentra nello sviluppo del progetto sarà necessario prestare maggiore attenzione alla formalità e alla chiarezza della comunicazione.
-Più si spiegano le cose in maniera chiara, più è facile che non si incorra in problemi successivi.
-Bisogna quindi fare più attenzione alla terminologia che viene usata.
+La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da _problemi di comunicazione_. 
+Ci possono essere incomprensioni quando le informazioni passano da una figura all'altra, come quando ci si interfaccia tra cliente, analista e programmatore.
+Il programmatore dovrà adattare il proprio linguaggio per farsi comprendere dal cliente prestando maggiore attenzione alla formalità e alla chiarezza della comunicazione con il passare del tempo.
+Più i concetti sono spiegati chiaramente, più è difficile incorrere in problemi successivi: è quindi necessario fare attenzione alla __terminologia__ utilizzata.
 
-Quando un programma si definisce corretto?
+Quando un programma si definisce ___corretto___?
 
-Consideriamo un generico programma $$P$$ come una funzione da un insieme di dati $$D$$ (dominio) a un insieme di dati $$R$$ (codominio):
+Considerando un generico programma $$P$$ come una funzione da un insieme di dati $$D$$ (dominio) a un insieme di dati $$R$$ (codominio) allora
+- $$P(d)$$ indica l'__esecuzione__ di $$P$$ su un dato in ingresso $$d \in D$$,
+- il risultato $$P(d)$$ è __corretto__ se soddisfa le specifiche, altrimenti è scorretto,
+- $$\operatorname{ok}(P, \, d)$$ indica la __correttezza__ di $$P$$ per il dato $$d$$
 
-* $$P(d)$$ indica l'esecuzione di $$P$$ su un dato in ingresso $$d \in D$$
-
-* Il risultato $$P(d)$$ è corretto se soddisfa le specifiche, altrimenti è scorretto
-
-* $$\operatorname{ok}(P, \, d)$$ indicherà la correttezza di $$P$$ per il dato $$d$$
-
-Allora:
+quindi
 
 $$
-P \text{ è } \textit{corretto} \Leftrightarrow \forall d \in D \: \operatorname{ok}(P, \, d)
+\boxed{P \text{ è } \textit{corretto} \Longleftrightarrow \forall d \in D \: | \operatorname{ok}(P, \, d)}.
 $$
 
-Cioè, possiamo dire che _un programma è corretto quando per ogni dato del dominio vale $$\operatorname{ok}(P, \, d)$$_,
-_La correttezza del programma sarà indicata quindi con $${ok}(P, \, D)$$_.
+In conclusione, _un programma **è corretto** quando **per ogni dato** del dominio vale $$\operatorname{ok}(P, \, d)$$_.
 
-### Test
+La correttezza del programma è indicata con $$\operatorname{ok}(P, \, D) = P \text{ è } \textit{corretto}$$.
 
-_Un **test** è un sottoinsieme del dominio dei dati_ e _un singolo **caso di test** è un elemento di esso_.
-Un test sono più stimolazioni, un caso di test è una singola stimolazione.
 
-Per esempio:
+## Definizioni
 
-* Un test $$T$$ per un programma $$P$$ è un sottoinsieme del dominio $$D$$
+_Un **test** è un sottoinsieme del dominio dei dati_ e _un singolo **caso di test** è un elemento di esso_. \\
+Un test sono quindi __più stimolazioni__, mentre un caso di test è una __singola stimolazione__.
 
-* un elemento $$t$$ di un test $$T$$ è detto _caso di test_
+Matematicamente:
+* un test $$T$$ per un programma $$P$$ è un sottoinsieme del suo dominio $$D$$;
+* un elemento $$t$$ di un test $$T$$ è detto _caso di test_;
+* l'esecuzione di un test consiste nell'esecuzione del programma $$\forall t \in T \subseteq D$$.
 
-* l'esecuzione di un test consiste nell'esecuzione del programma $$\forall t \in T$$
-
-Se ci poniamo dal punto di vista del programma, esso passa o supera un test:
-
-$$
-\operatorname{ok}(P, \, T) \Leftrightarrow \forall t \in T | \operatorname{ok}(P, \, t)
-$$
-
-Quindi, _un programma è corretto per un test quando per ogni caso di test è corretto_.
-
-Dal punto di vista del test invece, _un test $$T$$ ha successo se rileva uno o più malfunzionamenti presenti nel programma $$P$$_:
+Un programma $$P$$ supera (o _passa_) un test $$T$$ se:
 
 $$
-\operatorname{successo}(T, \, P) \Leftrightarrow \exists t \in T | \neg\operatorname{ok}(P,\,t) 
+\operatorname{ok}(P, \, T) \Longleftrightarrow \forall t \in T \: |  \operatorname{ok}(P, \, t).
+$$
+
+Quindi, _un programma è **corretto per un test** quando **per ogni caso di test** è **corretto**_.
+
+_Un test $$\, T$$ ha **successo** se rileva uno o più malfunzionamenti presenti nel programma $$P$$_:
+
+$$
+\operatorname{successo}(T, \, P) \Longleftrightarrow \exists t \in T \: | \: \lnot \operatorname{ok}(P, \, t) .
 $$
 
 ### Test ideale
 
-Nel caso in cui il test non rilevi alcun malfunzionamento, non vuol dire che il mio programma sia corretto,
-il test è un'attività ottimistica e non garantisce la correttezza del programma.
+Se un test non rileva alcun malfunzionamento __non significa che il programma sia corretto__: il test è un'attività ottimistica e non ga
+Nel caso in cui il test non rilevi alcun malfunzionamento, non vuol dire che il mio programma sia corretto: come visto nella lezione precedente, il test è un'attività ottimistica.
 
-_Un test $$T$$ è ideale_ per $$P$$ se e solo se $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$ ovvero _se il superamento del test implica la correttezza del programma_.
+_Un test $$T$$ è **ideale** per $$P$$ se e solo se_
 
-_In generale, è **impossibile trovare un test ideale**._
+$$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$
+
+_ovvero se il superamento del test **implica la correttezza del programma**_.
+
+In generale, è **_impossibile_ trovare un test ideale**.
 
 > __Tesi di Dijkstra__:
 >
 > _Il test di un programma può rilevare la presenza di malfunzionamenti ma non dimostrarne l'assenza._
 >
->_Non esiste quindi un algoritmo che dato un programma arbitrario $$P$$ generi un test ideale finito (il caso $$T = D$$ non va considerato)._
+> _Non esiste quindi un algoritmo che dato un programma arbitrario $$P$$ generi un test ideale finito \\
+> (il caso $$T = D$$ non va considerato)._
 
 Perché è impossibile trovare un test ideale esaustivo? 
 Vediamo il seguente esempio:
 ```java
-class Trivial {
-    static int sum(int a, int b) {
-        return a + b;
-    }
+static int sum(int a, int b) {
+    return a + b;
 }
 ```
 
-
-
 In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $$2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
-Considerando un tempo di 1 nanosecondo per ogni test, ci dovremmo mettere più di 600 anni.
+Considerando un tempo di 1 nanosecondo per ogni caso di test, il tempo totale è più di 600 anni.
 
 _Il **test esaustivo** è quindi **impraticabile**._
 
-## Criterio di selezione
+## Criteri di selezione
 
-Come faccio a scegliere un _sottoinsieme del dominio_ intelligente cercando di approssimare il test ideale? Quali caratteristiche ci interessa che abbia il criterio che usiamo per selezionare questo sottoinsieme?
+Come è possibile scegliere un _sottoinsieme del dominio_ approssimando il _test ideale_? \\
+Quali caratteristiche dovrebbe avere il __criterio__ scelto per selezionare tale sottoinsieme?
 
-### Affidabilità
-_Un criterio di selezione si dice **affidabile**_ _se presi due test $$T_1$$ e $$T_2$$ in base al criterio $$C$$ allora o entrambi hanno successo o nessuno dei due ha successo_.
+### Proprietà
 
-$$
-\operatorname{affidabile}(C, \, P) \Leftrightarrow [\forall T_1 \in C, \, \forall T_2 \in C \: \operatorname{successo}(T_1, \, P) \Leftrightarrow \operatorname{successo}(T_2, P)]
-$$
-
-
-### Validità
-_Un criterio di selezione si dice **valido**_ _se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo e quindi rileva uno o più malfunzionamenti per il programma $$P$$_
+#### Affidabilità
+_Un criterio di selezione si dice **affidabile** se presi due test $$T_1$$ e $$T_2$$ in base a un criterio $$C$$ allora \\
+o entrambi hanno successo o nessuno dei due ha successo_.
 
 $$
-\operatorname{valido}(C, \, P) \Leftrightarrow (\lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C \ | \ successo(T,\,P))
+\boxed{
+    \operatorname{affidabile}(C, \, P) \Longleftrightarrow \left [
+        \forall T_1 \in C, \, \forall T_2 \in C \: | \operatorname{successo}(T_1, \, P) \Leftrightarrow \operatorname{successo}(T_2, \, P) 
+    \right ]
+}
 $$
 
-__Esempio__: dato il codice
+
+#### Validità
+_Un criterio di selezione si dice **valido**_ _se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo e quindi rileva uno o più malfunzionamenti per il programma $$P$$:_
+
+$$
+\boxed{
+    \operatorname{valido}(C, \, P) \Longleftrightarrow \left [ 
+        \lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C \: | \operatorname{successo}(T,\,P) 
+    \right ]
+}
+$$
+
+#### Esempio
+
+Si consideri il seguente codice.
+
 ```java
-public class Esempio {
-    
-    static int raddoppia(int par) {
-            int risultato;
-            risultato = (par * par);
-            return risultato;
-    }
-    
+static int raddoppia(int par) {
+    int risultato;
+    risultato = (par * par);
+    return risultato;
 }
 ```
-Un criterio che seleziona:
+Un criterio che seleziona
 
-* _"sottoinsiemi di $$\{0, \, 2\}$$"_ è **affidabile**, perché il programma funziona sia con 0 sia con 2, ma **non valido**, perché sappiamo che il programma non è corretto e non viene trovato nessun malfunzionamento.
+* _"i sottoinsiemi di $$\{0, \, 2\}$$”_ è **affidabile**, perché il programma funziona sia con $$0$$ sia con $$2$$, ma **non valido**, perché sappiamo che il programma non è corretto e non viene trovato nessun malfunzionamento;
+* _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$”_ è **non affidabile**, perché i risultati dei casi di test non sono tutti coerenti, ma **valido** perché rileva i malfunzionamenti.
+* _"i sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$”_ è **affidabile**, perché i risultati dei casi di test sono tutti coerenti, e **valido** perché rileva i malfunzionamenti.
 
-* _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$"_ è **non affidabile**, perché i risultati dei casi di test non sono tutti coerenti, ma **valido** perché rileva i malfunzionamenti.
+#### Conclusione
 
-* _"sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$"_ è **affidabile**, perché i risultati dei casi di test sono tutti coerenti, e **valido** perché rileva i malfunzionamenti.
+L'obiettivo è scegliere un _criterio valido e affidabile_ ma ciò non è possibile, in quanto **non si conoscono i malfunzionamenti a priori** (in tal caso il test non avrebbe senso di esistere). 
 
-Quello che vorremmo è scegliere un criterio affidabile e valido, in astratto, senza conoscerne i malfunzionamenti. Se un criterio viene definito conoscendo già i malfunzionamenti non ha senso.
-Ma se il test non ha successo, ci è utile avere un criterio valido e affidabile?
-- Il fatto che il test non abbia avuto successo implica che non ci siano stati errori
-- Il fatto che il criterio sia affidabile implica che tutti gli altri test che possiamo trovare per quel criterio non trovo errori
-- Il fatto che il criterio sia valido, se ci fosse stato un errore almeno uno dei test lo avrebbe dovuto trovare
+Ma se il test __non ha successo__, è utile avere un _criterio valido e affidabile_?
+Sapendo che:
+- non avendo successo allora non sono stati trovati errori,
+- essendo il criterio affidabile allora tutti gli altri test trovati per quel criterio non troveranno errori,
+- essendo il criterio valido allora se ci fosse stato un errore almeno uno dei test lo avrebbe trovato
 
-Quindi siamo __sicuri__ che il programma è corretto:
+allora un programma è __corretto__ anche quando:
+
 $$
-\operatorname{affidabile}(C,P) \wedge \operatorname{valido}(C,P) \wedge T \in C \wedge \neg\operatorname{successo}(T,P)
-$$
-$$
-\Longrightarrow
-$$
-$$
-\operatorname{ok}(P,D)
+\boxed{
+    \operatorname{affidabile}(C, \, P) \land \operatorname{valido}(C, \, P) \land T \in C \land \lnot\operatorname{successo}(T, \, P)
+    \Longrightarrow
+    \operatorname{ok}(P, \, D)
+}
 $$
 
-Ma trovare un criterio che sia _contemporaneamente_ affidabile e valido significherebbe trovare un criterio che selezioni _test ideali_ che sappiamo non esistere per la _tesi di Dijkstra_
+Trovare un criterio che sia __contemporaneamente__ affidabile e valido significherebbe trovare un criterio che selezioni __test ideali__ che sappiamo non esistere per la _tesi di Dijkstra_.
 
 ### Utilità di un test
 
-Quali sono le caratteristiche che rendono utile un caso di test, ovvero che rendono "possibile" o "probabile" che il caso di test mi trovi l'errore?
+Quali sono le __caratteristiche__ che __rendono utile__ un caso di test, ovvero che rendono "possibile" o "probabile" che il caso di test trovi l'errore?
+Di seguito sono elencati alcuni esempi:
+- __eseguire il comando che contiene l'anomalia__ – non è altrimenti possibile che il malfunzionamento si manifesti;
+- l'esecuzione del comando che contiene l'anomalia deve portare il sistema in uno \\
+__stato inconsistente__;
+- lo stato inconsistente dell'output deve propagarsi fino all'uscita del codice in esame in modo da __produrre un output diverso da quello atteso__;
 
-- Eseguire il comando che contiene l'anomalia (altrimenti non è possibile che il malfunzionamento si manifesti)
-- L'esecuzione del comando che contiene l'anomalia deve portare il sistema in uno stato inconsistente
-- Lo stato inconsistente dell'output deve propagarsi fino all'uscita del codice in esame in modo da produrre un output diverso da quello atteso
-
-Possiamo utilizzare un metro di misura legato alle caratteristiche del codice: _a ogni criterio è possibile associare una **metrica**_ che misuri la _copertura del codice rispetto a uno specifico test_ (ovvero la percentuale di codice che vado ad "utilizzare" in tutto il test) e che _ci permetta di decidere quando smettere di testare_, decidere _quali altri casi di test è opportuno aggiungere_ o _confrontare la bontà di test diversi_.
+È possibile utilizzare un metro di misura legato alle caratteristiche del codice: a ogni criterio è possibile associare una **metrica** che misuri la **copertura del codice** rispetto a uno specifico test (ovvero la percentuale di codice "utilizzata" in tutto il test) e che ci permetta di decidere quando smettere di testare, decidere quali altri casi di test è opportuno aggiungere o confrontare la bontà di test diversi.
 
 ### Criteri noti
 
