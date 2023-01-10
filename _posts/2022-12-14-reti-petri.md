@@ -11,59 +11,56 @@ In questa lezione verranno mostrate le reti di Petri come esempio di **linguaggi
 
 Partendo infatti dai processi che sfruttano un linguaggio poco formale e con poca terminologia tecnica (ad esempio le _user story_) e passando per la progettazione in cui è stato utilizzato un linguaggio più rigoroso, si arriva infine a un vero linguaggio formale utile a **raccogliere delle specifiche**.
 
-Per descrivere le reti di Petri esistono diversi modi: oltre allo standard, durante le lezioni vedremo alcuni dialetti come le **reti temporizzate**.
-Quest'ultimo è utile a descrivere i sistemi real time che necessitano requisiti formali per ridurne le criticità.
+Esiste un modello standard di rete di Petri e delle possibili estensioni di quest'ultimo: ad esempio nelle prossime lezioni saranno illustrati alcuni possibili dialetti come le **reti temporizzate**, utili a descrivere sistemi real time che necessitano di requisiti formali per ridurne le criticità.
 
-Utilizzare linguaggi complessi e formali per descrivere le specifiche può essere costoso: applicazioni comuni si trovano nei **contesti critici** dove i fallimenti provocano conseguenze molto gravi. \\
-La **sicurezza deve essere garantita** prima di mettere in funzione il software.
-Ad esempio, malfunzionamenti in un software per gestire un razzo spaziale causerebbero enormi danni.
+In generale utilizzare linguaggi complessi e formali per descrivere le specifiche può essere costoso: vengono infatti utilizzati perlopiù in **contesti critici** dove i fallimenti provocano conseguenze molto gravi e in cui la **sicurezza deve essere garantita** prima di mettere in funzione il software.
 
 Le reti di Petri sono in parte simili agli __automi a stati finiti__ (FSM), ma nascono specificatamente per descrivere sistemi concorrenti.
-Differiscono i concetti di stato e transizione:
-- lo __stato__ non è più un'informazione atomica osservata a livello di sistema ma è frammentata in __parti diverse__, la cui composizione avviene tramite la loro visione generale;
-- di conseguenza le __transazioni__ non operano sullo stato globale ma si limitano a variarne una parte.
+Tra gli altri aspetti, i concetti di stato e transizione per le reti di Petri differiscono rispetto a quelli già conosciuti per le FSM:
+- lo __stato__ nelle reti di Petri non è più un'informazione atomica osservata a livello di sistema ma è frammentata in __parti diverse__ la cui composizione avviene tramite la loro visione generale
+- di conseguenza le __transizioni__ non operano sullo stato globale ma si limitano a variarne una parte.
 
 Nelle FSM esiste un unico stato attivo e gli stati disponibili sono dati dal prodotto cartesiano di tutti i possibili valori delle diverse entità.
-Nelle reti di Petri ci sono __diversi stati attivi__ in un dato momento, semplificando notevolmente la rappresentazione e l'analisi.
+Per contro nelle reti di Petri ci sono __diversi stati attivi__ in un dato momento, cosa che permette di semplificarne notevolmente la rappresentazione e l'analisi.
 
 ## Definizione informale
 
 Un vantaggio delle reti di Petri è che possono essere viste in maniera informale dal cliente.
-È infatti facile rappresentare una rete di Petri come un grafo cui nodi sono __posti__ e __transizioni__ e archi i collegamenti.
-Il grafo è bipartito, ovvero un grafo in cui i nodi sono messi in relazione __solo__ con nodi dell'altro tipo: i posti possono essere collegati soltano a transazioni e viceversa.
+È infatti facile rappresentare una rete di Petri come un grafo in cui ogni nodo rappresenta o un __posto__ o una __transizioni__ e gli archi i collegamenti presenti tra le transizioni e i posti.
+Il grafo è __bipartito__, ovvero un grafo in cui nodi di un tipo sono messi in relazione __solo__ con nodi dell'altro tipo:  in questo caso _i posti possono essere collegati soltano a transizioni e viceversa_.
 
-Ad ogni posto è assegnato da 0 a un numero potenzialmente infinito di ___token___ (o __gettoni__) – sarà successivamente approfondito il senso dell'assegnamento di un numero infinito di gettoni a un posto.
+Ad ogni posto è assegnato un certo numero di ___token___ (o __gettoni__) – sarà successivamente approfondito il senso dell'assegnamento di un numero infinito di gettoni a un posto.
 
-La **disposizione dei gettoni nei posti** in un dato momento determina il suo __stato complessivo__.
+La **disposizione dei gettoni nei posti** in un dato momento all'interno della rete di Petri ne determina il suo __stato complessivo__.
 
 {% responsive_image path: 'assets/14_rete-petri-informale.png' %}
 
 Per far evolvere lo stato della rete, l'__assegnamento dei gettoni deve poter variare__.
 La trasformazione dello stato è effettuata dallo scatto di una transizione:
-- una transizione si dice ___abilitata___ quando la somma dei gettoni dei posti collegati ingresso è maggiore di un certo numero;
-- una transizione ___scatta___ (_fire_) quando consuma i gettoni dei posti collegati in ingresso e ne genera altri nei posti collegati in uscita.
+- una transizione si dice ___abilitata___ (_enabled_) quando la somma dei gettoni dei posti collegati ingresso è maggiore di un certo numero;
+- una transizione ___scatta___ (_fire_) quando, dopo essere stata abilitata, consuma i gettoni dei posti collegati in ingresso e ne genera altri all'interno dei posti collegati in uscita.
 È importante notare come i gettoni __non si spostano__ da un posto a un altro conseguentemente a uno scatto, ma vengono __distrutti__ nei posti in ingresso alla transizione e __generati__ nei posti in uscita.
-Quest'ultima considerazione è importante per capire che i gettoni non sono necessariamente sempre dello stesso numero in ingresso e in uscita.
+Quest'ultima considerazione è importante per capire che i gettoni _non sono necessariamente sempre dello stesso numero in ingresso e in uscita_.
 
-Tramite questo __modello operativo__ è facile mostrare al cliente quando qualcosa cambia all'interno del sistema, perché risulta più intuitiva rispetto a un linguaggio logico e descrittivo.
+Tramite questo __modello operativo__ è facile mostrare al cliente quando qualcosa cambia all'interno del sistema, perché risulta più intuitivo rispetto a un linguaggio logico e descrittivo.
 
 Lo **svantaggio** è che fornisce informazioni parziali su _come_ il sistema compie le azioni che dovrebbe eseguire, rischiando di essere una via di mezzo tra _specifica_ e _documento di design_.
-Si può comunque chiamare specifica perché viene definito totalmente e inequivocabilmente il comportamento del sistema.
+Si può comunque chiamare specifica perché _viene definito totalmente e inequivocabilmente il comportamento del sistema_.
 
 La rete descritta è quindi una **macchina di riferimento** da utilizzare come confronto per stabilire la validità del sistema sotto esame, come se fosse un _oracolo_.
 
 ## Definizione matematica
 
-Di reti di Petri ne esistono numerosi dialetti, in questo caso vediamo le __PT net__ (reti con posti e transizioni) che sono le più classiche, successivamente verranno descritte delle estensioni e riduzioni di queste reti.
+Come già detto, di reti di Petri ne esistono numerosi dialetti, in questo caso vediamo le __PT net__ (reti con posti e transizioni) che sono le più classiche, successivamente verranno descritte delle estensioni e riduzioni di queste reti.
 
-Una rete di Petri classicamente è una 5-tupla $$[P, \, T; \; F, \, W, \, M_0]$$:
+Una rete di Petri classicamente è una 5-tupla $$[P, \, T; \; F, \, W, \, M_0]$$ in cui:
 - $$P$$ è l'insieme degli identificatori dei posti;
 - $$T$$ è l'insieme degli identificatori delle transizioni;
 - $$F$$ è la relazione di flusso;
 - $$W$$ è una funzione che associa un peso ad ogni flusso; 
 - $$M_0$$ è la marcatura iniziale, ovvero l'assegnamento iniziale dei _gettoni_.
 
-Da notare che P e T a livello matematico sono degli insiemi di identificatori che non si sovrappongono (ovvero sono tutti entità differenti) a cui poi verrà assegnato un significato, quindi precedentemente sono stati associati a posti e transizioni, ma di fatto sono tutti identificatori.
+Da notare che P e T a livello matematico sono degli insiemi di __identificatori__ che non si sovrappongono (dato che si tratta di entità differenti) a cui poi verrà assegnato un significato, quindi precedentemente sono stati associati a posti e transizioni, ma di fatto sono tutti __identificatori__.
 
 Data la 5-tupla appena descritta esistono le seguenti proprietà:
 - $$P \cap T = \varnothing$$; 
@@ -77,10 +74,12 @@ Utilizziamo alcune _scorciatoie_:
 - $$\operatorname{Post}(a) = \{ d \in (P \cup T) \ \text{t.c.} \ \langle a,\, d \rangle \in F \}$$.
 
 esplicitando queste ultime due scritture:
-- Il preset di un nodo _a_ è un insieme di quegli elementi _d_ appartenenti all'unione degli insiemi degli identificatori di posti e transizioni tali che esiste una relazione di flusso tra _d_ e _a_ appartenente a F, in sostanza questo insieme rappresenta l'insieme degli identificatori precedenti di _a_ <!-- al posto di precedenti si può mettere antecedenti -->
-- Il postset di un nodo _a_ è un insieme di quegli elementi _d_ appartenenti all'unione degli insiemi degli identificatori di posti e transizioni tali che esiste una relazione di flusso tra _a_ e _d_ appartenente a F, in sostanza questo insieme rappresenta l'insieme degli identificatori successivi di _a_ <!-- al posto di precedenti si può mettere conseguenti, anche se forse è un po brutto -->
+- Il preset di un nodo _a_ è un insieme di quegli elementi _d_ appartenenti all'unione degli insiemi degli identificatori di posti e transizioni tali che esiste una relazione di flusso tra _d_ e _a_ appartenente a F, in sostanza questo insieme rappresenta l'insieme degli identificatori antecedenti ad _a_
+- Il postset di un nodo _a_ è un insieme di quegli elementi _d_ appartenenti all'unione degli insiemi degli identificatori di posti e transizioni tali che esiste una relazione di flusso tra _a_ e _d_ appartenente a F, in sostanza questo insieme rappresenta l'insieme degli identificatori successivi ad _a_
 
-Tutto questo rappresente la parte statica delle reti di Petri, ovvero prendendo la situazione in un preciso istante, senza considerare i cambiamenti che potrebbero avvenire.
+Tutto questo rappresenta la parte statica delle reti di Petri, ovvero quando vengono osservate in un preciso istante di tempo, senza considerare i cambiamenti che potrebbero avvenire al suo interno.
+
+<!--MY: Fino a qui-->
 
 ### Comportamento dinamico
 
@@ -196,7 +195,7 @@ Di seguito verranno elencati dei tipi di relazioni che possono coinvolgere i div
 
 ### Sequenza
 
-Una transazione $$t_1$$ è __in sequenza__ con una transizione $$t_2$$ in una marcatura $$M$$ se e solo se
+Una transizione $$t_1$$ è __in sequenza__ con una transizione $$t_2$$ in una marcatura $$M$$ se e solo se
 
 $$M \ [ \ t_1 > \land \ M \ [ \ t_2 > \land \ M \ [ \ t_1 t_2 >$$
 
@@ -212,7 +211,7 @@ Condizione sufficiente perchè osservando l'esempio sottostante è facile capire
 
 ### Conflitto
 
-Due transazioni $$(t_1, \, t_2)$$ sono in:
+Due transizioni $$(t_1, \, t_2)$$ sono in:
 - __conflitto strutturale__ se e solo se $$\operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \neq \varnothing $$
 - __conflitto effettivo__ in una marcatura $$M$$ se e solo se:
     - $$M \ [ \ t_1 > \cap \ M \ [ \ t_2 > $$;
@@ -251,7 +250,7 @@ Di seguito viene mostrato un esempio di conflitto effettivo e strutturale.
 
 ### Concorrenza
 
-La relazione di concorreza è possibile considerarla la relazione opposta alla relazione di conflitto, quindi due transazioni $$(t_1, \, t_2)$$ sono in:
+La relazione di concorreza è possibile considerarla la relazione opposta alla relazione di conflitto, quindi due transizioni $$(t_1, \, t_2)$$ sono in:
 - __concorrenza strutturale__ se e solo se $$\operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) = \varnothing$$
 - __concorrenza effettiva__ in una marcatura $$M$$ se e solo se:
     -  $$M \ [ \ t_1 > \cap \ M \ [ \ t_2 > $$;
@@ -306,7 +305,7 @@ Riuscire a passare dalle reti di Petri agli automi ci permette di modellare un p
 
 ## Vitalità di una transizione
 
-Una transazione $$t$$ in una marcatura $$M$$ è detta _viva_ con un certo __grado__ se:
+Una transizione $$t$$ in una marcatura $$M$$ è detta _viva_ con un certo __grado__ se:
 - __grado 0__ non è abilitata in nessuna marcatura appartanente all'insieme di raggiungibilità (è __morta__), quindi qualunque evoluzione avvenga nella rete, la transizione non portà mai scattare (non è sempre un aspetto negativo);
 - __grado 1__ esiste almeno una marcatura raggiungibile a partire da $$M$$ in cui la transizione è abilitata;
 - __grado 2__ per ogni numero $$n$$ naturale escluso lo zero esiste almeno una sequenza di scatti ammissibile a partire da $$M$$ in cui la transizione scatta $$n$$ volte, ovvero è possibile far scattare la transizione un numero grande a piacere di volte; <!-- differenza tra 2 e 3 da chiarire meglio, si capisce meglio dal'esempio sotto l'immagine -->
@@ -328,7 +327,7 @@ La transizione $$t_1$$ è fi grado 1 perchè esiste almeno una marcatura raggiun
 Osservando la transizione $$t_3$$ è possibile notare che essa scatti infinite volte (e non $$n$$ grande a piacere, quindi non si tratta di una transizione di grado 2), però nel caso avvenga lo scatto di $$t_1$$ la transizione $$t_3$$ non potrà mai più essere abilitata (quindi esiste una marcatura in cui non sarà possibile il suo scatto), e questo ci garantisce che non si tratta di una transizione di grado 4, ma bensi di grado 3.
 Il caso più particolare è quello della transizione $$t_2$$, è noto che $$t_3$$ può scattare infinite volte, e quindi in $$p_2$$ possono esserci infiniti gettoni, inoltre conseguentemente allo scatto di $$t_1$$ il posto $$p_1$$ conterrà un gettone, ma comunque la transizione $$t_2$$ non può scattare infinite volte.
 Quseto perchè è vero che all'infinito posso generare gettoni in $$p_2$$, ma dal momento che scatta $$t_1$$ si perde questa possibilità, permettendo a $$t_2$$ di scattare tante volte quanti sono i gettoni in $$p_2$$.
-Infine $$t_4$$ è una transazione viva (di grado 4), perchè qualunque sia la marcatura raggiungibile dalla marcatura corrente è possibile prendere il controllo e sicuramente esiste una sequenza di scatti tale per cui $$t_4$$ diventi abilitata.
+Infine $$t_4$$ è una transizione viva (di grado 4), perchè qualunque sia la marcatura raggiungibile dalla marcatura corrente è possibile prendere il controllo e sicuramente esiste una sequenza di scatti tale per cui $$t_4$$ diventi abilitata.
 
 ## Capacità dei posti 
 
