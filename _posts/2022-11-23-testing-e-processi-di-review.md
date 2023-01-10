@@ -305,6 +305,14 @@ selezione (`if`), testando due iterazioni incomincio a testare le caratteristich
 
 A differenza del criterio di copertura dei cammini, questo lo consideriamo **applicabile**.
 
+<!-- 
+    * * * * * * * * * * * * * * * * * * * * * * * * *
+    -------------------------------------------------
+    SOPRA QUESTO DIVISORE REVIEW - SOTTO INTEGRAZIONE
+    -------------------------------------------------
+    * * * * * * * * * * * * * * * * * * * * * * * * *
+-->
+
 ## Analisi statica
 
 _Si basa sull'esame di un insieme finito di elementi (le istruzioni del programma) contrariamente all'analisi dinamica (insieme degli stati delle esecuzioni)._
