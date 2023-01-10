@@ -5,7 +5,7 @@ date: 2022-11-23 14:40:00 +0200
 toc: true
 ---
 
-# Correttezza di un software
+# Testing
 
 La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da _problemi di comunicazione_. 
 Ci possono essere incomprensioni quando le informazioni passano da una figura all'altra, come quando ci si interfaccia tra cliente, analista e programmatore.
@@ -172,147 +172,253 @@ __stato inconsistente__;
 
 #### Criterio di copertura dei comandi
 
-_Un test $$T$$ soddisfa il criterio di __copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$._
+_Un test $$T$$ soddisfa il __criterio di copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$._
 
-Per esempio:
+Consideriamo il seguente programma in pseudocodice.
+
+<table>
+<thead>
+<tr>
+    <th colspan="2">Esempio 1: copertura dei comandi</th>
+</tr>
+<tr>
+    <td style="width: 50%" align="center">Pseudocodice</td>
+    <td style="width: 50%" align="center">Diagramma di flusso di esecuzione</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="1">
 ```c
-void main(){
-    float x,y;
-    read(x);
-    read(y);
-    if (x!=0)
-        x = x+10;
-    y = y/x;
-    write(x);
-    write(y);
-}
+01  void main(){
+02      float x, y;
+03      read(x);
+04      read(y);
+05      if (x != 0)
+06          x = x + 10;
+07      y = y / x;
+08      write(x);
+09      write(y);
+10  }
 ```
+</td>
+<td markdown="1">
+{% responsive_image path: 'assets/13_criteri-copertura-esempio-1.png' %}
+</td>
+</tr>
+</tbody>
+</table>
 
-Posso ricostruire un diagramma di flusso di esecuzione del codice trasformando ogni comando in un nodo del diagramma:
+È possibile ricostruire un __diagramma di flusso di esecuzione__ del codice trasformando ogni comando in un nodo del diagramma: _coprire tutti i comandi_ significa quindi visitare tutti i nodi raggiungibili.
 
-{% responsive_image path: 'assets/13_flowChart.png' %}
+Applicare il _criterio di copertura dei comandi_ significa quindi trovare un insieme di casi di test in cui \\
+_per ogni nodo esiste un caso di test che passa per quel nodo_.
 
-Dire che voglio _coprire tutti i comandi_, avendo trasformato ogni comando in un nodo, significa voler passare per tutti i nodi raggiungibili.
+Il caso di test $$ \langle 3, \, 7 \rangle$$ risulterebbe quindi sufficiente, dato che soddisfa il criterio di copertura dei comandi.
 
-Applicare il _criterio di copertura dei comandi_ significa quindi trovare un insieme dei casi di test per il cui per ogni nodo esiste un caso di test che passa per quel nodo.
-
-Il caso di test $$<3,7>$$ risulterebbe quindi sufficiente, dato che soddisfa il criterio di copertura dei comandi al 100%
-
-Questo però _non mi garantisce che il programma si corretto,_ perché ci sono dei malfunzionamenti che non sono stati trovati, ad esempio il caso di testing $$<0,7>$$ che provoca una divisione per 0.
-
+Soddisfare tale criterio **non garantisce** la correttezza del programma. \\
+Nell'esempio considerato, il caso di test $$\langle 0, \, 7 \rangle$$ provoca una divisione per zero.
 
 #### Criterio di copertura delle decisioni
 
-_Un test T soddisfa il criterio di copertura delle decisioni se e solo se ogni decisione effettiva viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
+_Un test T soddisfa il **criterio di copertura delle decisioni** se e solo se ogni decisione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test $$t \in T$$_.
 
-La metrica è la percentuale delle decisioni totali possibili presenti nel codice che sono state rese sia vere che false nel test.
+La metrica è la percentuale delle **decisioni totali possibili** presenti nel codice che sono state rese \\
+**sia vere che false** nel test.
 
-Si noti come il criterio di copertura delle decisioni implichi il criterio di copertura dei comandi: andando a estrarre il codice in un diagramma di flusso, io copro tutte le decisioni se e solo se attraverso ogni arco presente nel flusso. Considerando un grafo connesso per il diagramma di flusso, se io attraverso tutti gli archi allora ho attraversato tutti i possibili nodi. Non è invece vero l'inverso.
+Il criterio di copertura delle decisioni **implica il criterio di copertura dei comandi**.
+Estraendo il codice in un diagramma di flusso, è possibile coprire tutte le decisioni se e solo se ogni arco (_e quindi ogni nodo_) viene attraversato.
+Non è invece vero l'inverso.
 
-Per esempio:
+<table>
+<thead>
+<tr>
+    <th colspan="2">Esempio 2: copertura delle decisioni</th>
+</tr>
+<tr>
+    <td style="width: 50%" align="center">Pseudocodice</td>
+    <td style="width: 50%" align="center">Diagramma di flusso di esecuzione</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="1">
+```c
+01  void main(){
+02      float x, y;
+03      read(x);
+04      read(y);
+05      if (x != 0 && y > 0)
+06          x = x + 10;
+07      else
+08          y = y / x
+09      write(x);
+10      write(y);
+11  }
+```
+</td>
+<td markdown="1">
+{% responsive_image path: 'assets/13_criteri-copertura-esempio-2.png' %}
+</td>
+</tr>
+</tbody>
+</table>
 
-Riprendendo l'esempio precedente, se si volesse applicare il criterio di copertura delle decisioni si dovrebbero utilizzare almeno due casi di test, ad esempio $$<3,7>$$ e $$<0,5>$$, che se compresi nello stesso test restituirebbero una copertura delle decisioni pari al 100%.
-
-Ma non tutti i malfunzionamenti vengono trovati, ad esempio a riga 6 è possibile che ad x sia assegnato un valore tale per cui se sommo 10 ottengo un overflow.
+Dall'esempio sopra, un test che soddisfi il suddetto criterio potrebbe includere $$\{ \langle 3, \, 7 \rangle, \, \langle 3, \, -2 \rangle \}$$.
+Nonostante sia un criterio _"migliore"_ del precedente, la copertura delle decisioni __non garantisce__ la correttezza del programma: nell'esempio il caso $$\langle 0, \, 5 \rangle$$ eseguirebbe una divisione per zero.
 
 #### Criterio di copertura delle condizioni
 
-_Un test T soddisfa il criterio di copertura delle condizioni se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
+_Un test T soddisfa il __criterio di copertura delle condizioni__ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
 
-Similmente ai test precedenti, la metrica è la percentuale delle condizioni che sono state rese sia vere che false su quelle per cui è possibile farlo.
+Similmente ai criteri precedenti, la metrica è la percentuale delle __condizioni__ che sono state rese __sia vere che false__ su quelle per cui è possibile farlo.
 
-Si noti come questo criterio non implichi i criteri precedenti
+Si noti come questo criterio __non implica__ il soddisfacimento di criteri precedenti.
 
-Per esempio:
-
-
-Modifichiamo un po' l'esempio usato fino ad'ora:
-
+<table>
+<thead>
+<tr>
+    <th colspan="2">Esempio 3: copertura delle condizioni</th>
+</tr>
+<tr>
+    <td style="width: 50%" align="center">Pseudocodice</td>
+    <td style="width: 50%" align="center">Diagramma di flusso di esecuzione</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="1">
 ```c
-void main(){
-    float x,y;
-    read(x);
-    read(y);
-    if (x!=0 || y>0)
-        y = y/x;
-    else
-        y = (y+2)/x
-    y = y/x;
-    write(x);
-    write(y);
-}
+01  void main(){
+02      float x, y;
+03      read(x);
+04      read(y);
+05      if (x != 0 || y > 0)
+06          y = y / x;
+07      else
+08          y = (y + 2) / x
+09      y = y / x;
+10      write(x);
+11      write(y);
+12  }
 ```
+</td>
+<td markdown="1">
+{% responsive_image path: 'assets/13_criteri-copertura-esempio-3.png' %}
+</td>
+</tr>
+</tbody>
+</table>
 
-{% responsive_image path: 'assets/13_flowChart-2.png' %}
+Nell'esempio sopra, il test $$ \{ \langle 0, \, 5 \rangle , \, \langle 5, \, -5 \rangle \} $$ __soddisfa il criterio di copertura della condizioni__ \\
+(`x != 0` è falsificato da $$\langle 0, \,5 \rangle$$ e verificato da $$\langle 5, \, -5 \rangle$$, mentre `y>0` è verificato da $$\langle 0, \, 5 \rangle$$ e falsificato da $$\langle 5, \, -5 \rangle$$), ma __la decisione è sempre vera__.
 
-
-Prendendo come Test i casi $$<0,5>$$ e $$<5,-5>$$ soddisfo al 100% il criterio di copertura delle condizioni (`x!=0` è falsificato da $$<0,5>$$ e verificato da $$<5,-5>$$, mentre `y>0` è verificato da $$<0,5>$$ e falsificato da $$<5,-5>$$), ma la decisione è sempre vera.
-
-Ci sono quindi anomalie sia alla riga 6 (possibile divisione per 0) che alla riga 8(Overflow e divisione per 0), ma quelle alla riga 8 non verrebbero scoperte dato che non viene coperta.
+Sono infatti presenti anomalie alla riga 6 (possibile divisione per zero) e alla riga 8 (overflow e divisione per zero), ma i comandi contenuti nella riga 8 non sono coperti.
 
 #### Criterio di copertura delle decisioni e condizioni
 
-È intuitivamente l'intersezione del Criterio di copertura delle decisioni con quello di copertura delle condizioni.
+_Un test $$T$$ soddisfa il **criterio di copertura delle decisioni e delle condizioni** se e solo se **ogni decisione** vale sia vero che falso e **ogni condizione** che compare nelle decisioni del programma vale sia vero che falso per diversi casi di test $$t \in T$$_.
+
+È – intuitivamente – l'**intersezione** del criterio di copertura delle decisioni con il criterio di copertura delle condizioni.
+
+Nell'esempio 3, il test $$\{ \langle 0, \, -5 \rangle, \, \langle 5, \, 5 \rangle \}$$ soddisfa il criterio di copertura delle decisioni e condizioni.
 
 #### Criterio di copertura delle condizioni composte
 
-_Un test T soddisfa il criterio di copertura delle condizioni composte se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di test in T_
+_Un test $$T$$ soddisfa il **criterio di copertura delle condizioni composte** se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di $$t \in T$$_
 
-Si noti come questo criterio comporti il precedente (Criterio di copertura delle decisioni e condizioni)
+Si noti come __questo criterio implichi il precedente__ (criterio di copertura delle decisioni e condizioni).
 
-Data la natura combinatoria di questo criterio, all'aumento del numero di condizioni di base _il numero di casi di test cresce troppo rapidamente_. Inoltre dato che le condizioni di base potrebbero non risultare indipendenti tra loro, potrebbero esistere combinazioni non fattibili che non sarebbe opportuno testare.
+Data la __natura combinatoria__ di questo criterio, all'aumento del numero di condizioni di base _il numero di casi di test_ cresce troppo rapidamente. 
+Inoltre dato che le condizioni di base potrebbero non risultare indipendenti tra loro, potrebbero esistere __combinazioni non fattibili__ inopportune da testare.
 
 #### Criterio di copertura delle condizioni e delle decisioni modificate
 
-Ci si è accorti che certe combinazioni sono "più vicine o più lontane ad altre": se modificando una sola condizione base riesco a modificare la decisione, allora quella modifica è una modifica molto significativa indipendentemente da quanto sia grande. Se invece la decisione rimane la stessa, posso ipotizzare che quella modifica sia più neutra e meno significativa.
+Certe combinazioni sono __più rilevanti__ di altre: se modificando una sola combinazione base si riesce a modificare l'esito della decisione, allora è molto significativa – indipendentemente dalla sua dimensione.
+Se invece l'esito della decisione non varia, allora la modifica può essere considerata neutra o meno significativa.
 
-Si va quindi a dare importanza, nella selezione delle combinazioni, al fatto che la modifica di una singola condizione base porti a modificare la decisione. Per ogni condizione base devono quindi esistere 2 casi di test che modificano il valore di una sola condizione base e che modificano il valore della decisione
+Si dà quindi importanza nella selezione delle combinazioni al fatto che la modifica di una singola condizione base porti a __modificare l'esito della decisione__.
+Per ogni condizione base devono quindi esistere due casi di test che modificano il valore di una sola condizione base e che portino a un diverso esito della decisione.
 
-È inoltre dimostrabile che se si hanno $$N$$ condizioni base sono sufficienti $$N+1$$ casi di test per coprire il criterio.
+Si può dimostrare che se si hanno $$N$$ condizioni base __sono sufficienti $$N+1$$ casi di test__ per il criterio.
 
 #### Implicazioni tra criteri di copertura
 
-<!--- immagine implicazioni tra criteri di copertura --->
+{% responsive_image path: 'assets/13_criteri-copertura-implicazione.png' %}
 
-Il criterio delle condizioni composte va considerato troppo oneroso e quindi non applicabile. Gli altri criteri invece possono essere applicati.
+Il criterio delle condizioni composte va considerato troppo oneroso e quindi non applicabile. \\
+Gli altri criteri possono essere invece applicati.
 
 ### Altri criteri
 
-_I criteri visti finora non considerano i **cicli**_ e possono essere soddisfatti da test che percorrono ogni ciclo al più una volta. 
+I criteri visti finora **non considerano i cicli** e possono essere soddisfatti da test che percorrono ogni ciclo al più una volta. 
+Molti errori però si verificano durante __iterazioni successive alla prima__, come per esempio quando si superano i limiti di un array.
 
-Molti errori però si verificano durante iterazioni successive alla prima, come per esempio quando si superano i limiti di un array.
+Occorre quindi criteri che tengano conto anche delle iterazioni.
 
-Occorre quindi un criterio che tenga conto anche delle iterazioni.
+<table>
+<thead>
+<tr>
+    <th colspan="2">Esempio 4: copertura delle iterazioni</th>
+</tr>
+<tr>
+    <td style="width: 50%" align="center">Pseudocodice</td>
+    <td style="width: 50%" align="center">Diagramma di flusso di esecuzione</td>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="1">
+```c
+01  void main() {
+02      float a, b, x, y;
+03      read(x);
+04      read(y);
+05      a = x;
+06      b = y;
+07      while (a != b) {
+08          if (a > b)
+09              a = a - b;
+10          else
+11              b = b - a;
+12      }
+13      write(a);
+14  }
+```
+</td>
+<td markdown="1">
+{% responsive_image path: 'assets/13_criteri-copertura-esempio-4.png' %}
+</td>
+</tr>
+</tbody>
+</table>
 
 #### Criterio di copertura dei cammini
 
-_Un test T soddisfa il criterio di copertura dei cammini se e solo se ogni cammino del grafo di controllo del programma viene percorso per almeno un caso di test in T._
+_Un test $$T$$ soddisfa il **criterio di copertura dei cammini** se e solo se ogni cammino del grafo di controllo del programma viene percorso per almeno un caso di $$t \in T$$_.
 
-La metrica è il rapporto tra i cammini percorsi e quelli effettivamente percorribili.
+La metrica è il rapporto tra i __cammini percorsi__ e __quelli effettivamente percorribili__.
 
-Molto generale, ma spesso impraticabile (anche per programmi semplici).
+Questo criterio è molto generale ma è spesso impraticabile, anche per programmi semplici. \\
+È quindi considerato **non applicabile**.
 
-Consideriamo quindi questo criterio **non applicabile**.
+#### Criterio di $$n$$-copertura dei cicli
 
-#### Criterio di n-copertura dei cicli
+_Un test soddisfa il **criterio di $$n$$-copertura** se e solo se ogni cammino del grafo contenente al massimo un numero d'iterazioni di ogni ciclo non superiore a $$n$$ viene percorso per almeno un caso di test._
 
-_Un test soddisfa il criterio di $$n$$-copertura se e solo se ogni cammino del
-grafo contenente al massimo un numero d'iterazioni di ogni ciclo non
-superiore a $$n$$ viene percorso per almeno un caso di test._
+La definizione sopra non significa che il test deve eseguire $$n$$ volte un ciclo, ma che per ogni numero $$k$$ compreso tra 0 e $$n$$ deve esistere un caso di test che esegue tale ciclo $$k$$ volte.
+Si sta quindi **limitando il numero massimo di percorrenze** dei cicli. \\
+Di conseguenza, al crescere di $$n$$ il numero di test aumenta molto rapidamente.
+Inoltre, fissare $$n$$ a livello di programma può non essere un'azione così semplice: il numero d'iterazioni che necessita un ciclo per essere testato a fondo può essere __molto differente__ tra cicli diversi.
 
-Il che non significa che il mio test deve eseguire $$n$$ volte un ciclo, ma significa che per ogni numero compreso tra 0 e $$n$$ ci deve essere un caso di test che esegue quel ciclo $$n$$ volte. Si sta quindi limitando il numero massimo di percorrenze dei cicli.
+Per cercare di minimizzare il numero di test, può essere sufficiente coprire solamente le casistiche: 
+- zero iterazioni; 
+- una iterazione;
+- _molte_ iterazioni.
 
-Di conseguenza però al crescere di $$n$$ il numero di test aumenta molto rapidamente.
+Nell'esempio sopra, il caso $$n = 2$$ è il minimo per considerare casistiche non banali: infatti, con $$n = 1$$ il ciclo (`while`) sarebbe stato indistinguibile da una semplice selezione (`if`); testando due iterazioni si incomincia a testare le caratteristiche del ciclo.
 
-Inoltre fissare questa variabile a livello di programma può non essere un'azione così semplice, il numero d'iterazioni che necessita un ciclo per essere testato può essere molto differente tra cicli diversi.
-
-Per cercare di minimizzare il numero di test, può bastare coprire solamente le casistiche: zero iterazioni, un'iterazione e molte iterazioni.
-
-Il caso $$n = 2$$ è il minimo per considerare queste casistiche.
-Se $$n = 1$$ un ciclo (`while`) sarebbe stato indistinguibile da una semplice
-selezione (`if`), testando due iterazioni incomincio a testare le caratteristiche del ciclo.
-
-A differenza del criterio di copertura dei cammini, questo lo consideriamo **applicabile**.
+A differenza del criterio di copertura dei cammini, è considerato **applicabile**.
 
 <!-- 
     * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -723,7 +829,6 @@ Tipi di errore:
 
 - Sbaglio nell'uso dell'interfaccia: durante il testing delle interfacce, è possibile riscontrare errori legati all'uso improprio dell'interfaccia da parte di un componente. Ad esempio, può accadere che un componente invochi una funzione con un ordine o un tipo di parametri non corretti, o che faccia assunzioni sbagliate circa ciò che la funzione si attende. Questi errori possono causare malfunzionamenti o crash del sistema;
 - Errori di tempistica e sincornizzazione: Questi errori possono verificarsi quando i componenti coinvolti nell'interfaccia non rispettano i tempi o le sequenze di esecuzione previsti, causando conflitti o malfunzionamenti. Ad esempio, può accadere che un componente invochi una funzione prima che un altro componente abbia terminato l'elaborazione di una richiesta precedente, causando un errore di sincronizzazione. Oppure, può accadere che un componente richieda una risposta entro un determinato tempo, ma che l'altro componente non riesca a fornire la risposta entro i tempi previsti, causando un errore di tempistica. È importante prestare particolare attenzione a questi errori durante il testing delle interfacce, in modo da garantire il corretto funzionamento del sistema.
-<<<<<<< HEAD
 
 ### Classi di Equivalenza
 
