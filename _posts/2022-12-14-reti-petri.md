@@ -173,7 +173,7 @@ Tramite il peso degli archi è possibile creare delle situazioni ambigue, ad ese
 
 {% responsive_image path: 'assets/14_archi-con-pesi.png' %}
 
-È vero però che per ogni rete $$P/T$$ aventi i pesi sugli archi, ne esiste una che non li possiede, e successivamente verrà mostrato come è possibile rimuoverli.
+È vero però che per ogni rete P/T aventi i pesi sugli archi, ne esiste una che non li possiede, e successivamente verrà mostrato come è possibile rimuoverli.
 
 ## Relazioni
 
@@ -260,15 +260,15 @@ L'insieme di raggiungibilità $$R$$ di una rete a partire da una marcatura $$M$$
 - $$(M' \in R(P/T, \, M) \land \exists t \in T \ M' [t> M'') \Rightarrow M'' \in R(P/T, \, M)$$.
 
 Questa definizione induttiva viene interpretata nel seguente modo:
-- passo base $$\rightarrow$$ la marcatura $$M$$ appartiene all'insieme di raggiungibilità $$R(P/T, \, M)$$ ($$M$$ indica la marcatura iniziale mentre $$P/T$$ indica la rete posti-transizioni);
+- passo base $$\rightarrow$$ la marcatura $$M$$ appartiene all'insieme di raggiungibilità $$R(P/T, \, M)$$ ($$M$$ indica la marcatura iniziale mentre P/T indica la rete posti-transizioni);
 - passo induttivo $$\rightarrow$$ se $$M'$$ appartiene all'insieme di raggiungibilità (quindi si dice che è raggiungibile) ed esiste una transizione della rete tale per cui è abilitata in $$M'$$ e mi porta in $$M''$$, per cui con uno scatto è possibile passare dalla marcatura $$M'$$ alla marcatura $$M''$$, allora quest'ultima è __raggiungibile__.
 
 procedendo ricorsivamente con questa definizione è possibile ottenere tutte le marcature raggiungibili.
 
 ## Limitatezza
-
+<span id="limitatezza"></span>
 Una proprietà importante delle reti di Petri è la __limitatezza__, ovvero la proprietà che indica se le possibili evoluzioni della rete possono essere limitate o illimitate, quindi se gli stati raggiungibili sono infiniti oppure infiniti.
-Volendo dare una definizione più formale è possibile dire che una rete posti-transizioni $$(P/T)$$ con marcatura $$M$$ si dice __limitata__ se e solo se:
+Volendo dare una definizione più formale è possibile dire che una rete posti-transizioni (P/T) con marcatura $$M$$ si dice __limitata__ se e solo se:
 
 $$\exists k \in \mathbb N \quad \forall M' \in R(P/T, \, M) \\
 \forall p \in P \quad M'(p) \leq k$$
@@ -413,40 +413,74 @@ Infatti dopo lo scatto di $$t_0$$ è possibile che $$t_0 bis$$ non scatti, e la 
 Per risolvere questo problema si sfrutta una sorta di __lock__, ovvero un posto collegato bidirezionalmente con tutte le transizioni della rete, tranne per $$t_0$$ a cui è collegato solo in ingresso, e per $$t_0 bis$$ a cui è collegato solo in uscita.
 In questo modo è come se lo scatto di $$t_0$$ sia scomposto logicamente in due parti, quando $$t_0$$ scatta viene attivato il lock in modo tale che nessun'altra transizione sia abilitata, e successivamente lo scatto di $$t_0 bis$$ lo rilascia.
 Questo ovviamente non obbliga $$t_0 bis$$ a scattare immediatamente, però è certo che la rete non potrà evolvere in alcun altro modo, e quindi non si creeranno marcature non esistenti nella rete originale.
+Questa soluzione non è molto elegante perchè esiste un posto avente in ingresso un arco per ogni transizione della rete.
 
 {% responsive_image path: 'assets/14_eliminazione-archi-ingresso.png' %}
 
 ### Pesi su archi in uscita
 
+In questo caso il peso da rimuovere è su un arco in uscita da un posto e in ingresso ad una transizione, quindi è necessario che vengano distrutti due gettoni dallo stesso scatto.
+L'approccio da utilizzare è simile, infatti è presente un posto globale che fa da lock in modo che risolva il problema di concorrenza tra $$t_8$$ e $$t_1$$.
+In questo caso però abbiamo un ulteriore problema, ovvero al momento dello scatto di $$t_8$$ il gettone in $$p_0$$ viene consumato, di conseguenza $$t_1$$ non può scattare, inoltre il resto della rete rimane bloccata, in quanto all'interno del posto globale non è più presente il gettone, che è stato consumato sempre dallo scatto di $$t_8$$.
+Questo deadlock può essere risolto aggiungendo un controllo sul posto $$p_0$$, in modo tale che possa scattare solo quando possiede due o più gettoni, in questo modo non può verificarsi la situazione in cui $$t_8$$ scatti senza un successivo scatto di $$t_1$$.
+Il meccanismo della rete inizia ad essere molto complesso, e nell'esempio viene mostrato il caso in cui devono essere consumati due gettoni.
+In altri caso con più gettoni, o con situazioni differenti, la rete aumenterebbe ulteriormente di complessità e quindi risulterebbe più facile pensare la rete in modo differente.
+Infatti questo modo non è l'unico modo per modellare il sistema, ma è il modo meccanico per modellare questo particolare esempio, ma è comunque possibile trovare un buon modo per modellare una rete senza sfruttare i pesi e senza una traduzione meccanica di essi.
+
 {% responsive_image path: 'assets/14_eliminazione-archi-uscita.png' %}
 
 ### Reti C/E
-
-- tutti gli archi hanno peso 1
-- tutti i posti hanno capacità 1
+Le reti C/E (condizioni eventi) sono delle particolari reti più semplici, in cui tuttu gli archi hanno peso uno, e tutti i posti hanno capacità massima uno.
+Questo tipo di rete possiede meno scoriatoie per modellare la rete, ma è più semplice ed immediata da capire, infatti i posti rappresentano delle condizioni che possono essere vere o false, ed in base ad esse è possibile il verificarsi di certi eventi, rappresentati dalle transizioni.
+Ogni rete P/T __limitata__ è traducibile in un'equivalente rete C/E, per le reti illimitate invece non è possibile trovare una traduzione, siccome non si possono rappresentare infiniti stati con un tipo di rete che per definizione è limitata.
 
 ## Conservatività 
-
-Esiste una funzione di pesi $$H: P \rightarrow \mathbb N \setminus \{ 0 \}$$ una rete P/T con una marcatura $$M$$ si dice conservativa rispetto a tale funzione se e solo se
+La conservatività è una proprietà di una rete rispetto ad una funzione $$H$$ che assegna un peso ad ogni posto della rete, e ognuno di questi pesi è positivo.
+Esiste quindi una funzione di pesi $$H: P \rightarrow \mathbb N - \{ 0 \}$$ tale per cui una rete P/T con una marcatura $$M$$ si dice conservativa rispetto a tale funzione se e solo se:
 
 $$
 \forall M' \in R(P/T, \, M) \quad \sum_{p \in P} H(p) M'(p) = \sum_{p \in P} H(p) M(p)
 $$
 
-relazione conservatività e limitatezza.
+Ovvero per ogni marcatura $$M'$$ raggiungibile dalla marcatura inizale, data una certa marcatura e una funzione $$H$$, si dice che la rete è conservativa se la sommatoria dei gettoni di ogni posto pesati con la funzione $$H$$ è costante per qualunque marcatura raggiungibile.
+
+Esiste inoltre un legame tra conservatività e limitatezza, ovvero una rete che garantisce la conservatività è limitata, ma non è detto il viceversa (quindi la limitatezza è una condizione necesaria ma non sufficiente).
+
+dimostrazione che una rete se è conservativa è limitata:
+
+Sapendo che $$\sum_{p \in P} H(p) M(p)$$ è un numero (quindi possiamo indicarlo con $$k$$), è possibile dire che:
+
+$$
+\forall M' \in R(P/T, \, M) \quad \sum_{p \in P} H(p) M'(p) = k
+$$
+
+Inoltre si sa che $$H(p) > 0$$, di conseguenza ogni elemento della sommatoria ha un contributo pari a 0 oppure positivo.
+Questo perchè se non ci sono gettoni all'interno del posto, avremo un numero positivo ($$H(p)$$) moltiplicato per 0, quindi il suo contributo è nullo, altrimenti avrà per forza un valore positivo.
+A questo punto è possibile dire che se esiste almeno una marcatura di $$p$$ in cui il numero di gettoni è diverso da 0, il suo contributo è positivo ma limitato da $$k$$.
+Questo vale per ogni posto all'interno della rete, di conseguenza ci si è rincondotti alla definizione di <a href="#limitatezza">limitatezza</a>.
 
 ### Rete strettamente conservativa
-
-Una rete P/T conservativa rispetto alla funzione che assegna pesi tutti uguale a 1 si dice _strettamente conservativa_.
+La _conservatività strtta_ è un particolare caso di conservatività, ed è possibile definirla dicendo che: una rete P/T conservativa rispetto alla funzione $$H$$ che assegna pesi tutti uguali a 1 si dice strettamente conservativa.
 
 $$
 \forall M' \in R(P/T, \, M) \quad \sum_{p \in P} M'(p) = \sum_{p \in P} M(p)
 $$
 
-Il numero di token consumati dallo scatto di una trnaiszione è uguale al numero di gettoni generati dallo stesso
+La formula precedente sta a significare che la sommatoria del numero di token per ogni posto in una qualsiasi marcatura è costante (ovvero è uguale alla sommatoria della marcatura iniziale per ogni posto <!-- è corretto? -->), in altre parole, preso il singolo scatto di una transizione viene forzato il fatto che per ogni gettone che viene distrutto ne viene generato un altro in uscita. <!-- in questo caso succede ciò che è sempre stato detto di non pensare, ovvero che i gettoni si spostano -->
+
+Matematicamente questo concetto si può esprimere anche tramite questa formula:
 
 $$
 \forall t \in T \quad \sum_{p \in \operatorname{Pre}(t)} W(\langle p, t \rangle) = \sum_{p \in \operatorname{Post}(t)} W(\langle t, p \rangle)
 $$
 
-t non è morta
+Per ogni transizione $$t$$, la somma dei pesi degli archi che collegano ogni elemento del preset di $$t$$, alla transizione $$t$$ deve essere uguale alla sommatoria dei pesi degli archi che collegano la transizione $$t$$ con ogni posto nel postset di $$t$$.
+
+Queste due formule esprimono lo stesso concetto, ma la prima si riferisce alle marcature (stati), mentre l'altra all'aspetto topologico della rete (ovvero i pesi degli archi).
+Quindi la prima è un analisi dinamica in qunto è necessario calcolare gli stati raggiungibili, l'altra inceve è statica siccome basta conoscere la rete.
+È possibile fare una precisazione per quanto riguarda la seconda formula, ovvero che le transizioni da prendere in considerazione sono quelle __non morte__ (quindi di grado $$\geqslant$$ 1). <!-- Non è chiaro quali differenze ci sono tra le due formule (videolezione interno al minuto 55 della lezione 20, prima parte) -->
+
+## Stato base e rete revertibile
+Una marcautra $$M'$$ si dice __stato base__ di una rete se per ogni marcatura $$M$$ in $$R(M_0)$$, $$M'$$ è raggiungibile da $$M$$.
+Ovvero qualunque sia lo stato attuale della rete è possibile raggiungere la marcatura $$M'$$.
+Un caso particolare si ha quando la marcatura iniziale $$M_0$$ è lo stato base della rete per ogni marcatura $$M$$ in $$R(M_0)$$, in quel caso si dice che la rete è __reversibile__ (lo stato iniziale è uno stato base).
