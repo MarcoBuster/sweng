@@ -24,7 +24,7 @@ Possiamo quindi dire che questa struttura è un grafo bipartito, ovvero un grafo
 Ai posti sono assegnati dei ___token___, ovvero degli elementi che vengono assegnati ai posti.
 Ogni posto può contenere da 0 a un numero potenzialmente infinito di token (successivamente si approfondirà questo punto per capire se ha senso o no assegnare infiniti gettoni a un posto), ed è proprio la disposizione di questi gettoni nella rete a determinarne il suo stato complessivo.
 
-{% responsive_image path: 'assets/14_rete-Petri-informale.png' %}
+{% responsive_image path: 'assets/14_rete-petri-informale.png' %}
 
 Essendo che i gettoni determinano lo stato di ogni parte della rete, allora sicuramente il loro assegnamento ai posti può cambiare, questo perchè lo stato della rete può evolvere.
 Ciò accade tramite la trasformazione effettuata dalla transizione; possiamo quindi dire che una transizione è _abilitata_ quando all'interno dei posti collegati in ingresso a essa esistono un certo numero di gettoni.
@@ -306,7 +306,7 @@ Gli esempi seguenti rappresentano delle situazioni verosimili riguardanti la Vit
 
 Una rete viene chiamata __viva__ quando tutte le sue transizioni sono vive.
 
-{% responsive_image path: 'assets/14_esempio-vitalità-transizioni.png' %}
+{% responsive_image path: 'assets/14_esempio-vitalita-transizioni.png' %}
 
 Da questo esempio pratico è possibile notare come la transizione $$t_0$$ è di grado 0 in quanto non potrà mai scattare, perchè è impossibile che abbia i token necessari nel preset per scattare (al massimo o in $$p_0$$ o in $$p_1$$).
 La transizione $$t_1$$ è fi grado 1 perchè esiste almeno una marcatura raggiungibile per cui essa scatti, infatti la marcatura corrente è quella che ne permette lo scatto, questo però non è obbliatorio, infatti sarebbe potuto accadere che la marcatura corretta fosse un'altra.
@@ -324,7 +324,7 @@ Avendo la possibilità di definire una capacità dei posti, è facile intuire ch
 Tale estensione aumenta la potenza espressiva oppure è semplicemente una scorciatoia?
 Tramite l'esempio sottostate si può notare che questa estensione non è altro che una tecnica per facilitare la scrittura della rete.
 
-{% responsive_image path: 'assets/14_simulazione-capacità-posti.png' %}
+{% responsive_image path: 'assets/14_simulazione-capacita-posti.png' %}
 
 Nella rete con la capacità dei posti limitata per far sì che ad esempio la transizione $$t_0$$ scatti, è necessario che sia i posti nel suo preset abbiano gettoni sufficienti, sia che dopo il suo scatti il posto $$p_0$$ non superi il limite assegnatogli.
 Volendo scrivere la stessa rete utilizzando il metodo classico visto fino ad ora basta aggiungere un __posto complementare__, e in questo modo l due reti mostrarte sopra sono equipollenti, ossia hanno lo stesso valore.
@@ -379,7 +379,7 @@ La formula corretta è la seconda, infatti considerando l'immgine seguente possi
 Infatti nella seconda rete è come se lo scatto venisse spezzato in due fasi, la prima in cui vengono generati i gettoni nel posto (in questo caso $$p_3$$), la seconda invece in cui vengono tolti tanti gettoni quanto è il peso dell flusso da $$p_3$$ a $$t_1$$.
 Nella prima rete questo non accade invece, è come se si verificasse tutto nello stesso istante.
 
-{% responsive_image path: 'assets/14_esempio_abilitazione_reti_capacità.png' %}
+{% responsive_image path: 'assets/14_esempio-abilitazione-reti-capacita.png' %}
 
 A questo punto, ci si potrebbe chiedere se è possibile genrare la situazione equivalente nel caso di reti normali, e la risposta è no nel caso in cui si posti complementari.
 Con quest'ultimo caso è possibile solo per le reti pure, ma non per tutte le reti in generale, infatti fino a che non sono presenti archi in entrata e uscita allo stesso posto dalla stessa traniszione non sorge alcun tipo di problema.
