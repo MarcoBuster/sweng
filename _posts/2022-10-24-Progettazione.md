@@ -183,7 +183,7 @@ Per assicurare tale proprietà è necessario:
 
 I _code smell_ sono dei segnali che suggeriscono problemi nella progettazione del codice. 
 Di seguito ne sono elencati alcuni:
-- __codice duplicato__: si può fare per arrivare velocemente al verde ma è da togliere togliere con il refactoring. 
+- __codice duplicato__: si può fare per arrivare velocemente al verde ma è da togliere con il refactoring. 
 Le parti di codice in comune possono quindi essere fattorizzate.
 - __metodi troppo lunghi__: sono poco leggibili e poco riusabili;
 - __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice;
@@ -389,7 +389,7 @@ Se `draw()` viene chiamato quando il mazzo è vuoto ci troviamo in una situazion
 Per specificare il contratto si possono utilizzare delle __asserzioni__ o il `@pre` nei __commenti__. 
 Le prime sono particolarmenti utili in fase di sviluppo perché interrompono l'esecuzione del programma in caso di violazione, ma vengono solitamente rimosse in favore delle seconde nella fase di deployment.
 
-Un'altro approccio è la __programmazione difensiva__ che al contrario delega la responsabilità del soddisfacimento delle precondizioni al _chiamato_, e non al chiamato. 
+Un'altro approccio è la __programmazione difensiva__ che al contrario delega la responsabilità del soddisfacimento delle precondizioni al _chiamato_, e non al chiamante.
 
 ### Classi astratte
 
