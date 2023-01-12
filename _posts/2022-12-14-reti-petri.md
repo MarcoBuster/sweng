@@ -29,7 +29,7 @@ Un vantaggio delle reti di Petri è che possono essere viste in maniera informal
 È infatti facile rappresentare una rete di Petri come un grafo in cui ogni nodo rappresenta o un __posto__ o una __transizioni__ e gli archi i collegamenti presenti tra le transizioni e i posti.
 Il grafo è __bipartito__, ovvero un grafo in cui nodi di un tipo sono messi in relazione __solo__ con nodi dell'altro tipo:  in questo caso _i posti possono essere collegati soltano a transizioni e viceversa_.
 
-Ad ogni posto è assegnato un certo numero di ___token___ (o __gettoni__) – sarà successivamente approfondito il senso dell'assegnamento di un numero infinito di gettoni a un posto.
+Ad ogni posto è assegnato un certo numero di ___gettoni___ (o __token__) – sarà successivamente approfondito il senso dell'assegnamento di un numero infinito di gettoni a un posto.
 
 La **disposizione dei gettoni nei posti** in un dato momento all'interno della rete di Petri ne determina il suo __stato complessivo__.
 
@@ -60,6 +60,8 @@ Una rete di Petri classicamente è una 5-tupla $$[P, \, T; \; F, \, W, \, M_0]$$
 - $$W$$ è una funzione che associa un peso ad ogni flusso; 
 - $$M_0$$ è la marcatura iniziale, ovvero l'assegnamento iniziale dei _gettoni_.
 
+In generale definiamo come __marcatura__ una _particolare configurazione dell'assegnamento dei gettoni all'interno della rete di Petri_, sia essa _iniziale_ o una sua  _evoluzione_
+
 Da notare che P e T a livello matematico sono degli insiemi di __identificatori__ che non si sovrappongono (dato che si tratta di entità differenti) a cui poi verrà assegnato un significato, quindi precedentemente sono stati associati a posti e transizioni, ma di fatto sono tutti __identificatori__.
 
 Data la 5-tupla appena descritta esistono le seguenti proprietà:
@@ -79,17 +81,15 @@ esplicitando queste ultime due scritture:
 
 Tutto questo rappresenta la parte statica delle reti di Petri, ovvero quando vengono osservate in un preciso istante di tempo, senza considerare i cambiamenti che potrebbero avvenire al suo interno.
 
-<!--MY: Fino a qui-->
-
 ### Comportamento dinamico
 
-Una transizione $$t \in T$$ è __abilitata__ in una particolare marcatura $$M$$, ovvero dato un particolare assegnamento di gettoni (marcatura iniziale oppure una sua evoluzione) se e solo se
+Una transizione $$t \in T$$ è __abilitata__ in una particolare marcatura $$M$$ se e solo se
 
 $$
 \forall p \in \operatorname{Pre}(t) \quad M(p) \geq W( \langle p, \, t \rangle )
 $$
 
-In notazione, `M [ t >` significa che $$t$$ è abilitata in $$M$$. 
+In notazione, `M [ t >` significa che _$$t$$ è abilitata in $$M$$._ 
 
 Significa che per ogni elemento collegato in ingresso a t esiste un numero di gettoni maggiore del peso dell'arco che collega $$p$$ a $$t$$.
 Un aspetto interessante di questa definizione è che non si sta ragionando su tutti i posti della rete, ma solo su quelli collegati in ingresso a _t_, di conseguenza non è necessario conoscere l'intera rete per poter affermare che una transizione sia abilitata o meno, ma basta controllare la zona che comprende i posti appartenenti a $$ \operatorname{Pre}(a) $$, questa situazione è chiamata __località dell'analisi__.
@@ -108,10 +108,10 @@ $$
 <!-- L'ultimo elemento di questa lista di formule non viene allineato bene non so per quale motivo -->
 
 specificando in modo descrittivo le notazioni precedenti:
-- Per ogni identificatore $$p$$ appartenenti al preset ma non al postset della transizione in esame, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ meno il peso dell'arco che collega $$p$$ a $$t$$;
-- Per ogni identificatore $$p$$ appartenenti al postset ma non al preset della transizione in esame, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ più il peso dell'arco che collega $$p$$ a $$t$$;
-- Per ogni identificatore $$p$$ appartenenti sia al preset sia al postset della transizione in esame, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ meno il peso dell'arco che collega $$p$$ a $$t$$ più il peso dell'arco che collega $$t$$ a $$p$$;
-- Per ogni identificatore $$p$$ appartenenti all'insieme dei posti meno l'intersezione tra preset e postset di $$p$$ la marcatura non cambia.
+- Per ogni identificatore $$p$$ appartenente al preset ma non al postset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ meno il peso dell'arco che collega $$p$$ a $$t$$;
+- Per ogni identificatore $$p$$ appartenente al postset ma non al preset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ più il peso dell'arco che collega $$p$$ a $$t$$;
+- Per ogni identificatore $$p$$ appartenente sia al preset sia al postset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ meno il peso dell'arco che collega $$p$$ a $$t$$ più il peso dell'arco che collega $$t$$ a $$p$$;
+- Per ogni identificatore $$p$$ appartenente all'insieme dei posti meno l'intersezione tra preset e postset di $$p$$ la marcatura non cambia.
 
 In notazione, `M [ t > M'` significa che lo scatto di $$t$$ in $$M$$ produce $$M'$$.
 
@@ -123,71 +123,73 @@ In notazione, `M [ t > M'` significa che lo scatto di $$t$$ in $$M$$ produce $$M
 
 {% responsive_image path: 'assets/14_produttore.png' %}
 
-Riferendosi all'esempio produttore, l'unico problema è che ci sono dei collegamenti diretti tra posti, ma come è stato detto in precedenza questo non è possibile in una rete di Petri, di conseguenza basterà interporre tra i posti delle transizioni per avere una rete di Petri valida.
-Immaginando di mettere un solo token in uno dei due posti della rete appena creata, questo indicherà lo stato attivo che avevamo nella macchina a stati finiti.
-Seguendo questi passaggi diventa banale mappare una macchina a stati finiti su una rete di Petri, quindi applicandoli anche all'esempio del consumatore e del buffer avremo altre due reti valide.
+Riferendosi all'esempio del produttore, l'unico problema è l'esistenza di collegamenti diretti tra posti: come è stato detto in precedenza questo non è possibile in una rete di Petri, di conseguenza sarà sufficiente interporre tra i posti delle transizioni per avere una rete di Petri valida.
+Immaginando di mettere un solo gettone in uno dei due posti della rete appena creata, questo indicherà lo stato attivo che avevamo nella macchina a stati finiti.
+Seguendo questi passaggi diventa banale mappare una macchina a stati finiti su una rete di Petri: di seguito è possibile osservare l'operazione analoga eseguita sulle FSM di un consumatore e di un buffer
 
 {% responsive_image path: 'assets/14_consumatore-buffer.png' %}
 
-Componendole, andranno a creare la seguente rete di Petri.
+Componendo le reti di Petri di produttore, consumatore e buffer appena create, si andrà a creare la seguente rete di Petri.
 
 {% responsive_image path: 'assets/14_produttore-consumatore-buffer.png' %}
 
-A questo punto se stessimo parlando di automi a stati finiti per trovare gli stati raggiungibili da quest'ultima composizione sarebbe stato necessario fare il prodotto cartesiano tra gli stati delle altre tre macchine a stati finiti ricavate precedentemente.
-In questo caso però siamo davanti ad una rete di Petri, quindi basterà fondere tutti gli identificatori uguali (ad esempio la transizione deposita della reteproduttore e della rete buffer) e aggiungere i collegamenti che possedevano.
+In termini di automi a stati finiti, per trovare gli stati raggiungibili da questa composizione sarebbe stato necessario eseguire il prodotto cartesiano tra gli stati delle tre macchine a stati finiti combinate tra loro.
+Trattandosi invece di una rete di Petri, è sufficiente unire tutti gli identificatori uguali in un unico identificatore (ad esempio la transizione deposita della reteproduttore e della rete buffer) e aggiungere a ques'ultimo tutti collegamenti posseduti dagli identificatori uniti.
 
-<span style="Color: red">__ATTENZIONE__</span>: nell'esempio della rete composta le transizioni "preleva" e "deposita" dovrebbero avere due nomi differenti, ma siccome sono indicate con due rettangoli diversi è stato omesso questo partivolare, matematicamente però devono avere due nomi differenti.
+<span style="Color: red">__ATTENZIONE__</span>: nell'esempio della rete composta le transizioni "preleva" e "deposita" dovrebbero avere due nomi differenti, ma siccome sono indicate con due rettangoli diversi è stato omesso questo particolare. In termini matematici devono avere due nomi differenti.
 
-Precedentemente è stato detto che il con un token nella rete si andava a rappresentare lo stato attivo, di conseguenza portando all'interno della rete composta tutti i token delle varie reti si arriva ad ottenere un risultato descritto dall'immagine sopra, in cui tutte le "entità"mantengono la propria individualità.
+Precedentemente è stato detto che, _nel caso di una rappresentazione di una FSM in termini di una rete di Petri_, si va a rappresentare lo stato attivo nella FSM con un gettone: di conseguenza portando all'interno della rete composta tutti i gettoni delle varie reti si arriva ad ottenere il risultato descritto dall'immagine precedente, in cui tutte le "entità" (consumatore, produttore e buffer) mantengono la propria individualità (è infatti presente un gettone per ogni entità).
 Quindi in questo caso si può notare che il produttore è pronto a produrre, il buffer è vuoto e il consumatore è pronto a consumare una volta che il buffer avrà al suo interno qualcosa.
 
 ### Come evolve questa rete?
-Per rispondere a questa domanda la prima cosa da considerare è quali sono le transizioni abilitate, che in questo caso è solo la transizione produci sotto a $$p_0$$, in quanto è l'unica ad avere tutti gli elementi del suo preset con un numero di gettoni necessari a farla scattare, infatti $$p_0$$ possiede un gettone e l'arco ha peso 1 (quando non è specificato il peso è 1).
-Una rete di Petri non forza lo scatto di alcuna transizione, quindi volendo si potrebbe rimanere nello stato corrente senza far scattare "produci" all'infinito, però se scatta il risultato è che il gettone in $$p_0$$ viene bruciato, e in $$p_1$$ viene generato un nuovo token.
+Per rispondere a questa domanda la prima cosa da considerare è quali sono le transizioni abilitate: in questo caso si tratta solo della transizione produci sotto a $$p_0$$, in quanto è l'unica ad avere tutti gli elementi del suo preset con un numero di gettoni sufficienti a farla scattare, infatti $$p_0$$ possiede un gettone e l'arco ha peso 1 (_quando non è specificato il peso è 1_).
+Una rete di Petri _non forza lo scatto di alcuna transizione_, quindi volendo si potrebbe rimanere nello stato corrente senza far scattare "produci" all'infinito. Se però "produci" scatta, il gettone in $$p_0$$ viene distrutto e in $$p_1$$ viene generato un nuovo gettone.
 
 {% responsive_image path: 'assets/14_primo-scatto.png' %}
 
-Dopo questo scatto la rete di Petri si trova in una situazione in cui il produttore ha prodotto qualcosa, ed è pronto a depositarlo nel buffer, e a questo punto non resta che porsi nuovamente la domanda "quali transizioni sono abilitate?" per capire come può procedere l'evoluzione della rete.
-È facile notare come la transizione "deposita" sotto $$b_0$$ sia l'unica abilitata, e di conseguenza se dovesse scattare il risultato sarebbe il seguente.
+Dopo questo scatto la rete di Petri si trova in una situazione in cui il produttore ha prodotto qualcosa ed è pronto a depositarlo nel buffer: a questo punto non resta che porsi nuovamente la domanda _"quali transizioni sono abilitate?"_ per capire come può procedere l'evoluzione della rete.
+È facile notare come la transizione "deposita" sotto $$b_0$$ sia l'unica abilitata e di conseguenza, _se dovesse scattare_, il risultato sarebbe il seguente:
 
 {% responsive_image path: 'assets/14_secondo-scatto.png' %}
 
-Ora è possibile identificare una situazione particolare, ovvero quella in cui le transizioni pronte a scattare sono due, e la domanda sorge spontanea, ovvero "quale delle due transizioni scatta prima?".
-Nelle reti di Petri descritte fino ad ora non è stato presentato lo scatto simultaneo delle transizioni, nulla vieta che possa avvenire in un contesto reale, ma in questo caso non è una solizione ammissibile, quindi quale delle due transizioni scatta per prima? e secondo quale criterio?
-Questo è un caso di non determinismo, ovvero non posso dire quale transizione deve scattare, quindi abbiamo 3 situazioni che si possono verificare:
+Ora è possibile identificare una situazione particolare, ovvero quella in cui le transizioni pronte a scattare sono due. Sorge spontanea la domanda: "quale delle due transizioni scatta prima?"
+Nelle reti di Petri descritte fino ad ora non è stato presentato lo scatto simultaneo delle transizioni, nulla vieta infatti che possa avvenire in un contesto reale, ma in questo caso non è una solizione ammissibile, quindi quale delle due transizioni scatta per prima? e secondo quale criterio?
+Questo è un caso di __non determinismo__, ovvero _non posso dire quale transizione deve scattare_. Abbiamo quindi 3 situazioni che si possono verificare:
 - viene attivata la prima transizione;
 - viene attivata la seconda transizione;
 - non viene attivata nessuna transizione (la _non evoluzione_ è comunque un'evoluzione).
 
-Nel caso in cui fosse stato necessario definire che una delle due transizioni scattasse prima dell'altra, ci si troverebbe di fronte ad una rete non corretta, in quanto sarebbe possibile modificare la rete in modo tale che imponga un ordine di scatto alle transizioni. <!-- forse si potrebbe scrivere meglio -->
+Nel caso in cui fosse stato necessario definire che una delle due transizioni scatti prima dell'altra, ci si troverebbe di fronte ad una rete non corretta: è infatti possibile modificare la rete in modo tale che imponga un ordine di scatto alle transizioni.
 
 ### Sfruttare le reti di Petri
 A questo punto è possibile chiedersi se si stiano sfruttando realmente tutte le potenzialità delle reti di Petri, siccome la rete dell'esempio precedente è stata ricavata da un automa a stati finiti.
-Per capire ciò è possibile osservare un secondo esempio in cui abbiamo una rete alternativa alla precedente, ma con lo stesso scopo.
+Per capire ciò è possibile osservare un secondo esempio in cui è presentata una rete alternativa alla precedente, ma con lo stesso scopo.
 
 {% responsive_image path: 'assets/14_rete-alternativa.png' %}
 
-La differenza che salta subito all'occhio è il numero di gettoni presenti all'interno di $$p_0$$, e stanno ad indicare il numero di posizioni libere nel buffer.
-Questo è un vantaggio perchè se dovessimo cambiare lo scenario e avere una situazione in cui il buffer passa da avere capienza due, ad avere capienza 20, sfruttando questa rete basta modificare la marcatura di $$b_0$$ e il problema sarebbe risolto, la rete precedente invece avrebbe bisogno di una pesante modifica per essere adattata.
+La differenza che salta subito all'occhio è il numero di gettoni presenti all'interno di $$p_0$$ che stanno ad indicare il numero di posizioni libere nel buffer.
+Questo è un vantaggio perchè se il buffer dovesse cambiare la sua capienza, sfruttando questa rete basta modificare la marcatura di $$b_0$$ e il problema sarebbe risolto, la rete precedente invece avrebbe bisogno di una pesante modifica per essere adattata.
 Di conseguenza si può applicare lo stesso concetto per il consumatore e per il produttore, che aumentandone il numero dei gettoni (rispettivamente in $$p_0$$ e $$c_0$$) aumenterebbe il numero di entità in grado di produrre e consumare.
 
 {% responsive_image path: 'assets/14_rete-alternativa-diverse-entita.png' %}
 
-È possibile affermare quindi che cambiando il numero di gettoni è possibile moltiplicare gli elementi del sistema di cui si vuole tracciare l'evoluzione, e questo sarebbe molto oneroso in termini di dimensioni se fosse stato fatto con una macchina a stati finiti.
+È possibile affermare quindi che cambiando il numero di gettoni è possibile moltiplicare gli elementi del sistema di cui si vuole tracciare l'evoluzione. Si sottolinea ancora che questo risulterebbe molto oneroso in termini di dimensioni se fosse stato riadattato in una macchina a stati finiti.
 
-Per definizioni le macchine a stati finiti __non__ possono rappresentare situazioni _infinite_, quindi se si volesse modificare ulteriormente l'esempio appena visto imponendo una capienza illimitata al buffer, con una macchina a stati finiti non sarebbe possibile.
-Con le reti di Petri invece basterebbe eliminare l'identificatore del posto $$b_0$$, in questo modo avremmo una situazione in cui i produttori possono depositare senza limiti all'interno del buffer, mentre i consumatori non potrebbero prelevare più elementi di quelli presenti nel buffer.
-Questo vincolo è imposto dalla marcatura di $$b_1$$, infatti, la transizione "preleva" potrebbe scattare al massimo _n_ volte consecutivamente, dove _n_ è la marcatura di $$b_1$$ (assumendo che nel metre non avvengano depositi da parte dei produttori).
+Per definizione le macchine a stati finiti __non__ possono rappresentare situazioni _infinite_, se si volesse quindi modificare ulteriormente l'esempio appena visto imponendo una capienza illimitata al buffer, non sarebbe possibile utilizzando una macchina a stati finiti.
+Sfruttando le reti di Petri invece è sufficiente eliminare l'identificatore del posto $$b_0$$: in questo modo abbiamo una situazione in cui i produttori possono depositare senza limiti all'interno del buffer, mentre i consumatori non possono prelevare più elementi di quelli presenti nel buffer.
+Questo vincolo è imposto dalla marcatura di $$b_1$$, infatti la transizione "preleva" può scattare al massimo _n_ volte consecutivamente, dove _n_ è la marcatura di $$b_1$$ (assumendo che nel mentre non avvengano depositi da parte dei produttori).
 
-Un altra modifica applicabile all'esempio sfrutta i pesi degli archi, ovvero ponendo un peso di 3 all'arco che collega "deposita" a $$b_1$$ si potrebbe dire che il produttore crea e deposita tre prodotti, occupando tre posizioni nel buffer.
-Invece ponendo un peso di 2 all'arco che collega $$b_1$$ a "preleva" si specifica che vengono prelevati dal buffer due elementi alla volta.
-Questo esempio, in parte forzato, è utile per chiarire il fatto che nelle reti di Petri gli archi non sono semplici collegamenti, ma è possibile attribuirgli un significato.
-Infatti informalemente sono chiamati archi, ma in realtà indicano una relazione che coinvolge due identificatori, e in questo esempio esiste una relazione per cui ogni elemento prodotto occupa tre posizioni all'interno del buffer, e un'altra relazione in cui ogni consumatore può prelevare obbligatoriamente due elementi alla volta.
-Tramite il peso degli archi è possibile creare delle situazioni ambigue, ad esempio se la relazione che coinvolge "deposita" e $$p_0$$ avesse un peso di 2, ogni volta che viene prodotto qualcosa i produttori si moltiplicherebbero, e ovviamente questa situazione indicherebbe che la rete è sbagliata, quindi è necessario fare attenzio ad evitare queste strane situazioni.
+Un altra modifica applicabile all'esempio sfrutta i pesi degli archi: ponendo un peso di 3 all'arco che collega "deposita" a $$b_1$$ si può dire che il produttore crea e deposita tre prodotti, occupando tre posizioni nel buffer.
+Ponendo invece un peso di 2 all'arco che collega $$b_1$$ a "preleva" si specifica che è possibile prelevare dal buffer due elementi alla volta.
+Questo esempio, in parte forzato, è utile per chiarire il fatto che nelle reti di Petri _gli archi non sono semplici collegamenti, ma è possibile attribuirgli un significato_.
+Vengono infatti informalmente chiamati _archi_, rifacendosi alla terminologia dei_grafi, ma in realtà indicano una relazione più profonda che coinvolge due identificatori: in questo esempio esiste infatti una relazione per cui ogni elemento prodotto occupa tre posizioni all'interno del buffer e un'altra relazione in cui ogni consumatore può prelevare obbligatoriamente due elementi alla volta.
+Tramite il peso degli archi è possibile creare delle situazioni ambigue: ad esempio se la relazione che coinvolge "deposita" e $$p_0$$ avesse un peso di 2, ogni volta che viene prodotto qualcosa i produttori si moltiplicherebbero e ovviamente questa situazione indicherebbe che la rete è sbagliata, quindi è necessario fare attenzione ad evitare questo tipo di situazioni.
 
 {% responsive_image path: 'assets/14_archi-con-pesi.png' %}
 
-È vero però che per ogni rete P/T aventi i pesi sugli archi, ne esiste una che non li possiede, e successivamente verrà mostrato come è possibile rimuoverli.
+È da sottolineare che è possibile ridurre una rete P/T avente pesi sugli archi in una rete P/T senza pesi sugli archi: successivamente verrà illustrato come ciò è possibile.
+
+<!--MY Fino a qui-->
 
 ## Relazioni
 
@@ -322,7 +324,7 @@ Una rete viene chiamata __viva__ quando tutte le sue transizioni sono vive.
 
 {% responsive_image path: 'assets/14_esempio-vitalita-transizioni.png' %}
 
-Da questo esempio pratico è possibile notare come la transizione $$t_0$$ è di grado 0 in quanto non potrà mai scattare, perchè è impossibile che abbia i token necessari nel preset per scattare (al massimo o in $$p_0$$ o in $$p_1$$).
+Da questo esempio pratico è possibile notare come la transizione $$t_0$$ è di grado 0 in quanto non potrà mai scattare, perchè è impossibile che abbia i gettoni necessari nel preset per scattare (al massimo o in $$p_0$$ o in $$p_1$$).
 La transizione $$t_1$$ è fi grado 1 perchè esiste almeno una marcatura raggiungibile per cui essa scatti, infatti la marcatura corrente è quella che ne permette lo scatto, questo però non è obbliatorio, infatti sarebbe potuto accadere che la marcatura corretta fosse un'altra.
 Osservando la transizione $$t_3$$ è possibile notare che essa scatti infinite volte (e non $$n$$ grande a piacere, quindi non si tratta di una transizione di grado 2), però nel caso avvenga lo scatto di $$t_1$$ la transizione $$t_3$$ non potrà mai più essere abilitata (quindi esiste una marcatura in cui non sarà possibile il suo scatto), e questo ci garantisce che non si tratta di una transizione di grado 4, ma bensi di grado 3.
 Il caso più particolare è quello della transizione $$t_2$$, è noto che $$t_3$$ può scattare infinite volte, e quindi in $$p_2$$ possono esserci infiniti gettoni, inoltre conseguentemente allo scatto di $$t_1$$ il posto $$p_1$$ conterrà un gettone, ma comunque la transizione $$t_2$$ non può scattare infinite volte.
@@ -331,7 +333,7 @@ Infine $$t_4$$ è una transizione viva (di grado 4), perchè qualunque sia la ma
 
 ## Capacità dei posti 
 
-Inizialmente è stato detto che esistono diversi dialetti riguardanti le reti di Petri, infatti una possibile estensione consiste nel fissare una capacità massima rispetto al numero di token ammissibili in un posto.
+Inizialmente è stato detto che esistono diversi dialetti riguardanti le reti di Petri, infatti una possibile estensione consiste nel fissare una capacità massima rispetto al numero di gettoni ammissibili in un posto.
 Un esempio potrebbe essere quello in cui in un sistema possono essere presenti $$k$$ lettori contemporaneamente e non più di $$k$$.
 Avendo la possibilità di definire una capacità dei posti, è facile intuire che diventa possibile forzare la limitatezza della rete.
 
@@ -362,7 +364,7 @@ $$
 Per ogni transizione appartenente a $$T$$ in uscita da $$p$$, quindi tale per cui esiste una relazione di flusso dal posto $$p$$ alla transizione $$t$$ deve esistere un flusso di direzione opposta che va dalla transizione $$t$$ al posto complementare $$pc$$ avente lo stesso peso.
 In più vale lo stesso discorso per le transizioni in ingresso al posto $$p$$, quindi per ogni transizione $$t$$ appartenente a $$T$$ in ingresso a $$p$$, quindi tale per cui esiste un flusso da $$t$$ al posto $$p$$ deve esistere un flusso che va dal posto complementare $$pc$$ a $$t$$ di direzione opposta e avente lo stesso peso.
 <!-- Ricontrolla queste due formule -->
-Questa formula garantisce che il numero di gettoni somma tra il posto e il suo complementare sia costante, e permette di formulare la condizione di abilitazione (lavorando sul preset della transizione) in modo tale da dipendere anche dal numero di token presenti nel posto in arrivo.
+Questa formula garantisce che il numero di gettoni somma tra il posto e il suo complementare sia costante, e permette di formulare la condizione di abilitazione (lavorando sul preset della transizione) in modo tale da dipendere anche dal numero di gettoni presenti nel posto in arrivo.
 
 ### Abilitazione con capacità
 Potrebbe però sorgere un problema dal momento che si devono trattare reti con capacità sui posti, come è possibile definire la condizione di abilitazione in quel caso?
@@ -405,7 +407,7 @@ Come è possibile risolvere questo problema? è possibile pensare a due approcci
 <!-- aggiungere esempio / marcature pure / pure-equivalenti / ecc .. -->
 <!-- Si è fermato a questo punto durante la lezione, nella lezione 20 non ha spiegato ancora quale approccio utilizzare -->
 ## Archi inibitori
-Esiste un'altra estenzione delle reti di petri in cui si si utilizzano gli __archi inibitori__, ovvero degli archi che permettono indicano la situazione in cui una transizione non ha bisogno di token perchè sia abilitata.
+Esiste un'altra estenzione delle reti di petri in cui si si utilizzano gli __archi inibitori__, ovvero degli archi che permettono indicano la situazione in cui una transizione non ha bisogno di gettoni perchè sia abilitata.
 Nel caso in cui un arco inibitore abbia un peso $$n$$ indica che la transizione è abilitata se nel posto collegato non ci siano neanche $$n$$ gettoni.
 
 In caso di rete limitata la potenza di una rete che sfrutta gli archi inibitori non cambia, questo perchè, esistendo un limite massimo $$k$$ di gettoni all'interno della rete, sarà sufficiente creare un posto complementare contente un numero di gettoni tali per cui, la somma tra quest'ultimi e i gettoni presenti nel posto considerato, sia minore di $$k$$.
@@ -480,7 +482,7 @@ $$
 \forall M' \in R(P/T, \, M) \quad \sum_{p \in P} M'(p) = \sum_{p \in P} M(p)
 $$
 
-La formula precedente sta a significare che la sommatoria del numero di token per ogni posto in una qualsiasi marcatura è costante (ovvero è uguale alla sommatoria della marcatura iniziale per ogni posto <!-- è corretto? -->), in altre parole, preso il singolo scatto di una transizione viene forzato il fatto che per ogni gettone che viene distrutto ne viene generato un altro in uscita. <!-- in questo caso succede ciò che è sempre stato detto di non pensare, ovvero che i gettoni si spostano -->
+La formula precedente sta a significare che la sommatoria del numero di gettoni per ogni posto in una qualsiasi marcatura è costante (ovvero è uguale alla sommatoria della marcatura iniziale per ogni posto <!-- è corretto? -->), in altre parole, preso il singolo scatto di una transizione viene forzato il fatto che per ogni gettone che viene distrutto ne viene generato un altro in uscita. <!-- in questo caso succede ciò che è sempre stato detto di non pensare, ovvero che i gettoni si spostano -->
 
 Matematicamente questo concetto si può esprimere anche tramite questa formula:
 
