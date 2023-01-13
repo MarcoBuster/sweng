@@ -172,7 +172,7 @@ __stato inconsistente__;
 
 #### Criterio di copertura dei comandi
 
-_Un test $$T$$ soddisfa il __criterio di copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$._
+_Un test $$\ T$$ soddisfa il __criterio di copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$._
 
 Consideriamo il seguente programma in pseudocodice.
 
@@ -221,7 +221,7 @@ Nell'esempio considerato, il caso di test $$\langle 0, \, 7 \rangle$$ provoca un
 
 #### Criterio di copertura delle decisioni
 
-_Un test T soddisfa il **criterio di copertura delle decisioni** se e solo se ogni decisione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test $$t \in T$$_.
+_Un test $$\ T$$ soddisfa il **criterio di copertura delle decisioni** se e solo se ogni decisione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test $$t \in T$$_.
 
 La metrica è la percentuale delle **decisioni totali possibili** presenti nel codice che sono state rese \\
 **sia vere che false** nel test.
@@ -269,7 +269,7 @@ Nonostante sia un criterio _"migliore"_ del precedente, la copertura delle decis
 
 #### Criterio di copertura delle condizioni
 
-_Un test T soddisfa il __criterio di copertura delle condizioni__ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
+_Un test $$\ T$$ soddisfa il __criterio di copertura delle condizioni__ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
 
 Similmente ai criteri precedenti, la metrica è la percentuale delle __condizioni__ che sono state rese __sia vere che false__ su quelle per cui è possibile farlo.
 
@@ -317,7 +317,7 @@ Sono infatti presenti anomalie alla riga 6 (possibile divisione per zero) e alla
 
 #### Criterio di copertura delle decisioni e condizioni
 
-_Un test $$T$$ soddisfa il **criterio di copertura delle decisioni e delle condizioni** se e solo se **ogni decisione** vale sia vero che falso e **ogni condizione** che compare nelle decisioni del programma vale sia vero che falso per diversi casi di test $$t \in T$$_.
+_Un test $$\ T$$ soddisfa il **criterio di copertura delle decisioni e delle condizioni** se e solo se **ogni decisione** vale sia vero che falso e **ogni condizione** che compare nelle decisioni del programma vale sia vero che falso per diversi casi di test $$t \in T$$_.
 
 È – intuitivamente – l'**intersezione** del criterio di copertura delle decisioni con il criterio di copertura delle condizioni.
 
@@ -325,7 +325,7 @@ Nell'esempio 3, il test $$\{ \langle 0, \, -5 \rangle, \, \langle 5, \, 5 \rangl
 
 #### Criterio di copertura delle condizioni composte
 
-_Un test $$T$$ soddisfa il **criterio di copertura delle condizioni composte** se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di $$t \in T$$_
+_Un test $$\ T$$ soddisfa il **criterio di copertura delle condizioni composte** se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di $$t \in T$$_
 
 Si noti come __questo criterio implichi il precedente__ (criterio di copertura delle decisioni e condizioni).
 
@@ -395,7 +395,7 @@ Occorre quindi criteri che tengano conto anche delle iterazioni.
 
 #### Criterio di copertura dei cammini
 
-_Un test $$T$$ soddisfa il **criterio di copertura dei cammini** se e solo se ogni cammino del grafo di controllo del programma viene percorso per almeno un caso di $$t \in T$$_.
+_Un test $$\ T$$ soddisfa il **criterio di copertura dei cammini** se e solo se ogni cammino del grafo di controllo del programma viene percorso per almeno un caso di $$t \in T$$_.
 
 La metrica è il rapporto tra i __cammini percorsi__ e __quelli effettivamente percorribili__.
 
@@ -512,6 +512,13 @@ $$
 \def\OpW#1#2{
   \fcolorbox{black}{orange}{$\vphantom{d_6} \sf{#1}_{#2}$}
 }
+% Green subscript operations
+\def\OpG#1#2{
+  \fcolorbox{black}{lightgreen}{$\vphantom{d_6} \sf{#1}_{#2}$}
+}
+\def\DG#1{\OpG{d}{#1} \,}
+\def\AG#1{\OpG{a}{#1} \,}
+\def\UG#1{\OpG{u}{#1} \,}
 % Error
 \def\Err{
   \color{red}{\sf{ERROR}}
@@ -689,140 +696,184 @@ $$
 
 possa rappresentare qualsiasi programma.
 
-Rappresentando la sequenza in questo modo è possibile identificare eventuali anomalie anche nel caso di cicli e decisioni.
-
 ## Analisi statica e Testing
 
 Ma cosa c'entra l'**analisi statica** con il **testing**?
 
-L'_analisi statica_ può aiutare a _selezionare i casi di test_ basandosi sulle _sequenze_ _definizione_-_uso_ delle variabili.
+Dall'analisi statica è possibile arrivare per esempio alle seguenti osservazioni:
+- purché si presenti un malfunzionamento dovuto a una anomalia in una _definizione_, deve essere _usato_ il valore che è stato assegnato;
+- un ciclo dovrebbe essere ripetuto (di nuovo) se verrà _usato_ un valore _definito_ alla iterazione precedente.
 
-Per esempio:
+L'analisi statica può quindi aiutare a **selezionare i casi di test** basandosi sulle _sequenze definizione-uso_ delle variabili.
 
-* perché si presenti un malfunzionamento dovuto a una anomalia in una _definizione_, deve essere _usato_ il valore che è stato assegnato
+### Terminologia
 
-* un ciclo dovrebbe essere ripetuto (di nuovo) se verrà _usato_ un valore _definito_ alla iterazione precedente
+Dato un comando $$i$$, si definisce $$\operatorname{def}(i)$$ come l'**insieme delle variabili** definite in $$i$$.
 
-### Definizioni e altri criteri
+Data una variabile $$x$$ e un comando $$i$$, si definisce $$\operatorname{du}(x, \, i)$$ come l'**insieme dei nodi** $$j$$ tali che:
+- $$x \in \operatorname{def}(i)$$: \\
+la variabile $$x$$ è **definita** in $$i$$;
+- $$x$$ è **usata** in $$j$$;
+- **esiste un cammino** da $$i$$ a $$j$$, **libero da definizioni** di $$x$$: \\
+è necessario controllare che $$x$$ non sia stata sovrascritta nei nodi intermedi.
 
-$$\operatorname{def}(i)$$ è l'insieme delle variabili che sono definite in $$i$$
-
-$$\operatorname{du}(i, x)$$ è l'insieme dei nodi j tali che:
-
-* $$x$$ $$\in \operatorname{def}(i)$$
-
-* $$x$$ usato in $$j$$
-
-* esiste un cammino da $$i$$ a $$j$$, libero da definizione di $$x$$
+### Criteri di copertura
 
 #### Criterio di copertura delle definizioni
 
-_Un test $$T$$ soddisfa il criterio di copertura delle definizioni se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad almeno uno degli elementi di $$\operatorname{du}(i, x)$$_
+_Un test $$\ T$$ soddisfa il **criterio di copertura delle definizioni** se e solo se per ogni nodo $$i$$ e ogni variabile $$x \in \operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad almeno uno degli elementi di $$\operatorname{du}(i, x).$$_
 
-$$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\exists j \in \operatorname{du}(i, x)$$ $$\exists t \in T$$ che esegue un cammino $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$
+Più formalmente:
 
-Esempio:
+$$
+\begin{align*}
+T \in C \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \exists j \in \operatorname{du}(i, \, x) \\
+&| \: \exists t \in T \ \text{che esegue un cammino da $i$ a $j$ senza ulteriori definizioni di $x$}.
+\end{align*}
+$$
+
+Riconsideriamo l'__esempio__ già visto in precendenza, considerando la variabile $$\texttt{a}$$.
 
 ```c
-1   void main() {
-2       float a, b, x, y;
-3       read(x);
-4       read(y);
-5       a = x;
-6       b = y;
-7       while(a != b) {
-8           if(a > b) {
-9               a = a - b;
-10          } else {
+01  void main() {
+02      float a, b, x, y;
+03      read(x);
+04      read(y);
+05      a = x;
+06      b = y;
+07      while (a != b)
+08          if (a > b)
+09              a = a - b;
+10          else
 11              b = b - a;
-12          }
-13      }
-14      write(a);
-15  }
+12      write(a);
+13  }
 ```
 
-Ad esempio consideriamo la variabile $$a$$:
+Partiamo definendo gli insiemi dei nodi degli usi $$\operatorname{du}(i, \, \mathtt a)$$. 
+1. $$\operatorname{du}(5, \, \mathtt a)$$ = $$\{7, \, 8, \, 9, \, 11, \, 12\}$$;
+2. $$\operatorname{du}(9, \, \mathtt a)$$ = $$\{7, \, 8, \, 9, \, 11, \, 12\}$$.
 
-Due definizioni: 
-* $$\operatorname{def}(5)$$ = $$\{a\}$$
-* $$\operatorname{def}(9)$$ = $$\{a\}$$
+È solo **un caso** il fatto che in questo esempio siano uguali.
 
-$$\operatorname{du}(5, a)$$ $$=$$ $$\{7, 8, 9, 11, 12\}$$
+L'obiettivo è _per ognuna delle due definizioni_ ottenere un __uso__ di tale definizione.
 
-$$\operatorname{du}(9, a)$$ $$=$$ $$\{7, 8, 9, 11, 12\}$$
+1. Per la prima definizione la soluzione è banale, a riga 7 la variabile $$\mathtt a$$ viene letta:
+$$\D{5}\U{7}$$.
+2. Per la seconda, invece, è necessario scegliere un valore tale per cui il flusso di esecuzione entri almeno una volta nel ciclo: 
+$$\D{9}\U{7}$$.
 
-Sia la definizione data alla riga $$5$$ che quella data alla riga $$9$$ possono essere usate alla riga $$7, 8, 9, 11, 12$$.
+Un test che soddisfa totalmente il criterio può essere il seguente:
 
-Si vuole controllare che per ognuna delle definizioni si abbia un uso di quella definizione
+$$
+T = \{ \langle 8, \, 4 \rangle \}.
+$$
 
-$$d5$$ $$u7$$ viene gratis
-
-$$d9$$ $$u7$$ basta entrare una volta nel ciclo
-
-$$T$$ = $${ <8, 4> }$$ è un caso di test che soddisfa il criterio.
-
-Il criterio di copertura delle definizioni non copre tutti i comandi e di conseguenza non implica il criterio di copertura dei comandi.
+Il criterio di copertura delle definizioni non copre tutti i comandi e di conseguenza **non implica il criterio di copertura dei comandi**.
 
 #### Criterio di copertura degli usi
 
-_Un test $$T$$ soddisfa il criterio di copertura degli usi se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad **ogni elemento** di $$\operatorname{du}(i, x)$$_
+_Un test $$\ T$$ soddisfa il **criterio di copertura degli usi** se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad \\
+**ogni elemento** di $$\operatorname{du}(i, \, x).$$_
 
-$$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\forall j \in \operatorname{du}(i, x)$$ $$\exists t \in T$$ che esegue un cammino $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$
+Più formalmente:
 
-Cioè, per ogni definizione di una variabile, tutti i possibili usi di quella definizione devono essere coperti.
+$$
+\begin{align*}
+T \in C \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \forall j \in \operatorname{du}(i, \, x) \\
+&| \: \exists t \in T \ \text{che esegue un cammino da $i$ a $j$ senza ulteriori definizioni di $x$}.
+\end{align*}
+$$
 
-Anche questo criterio non copre i comandi.
+Per ogni definizione di una variabile, **tutti i suoi possibili usi** devono essere coperti.
 
-Esempio:
+Il criterio di copertura degli usi **non implica** il criterio di copertura dei comandi, perché nel caso in cui non esistano $$j \in \operatorname{du}(i, \, x)$$, l'uso del $$\forall$$ è più _"permissivo"_ del $$\exists$$ del criterio precedente.
+Vien da sé che questo criterio non copre anche il criterio di copertura dei comandi.
+
+Come **esempio**, riconsideriamo il programma in C visto in precedenza.
 
 ```c
-1   void main() {
-2       int a, b, c;
-3       read(a);
-4       read(b);
-5       read(c);
-6       if(a > b) {
-7           if(b > c) {
-8               write(a);
-9           } else {
-10              write(b);
-11          }
-12      } else {
-13          if(a > c) {
-14              write(a);
-15          } else {
-16              write(c);
-17          }
-18      }
-19  }
+01  void main() {
+02      float a, b, x, y;
+03      read(x);
+04      read(y);
+05      a = x;
+06      b = y;
+07      while (a != b)
+08          if (a > b)
+09              a = a - b;
+10          else
+11              b = b - a;
+12      write(a);
+13  }
 ```
 
-Consideriamo la variabile $$a$$:
+Riconsideriamo la variabile $$\mathtt a$$ e i relativi insieme dei nodi degli usi.
 
-$$\operatorname{du}(5, a)$$ = $$\{7, 8, 9, 11, 12\}$$ e $$\operatorname{du}(9, a)$$ = $$\{7, 8, 9, 11, 12\}$$
+1. $$\operatorname{du}(5, \, \mathtt a)$$ = $$\{7, \, 8, \, 9, \, 11, \, 12\}$$;
+2. $$\operatorname{du}(9, \, \mathtt a)$$ = $$\{7, \, 8, \, 9, \, 11, \, 12\}$$.
 
-$$d5$$ $$u7$$ $$u8$$ $$u11$$ $$u7$$ $$u12$$ 
+Per ogni definizione occorre coprire __tutti gli usi__.
 
-...$$d5$$ $$u7$$ $$u8$$ $$u9$$...
+<style>
+  #criterio-usi-tabella {
+    text-align: center;
+  }
+  #criterio-usi-tabella p {
+    margin-bottom: 0;
+  }
+</style>
 
-...$$d9$$ $$u7$$ $$u8$$ $$u9$$...
+<table id="criterio-usi-tabella" style="text-align: center;">
+<tr>
+  <th style="width: 50%" markdown="1">
+    $$\operatorname{du}(5, \, \mathtt a)$$
+  </th>
+  <th markdown="1">$$\operatorname{du}(9, \, \mathtt a)$$</th>
+</tr>
+<tr>
+  <td markdown="1">$$\D{5}\UG{7}\UG{8}\UG{11}\U{7}\UG{12}$$
+  </td>
+  <td markdown="1">$$\dots \, \D{9} \UG7 \UG8 \UG9 \dots$$
+  </td>
+</tr>
+<tr>
+  <td markdown="1">$$\dots \, \D5 \U7 \U8 \UG9 \dots$$
+  </td>
+  <td markdown="1">$$\dots \, \D9 \U7 \U8 \UG{12} \dots$$
+  </td>
+</tr>
+<tr>
+  <td></td>
+  <td markdown="1">$$\dots \, \D9 \U7 \U8 \UG{11} \dots$$
+  </td>
+</tr>
+</table>
 
-...$$d9$$ $$u7$$ $$u8$$ $$u12$$...
+Un test che soddisfa totalmente il criterio può essere il seguente:
 
-...$$d9$$ $$u7$$ $$u8$$ $$u11$$...
+$$
+T = \{ \langle 4, \,  8 \rangle, \, \langle 12, \, 8 \rangle, \, \langle 12, \, 4 \rangle \}.
+$$
 
-almeno due iterazioni ad esempio:
-
-$$T$$ = $${ <4, 8>, <12, 8>, <12, 4> }$$
+Uno spunto di discussione proposto dal professore è se è meglio __minimizzare__ i __casi di test__ o le __iterazioni per caso__.
+Opinione diffusa è preferire **minimizzare le iterazioni** in modo da poter rilevare con più precisione gli errori, riducendo il numero di istruzioni.
+In alcune situazioni però aumentare il numero di iterazioni può diminuire il tempo di esecuzione totale dei test.
 
 #### Criterio di copertura dei cammini DU
 
 Esistono diversi cammini che soddisfano il criterio precedente.
-Questo criterio richiede che siano selezionati tutti.
+Questo criterio richiede che siano selezionati _tutti_.
 
-$$T \in C$$ sse $$ \forall i \in P$$ $$\forall x \in \operatorname{def}(i)$$ $$\forall j \in \operatorname{du}(i, x)$$ per ogni cammino da $$i$$ a $$j$$ senza ulteriori definizioni di $$x$$, esiste un caso di test in $$T$$ che esegue quel cammino.
+$$
+\begin{align*}
+T \in C \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \forall j \in \operatorname{du}(i, \, x), \\
+&\forall \text{cammino da $i$ a $j$ senza ulteriori definizioni di $x$} \\
+&| \: \exists t \in T \ \text{che lo esegue}.
+\end{align*}
+$$
 
-Criterio **utile da ipotizzar**e, ma **impraticabile**.
+Questo criterio può essere **utile da ipotizzare**, ma è considerato **impraticabile** (_"sopra la barra rossa"_).
 
 #### Beebugging
 
