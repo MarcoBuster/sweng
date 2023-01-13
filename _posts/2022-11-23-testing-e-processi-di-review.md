@@ -420,122 +420,278 @@ Nell'esempio sopra, il caso $$n = 2$$ è il minimo per considerare casistiche no
 
 A differenza del criterio di copertura dei cammini, è considerato **applicabile**.
 
-<!-- 
-    * * * * * * * * * * * * * * * * * * * * * * * * *
-    -------------------------------------------------
-    SOPRA QUESTO DIVISORE REVIEW - SOTTO INTEGRAZIONE
-    -------------------------------------------------
-    * * * * * * * * * * * * * * * * * * * * * * * * *
--->
+# Analisi statica
 
-## Analisi statica
+L'analisi statica si base sull'esame di un **insieme finito di elementi** (*le istruzioni del programma*) contrariamente all'analisa dinamica che considera un insieme infinito (*gli stati delle esecuzioni*). 
+È un'attività **meno costosa del testing**, poiché non soffre del problema della _"esplosione dello spazio degli stati"_. 
 
-_Si basa sull'esame di un insieme finito di elementi (le istruzioni del programma) contrariamente all'analisi dinamica (insieme degli stati delle esecuzioni)._
-È un'attività meno costosa del testing, poiché non soffre del problema della "esplosione dello spazio degli stati". 
-Non può rilevare anomalie dipendenti da uno specifico valore assunto a run-time, perché non ragione sui valori specifici delle variabili.
+Non considerando i valori specifici delle variabili, non ha la capacità di rilevare anomalie dipendenti da particolari valori assunti a runtime.
 
-### Complilatori
+## Complilatori
 
 I compilatori fanno analisi statica per fornire un eseguibile e per identificare errori sintattici nel codice.
-Il lavoro dei compilatori si può dividere in quattro fasi:
-* **Analisi lessicale**: viene fatta l'identificazione dei token del linguaggio, permette d'identificare la presenza di simboli non appartenenti al linguaggio.
-* **Analisi sintattica**: identifica le relazioni tra token e controlla la conformità del codice alla grammatica del linguaggio.
-* **Controllo dei tipi**: si cercano d'individuare violazioni delle regole d'uso dei tipi
-* **Analisi flusso dei dati**: si cercano di rilevare problemi relativi alle evoluzioni dei valori associati alle variabili
 
-### Analisi Data Flow
+Il lavoro dei compilatori si può dividere solitamente in **quattro fasi**.
+I seguenti esempi sono presi dal compilatore di Rust, caratteristico per la quantità e qualità di analisi svolta durante la compilazione.
 
-I primi utilizzi sono stati fatti nel campo dell'ottimizzazione dei compilatori.
+- **analisi lessicale**: identifica i token appartenenti o non al linguaggio;
+  ```
+  error: expected one of `!`, `.`, `::`, `;`, `?`, `{`, `}`, or an operator, found `ciao`
+  --> src/main.rs:2:9
+    |
+  2 |     BELLA ciao = "mondo";
+    |           ^^^^ expected one of 8 possible tokens
+  ```
+- **analisi sintattica**: controlla che i token identificati siano in una posizione _sensata_ per la grammatica del linguaggio;
+  ```
+  error: expected `{`, found keyword `for`
+  --> src/main.rs:2:14
+    |
+  2 |     if !expr for;
+    |              ^^^ expected `{`
+    |
+  ```
+* **controllo dei tipi**: nei linguaggi tipizzati, individua regole d'uso e incompatibilità dei tipi di dati;
+  ```
+  error[E0308]: mismatched types
+  --> src/main.rs:2:24
+    |
+  2 |     let name: String = 42;
+    |               ------   ^^- help: try using a conversion method: `.to_string()`
+    |               |        |
+    |               |        expected struct `String`, found integer
+    |               expected due to this
 
-Il flusso dei dati sarebbe una analisi prettamente dinamica, ma il sottoinsieme dei controlli statici è significativo.
+  For more information about this error, try `rustc --explain E0308`.
+  ```
+* **analisi flusso dei dati**: si cercano di rilevare problemi relativi alle evoluzioni dei valori associati alle variabili, come codice non raggiungibile.
+  ```
+  error: equal expressions as operands to `!=`
+  --> src/main.rs:2:8
+    |
+  2 |     if 1 != 1 {
+    |        ^^^^^^
+    |
+  ```
 
-Staticamente è possibile identificare il tipo di operazione che un comando esegue su una variabile:
+## Analisi Data Flow
 
-* **d** $$\Rightarrow$$ **definizione** se il comando assegna un valore alla variabile.
-* **u** $$\Rightarrow$$ **uso** se il comando richiede il valore di una variabile.
-* **a** $$\Rightarrow$$ **annullamento** se al termine dell'esecuzione dell'istruzione il valore della variabile non è significativo/affidabile.
+I primi utilizzi sono stati fatti nel campo dell'**ottimizzazione dei compilatori**: quest'ultimi sono per esempio _"contenti"_ di non compilare codice non raggiungibile.
+L'ingegneria del software deve occuparsi di trovare e prevenire le cause di questi errori.
 
-È possibile ridurre una sequenza d'istruzioni a una sequenza di _**d**efinizioni_, _**u**si_ e _**a**nnullamenti_.
+Il flusso dei dati sarebbe una analisi prettamente  dinamica, ma il sottoinsieme dei controlli statici è significativo.
 
-Questo viene fatto per cercare di capire se ci sono delle situazioni anomale, con una serie di regole:
+È possibile identificare staticamente il tipo di ogni operazione eseguita su una variabile e il loro **insieme dei legami di compatibilità**.
 
-* L'_uso_ di una variabile deve essere sempre preceduto in ogni sequenza da una _definizione_ senza _annullamenti_ intermedi $$\Rightarrow$$ **au** ERR
+<!-- KaTeX op macro definitions -->
+<div style="display: none; margin: 0;">
+$$
+\require{color}
+% Regular operations
+\def\op#1{
+  \fcolorbox{black}{white}{$\vphantom{d} \sf{#1}$}
+}
+\def\d{\op{d} \,}
+\def\a{\op{a} \,}
+\def\u{\op{u} \,}
+% Erroneous operations
+\def\opR#1{
+  \fcolorbox{black}{orangered}{$\vphantom{d} \color{white}{\sf{#1}}$}
+}
+\def\dR{\opR{d} \,}
+\def\aR{\opR{a} \,}
+\def\uR{\opR{u} \,}
+% Subscript operations
+\def\Op#1#2{
+  \fcolorbox{black}{white}{$\vphantom{d_6} \sf{#1}_{#2}$}
+}
+\def\D#1{\Op{d}{#1} \,}
+\def\A#1{\Op{a}{#1} \,}
+\def\U#1{\Op{u}{#1} \,}
+% Warning subscript operations
+\def\OpW#1#2{
+  \fcolorbox{black}{orange}{$\vphantom{d_6} \sf{#1}_{#2}$}
+}
+% Error
+\def\Err{
+  \color{red}{\sf{ERROR}}
+}
+\def\err{
+  \, \Err
+}
+$$
+</div>
 
-* La _definizione_ di una variabile deve sempre essere seguita da un _uso_ prima di un suo _annullamento_ o _definizione_ $$\Rightarrow$$ **da** e **dd** ERR
+Nel caso dei **dati**, definiamo tre semplici operazioni:
+* $$\op{d}$$ (**definizione**): il comando assegna un valore alla variabile;
+anche assegnare un parametro a una funzione che lo modifica è considerata un'operazione di (ri)definizione;
+* $$\op{u}$$ (**uso**): il comando legge il contenuto di una variabile, come l'espressione sul lato destro di un assegnamento; 
+* $$\op{a}$$ (**annullamento**): al termine dell'esecuzione del comando il valore della variabile non è significativo/affidabile.
+Per esempio, alla _prima dichiarazione_ di una variabile e al termine del suo scope il suo valore è da considerarsi inaffidabile.
 
-* L'_annullamento_ di una variabile deve essere sempre seguito da una _definizione_ prima di un _uso_ o di un altro _annullamento_ $$\Rightarrow$$ **aa** ERR
+È possibile ridurre una qualsiasi sequenza d'istruzioni a una sequenza di $$\op{d}$$efinizioni, $$\op{u}$$si e \\
+$$\op{a}$$nnullamenti (operazioni).
 
-**au**, **da**, **dd** e **aa** sono sequenze che identificano **situazioni anomale**.
+### Regole
 
-Esempio _analisi data flow_:
+È possibile individuare la presenza di anomalie definendo alcune **regole di flusso** che devono essere rispettate in un programma corretto.
+
+<ol>
+
+<li markdown="1">
+  L'**uso di una variabile** deve essere **sempre preceduto** in ogni sequenza **da una definizione** \\
+  **senza annullamenti intermedi**.
+
+  $$
+  \a\u\err
+  $$
+
+</li>
+<li markdown="1">
+  La **definizione di una variabile** deve essere **sempre seguita** da **un uso**, **prima** di un suo **annullamento** o **definizione**. 
+
+  $$
+  \d\a\err \\
+  \d\d\err
+  $$
+
+</li>
+  <li markdown="1">
+  L'**annullamento di una variabile** deve essere **sempre seguito** da **una definizione**, **prima** di un **uso** o di un **altro annullamento**
+  
+  $$
+  \a\a\err
+  $$
+
+</li>
+</ol>
+
+Riassumendo, $$\a\op{u}$$, $$\d\op{a}$$, $$\d\op{d}$$ e $$\a\op{a}$$ sono sequenze che identificano **situazioni anomale**.
+
+<table align="center" style="width: 50%">
+<tr>
+  <th></th>
+  <th markdown="1">$$\a$$</th>
+  <th markdown="1">$$\d$$</th>
+  <th markdown="1">$$\u$$</th>
+</tr>
+<tr>
+  <th markdown="1">$$\a$$</th>
+  <th markdown="1">$$\Err$$</th>
+  <th markdown="1"></th>
+  <th markdown="1">$$\Err$$</th>
+</tr>
+<tr>
+  <th markdown="1">$$\d$$</th>
+  <th markdown="1">$$\Err$$</th>
+  <th markdown="1">$$\Err$$</th>
+  <th markdown="1"></th>
+</tr>
+<tr>
+  <th markdown="1">$$\u$$</th>
+  <th markdown="1"></th>
+  <th markdown="1"></th>
+  <th markdown="1"></th>
+</tr>
+</table>
+
+#### Esempio
+
+Consideriamo il seguente programma in C. 
 
 ```c
 void swap(int &x1, int &x2) {
-    int x;
-    x2 = x;
+    int x1;
+    x3 = x1;
+    x3 = x2;
     x2 = x1;
-    x1 = x;
 }
 ```
-Le sequenze per ogni variabile sono le seguenti:
+Le sequenze per ogni variabile sono le seguenti.
 
-* `x` $$\Rightarrow$$ **auu**a
+| Variabile | Sequenza | Anomalie |
+|-|-|-|
+| `x1` | $$\aR\uR\u\a$$ | `x1` viene usata 2 volte senza essere stata prima definita |
+| `x2` | $$\dots \d\u\op{d} \dots$$ | Nessuna |
+| `x3` | $$\dots \d\dR\opR{d} \dots$$ | `x3` viene definita più volte senza nel frattempo essere stata usata |
 
-* `x1` $$\Rightarrow$$ ...dud...
+### Sequenze
 
-* `x2` $$\Rightarrow$$ ...**ddd**...
-
-Anomalie rilevabili:
-
-* `x` viene usata senza (2 volte) senza essere stata prima definita
-
-* `x1` nessuna anomalia
-
-* `x2` viene definita più volte senza essere usata nel frattempo
-
-#### Sequenze Data Flow
+Consideriamo il seguente programma C.
 
 ```c
-1   void main() {
-2       float a, b, x, y;
-3       read(x);
-4       read(y);
-5       a = x;
-6       b = y;
-7       while(a != b) {
-8           if(a > b) {
-9               a = a - b;
-10          } else {
+01  void main() {
+02      float a, b, x, y;
+03      read(x);
+04      read(y);
+05      a = x;
+06      b = y;
+07      while (a != b)
+08          if (a > b)
+09              a = a - b;
+10          else
 11              b = b - a;
-12          }
-13      }
-14      write(a);
-15  }
+12      write(a);
+13  }
 ```
 
-$$\operatorname{P}(p,a)$$ indica la **sequenza** ottenuta per la variabile $$a$$ eseguendo il cammino $$p$$.
+Definiamo $$\operatorname{P}(p, \, \texttt{a})$$ come la **sequenza** ottenuta per la variabile $$\texttt a$$ eseguendo il cammino $$p.$$
 
-Es. $$\operatorname{P}([1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 12, 13], a) = a2, d5, u7, u8, u9, d9, u7, u12,  a13$$
+Per esempio, considerando il codice sopra. 
 
-Eseguendo questo tipo di operazione su tutte le variabili si potrebbero verificare le eventuali anomalie. Il problema è che per fare ciò bisognerebbe simulare l'esecuzione del programma e questo significherebbe uscire dal campo dell'analisi statica.
+$$
+\begin{align*}
+&\operatorname{P}([1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 12, 13], \, \texttt{a}) \\
+&= \A{2} \D{5} \U{7} \U{8} \U{9} \D{9} \U{7} \U{12} \A{13}
+\end{align*}
+$$
 
-Quindi quello che si può fare è usare **espressioni regolari** per rappresentare $$P$$ in caso di cammini contenenti _cicli_ e _decisioni_.
+Eseguendo questo tipo di operazione su tutte le variabili si potrebbero verificare le eventuali anomalie, ma \\
+__i cammini sono potenzialmente infiniti__: per scoprirli dovremmo eseguire il programma e quindi uscire dal campo dell'analisi statica.
 
-Es. $$\operatorname{P}([1 →], a)$$ significa rappresentare tutti i cammini che partono dall'istruzione $$1$$ per la variabile $$a$$: 
+#### Espressioni regolari
 
-<!--- 
-a2  d5
+In caso di cammini contenenti __cicli__ e __decisioni__ è possibile rappresentare $$P$$ utilizzando __espressioni regolari__. 
+Con $$\operatorname{P}([1 \rightarrow], \, \mathtt{a})$$ si indicano tutti i cammini che partono dall'istruzione $$1$$ per la variabile $$\mathtt{a}$$.
 
-a2  d5  u7  (        while-body        )*  u12  a13
+Dal codice precedente, è possibile definire $$\operatorname{P}([1 \rightarrow], \, \mathtt{a})$$ come:
 
-a2  d5  u7  (       u8  if-body        )*  u12  a13
+$$
+\begin{align*}
+&\A{2} \D{5} & & &&&  && && & & \\
+&\A{2} \D{5} &\U{7} &\Big( &\phantom{\U8} &&\textit{while body} &&\phantom{\U{7}} &&\Big)* &\quad \quad \U{12} &\A{13} \\
+&\A{2} \D{5} &\U{7} &\Big( &\U{8} &&\textit{if body} &&\phantom{\U{7}} &&\Big)* &\quad \quad \U{12} &\A{13} \\
+&\A{2} \D{5} &\U{7} &\Big( &\U{8} &&\Big(\, \U{9} \D{9} \Big | \: \U{11} \Big) && &&\Big)* &\quad \quad \U{12} &\A{13} \\
+&\A{2} \D{5} &\OpW{u}{7} \, &\Big( \, &\U{8} &&\Big(\, \U{9} \D{9} \Big | \: \U{11} \Big)
+  &&\OpW{u}{7} \,
+&&\Big)* &\quad \quad \U{12} &\A{13}
+\end{align*}
+$$
 
-a2  d5  u7  (  u8  (u9  d9 | u11)  u7  )*  u12  a13
---->
+Osserviamo come $$\OpW{u}{7}$$ si ripeta due volte: questo può rendere _fastidioso_ ricercare errori, per via della difficoltà a considerare cammini multipli.
+
+È comunque facilmente verificabile l'**assenza di errori** nell'espressione regolare sopra.
+
+<!-- non ho capito le motivazioni -->
+L'espressione regolare rappresenta **tutti i cammini** del programma, ma non **_tutti e i soli_**:
+- DA FARE: motivazione A **(DO NOT MERGE)**
+- DA FARE: motivazione B **(DO NOT MERGE)**
+
+È impossibile scrivere un algoritmo che dato un qualsiasi programma riesca a generare un'espressione regolare che rappresenti **tutti e i soli** cammini, senza osservare i valori delle variabili. \\
+Il modello generato è quindi un'__astrazione pessimistica__.
+
+L'espressione reoglare sopra __non è l'unico modo possibile__ per rappresentare il programma. \\
+Si può anzi argomentare che l'espressione regolare
+
+$$
+\Big ( \, \u \Big | \: \d \Big | \: \a \Big)*
+$$
+
+possa rappresentare qualsiasi programma.
 
 Rappresentando la sequenza in questo modo è possibile identificare eventuali anomalie anche nel caso di cicli e decisioni.
 
-### Analisi statica e Testing
+## Analisi statica e Testing
 
 Ma cosa c'entra l'**analisi statica** con il **testing**?
 
