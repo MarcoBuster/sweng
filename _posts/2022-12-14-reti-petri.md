@@ -189,17 +189,15 @@ Tramite il peso degli archi è possibile creare delle situazioni ambigue: ad ese
 
 È da sottolineare che è possibile ridurre una rete P/T avente pesi sugli archi in una rete P/T senza pesi sugli archi: successivamente verrà illustrato come ciò è possibile.
 
-<!--MY Fino a qui-->
-
 ## Relazioni
 
-Di seguito verranno elencati dei tipi di relazioni che possono coinvolgere i diversi identificatori e cosa comporta la loro presenza.
+Di seguito verranno elencati le tipologie di relazioni che possono coinvolgere i diversi identificatori e cosa comporta la loro presenza.
 
 ### Sequenza
 
 Una transizione $$t_1$$ è __in sequenza__ con una transizione $$t_2$$ in una marcatura $$M$$ se e solo se
 
-$$M \ [ \ t_1 > \land \ M \ [ \ t_2 > \land \ M \ [ \ t_1 t_2 >$$
+$$M \ [ \ t_1 > \land \ \lnot  M \ [ \ t_2 > \land \ M \ [ \ t_1 t_2 >$$
 
 Questa formula sta ad indicate:
 - $$t_1$$ è abilitata in $$M$$;
@@ -207,7 +205,7 @@ Questa formula sta ad indicate:
 - $$t_2$$ viene abilitata dallo scatto di $$t_1$$ in $$M$$
 
 in questo caso abbiamo una relazione d'ordine non simmetrica, in cui lo scatto di $$t_1$$ è una condizione succificente per cui $$t_2$$ possa scattare, quindi questo tipo di relazione permette di andare a creare un ordine di scatto delle transizioni.
-Condizione sufficiente perchè osservando l'esempio sottostante è facile capire che lo sacatto di $$t_0$$ non è necessario per far si che $$t_2$$ scatti, infatti anche se dovesse avvenire lo scatto di $$t_2$$ la transizione $$t_2$$ diventerebbe comunque abilitata.
+Condizione sufficiente perchè osservando l'esempio sottostante è facile capire che lo sacatto di $$t_0$$ non è necessario per far si che $$t_2$$ scatti: infatti anche se dovesse avvenire lo scatto di $$t_2$$ la transizione $$t_2$$ diventerebbe comunque abilitata.
 
 {% responsive_image path: 'assets/14_sequenza.png' %}
 
@@ -216,33 +214,36 @@ Condizione sufficiente perchè osservando l'esempio sottostante è facile capire
 Due transizioni $$(t_1, \, t_2)$$ sono in:
 - __conflitto strutturale__ se e solo se $$\operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \neq \varnothing $$
 - __conflitto effettivo__ in una marcatura $$M$$ se e solo se:
-    - $$M \ [ \ t_1 > \cap \ M \ [ \ t_2 > $$;
+    - $$M \ [ \ t_1 > \land \ M \ [ \ t_2 > $$;
     - $$\exists p \in \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \mid (M(p) < W(\langle p, \, t_1 \rangle) + W(\langle  p, \, t_2\rangle))$$.
 
 Analizzando i due tipi di conflitto è possibile notare che:
-- due transizioni sono in conflitto strutturale se l'interesezione dei due preset è vuota, quindi non hanno posti in ingresso in comune, e di conseguenza non possono interferire tra loro per quanto riguarda le condizioni di abilitazione.
+- due transizioni sono in conflitto __strutturale__ se l'interesezione dei due preset è vuota, quindi non hanno posti in ingresso in comune: di conseguenza non possono interferire tra loro per quanto riguarda le condizioni di abilitazione.
 Il conflitto strutturale dipende solo dalla topologia dela rete, infatti non vengono citate le marcature;
-- due transizioni sono in conflitto effettivo se sono entrambe abilitate in una marcatura $$M$$ ed esiste un posto in ingresso in comune ai due preset tale per cui il numero di gettoni in quel posto è minore della somma dei pesi dei due flussi che vanno dal posto alla transizione (quindi il posto in ingresso non ha abbastanza gettoni per far scattare entrambe le transizioni).
+- due transizioni sono in conflitto __effettivo__ se sono entrambe abilitate in una marcatura $$M$$ ed esiste un posto in ingresso in comune ai due preset tale per cui il numero di gettoni in quel posto è minore della somma dei pesi dei due flussi che vanno dal posto alla transizione (quindi il posto in ingresso non ha abbastanza gettoni per far scattare entrambe le transizioni).
 Quindi entrano in conflitto sulla disponibilità di gettoni nel preset.
 
-Esiste una versione rilassata del conflitto, ed è esplicitata dalla seguente formula:
+Esiste una versione __rilassata__ della definizione di conflitto ed è esplicitata dalla seguente formula:
 
 $$
 M \ [ \ t_1 > \land \ M \ [ \ t_2 > \land \ \lnot M \ [ \ t_1 t_2 > 
 $$
 
-Andandola ad analizzare il suo significato è che $$t_1$$ e $$t_2$$ sono abilitate in una marcatura $$M$$ e non è possibile la sequenza $$t_1$$ $$t_2$$ a partire da $$M$$.
+Questa proposizone va ad indicare che il conflitto è presente  se $$t_1$$ e $$t_2$$ sono abilitate in una marcatura $$M$$ e non è possibile la sequenza $$t_1$$ $$t_2$$ a partire da $$M$$.
 Ma cosa vuol dire che è una versione rilassata? per capirlo si osservi questo l'esempio sottostante:
 
 {% responsive_image path: 'assets/14_esempio-conflitto1.png' %}
 
-Questa prima versione rimane in conflitto secondo la prima e la seconda definizione, ma facendo una piccola modifica è facile fare in modo che il conflitto rimanga per la prima definizione ma non per la seconda.
+Secondo le definizioni di conflitto che sono state date, in questa rete di Petri è presente un conflitto sia per la prima definizione che per la seconda.
+È possibile però fare in modo che rimanga in conflitto per la prima definizione data ma non più per la definizione rilassata introducendo una piccola modifica:
 
 {% responsive_image path: 'assets/14_esempio-conflitto1-differenza.png' %}
 
-Aggiungendo una relazione tra $$t_1$$ a $$p_1$$ è facile notare che dopo lo scatto di $$t_1$$ quest'ultima è ancora abilitata, e quindi la seconda definizione non è più rispettata.
-Da questo possiamo capire che la prima definizione si basa solo sui preset, ignorando qualsiasi arco in uscita, invece la seconda ragiona anche sugli effetti dello scatto, ma allora perchè viene usata la prima definizione solitamente?
-Perchè denota come le transizioni non possiedono abbastanza risorse per scattare entrambe nello stesso istante, ma solo in momenti diversi e a seguito di uno scatto hanno questa capacità, quindi di fatto è possibile vederli come due conflitti differenti. <!-- Verificare se questa parte è abbastanza chiara -->
+Aggiungendo una relazione tra $$t_1$$ a $$p_1$$ si può notare che dopo lo scatto di $$t_1$$ quest'ultima è ancora abilitata e quindi non rientra più sotto la definizione rilassata di conflitto.
+
+Lasciando da parte la definizione rilassata, è facile osservare a questo punto che la definizione per il conflitto strutturale si basa solo sui preset, ignorando quindi qualsiasi arco in uscita, mentre la quella per il conflitto effettivo ragiona anche sugli effetti dello scatto delle transizioni. Si noti che l'assenza di un conflitto strutturale ci garantisce l'assenza di un conflitto effettivo, ma non è vero il contrario.
+
+<!--MY-->
 
 È possibile fare qualche ulteriore osservarione riguardo alla relazione di conflitto, ovvero la presenza di un conflitto strutturale __non implica__ obbligatoriamente la presenza di un conflitto effettivo in quanto quest'ultimo per esistere necessita che venga soddisfatta una condizione in più.
 Al contrario invece un conflitto effettivo __implica__ la presenza di un conflitto strutturale in qunato le condizioni di quest'ultimo sono comprese in quelle del conflitto effettivo.
