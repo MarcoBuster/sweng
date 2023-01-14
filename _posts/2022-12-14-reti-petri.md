@@ -239,11 +239,7 @@ Secondo le definizioni di conflitto che sono state date, in questa rete di Petri
 
 Aggiungendo una relazione tra $$t_1$$ a $$p_1$$ si può notare che dopo lo scatto di $$t_1$$ quest'ultima è ancora abilitata e quindi non rientra più sotto la definizione rilassata di conflitto.
 
-Lasciando da parte la definizione rilassata, è facile osservare a questo punto che la definizione per il conflitto strutturale si basa solo sui preset, ignorando quindi qualsiasi arco in uscita, mentre la quella per il conflitto effettivo ragiona anche sugli effetti dello scatto delle transizioni. Si noti che l'assenza di un conflitto strutturale ci garantisce l'assenza di un conflitto effettivo, ma non è vero il contrario.
-
-<!--MY-->
-
-È possibile fare qualche ulteriore osservarione riguardo alla relazione di conflitto, ovvero la presenza di un conflitto strutturale __non implica__ obbligatoriamente la presenza di un conflitto effettivo in quanto quest'ultimo per esistere necessita che venga soddisfatta una condizione in più.
+Lasciando da parte la definizione rilassata, è facile osservare a questo punto che la definizione per il conflitto strutturale si basa solo sui preset, ignorando quindi qualsiasi arco in uscita, mentre la quella per il conflitto effettivo ragiona anche sugli effetti dello scatto delle transizioni. Si noti che la presenza di un conflitto strutturale __non implica__ obbligatoriamente la presenza di un conflitto effettivo in quanto quest'ultimo per esistere necessita che venga soddisfatta una condizione in più.
 Al contrario invece un conflitto effettivo __implica__ la presenza di un conflitto strutturale in qunato le condizioni di quest'ultimo sono comprese in quelle del conflitto effettivo.
 Di seguito viene mostrato un esempio di conflitto effettivo e strutturale.
 
@@ -251,7 +247,7 @@ Di seguito viene mostrato un esempio di conflitto effettivo e strutturale.
 
 ### Concorrenza
 
-La relazione di concorreza è possibile considerarla la relazione opposta alla relazione di conflitto, quindi due transizioni $$(t_1, \, t_2)$$ sono in:
+È in qualche modo intuitivo consoderare la relazione di concorreza come la relazione opposta alla relazione di conflitto: due transizioni $$(t_1, \, t_2)$$ sono in:
 - __concorrenza strutturale__ se e solo se $$\operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) = \varnothing$$
 - __concorrenza effettiva__ in una marcatura $$M$$ se e solo se:
     -  $$M \ [ \ t_1 > \cap \ M \ [ \ t_2 > $$;
@@ -260,13 +256,13 @@ La relazione di concorreza è possibile considerarla la relazione opposta alla r
 Quest'ultima formula sta a significare che due identificatori delle transizioni sono in concorrenza effettiva che se e solo se per tutti i posti che hanno in comune ci sono un numero di gettoni sufficienti per farle scattare entrambe.
 
 In questo caso non esiste alcun legame tra concorrenza strutturale ed effettiva, diversamente da quanto abbiamo visto in precedenza per le relazioni di conflitto.
-Infatti se si verificano le condizioni per avere una concorrenza strutturale è __possibile__ che le due transizioni non siano abilitate, oppure se si verificano le condizioni per avere concorrenza effettiva è __possibile__ che $$t_1$$ e $$t_2$$ abbiamo posti in comune, e quindo sarebbe impossibile avere concorrenza strutturale.
-<!-- verificare quest'ultima parte perchè non sono sicuro di aver scritto giusto -->
-Questo però non esclude il fatto che sia possibile avere concorrenza strutturale ed effettiva contemporaneamente, infatti di seguito sono riportati degli esempi che confermano ciò.
+Se si verificano le condizioni per avere una concorrenza strutturale è __possibile__ che le due transizioni non siano abilitate, oppure se si verificano le condizioni per avere concorrenza effettiva è __possibile__ che $$t_1$$ e $$t_2$$ abbiano posti in comune che posseggano abbastanza gettoni per entrambe.
+
+Questo però non esclude il fatto che sia possibile avere concorrenza strutturale ed effettiva contemporaneamente, infatti di seguito sono riportati degli esempi che confermano ciò:
 
 {% responsive_image path: 'assets/14_esempio-concorrenza.png' %}
 
-Ovviamente è anche possibile che non ci sia alcun tipo di concorrenza, è sufficiente che due transizioni abbiano in comune un posto una delle due non sia abilitata.
+Ovviamente è anche possibile che non ci sia alcun tipo di concorrenza, è sufficiente che due transizioni abbiano in comune un posto e una delle due non sia abilitata.
 
 ## Insieme di raggiungibilità 
 
@@ -275,24 +271,26 @@ L'insieme di raggiungibilità $$R$$ di una rete a partire da una marcatura $$M$$
 - $$(M' \in R(P/T, \, M) \land \exists t \in T \ M' [t> M'') \Rightarrow M'' \in R(P/T, \, M)$$.
 
 Questa definizione induttiva viene interpretata nel seguente modo:
-- passo base $$\rightarrow$$ la marcatura $$M$$ appartiene all'insieme di raggiungibilità $$R(P/T, \, M)$$ ($$M$$ indica la marcatura iniziale mentre P/T indica la rete posti-transizioni);
-- passo induttivo $$\rightarrow$$ se $$M'$$ appartiene all'insieme di raggiungibilità (quindi si dice che è raggiungibile) ed esiste una transizione della rete tale per cui è abilitata in $$M'$$ e mi porta in $$M''$$, per cui con uno scatto è possibile passare dalla marcatura $$M'$$ alla marcatura $$M''$$, allora quest'ultima è __raggiungibile__.
+- __passo base__ $$\rightarrow$$ la marcatura $$M$$ appartiene all'insieme di raggiungibilità $$R(P/T, \, M)$$ ($$M$$ indica la marcatura iniziale mentre P/T indica la rete posti-transizioni);
+- __passo induttivo__ $$\rightarrow$$ se $$M'$$ appartiene all'insieme di raggiungibilità (quindi si dice che è raggiungibile) ed esiste una transizione della rete tale per cui è abilitata in $$M'$$ e mi porta in $$M''$$, per cui con uno scatto è possibile passare dalla marcatura $$M'$$ alla marcatura $$M''$$, allora quest'ultima è __raggiungibile__.
 
 procedendo ricorsivamente con questa definizione è possibile ottenere tutte le marcature raggiungibili.
 
 ## Limitatezza
 <span id="limitatezza"></span>
-Una proprietà importante delle reti di Petri è la __limitatezza__, ovvero la proprietà che indica se le possibili evoluzioni della rete possono essere limitate o illimitate, quindi se gli stati raggiungibili sono infiniti oppure infiniti.
+Una proprietà importante delle reti di Petri è la __limitatezza__, ovvero la proprietà che indica se le possibili evoluzioni della rete possono essere limitate o illimitate, quindi se gli stati raggiungibili sono in numero finito oppure infiniti.
 Volendo dare una definizione più formale è possibile dire che una rete posti-transizioni (P/T) con marcatura $$M$$ si dice __limitata__ se e solo se:
 
 $$\exists k \in \mathbb N \quad \forall M' \in R(P/T, \, M) \\
 \forall p \in P \quad M'(p) \leq k$$
 
-cioè se eisite un numero $$k$$ appartenente all'insieme dei numeri naturali tale per cui per ogni marcatura $$M'$$ raggiungibile da $$M$$, per ogni posto $$p$$ all'interno della rete il numero di gettoni in quella marcatura raggiungibile è minore di $$k$$, ovvero se è possibile porre un numero finito tale per cui dopo qualisasi evolizione non esista alcun posto che possiede un numero di gettoni maggiore di $$k$$, allora è possibile affermare che  la rete è limitata.
+cioè se eisite un numero $$k$$ appartenente all'insieme dei numeri naturali tale per cui per ogni marcatura $$M'$$ raggiungibile da $$M$$, per ogni posto $$p$$ all'interno della rete il numero di gettoni in quella marcatura raggiungibile è minore di $$k$$, ovvero se è possibile porre un numero finito tale per cui dopo qualsiasi evoluzione non esista alcun posto che possiede un numero di gettoni maggiore di $$k$$, allora è possibile affermare che  la rete è limitata.
 Se ciò non si verifica esiste almeno un posto in cui è possibile aumentare tendenzialmente all'infinito il numero di gettoni, tramite una certa evoluzione della rete.
 È importante sottolienare che la limitatezza di una rete può dipende dalla sua marcatura iniziale.
 
 {% responsive_image path: 'assets/14_esempio-rete-illimitata.png' %}
+
+<!--MY-->
 
 ## Da reti di Petri a Automi
 
