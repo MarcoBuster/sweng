@@ -862,7 +862,7 @@ In alcune situazioni però aumentare il numero di iterazioni può diminuire il t
 
 #### Criterio di copertura dei cammini DU
 
-Esistono diversi cammini che soddisfano il criterio precedente.
+Esistono diversi cammini che soddisfano il criterio precedente. \\
 Questo criterio richiede che siano selezionati _tutti_.
 
 $$
@@ -874,6 +874,28 @@ T \in C \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def
 $$
 
 Questo criterio può essere **utile da ipotizzare**, ma è considerato **impraticabile** (_"sopra la barra rossa"_).
+
+#### Criterio di _copertura del budget_
+
+Molto spesso nei contesti reali l'unico criterio applicato è quello di **copertura del budget**: si continuano a creare casi di test finché non sono finite le risorse (tempo e soldi).
+
+### Oltre le variabili
+
+L'analisi del flusso dati si può estendere anche su altri _"oggetti"_, non solo variabili.
+
+Per esempio, è possibile prevedere le seguenti operazioni su un __file__:
+- $$\op{a}$$ (__apertura__): specializzata in _per lettura_ o _per scrittura_;
+- $$\op{c}$$ (__chiusura__);
+- $$\op{r}$$ (__lettura__);
+- $$\op{s}$$ (__scrittura__).
+
+Alcune regole che si possono prevedere possono essere: 
+1. $$\op{r}$$, $$\op{s}$$ e $$\op{c}$$ devono essere precedute da $$\op{a}$$ senza $$\op{c}$$ intermedie;
+2. $$\op{a}$$ deve essere seguita da $$\op{c}$$ prima di un'altra $$\op{a}$$;
+3. legami tra tipo di apertura (per lettura o per scrittura) e relative operazioni.
+
+È interessante notare il **legame** tra l'attività di analisi del flusso di dati e i diagrammi UML a stati finiti: un _oggetto_ risponde a una certa _tipologia di eventi_, può essere in diversi _stati_ e in certi _stati_ non sono amesse alcune _operazioni_.
+Nessuna delle due discipline entra nel merito del valore delle variabili.
 
 #### Beebugging
 
