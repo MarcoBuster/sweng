@@ -897,53 +897,101 @@ Alcune regole che si possono prevedere possono essere:
 È interessante notare il **legame** tra l'attività di analisi del flusso di dati e i diagrammi UML a stati finiti: un _oggetto_ risponde a una certa _tipologia di eventi_, può essere in diversi _stati_ e in certi _stati_ non sono amesse alcune _operazioni_.
 Nessuna delle due discipline entra nel merito del valore delle variabili.
 
-#### Beebugging
+# Tecniche di review
 
-Il problema è che può capitare che non si trovino errori, ciò può dipendere dal fatto che il programma è corretto oppure dal fatto che chi sta testando non lo sta facendo nella maniera corretta.
-Per risolvere questo problema si può usare il beebugging, che consiste nel inserire deliberatamente $$n$$ errori dentro il codice prima di mandare il programma a chi lo deve testare. 
-Questo è un incentivo per il team di testing, perché sa che ci sono degli errori e deve solo trovarli. La metrica che viene utilizzata è la percentuale di errori trovati.
+<a id="anchor"></a>
 
-_Quello che si cerca di fare è di trovare tutti gli errori inseriti per cercare nel frattempo di trovarne di nuovi._ 
+## Beebugging
 
-#### Analisi mutazionale
+Talvolta può capitare che il team di testing **non trovi errori** nel programma sotto osservazione: o il programma è effettivamente corretto (raro) o la review non viene svolta in maniera corretta.
 
-Partendo da un programma e un test vengono aggiunti degli errori al programma per verificare se il test li trova.
-Vengono generate delle mutazioni, 
-per esempio, 
-viene generato un insieme di programmi $$II$$ _simili_ al programma $$P$$ in esame e su di essi viene eseguito lo stesso test $$T$$ previsto per il programma $$P$$.
+Un metodo efficace per risolvere questo problema è possibile utilizzare il **beebugging**, ovvero inserire deliberatamente $$n$$ errori nel codice prima di mandare il programma al team di testing. 
 
-Cosa ci si aspetta?
-* se $$P$$ è corretto allora i programmi in $$II$$ devono essere sbagliati
-* per almeno un caso di test devono quindi produrre un risultato diverso
+Il vantaggio ovvio di questa tecnica è l'**incentivo** per il team di testing a continuare a cercare errori.
 
-_Un test $$T$$ soddisfa il criterio di copertura dei mutanti se e solo se per ogni mutante $$π \in II$$ esiste almeno un caso di test in $$T$$ la cui esecuzione produca per $$π$$ un risultato diverso da quello prodotto da $$P$$._
+La metrica utilizzata è la **percentuale di errori trovati** (di quelli inseriti artificialmente), che può fornire un'indicazione del numero di errori totali rimanenti da trovare.
+Se per esempio il team di sviluppo ha aggiunto 10 bug _"artificiali"_ e durante il testing ne vengono trovati 8 più 2 non noti, si può supporre che il team di review riesce a trovare l'_80% degli errori_ e che quindi ce ne è ancora un altro _reale_ da trovare.
 
-La metrica è la frazione di mutanti riconosciuta come diversa da $$P$$ sul totale di mutanti generati.
+È anche possibile che gli errori immessi artificialmente siano **troppo facili** o **troppo difficili** da trovare - è quindi azzardato arrivare a una conclusione come quella sopra.
 
-Quello che deve essere fatto è l'analisi delle classi e la generazioni dei mutanti, successivamente la selezione dei casi di test e infine l'esecuzione.
+## Analisi mutazionale
 
-Nel caso ideale si vorrebbero avere dei mutanti simili al programma di partenza, con delle differenze minime, cioè, praticamente identici dappertutto tranne dove sono stati aggiunti gli errori.
-I mutanti sono virtualmente infiniti, ma facili da automatizzare.
+Una evoluzione del beebugging è l'**analisi mutazionale**.
+Dato un programma $$P$$ e un insieme di casi di test $$T$$, viene generato un insieme di programmi $$\Pi$$ _simili_ al programma $$P$$ in esame.
 
-Gli **operatori mutanti** sono delle funzioni che, dato $$P$$, generano uno o più mutanti. I più semplici effettuano modifiche sintattiche che comportino modifiche semantiche, ma non errori sintattici bloccati in compilazione.
+Ci si aspettano due cose:
+- se $$P$$ è corretto allora i programmi in $$\Pi$$ _**devono essere sbagliati**_;
+- per almeno un caso di test i programmi devono quindi produrre un risultato diverso.
 
-Nella variante **HOM** _(Hing Order Mutation)_ può venire fatta più di una modifica e a volte sono più difficili da identificare le modifiche prese singolarmente.
+I tre passi da seguire per l'analisi mutazionale sono:
+1. **analisi** delle classi e generazione dei mutanti; 
+2. **selezionare** dei casi di test, in base alla metrica; 
+3. **esecuzione** dei casi di test, pensando anche alle performance;
 
-Tra le **classi di operatori** si distinguono rispetto all'oggetto su cui operano:
+### Criterio di copertura dei mutanti
 
-* _costanti_, _variabili_, es. scambiando l'occorrenza di una con l'altra
-* _operatori_ ed _espressioni_, es. `<` in `<=`, oppure `true` in `false`
-* _comandi_, es. un `while` in `if`
+Formalizzando la tecnica come _criterio di copertura_, si può dire che
+_un test $$\ T$$ soddisfa il **criterio di copertura dei mutanti** se e solo se per ogni mutante $$\pi \in \Pi$$ esiste almeno un caso di test $$t \in T$$ la cui esecuzione produca per $$\pi$$ un risultato diverso da quelllo prodotto da $$P$$_.
 
-Vediamo con uno schema come ci si può comportare per capire quali sono i problemi:
+La metrica è la **frazione di mutanti $$\pi$$ riconosciuta come diversa** da $$P$$ sul totale di mutanti generati.
+
+### Generazione dei mutanti
+
+Nel caso ideale si vorrebbero avere dei mutanti simili al programma di partenza con **differenze minime**, che introducono potenziali anomalie.
+I mutanti sono **potenzialmente infiniti**, ma facili da automatizzare.
+
+Per mantenere la suite di test *eseguibile in tempi ragionevoli*, il numero di mutanti non deve essere troppo elevato: un centinaio è una buona stima, ma un migliaio sarebbe auspicabile.
+Visto il numero limitato, è necessario concentrarsi quindi sulla loro "__qualità__", in modo che trovino un errore.
+
+#### Operatori mutanti
+
+Gli **operatori mutanti** sono delle funzioni (o piccoli programmi) che dato un programma $$P$$ generano uno o più mutanti $$\pi$$.
+Essi operano eseguendo piccole **modifiche sintattiche** che modifichino la **semantica del programa** senza causare errori di compilazione.
+
+Esistono numerosi **problemi di prestazioni**, in quanto per ogni mutante occorre modificare il codice, ricompilarlo, controllare che non si sovrapponga allo spazio di compilazione delle classi di altri mutanti, ecc...
+I tool moderni lavorano quindi sull'**eseguibile** (nel caso di Java sul bytecode) per diminuire il lavoro da fare per ogni mutante ma stando attenti a non fare modifiche che non sarebbero state mai generate da nessun compilatore Java.
+
+##### CLASSI DI OPERATORI
+
+Si distinguono operatori in **classi** in base agli oggetti su cui operano.
+- **costanti**, **variabili**, per esempio scambiando l'occorrenza di una con l'altra;
+- **operatori** ed **espressioni**, per esempio `<` in `<=`, oppure `true` in `false`;
+- **comandi**, per esempio un `while` in `if`, facendolo eseguire una sola volta.
+
+Possono essere anche specifici su alcuni tipi di applicazioni, come:
+- __sistemi concorrenti__: operano principalmente sulle primitive di sincronizzazione – come eseguire una `notify()` invece che una `notifyAll()`;
+- __sistemi object orientend__: operano principalmente sulle interfacce dei moduli.
+
+#### High Order Mutation
+
+Nella variante **HOM** (**High Order Mutation**) si applicano modifiche a **codice già modificato**.
+La giustificazione per tale tecnica è che esistono alcuni casi in cui trovare errori dopo aver applicato più modifiche è *più difficile* rispetto ad applicarne solo una.
+Può essere che un errore mascheri parzialmente lo stato inconsinstente dell'altro rendendo più difficile il rilevamento di malfunzionamenti. 
+
+### Risultati
+
+Generalmente nel testing gli unici due _outcomes_ sono _risultato corretto_ o _non corretto_ e la metrica è una misura della correttezza del programma.
+Il discrimante delle tecniche di analisi mutazionale è invece il numero di casi di test che forniscono un risultato ***diverso*** da quello di $$P$$, indipendentemente dalla correttezza (di entrambi).
+
+Trovare errori con queste tecniche (specialmente l'HOM) misura quindi il **livello di approfondimento** dei casi di test e **non** la **correttezza** del programma.
+
+Trascindere dalla *correttezza* dei risultati ha anche aspetti positivi: per eseguire l'analisi mutazionale non è quindi necessario avere i comportamenti corretti (o l'__oracolo__). 
+Si può quindi misurare la bontà dei casi di test **automatizzando la loro creazione**: come già detto precedentemente, occorre però vigilare sulla **profilerazione del numero di esecuzioni** da effettuare per compleare un test – un caso di test dà origine a $$n+1$$ esecuzioni dove $$n$$ è il numero di mutanti.
+
+Il seguente diagramma di flusso visualizza le attività (**facilmente automatizzabili**) svolte durante l'analisi.
 {% responsive_image path: 'assets/13_analisi-mutazionale-schema.png' %}
 
-Il problema di questo approccio è che non garantisce la terminazione, ovvero non c'è un modo sicuro per stabilire quando il processo di analisi è completato. Ciò è dovuto a diversi fattori:
-- Quando si estrae un valore casuale, c'è sempre il rischio di estrarre sempre lo stesso valore.
-- Si potrebbe essere particolarmente sfortunati e non trovare il valore corretto.
-- Esistono infinite varianti di programmi che svolgono la stessa funzione, anche se non sono sintatticamente identici. Di conseguenza, una modifica sintattica potrebbe non avere alcun effetto sul funzionamento del programma.
+Questo approccio benché semplice **non garantisce la terminazione**, perché:
+- quando si estrae un valore casuale, c'è sempre il rischio di **estrarre sempre lo stesso valore**;
+- si potrebbe essere _particolarmente sfortunati_ e **non trovare il valore corretto**;
+- **esistono infinite varianti** di programmi che svolgono la stessa funzione, anche se non sono sintatticamente identici. 
+Di conseguenza, una modifica sintattica potrebbe non avere alcun effetto sul funzionamento del programma.
 
-Per verificare se il test è valido, è necessario controllare il numero di mutanti generati. Se questo numero è elevato, il test non è affidabile. In alternativa, è possibile "nascondere" i mutanti, a patto che non sia richiesta una copertura totale. In questo modo, è possibile analizzare programmi che sono funzionalmente uguali ma sintatticamente diversi, al fine di dimostrare l'equivalenza o scoprire casi in cui essa non è valida.
+Per verificare la validità del test, è necessario controllare il **numero di mutanti generati**: se questo numero è elevato, il test non è affidabile. 
+In alternativa, è possibile _"nascondere"_ i mutanti, a patto che non sia richiesta una copertura totale. 
+In questo modo, è possibile **analizzare programmi** che sono **funzionalmente uguali ma sintatticamente diversi**, al fine di dimostrarne l'equivalenza o scoprire casi in cui essa non è valida.
+
+# TBD
 
 #### Analis mutazionale in un linguaggio OO
 
