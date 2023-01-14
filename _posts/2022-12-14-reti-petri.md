@@ -97,15 +97,13 @@ Un aspetto interessante di questa definizione è che non si sta ragionando su tu
 Lo __scatto__ di una transizione $$t \in T$$ in una particolare marcatura $$M$$, produce nel momento successivo una nuova marcatura $$M'$$ tale per cui
 
 $$
-\begin{align*}
-\forall p \in \operatorname{Pre}(t) - \operatorname{Post}(t)& \quad M'(p) = M(p) - W(\langle p, \, t \rangle) \\
-\forall p \in \operatorname{Post}(t) - \operatorname{Pre}(t)& \quad M'(p) = M(p) + W(\langle t, \, p \rangle) \\
-\forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t)& \quad M'(p) = M(p) - W(\langle p, \, t \rangle) + W(\langle t, \, p \rangle) \\
-\forall p \in P - \left ( \operatorname{Post}(t) \cap \operatorname{Pre}(t) \right )& \quad M'(p) = M(p)
-\end{align*}
+\begin{aligned}
+&\forall p \in \operatorname{Pre}(t) - \operatorname{Post}(t), \ \  M'(p) = M(p) - W(\langle p, \, t \rangle)\\
+&\forall p \in \operatorname{Post}(t) - \operatorname{Pre}(t), \ \ M'(p) = M(p) + W(\langle t, \, p \rangle)\\
+&\forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t), \ \ M'(p) = M(p) - W(\langle p, \, t \rangle) + W(\langle t, \, p \rangle)\\
+&\forall p \in P - \left ( \operatorname{Post}(t) \cap \operatorname{Pre}(t) \right ), \ \ M'(p) = M(p)\\
+\end{aligned}
 $$
-
-<!-- L'ultimo elemento di questa lista di formule non viene allineato bene non so per quale motivo -->
 
 specificando in modo descrittivo le notazioni precedenti:
 - Per ogni identificatore $$p$$ appartenente al preset ma non al postset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ meno il peso dell'arco che collega $$p$$ a $$t$$;
