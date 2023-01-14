@@ -1046,7 +1046,7 @@ In caso il diagramma degli stati non sia presente, con un'attività di **reverse
 
 Non importa se le informazioni estratte non sono comprensibili ad un umano, una volta passate a un tool di testing automatico si passa in una situazione di testing **white box**.
 
-# Test funzionale
+# Testing funzionale
 
 Il **test funzionale** è un tipo di test che si concentra sulla verifica del comportamento del programma dal punto di vista dell'**utente finale**, senza considerare il suo funzionamento interno. 
 In altre parole, il test funzionale è un approccio **black box**, in cui non si ha o non comunque non si sfrutta la conoscenza del codice sorgente.
@@ -1159,7 +1159,7 @@ Le caratteristiche possono essere di due tipi: __esplicite__, ovvero quelle rica
 </td>
   <td markdown="1">
 - pattern tra apici con/senza spazi;
-- più apici successivi inclusi nel pattern
+- più apici successivi inclusi nel pattern.
 </td>
 </tr>
   <th markdown="1">`file` \\
@@ -1175,13 +1175,13 @@ Le caratteristiche possono essere di due tipi: __esplicite__, ovvero quelle rica
 (contenuto)
   </th>
   <td markdown="1">
-- numero occorrenze del pattern nel file
-- massimo numero di occorrenze del pattern in una linea
-- massima lunghezza linea
+- numero occorrenze del pattern nel file;
+- massimo numero di occorrenze del pattern in una linea;
+- massima lunghezza linea.
 </td>
   <td markdown="1">
-- pattern sovvrapposti
-- tipo del file
+- pattern sovvrapposti;
+- tipo del file.
 </td>
 </tr>
 </table>
