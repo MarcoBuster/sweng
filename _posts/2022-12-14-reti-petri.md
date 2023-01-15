@@ -70,8 +70,9 @@ Data la 5-tupla appena descritta esistono le seguenti proprietà:
 - $$F \subseteq (P \times T) \cup (T \times P)$$;
 - $$W: \: F \rightarrow \mathbb N - \{ 0 \}$$;
 - $$M_0: P \rightarrow \mathbb N$$.
-|
-Utilizziamo alcune _scorciatoie_:
+
+Utilizziamo inoltre alcune _scorciatoie_:
+
 - $$\operatorname{Pre}(a) = \{ d \in (P \cup T) \ \text{t.c.} \ \langle d, \, a \rangle \in F \}$$;
 - $$\operatorname{Post}(a) = \{ d \in (P \cup T) \ \text{t.c.} \ \langle a,\, d \rangle \in F \}$$.
 
