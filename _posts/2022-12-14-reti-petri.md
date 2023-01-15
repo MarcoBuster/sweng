@@ -308,13 +308,17 @@ Riuscire a passare dalle reti di Petri agli automi ci permette di modellare un p
 Una transizione $$t$$ in una marcatura $$M$$ si può dire _viva_ con un certo __grado__:
 - __grado 0__ (è __morta__) non è abilitata in nessuna marcatura appartanente all'insieme di raggiungibilità, quindi qualunque evoluzione avvenga nella rete, la transizione non portà mai scattare (non è sempre un aspetto negativo);
 - __grado 1__ esiste almeno una marcatura raggiungibile a partire da $$M$$ in cui la transizione è abilitata;
-- __grado 2__ per ogni numero $$n$$ naturale escluso lo zero esiste almeno una sequenza di scatti ammissibile a partire da $$M$$ in cui la transizione scatta $$n$$ volte, ovvero è possibile far scattare la transizione un numero grande a piacere di volte; <!-- differenza tra 2 e 3 da chiarire meglio, si capisce meglio dal'esempio sotto l'immagine -->
-- __grado 3__ esiste una sequenza di scatti ammissibile a partire da $$M$$ per cui la transizione scatta infinite volte;
+- __grado 2__ per ogni numero $$n$$ naturale escluso lo zero esiste almeno una sequenza di scatti ammissibile a partire da $$M$$ in cui la transizione scatta $$n$$ volte, ovvero è possibile far scattare la transizione un numero  $$n$$ grande a piacere di volte; <!-- differenza tra 2 e 3 da chiarire meglio, si capisce meglio dal'esempio sotto l'immagine -->
+- __grado 3__ esiste una sequenza di scatti ammissibile a partire da $$M$$ per cui la transizione scatta infinite volte.
 - __grado 4__ in qualunque marcatura raggiungibile esiste una sequenza ammissibile in cui è possibile far scattare la transizione almeno una volta, di conseguenza può scattare  infinite volte in qualunque situazione ci si trovi (ovvero in qualunque marcatura), inq questo caso si dice che la transizione è __viva__ in maniera assoluta.
+
+(Si noti come il concetto di _$$n$$ grande a piacere di volte_ presente nel grado 2 sia differente dal concetto di _infinite volte_ nel grado 3, verrà reso più chiaro nell'esempio sottostante)
 
 Gli esempi seguenti rappresentano delle situazioni verosimili riguardanti la Vitalità delle transizioni:
 - __grado 0__: qualunque cosa accada la centrale nucleare non può esplodere;
 - __grado 1__: in un certo momento se si assume il controllo di tutto ciò che avverrà è possibile portare la centrale nucleare allo spegnimento;
+- __grado 2__: Duccio, ingegnere della centrale nucleare che si trova in coffee break, è in grado di interagire con la macchinetta del caffé appena accesa in modo da avere un numero di caffé grande a piacere, almeno finchè qualcuno non inserisce una moneta nella macchinetta;
+- __grado 3__: Biascica, guardia giurata della centrale, è in grado di fare alzare la sbarra per il parcheggio un numero infinito di volte;
 <!-- che esempi si possono mettere per 2 e 3? -->
 - __grado 4__: se succede qualcosa fuori dal mio controllo all'interno della centrale posso comunque riuscire ad eseguire lo spegnimento
 
@@ -323,27 +327,28 @@ Una rete viene chiamata __viva__ quando tutte le sue transizioni sono vive.
 {% responsive_image path: 'assets/14_esempio-vitalita-transizioni.png' %}
 
 Da questo esempio pratico è possibile notare come la transizione $$t_0$$ è di grado 0 in quanto non potrà mai scattare, perchè è impossibile che abbia i gettoni necessari nel preset per scattare (al massimo o in $$p_0$$ o in $$p_1$$).
-La transizione $$t_1$$ è fi grado 1 perchè esiste almeno una marcatura raggiungibile per cui essa scatti, infatti la marcatura corrente è quella che ne permette lo scatto, questo però non è obbliatorio, infatti sarebbe potuto accadere che la marcatura corretta fosse un'altra.
-Osservando la transizione $$t_3$$ è possibile notare che essa scatti infinite volte (e non $$n$$ grande a piacere, quindi non si tratta di una transizione di grado 2), però nel caso avvenga lo scatto di $$t_1$$ la transizione $$t_3$$ non potrà mai più essere abilitata (quindi esiste una marcatura in cui non sarà possibile il suo scatto), e questo ci garantisce che non si tratta di una transizione di grado 4, ma bensi di grado 3.
+La transizione $$t_1$$ è di grado 1 perchè esiste almeno una marcatura raggiungibile per cui essa scatti, infatti la marcatura corrente è quella che ne _permette_ lo scatto (Ricordando ancora che se una transizione è abilitata allo scatto non significa che debba scattare).
+Osservando la transizione $$t_3$$ è possibile notare che essa scatti infinite volte (e non $$n$$ grande a piacere, quindi non si tratta di una transizione di grado 2), però nel caso avvenga lo scatto di $$t_1$$ la transizione $$t_3$$ non potrà mai più essere abilitata (quindi esiste una marcatura in cui non sarà possibile il suo scatto) e questo ci garantisce che non si tratta di una transizione di grado 4, ma bensi di grado 3.
 Il caso più particolare è quello della transizione $$t_2$$, è noto che $$t_3$$ può scattare infinite volte, e quindi in $$p_2$$ possono esserci infiniti gettoni, inoltre conseguentemente allo scatto di $$t_1$$ il posto $$p_1$$ conterrà un gettone, ma comunque la transizione $$t_2$$ non può scattare infinite volte.
 Quseto perchè è vero che all'infinito posso generare gettoni in $$p_2$$, ma dal momento che scatta $$t_1$$ si perde questa possibilità, permettendo a $$t_2$$ di scattare tante volte quanti sono i gettoni in $$p_2$$.
 Infine $$t_4$$ è una transizione viva (di grado 4), perchè qualunque sia la marcatura raggiungibile dalla marcatura corrente è possibile prendere il controllo e sicuramente esiste una sequenza di scatti tale per cui $$t_4$$ diventi abilitata.
 
 ## Capacità dei posti 
 
-Inizialmente è stato detto che esistono diversi dialetti riguardanti le reti di Petri, infatti una possibile estensione consiste nel fissare una capacità massima rispetto al numero di gettoni ammissibili in un posto.
+Inizialmente è stato detto che esistono diversi dialetti riguardanti le reti di Petri.
+Una possibile estensione consiste nel fissare una capacità massima rispetto al numero di gettoni ammissibili in un posto.
 Un esempio potrebbe essere quello in cui in un sistema possono essere presenti $$k$$ lettori contemporaneamente e non più di $$k$$.
-Avendo la possibilità di definire una capacità dei posti, è facile intuire che diventa possibile forzare la limitatezza della rete.
+Avendo la possibilità di definire una capacità dei posti, è facile intuire che diventa possibile _forzare la limitatezza della rete_.
 
 Tale estensione aumenta la potenza espressiva oppure è semplicemente una scorciatoia?
 Tramite l'esempio sottostate si può notare che questa estensione non è altro che una tecnica per facilitare la scrittura della rete.
 
 {% responsive_image path: 'assets/14_simulazione-capacita-posti.png' %}
 
-Nella rete con la capacità dei posti limitata per far sì che ad esempio la transizione $$t_0$$ scatti, è necessario che sia i posti nel suo preset abbiano gettoni sufficienti, sia che dopo il suo scatti il posto $$p_0$$ non superi il limite assegnatogli.
-Volendo scrivere la stessa rete utilizzando il metodo classico visto fino ad ora basta aggiungere un __posto complementare__, e in questo modo l due reti mostrarte sopra sono equipollenti, ossia hanno lo stesso valore.
-Infatti fino a che nel posto complementare esistono dei gettoni la transizione $$t_0$$ può scattare, ma dal momento che tutti i gettoni di $$p_0(compl)$$ vengono bruciati $$t_0$$ non sarà più abilitata, e nel posto $$p_0$$ ci sarà il numero massimo di gettoni possibili (da notare come la somma dei gettoni del posto condiserato sia esattamente la capacità massima scelta in precedenza).
-Questo vale però solo per le reti __pure__, ovvero le reti che per ogni transizione ha preset e postset disgiunti.
+Nella rete con la capacità dei posti limitata per far sì che ad esempio la transizione $$t_0$$ scatti, è necessario sia che i posti nel suo preset abbiano gettoni sufficienti, sia che dopo il suo scatto il posto $$p_0$$ non superi il limite assegnatogli.
+Volendo scrivere la stessa rete utilizzando il metodo classico visto fino ad ora basta aggiungere un __posto complementare__ e in questo modo le due reti mostrarte sopra sono __equipollenti__, ossia hanno lo stesso valore.
+Infatti fino a che nel posto complementare esistono dei gettoni la transizione $$t_0$$ può scattare, ma dal momento che tutti i gettoni di $$p_0(compl)$$ vengono bruciati $$t_0$$ non sarà più abilitata e nel posto $$p_0$$ ci sarà il numero massimo di gettoni possibili (da notare come la somma dei gettoni del posto condiserato sia esattamente la capacità massima scelta in precedenza).
+Questo vale però solo per le reti __pure__, ovvero _le reti che_ ___per ogni transizione___ _hanno preset e postset disgiunti_.
 
 ### Posto complementare
 Un posto complementare è un posto che ha in uscita verso ognuna delle transizioni del posto considerato, un arco di ugual peso ma direzione opposta.
@@ -359,14 +364,15 @@ $$
 \forall t \in T ( \exists \langle t, p \rangle \in F) \Leftrightarrow \exists \langle pc, t \rangle \in F \quad W(\langle pc, t \rangle) = W(\langle t, p \rangle)
 $$
 
-Per ogni transizione appartenente a $$T$$ in uscita da $$p$$, quindi tale per cui esiste una relazione di flusso dal posto $$p$$ alla transizione $$t$$ deve esistere un flusso di direzione opposta che va dalla transizione $$t$$ al posto complementare $$pc$$ avente lo stesso peso.
+Per ogni transizione appartenente a $$T$$ in uscita da $$p$$, quindi tale per cui esiste una relazione di flusso dal posto $$p$$ alla transizione $$t$$ deve esistere un flusso che va dalla transizione $$t$$ al posto complementare $$pc$$ avente lo stesso peso.
 In più vale lo stesso discorso per le transizioni in ingresso al posto $$p$$, quindi per ogni transizione $$t$$ appartenente a $$T$$ in ingresso a $$p$$, quindi tale per cui esiste un flusso da $$t$$ al posto $$p$$ deve esistere un flusso che va dal posto complementare $$pc$$ a $$t$$ di direzione opposta e avente lo stesso peso.
-<!-- Ricontrolla queste due formule -->
 Questa formula garantisce che il numero di gettoni somma tra il posto e il suo complementare sia costante, e permette di formulare la condizione di abilitazione (lavorando sul preset della transizione) in modo tale da dipendere anche dal numero di gettoni presenti nel posto in arrivo.
 
 ### Abilitazione con capacità
-Potrebbe però sorgere un problema dal momento che si devono trattare reti con capacità sui posti, come è possibile definire la condizione di abilitazione in quel caso?
+Come è possibile definire la condizione di abilitazione nel caso di reti con capacità sui posti?
 La definizione di _abilitazione_ è per reti con capacità sui posti è la seguente:
+
+<!-- Commento questo passaggio perchè sulle slide ma dal mio punto di vista è da escludere perchè potrebbe essere fuorviante dato che si tratta di una slide interattiva in cui scegliere la definizione corretta
 
 $$t \in T$$ è __abilitata__ in $$M$$ se e solo se 
 
@@ -379,6 +385,7 @@ $$
 
 oppure si può ragionare diversamente
 
+-->
 $$t \in T$$ è __abilitata__ in $$M$$ se solo se:
 
 $$
@@ -389,64 +396,66 @@ $$
 \end{align*}
 $$
 
-La formula corretta è la seconda, infatti considerando l'immgine seguente possiamo notare come la rete di sinistra abbia ancora la transizione abilitata, mentre quella di destra no.
-Infatti nella seconda rete è come se lo scatto venisse spezzato in due fasi, la prima in cui vengono generati i gettoni nel posto (in questo caso $$p_3$$), la seconda invece in cui vengono tolti tanti gettoni quanto è il peso dell flusso da $$p_3$$ a $$t_1$$.
-Nella prima rete questo non accade invece, è come se si verificasse tutto nello stesso istante.
+<!--La formula corretta è la seconda, -->infatti considerando l'immgine seguente possiamo notare come la rete di sinistra abbia ancora la transizione abilitata, mentre quella di destra no.
+Nella seconda rete è come se lo scatto venisse spezzato in due fasi: la prima in cui vengono generati i gettoni nel posto (in questo caso $$p_3$$), la seconda invece in cui vengono tolti tanti gettoni quanto è il peso dell flusso da $$p_3$$ a $$t_1$$.
+Nella prima rete invece questo non accade, è come se si verificasse tutto nello stesso istante.
 
 {% responsive_image path: 'assets/14_esempio-abilitazione-reti-capacita.png' %}
 
-A questo punto, ci si potrebbe chiedere se è possibile genrare la situazione equivalente nel caso di reti normali, e la risposta è no nel caso in cui si posti complementari.
-Con quest'ultimo caso è possibile solo per le reti pure, ma non per tutte le reti in generale, infatti fino a che non sono presenti archi in entrata e uscita allo stesso posto dalla stessa traniszione non sorge alcun tipo di problema.
+A questo punto, ci si potrebbe chiedere se fosse possibile generare la situazione equivalente nel caso di una rete P/T classica e la risposta è no ad eccezione del caso in cui si usano delle reti con posti complementari.
+Utilizzando i __posti complementari__ è infatti è infatti possibile rappresentare _solo le reti pure_ equivalenti, ma _non tutte le reti in generale_ (Quindi fino a che non sono presenti archi in entrata e uscita allo stesso posto dalla stessa traniszione non sorge alcun tipo di problema).
 
 Come è possibile risolvere questo problema? è possibile pensare a due approcci:
-- si trova un altro approccio diverso dai posti complementar;
+- si trova un altro approccio diverso dai posti complementari;
 - si cerca di dimostrare che una rete pura ha sempre un equivalente rete non pura.
+
+In entrambi i casi non è una cosa così immediata
 
 <!-- aggiungere esempio / marcature pure / pure-equivalenti / ecc .. -->
 <!-- Si è fermato a questo punto durante la lezione, nella lezione 20 non ha spiegato ancora quale approccio utilizzare -->
 ## Archi inibitori
-Esiste un'altra estenzione delle reti di petri in cui si si utilizzano gli __archi inibitori__, ovvero degli archi che permettono indicano la situazione in cui una transizione non ha bisogno di gettoni perchè sia abilitata.
-Nel caso in cui un arco inibitore abbia un peso $$n$$ indica che la transizione è abilitata se nel posto collegato non ci siano neanche $$n$$ gettoni.
+Esiste un'altra estenzione delle reti di petri in cui si si utilizzano gli __archi inibitori__, ovvero degli archi che indicano la situazione in cui una transizione ha bisogno che _non siano presenti gettoni nel posto_ perchè possa essere abilitata.
+Nel caso in cui un arco inibitore abbia un peso $$n$$ indica che la transizione è abilitata se nel posto collegato non ci sono presenti un numero minore di $$n$$ gettoni.
 
 In caso di rete limitata la potenza di una rete che sfrutta gli archi inibitori non cambia, questo perchè, esistendo un limite massimo $$k$$ di gettoni all'interno della rete, sarà sufficiente creare un posto complementare contente un numero di gettoni tali per cui, la somma tra quest'ultimi e i gettoni presenti nel posto considerato, sia minore di $$k$$.
-A questo punto è necessario che sia presenti due archi (uno in ingresso e uno in uscita) di peso 10, in modo tale da permettere lo scatto della transizione solo nel caso in cui tutti i gettoni siano all'interno del posto complementare.
+A questo punto è necessario che siano presenti due archi (uno in ingresso e uno in uscita) di peso 10, in modo tale da permettere lo scatto della transizione solo nel caso in cui tutti i gettoni siano all'interno del posto complementare.
 In realtà non è necessaria che tutta la rete sia limitata, ma basta che il sigolo posto lo sia, ovvero è necessario sapere che qualunque sia lo stato generale della rete, in quel preciso posto non ci siano più di $$k$$ gettoni.
-Nel caso di rete non limitata invece non è sempre possibile avere una traduzione equivalente della rete di Petri, questo significa che la potenza delle reti con questi particolari archi aumenta.
+Nel caso di rete non limitata invece non è sempre possibile avere una traduzione equivalente della rete di Petri, questo significa che la potenza esporessiva delle reti con gli archi inibitori aumenta.
 
-Il problema di questi particolari archi è che rendono inutilizzabili alcune tecniche di analisi che verranno affrontate successivamente.
+Il problema di questi particolari archi è che rendono _inutilizzabili_ alcune tecniche di analisi che verranno affrontate successivamente.
 
 ## Eliminazione pesi archi
 
-In precedenza è stato accennato che per ogni rete avente dei pesi sugli archi è possibile crearne una equivalente ma senza pesi, ovvero tutti gli archi avranno peso uno, ma la rete avrà un comportamento del tutto analogo alla rete originale con i pesi.
+In precedenza è stato accennato che per ogni rete avente dei pesi sugli archi è possibile crearne una equivalente senza pesi sugli archi (ovvero avente tutti gli archi di peso 1)
 Per fare ciò è necessario considerare due casi distinti, ovvero quello con peso sugli archi in ingresso ad una transizione e quello con peso sugli archi in uscita ad una traniszione.
 
 ### Pesi su archi in ingresso.
 
 Per poter effettuare questa modifica sarà necessario avere lo scatto di una nuova transizione (perchè ovviamente non è possibile collegare due archi dallo stesso posto alla stessa transizione), però non basta.
-Infatti dopo lo scatto di $$t_0$$ è possibile che $$t_0 bis$$ non scatti, e la rete evolva senza che in $$p_1$$ ci sia il giusto numero di gettoni (problema di concorrenza).
-Per risolvere questo problema si sfrutta una sorta di __lock__, ovvero un posto collegato bidirezionalmente con tutte le transizioni della rete, tranne per $$t_0$$ a cui è collegato solo in ingresso, e per $$t_0 bis$$ a cui è collegato solo in uscita.
-In questo modo è come se lo scatto di $$t_0$$ sia scomposto logicamente in due parti, quando $$t_0$$ scatta viene attivato il lock in modo tale che nessun'altra transizione sia abilitata, e successivamente lo scatto di $$t_0 bis$$ lo rilascia.
-Questo ovviamente non obbliga $$t_0 bis$$ a scattare immediatamente, però è certo che la rete non potrà evolvere in alcun altro modo, e quindi non si creeranno marcature non esistenti nella rete originale.
+Infatti dopo lo scatto di $$t_0$$ è possibile che $$t_0 bis$$ non scatti e la rete evolva senza che in $$p_1$$ ci sia il giusto numero di gettoni (problema di concorrenza).
+Per risolvere questo problema si sfrutta una sorta di __lock__, ovvero un posto collegato bidirezionalmente con tutte le transizioni della rete tranne per $$t_0$$, a cui è collegato solo in ingresso, e per $$t_0 bis$$, a cui è collegato solo in uscita.
+In questo modo è come se lo scatto di $$t_0$$ sia scomposto logicamente in due parti: quando $$t_0$$ scatta viene attivato il lock in modo tale che nessun'altra transizione sia abilitata e, successivamente, lo scatto di $$t_0 bis$$ lo rilascia.
+Questo ovviamente non obbliga $$t_0 bis$$ a scattare immediatamente, però è certo che la rete non potrà evolvere in alcun altro modo e quindi non si creeranno marcature non esistenti nella rete originale.
 Questa soluzione non è molto elegante perchè esiste un posto avente in ingresso un arco per ogni transizione della rete.
 
 {% responsive_image path: 'assets/14_eliminazione-archi-ingresso.png' %}
 
 ### Pesi su archi in uscita
 
-In questo caso il peso da rimuovere è su un arco in uscita da un posto e in ingresso ad una transizione, quindi è necessario che vengano distrutti due gettoni dallo stesso scatto.
-L'approccio da utilizzare è simile, infatti è presente un posto globale che fa da lock in modo che risolva il problema di concorrenza tra $$t_8$$ e $$t_1$$.
-In questo caso però abbiamo un ulteriore problema, ovvero al momento dello scatto di $$t_8$$ il gettone in $$p_0$$ viene consumato, di conseguenza $$t_1$$ non può scattare, inoltre il resto della rete rimane bloccata, in quanto all'interno del posto globale non è più presente il gettone, che è stato consumato sempre dallo scatto di $$t_8$$.
+In questo caso il peso da rimuovere è su un arco che esce da un posto ed entra in una transizione, quindi è necessario che vengano distrutti due gettoni dallo stesso scatto.
+L'approccio da utilizzare è simile: infatti è presente un posto globale che fa da lock in modo che risolva il problema di concorrenza tra $$t_8$$ e $$t_1$$.
+In questo caso però abbiamo un ulteriore problema, ovvero al momento dello scatto di $$t_8$$ il gettone in $$p_0$$ viene consumato, di conseguenza $$t_1$$ non può scattare. Inoltre il resto della rete rimane bloccata, in quanto all'interno del posto globale non è più presente il gettone che è stato consumato sempre dallo scatto di $$t_8$$.
 Questo deadlock può essere risolto aggiungendo un controllo sul posto $$p_0$$, in modo tale che possa scattare solo quando possiede due o più gettoni, in questo modo non può verificarsi la situazione in cui $$t_8$$ scatti senza un successivo scatto di $$t_1$$.
-Il meccanismo della rete inizia ad essere molto complesso, e nell'esempio viene mostrato il caso in cui devono essere consumati due gettoni.
-In altri caso con più gettoni, o con situazioni differenti, la rete aumenterebbe ulteriormente di complessità e quindi risulterebbe più facile pensare la rete in modo differente.
-Infatti questo modo non è l'unico modo per modellare il sistema, ma è il modo meccanico per modellare questo particolare esempio, ma è comunque possibile trovare un buon modo per modellare una rete senza sfruttare i pesi e senza una traduzione meccanica di essi.
+Il meccanismo della rete inizia ad essere molto complesso e nell'esempio viene mostrato il caso in cui devono essere consumati due gettoni.
+In altri casi con più gettoni, o con situazioni differenti, la rete aumenterebbe ulteriormente di complessità e quindi risulterebbe più facile pensare la rete in modo differente.
+Infatti questo modo non è l'unico modo per modellare il sistema, può essere considerare il modo "meccanico" per modellare questo particolare esempio, ma è comunque possibile trovare un buon modo per modellare una rete senza sfruttare i pesi e senza una traduzione meccanica di essi.
 
 {% responsive_image path: 'assets/14_eliminazione-archi-uscita.png' %}
 
 ### Reti C/E
-Le reti C/E (condizioni eventi) sono delle particolari reti più semplici, in cui tuttu gli archi hanno peso uno, e tutti i posti hanno capacità massima uno.
-Questo tipo di rete possiede meno scoriatoie per modellare la rete, ma è più semplice ed immediata da capire, infatti i posti rappresentano delle condizioni che possono essere vere o false, ed in base ad esse è possibile il verificarsi di certi eventi, rappresentati dalle transizioni.
-Ogni rete P/T __limitata__ è traducibile in un'equivalente rete C/E, per le reti illimitate invece non è possibile trovare una traduzione, siccome non si possono rappresentare infiniti stati con un tipo di rete che per definizione è limitata.
+Le reti C/E (condizioni eventi) sono delle particolari reti più semplici, in cui tutti gli archi hanno peso uno e tutti i posti hanno capacità massima uno.
+Questo tipo di rete possiede a prima vista meno possibilità di modellare la rete, ma è più semplice ed immediata da capire: infatti _i posti rappresentano delle condizioni_ che possono essere __vere__ o __false__ ed in base ad esse è possibile il verificarsi di certi eventi, rappresentati dalle transizioni.
+Ogni rete P/T __limitata__ è traducibile in un'equivalente rete C/E. Per le reti illimitate invece non è possibile trovare una traduzione, siccome non si possono rappresentare infiniti stati con un tipo di rete che per definizione è limitata.
 
 ## Conservatività 
 La conservatività è una proprietà di una rete rispetto ad una funzione $$H$$ che assegna un peso ad ogni posto della rete, e ognuno di questi pesi è positivo.
@@ -456,9 +465,9 @@ $$
 \forall M' \in R(P/T, \, M) \quad \sum_{p \in P} H(p) M'(p) = \sum_{p \in P} H(p) M(p)
 $$
 
-Ovvero per ogni marcatura $$M'$$ raggiungibile dalla marcatura inizale, data una certa marcatura e una funzione $$H$$, si dice che la rete è conservativa se la sommatoria dei gettoni di ogni posto pesati con la funzione $$H$$ è costante per qualunque marcatura raggiungibile.
+Ovvero per ogni marcatura $$M'$$ raggiungibile dalla marcatura inizale, data una certa marcatura e una funzione $$H$$, si dice che la rete è conservativa se la sommatoria dei gettoni di ogni posto, quest'ultimi pesati attraverso la funzione $$H$$, è _costante per qualunque marcatura raggiungibile_.
 
-Esiste inoltre un legame tra conservatività e limitatezza, ovvero una rete che garantisce la conservatività è limitata, ma non è detto il viceversa (quindi la limitatezza è una condizione necesaria ma non sufficiente).
+Esiste inoltre un legame tra conservatività e limitatezza, ovvero _una rete che garantisce la conservatività è limitata, ma non è detto il viceversa_ (quindi _la limitatezza è una condizione necesaria ma non sufficiente per la conservatività_).
 
 dimostrazione che una rete se è conservativa è limitata:
 
@@ -474,13 +483,13 @@ A questo punto è possibile dire che se esiste almeno una marcatura di $$p$$ in 
 Questo vale per ogni posto all'interno della rete, di conseguenza ci si è rincondotti alla definizione di <a href="#limitatezza">limitatezza</a>.
 
 ### Rete strettamente conservativa
-La _conservatività strtta_ è un particolare caso di conservatività, ed è possibile definirla dicendo che: una rete P/T conservativa rispetto alla funzione $$H$$ che assegna pesi tutti uguali a 1 si dice strettamente conservativa.
+La _conservatività stretta_ è un particolare caso di conservatività ed è possibile definirla in questo modo: una rete P/T conservativa rispetto alla funzione $$H$$ che assegna pesi tutti uguali a 1 si dice strettamente conservativa.
 
 $$
 \forall M' \in R(P/T, \, M) \quad \sum_{p \in P} M'(p) = \sum_{p \in P} M(p)
 $$
 
-La formula precedente sta a significare che la sommatoria del numero di gettoni per ogni posto in una qualsiasi marcatura è costante (ovvero è uguale alla sommatoria della marcatura iniziale per ogni posto <!-- è corretto? -->), in altre parole, preso il singolo scatto di una transizione viene forzato il fatto che per ogni gettone che viene distrutto ne viene generato un altro in uscita. <!-- in questo caso succede ciò che è sempre stato detto di non pensare, ovvero che i gettoni si spostano -->
+La formula precedente sta a significare che la sommatoria del numero di gettoni per ogni posto in una qualsiasi marcatura è costante (ovvero è uguale alla sommatoria dei gettoni della marcatura iniziale per ogni posto <!-- è corretto? -->), in altre parole, preso il singolo scatto di una transizione viene forzato il fatto che per ogni gettone che viene distrutto ne viene generato un altro in uscita. <!-- in questo caso succede ciò che è sempre stato detto di non pensare, ovvero che i gettoni si spostano -->
 
 Matematicamente questo concetto si può esprimere anche tramite questa formula:
 
@@ -488,13 +497,13 @@ $$
 \forall t \in T \quad \sum_{p \in \operatorname{Pre}(t)} W(\langle p, t \rangle) = \sum_{p \in \operatorname{Post}(t)} W(\langle t, p \rangle)
 $$
 
-Per ogni transizione $$t$$, la somma dei pesi degli archi che collegano ogni elemento del preset di $$t$$, alla transizione $$t$$ deve essere uguale alla sommatoria dei pesi degli archi che collegano la transizione $$t$$ con ogni posto nel postset di $$t$$.
+Per ogni transizione $$t$$, la somma dei pesi degli archi che collegano ogni elemento del preset di $$t$$ alla transizione $$t$$ deve essere uguale alla sommatoria dei pesi degli archi che collegano la transizione $$t$$ con ogni posto nel postset di $$t$$.
 
-Queste due formule esprimono lo stesso concetto, ma la prima si riferisce alle marcature (stati), mentre l'altra all'aspetto topologico della rete (ovvero i pesi degli archi).
+Queste due formule esprimono lo stesso concetto, ma la prima si riferisce alle marcature (stati) mentre l'altra all'aspetto topologico della rete (ovvero i pesi degli archi).
 Quindi la prima è un analisi dinamica in qunto è necessario calcolare gli stati raggiungibili, l'altra inceve è statica siccome basta conoscere la rete.
-È possibile fare una precisazione per quanto riguarda la seconda formula, ovvero che le transizioni da prendere in considerazione sono quelle __non morte__ (quindi di grado $$\geqslant$$ 1). <!-- Non è chiaro quali differenze ci sono tra le due formule (videolezione interno al minuto 55 della lezione 20, prima parte) -->
+È possibile fare una precisazione per quanto riguarda la seconda formula, ovvero che le transizioni da prendere in considerazione sono quelle __non morte__ (quindi di grado $$\geqslant$$ 1) e inoltre si tratta di una formula più generale rispetto alla prima, ma _potrebbe anche considerare non strettamente conservativi casi che invece lo sono_.
 
 ## Stato base e rete revertibile
 Una marcautra $$M'$$ si dice __stato base__ di una rete se per ogni marcatura $$M$$ in $$R(M_0)$$, $$M'$$ è raggiungibile da $$M$$.
 Ovvero qualunque sia lo stato attuale della rete è possibile raggiungere la marcatura $$M'$$.
-Un caso particolare si ha quando la marcatura iniziale $$M_0$$ è lo stato base della rete per ogni marcatura $$M$$ in $$R(M_0)$$, in quel caso si dice che la rete è __reversibile__ (lo stato iniziale è uno stato base).
+Un caso particolare si ha quando la marcatura iniziale $$M_0$$ è lo stato base della rete per ogni marcatura $$M$$ in $$R(M_0)$$, in quel caso si dice che la rete è __reversibile__ (ovvero che lo stato iniziale è uno stato base).
