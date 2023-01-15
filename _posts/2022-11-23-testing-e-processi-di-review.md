@@ -1373,246 +1373,197 @@ Inoltre la software inspection **non è incrementale**: la fase di follow-up non
 __Legge di Fagan (L17)__.
 > Le ispezioni aumentano in maniera significativa la produttività, qualità e la stabilità del progetto.
 
-### Confronto tra le varie tecniche
-#### È un confronto sensato?
+## Confronto con le altre tecniche di V/C
 
-Forse vale la pena estendere la domanda sul fatto se l'ispezione funzioni o meno a tutte altre tecniche viste finora,
-magari anche confrontandole?
+Nell'[articolo consigliato](https://web.archive.org/web/20060920113729/http:/www2.umassd.edu/SWPI/ISERN/ISERN-98-10.pdf) dal prof è presente una **tabella di confronto** di molti studi per tutte le varie tecniche di verifica e convalida.
+La metrica è la percentuale media di difetti individuati.
 
-[Link consignliato dal prof](https://web.archive.org/web/20060920113729/http:/www2.umassd.edu/SWPI/ISERN/ISERN-98-10.pdf)
+{% responsive_image path: assets/13_tabella-confronto-tecniche-vc.png %}
 
-{% responsive_image path: assets/13_tabella-confronto-tecnicheV&V.png %}
+Come si può notare, a seconda dello studio _"vince"_ l'una o l'altra tecnica; inoltre, la somma delle percentuali per ogni riga non è 100%.
+Si possono fare quindi delle osservazioni:
+- l'efficiacia di una tecnica dipende dalla **tipologia dei progetti**;
+- **non è detto** che tecniche diverse trovino **gli stessi errori**: l'ispezione potrebbe aver trovato una certa tipologia di errore mentre il testing funzionale un'altra;
+- le diverse tecniche controllano diversamente aspetti diversi, da **diversi punti di osservazione**.
 
-Possiamo vedere come a seconda degli studi e agli autori una tecnica risulta essere più efficace di altre tuttavia è 
-bene fare ulteriori osservazioni.
+Confrontare le varie tecniche non è necessariamente una perdita di tempo, lo è sicuramente **confrontare solo i numeri**: un indicatore di ciò è la varietà dei risultati da parte di studi diversi.
 
-- Ovviamente l'efficacia di una tecnica rispetto alle altre dipende dalla tipologia dei progetti;
+Tra l'altro, dal riassunto della tabella sopra si **perdono** informazioni sulle **modalità di rilevazione** attribuendole ad espressioni generiche (come _comunemente_, _in media_, _progetti junior_, ...).
 
-- Non è detto inoltre che tecniche diverse trovino gli stessi errori: l'ispezione potrebbe aver trovato una certa 
-tipologia di errore mentre il testing funzionale un'altra.
+In conclusione, non c'è una risposta semplice e **non c'è una tecnica migliore** rispetto alle altre.
 
-- Le diverse tecniche controllano cose diverse, in maniera diversa partendo da punti di osservazione diversi.
+### Combinazione di tecniche
 
-Tenendo ciò a mente diventa un po' difficile confrontare le varie percentuali di errori trovati, anzi proprio il 
-confronto tra le diverse tecniche lascia il tempo che trova. Attenzione non che confrontare le varie tecniche sia una 
-perdita di tempo, ma soprattutto quando il confronto viene condensato in soli tre numerini come in questo caso va preso 
-con mille molle. Già il fatto che studi tutti validi portano a risultati diversi è un indicatore di come il confronto 
-non sia cosi banale.
+Una domanda che sorge spontanea è chiedersi cosa può succedere se si **combinano insieme** le varie tecniche.
 
-Tra l'altro con un riassunto del genere in tabella si perdono anche tutte quelle che abbiamo chiamato le modality 
-(e anche le espressioni del tipo: comunemente, in media, solo nei nostri progetti, per progetti junior): 
-prendendo i numeri così assoluti stiamo assumendo che siano confrontabili e soprattutto che tutti gli studi abbiano fatto
-la stessa tipologia di esperimento, bene non è cosi.
+Il professore è convinto che applicando tutte e quattro le tecniche qui descritte &mdash; anche se solo in modo superficiale &mdash;
+il risultato è sicuramente **più performante** delle tecniche applicate singolarmente. \\
+Sono per lo stesso motivo sono valide e funzionanti le **tecniche agili**: dando tutte un contributo, insieme producono risultati di qualità.
 
-La tabella il professore l'ha inclusa solo per dire che il confronto tra tecniche è una questione su cui si può e si 
-deve ragionare, tuttavia non vi è una risposta banale, non c'è una tecnica che è migliore in tutto per tutto rispetto 
-alle altre.
+{% responsive_image path: assets/13_tabella-tecniche-vc-insieme.png %}
 
-#### E se le mettessimo insieme? Hetzel-Meyer's Law L20
+Il maggior miglioramento delle prestazioni globali lo si trova quando **ogni tecnica controlla aspetti differenti**.
 
-Una domanda che quasi sorge naturale a questo punto è chiedersi cosa succede se si combinano insieme le varie tecniche.
+__Legge di Hetzel-Meyer (L20)__.
+> Una combinazione di diversi metodi di V/C supera qualsiasi metodo singolo.
 
-Il professore è convinto che applicando tutte e quattro le tecniche qui descritte, anche se solo in modo superficiale, 
-sicuramente il risultato è molto più performante delle singole tecniche prese singolarmente.
+## Gruppi di tester autonomi
+ 
+È convinzione comune che **colui che ha sviluppato il codice** sia la persona meno adatta a testarlo. \\
+Di conseguenza, si preferisce che il testing sia affidato ad un **gruppo di tester autonomi**.
 
-Per lo stesso motivo sono valide e funzionano le tecniche agili: hanno un pezzettino di tante cose e l'unione di queste 
-cose fatte in modo rigoroso producono risultati di qualità.
+__Legge di Weinberg (L23)__
+> Uno sviluppatore non è adatto a testare il suo codice.
 
-{% responsive_image path: assets/13_tabella-tecnicheV&V-insieme.png %}
+### Vantaggi
 
-**Hetzel-Meyer's Law L20**: A combination of different V&V methods outperforms any single method alone.
+Avere un gruppo di tester autonomo porta a numerosi vantaggi, che si possono dividere in **tecnici** e **psicologici**.
 
-### Chi è che fa il testing?
+Per quanto riguarda gli **aspetti tecnici** si ha:
+- una **maggiore specializzazione**;
+- una **maggiore conoscenze delle tecniche di V/C** e degli strumenti: chi fa il _tester_ di lavoro acquisisce competenze specifiche sui tool e sugli strumenti di testing (spesso complessi), copertura e mutazioni.
 
-In generale c'è la convinzione che colui che ha sviluppato il codice sia la persona meno adatta a testarlo. Di conseguenza
-si preferisce che il testing sia effettuato da quello che è un gruppo di testing autonomo.
+Invece, riguardo gli **aspetti psicologici** si ha:
+- un maggiore **distacco dal codice**: a causa dell'assenza di modelli mentali precedenti su come il software dovrebbe operare si ha una maggiore attenzione agli aspetti trascurati o dimenticati;
+- **indipendenza nella valutazione**: una persona che testa il proprio codice è incentivata a _non_ trovare molti errori in quanto potrebbe suggerire un lavoro di dubbia qualità in fase di sviluppo. 
+Un gruppo specializzato nel testing è invece incentivato a trovarne il più possibile in quanto se valutati lo saranno sulla base di quanti ne trovano.
 
-#### Vantaggi di un gruppo di test autonomo
+### Svantaggi
 
-Avere un gruppo di test autonomo risulta avere numerosi vantaggi che possiamo dividere in quelli che riguardano aspetti
-tecnici e quelli che riguardano aspetti psicologici. Per quanto riguarda gli aspetti tecnici abbiamo:
+Ci sono tuttavia anche **svantaggi** ad avere un gruppo di tester autonomo.
+Innanzitutto, i problemi più ovvi sono legati all'**aspetto tecnico**: il fatto che i tester diventino specializzati nel testing significa che **perderanno** con il tempo la **capacità di progettare** e **codificare**, oltre ad una **minore conoscenza** dei requisiti del progetto.
 
-- una maggiore specializzazione;
+Nell'analisi di Elisabeth Hendrickson denominata "[**Better testing &mdash; worse quality?**](https://web.archive.org/web/20220526084408/http:/testobsessed.com/wp-content/uploads/2011/04/btwq.pdf)" viene analizzata la tecnica sotto un nuovo **punto di vista psicologico**: come è possibile che un maggior investimento nel team di testing porti a un calo delle prestazioni in termini di numero di errori nel codice?
 
-- una maggiore conoscenza delle tecniche e degli strumenti: chi fa test di lavoro avrà acquisito competenze specifiche 
-  su quelli che sono i tool testing, spesso complessi, sia quelli con interfacce grafiche che le librerie di testing, 
-  i vari tool di copertura e di mutazioni.
+La risposta la si può trovare nella _**responsabilità**_: seppur vero che l'attività di testing è compito del tester, è anche vero che è lo sviluppatore stesso che ha il compito di fare **test di unità** &mdash; il team di testing dovrebbe occuparsi solo di quello funzionale o di integrazione.
+A fronte di un aumento del personale nel team di testing, il team di sviluppo quando vicino a una deadline **sposta la responsabilità** di trovare gli errori al primo, **abbassando la qualità del codice**.
 
-Mentre per quanto riguarda gli aspetti psicologici abbiamo che se il testing è fatto da un gruppo autonomo questo risulta 
-essere distaccato dal codice e quindi:
+Il team di testing troverà gli errori riconsegnando il codice agli sviluppatori che possono correggerli, ma **si perde tempo** e risorse.
 
-- un testing indipendente da conoscenza codice: non conosce come funziona, non ha alcun modello mentale su come il software
-  debba operare, non sembra ma è molto importante e aiuta a trovare anomalie;
+Inoltre, possono essere presenti **pressioni negative** sul team di sviluppo in quanto quest'ultimi possono sentersi sotto costante valutazione da parte del team di testing.
 
-- attenzione ad aspetti dimenticati
+### Possibili alternative
 
-Inoltre se non è lo sviluppatore a fare il testing si può avere una certa indipendenza della valutazione: una persona 
-che testa il proprio codice è incentivata a non trovarne molti in quanto potrebbe suggerire un lavoro di dubbia qualità 
-in fase di sviluppo, mentre un gruppo specializzato nel testing è incentivato a farne il più possibile in quanto se 
-valutati lo saranno sulla base di quanti ne trovano.
+Una possibile soluzione alle criticità è **ruotare il personale**: su progetti diversi una persona ricopre ruoli diversi.
+Questo approccio ha diversi vantaggi, tra cui:
+- **evitare pressioni negative**: ricoprendo diversi ruoli in diversi progetti, il personale non si dovrebbe sentire _giudicato_ o _giudicante_;
+- **evitare il progressivo depauperamento tecnico** dovuto ad all'eccessiva specializzazione;
+- **evitare lo svuotamento dei ruoli**.
 
-#### Svantaggi di un gruppo di testing autonomo
+C'è da considerare comunque che **aumentano i costi di formazione** (per via del raddoppio delle responsabilità individuali) e le **difficoltà di pianificazione** (può succedere che una persona debba a un certo punto lavorare a più progetti contemporaneamente). 
 
-Tuttavia ci sono anche svantaggi ad avere un gruppo di testing autonomo e quelli più ovvi sono sicuramente legati
-ad un aspetto più tecnico: il fatto che i tester diventino specializzati significa per forza di cose una progressiva 
-perdita di capacità di progetto e codifica e sicuramente una minore conoscenza dei requisiti del progetto. 
+Un'altra tecnica è la **condivisione del personale**: permette di **sopperire** alla **scarsa conoscenza del prodotto** in esame ma, oltre alle **criticità** individuate precedentemente, aumenta le difficoltà nella **gestione dei ruoli**.
 
-Da un punto di vista psicologico le cose sono un po' più delicata. Nella nostra analisi ci può aiutare la domanda 
-"Better testing, Worse quality?". Come è possibile che un maggiore investimento nel team di testing può portare a un 
-calo nelle prestazioni in termini di numero di errori nel codice?
+## Modelli statistici
 
-Quando si investe di più nel gruppo di testing uno dei problemi principali sono le responsabilità. Seppure vero che il testing
-sia compito dei tester è anche vero che è lo sviluppatore stesso che solitamente ha il compito di fare
-quello che è il testing di unità mentre i tester fanno altre forme di testing come quello funzionale o d'integrazione. 
-A fronte di aumento di personale il team di testing funziona sicuramente meglio ma quasi come conseguenza il team di sviluppo
-quando vicino a deadline sposta tutta la responsabilità di trovare errori su quest'ultimo, iniziando quindi a consegnare 
-codice di qualità più bassa. Il team di testing troverà gli errori e riconsegnerà il codice agli sviluppatori che possono
-correggerli, tuttavia questa è una perdita di tempo e risorse (si accumulano ritardi).
+Al professore questo argomento **non piace molto** (e come biasimarlo): riconosce però che non essendo il suo campo potrebbero essere positivi.
 
-Inoltre ci possono essere pressioni negative sul team di sviluppo in quanto si potrebbe creare un ambiente tossico dove 
-gli sviluppatori si sentono sotto valutazione da parte del team di testing.
+Si cerca una **correlazione statistica** tra **metriche** (come lunghezza del codice, tipo di linguaggio, ...) e:
+- **presenza di errori** (per classi);
+- **numero di errori** (per classi).
 
-[https://web.archive.org/web/20220526084408/http://testobsessed.com/wp-content/uploads/2011/04/btwq.pdf](https://web.archive.org/web/20220526084408/http:/testobsessed.com/wp-content/uploads/2011/04/btwq.pdf)
+È quindi possibile **predire la distribuzione degli errori** per uno specifico modulo.
 
-#### Possibili alternative
+Occorre **porre attenzione** alle conclusioni di queste statistiche.
+Utilizzare i risultati di tali modelli statistici come indicazioni sul fatto che su determinati moduli vada fatta più attività di testing rispetto ad altri potrebbe inizialmente sembrare la **soluzione più logica**.
+Tuttavia, tali risultati non considerano i test e le correzioni aggiunte successivamente e quindi **non cambiano**: codice _"scritto male"_ secondo il modello rimane scritto male.
 
-**Rotazione del personale**: su progetti diversi una persona ricopre ruoli diversi
+Con ciò in mente, si cita la legge di Pareto/Zipf. 
 
-- permette di evitare progressivo depuramento tecnico dovuto a eccessiva specializzazione;
+__Legge di Pareto/Zipf (L24)__
+> Circa l'80% dei difetti proviene dal 20% dei moduli.
 
-- permette di evitare svuotamento dei ruoli;
+Potrebbe essere vero, ma è difficile sfruttare questa nozione in quanto non sono conosciuti in principio i **moduli particolarmente problematici**, e il testing è necessario in ogni caso anche in tutti gli altri.
 
-- tuttavia aumenta i costi di formazione: più persone devono saper ricoprire più ruoli (sviluppatore, tester) in momenti diversi;
+## Debugging
 
-- aumenta le difficoltà di pianificazione: progetti diversi possono in qualche modo sovrapporsi anche se inizialmente 
-  disaccoppiati e dunque una persona potrebbe trovarsi a coprire ruoli diversi contemporaneamente in progetti diversi 
-  rischiando di non poter performare al meglio in nessuno.
+Il debugging è l'insieme di tecniche che mirano a **localizzare** e **rimuovere** le anomalie che sono la causa di malfunzionamenti riscontrati nel programma.
+Non è utilizzato per _rilevare_ malfunzionamenti.
 
-**Condivisione del personale**: all'interno di uno stesso progetto una persona ricopre più ruoli
+Il debugging richiede una **comprensione approfondita del codice** e del funzionamento del programma e può essere un processo complesso e articolato.
+Tuttavia, può contribuire in modo significativo a migliorare la qualità e la stabilità del codice, oltre che a _risolvere_ malfunzionamenti.
 
-- Permette di supplire a scarsa conoscenza del prodotto in esame;
+L'attività è quindi definita per un **programma** e **un insieme di dati che causano malfunzionamenti**.
+Si basa infatti sulla **riproducibilità** del malfunzionamento, verificando prima che non sia dovuto in realtà a specifiche in errate.
 
-- Aumenta le difficoltà di gestione dei ruoli.
+>"Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it".
+--- Brian W Kernighan
 
-### Modelli statistici
+È importante dunque scrivere codice **più semplice possibile** in modo tale da poterne fare anche il debugging laddove necessario.
 
-Il professore non ne impazzisce e riconosce il fatto che non siano il suo campo. Ne parla male ma potrebbero essere una cosa bella
+### Problemi
 
-Relazione statistica tra metriche e
+L'attività di debugging è particolarmente complessa anche perché non è sempre possibile individuare con precisione la **relazione anomalia-malfunzionamento**.
+Non è un legame banale, in quanto potrebbero esserci anomalie che prima di manifestarsi sotto forma di malfunzionamenti abbiano avuto molte evoluzioni.
 
-- presenza di errori (per classi di errori)
+Inoltre, **non esiste una relazione biunivoca** tra anomalie e malfunzionamenti: non è detto che un'anomalia causa un unico  malfunzionamento, ma nemmeno che un malfunzionamento sia causato da un'unica anomalia.
 
-- numero di errori (per classi di errori)
+Un altro problema è dovuto al fatto che la **correzione di anomalie** non garantisce affatto un software migliore o con meno errori: per correggere un'anomalia è necessario per forza di cose anche modificare il codice sorgente, ma ogni volta che viene fatto si aprono nuove possibilità di introdurre **nuove anomalie** e bug nel codice stesso.
 
-Possibile predire distribuzione errori per modulo.
+### Tecnica naïve
 
-Tentativi di trovare e misurare correlazioni tra metriche (cose che posso misurare come numero di righe di codice, tipo 
-di processo, tipo di linguaggio...) e presenza/numero di errori.
+È la tecnica maggiormente utilizzata e consiste nell'introdurre nel modulo in esame **comandi di uscita** (_print_) che stampino il valore intermedio assunto dalle variabili.
 
-Bisogna stare attenti però a capire per cosa ci possono essere utili le conclusioni di tali analisi statistiche. Utilizzare i 
-risultati di tali modelli come indicazione del fatto che su determinati moduli vada fatto più attività di testing che 
-su altri potrebbe sembrare la conclusione più logica tuttavia è necessario analizzare meglio la situazione. Infatti anche
-dopo aver testato questi moduli con maggiore attenzione e corretto i possibili errori che vengono trovati le conclusioni
-del modello non cambiano: questi moduli hanno una alta probabilità di contenere errori per caratteristiche misurate e 
-riguardanti la loro struttura e questa non cambia dopo aver corretto gli errori.
+Nonostante sia **facile da applicare**, secondo il professore è una tecnica molto debole: non solo **richiede la modifica del codice** (e quindi la _rimodifica_ al termine) ma è **poco flessibile** in quanto richiede una nuova compilazione per ogni stato esaminato.
 
-Quello che forse è più logico fare, ma purtroppo quasi mai fatto è un'attività di refactoring: i moduli hanno una grande
-probabilità di contenere errori per via della loro struttura allora se ne cambia la struttura, o in casi più estremi li 
-si riscrive completamente.
+Può andare bene nei casi in cui il codice è progettato talmente bene e il modulo è così **ben isolato** che basta scrivere una unica _print_ da cui si è in grado di risalire all'anomalia: scenario troppo irrealistico.
 
-**Pareto/Zipf Laws L24**  
-Approximately 80 per cent of defects come from 20 per cent of modules.
-
-Ok vero, capita, tuttavia è difficile sfruttare questa cosa per farci qualcosa in quanto non so in principio quali sono
-questi moduli e devo per forza di cose testare anche tutti gli altri.
-
-### Debugging
-
-Per debugging si intende quell'insieme di tecniche che mirano a localizzare e rimuovere anomalie che causano un 
-malfunzionamento noto. Non deve essere usato per rilevare malfunzionamenti.  
-L'attività di debbugging è definita per un programma e un insieme di dati, che causano malfunzionamenti nel programma. 
-Si basa sulla riproducibilità del malfunzionamento, infatti se quest'ultimo non fosse riproducibile non potremmo fare 
-debugging. Inoltre, va verificato che il malfunzionamento non sia dovuto a specifiche errate o a problemi di altro tipo,
-ad esempio a una configurazione del sistema non corretta.
-
-Il debugging richiede una comprensione approfondita del codice e del funzionamento del programma, e può essere un 
-processo complesso e articolato. Tuttavia, può contribuire in modo significativo a migliorare la qualità e la stabilità del codice.
-
-"Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as 
-possible, you are, by definition, not smart enough to debug it" --- Brian W Kernighan
-
-È importante dunque scrivere codice il più semplice possibile in modo tale da poterne fare anche il debugging laddove necessario.
-
-#### Problemi
-
-Una delle cose che rende l'attività di debugging complessa è il fatto che non sempre è facile stabilire una relazione 
-anomalia-malfunzionamento. Non è un legame banale, potremmo avere anomalie che prima di manifestarsi sotto forma di 
-malfunzionamenti abbiano avuto molte evoluzioni.  
-Inoltre non esiste una relazione biunivoca tra anomalie e malfunzionamenti: non è detto che un'anomalia causa un unico 
-malfunzionamento, ma nemmeno che un malfunzionamento sia causato da un'unica anomalia.  
-Un altro problema è dovuto al fatto che la correzione di anomalie non garantisce affatto un software migliore o con meno
-errori: per correggere un'anomalia dobbiamo per forza di cose mettere mano al codice sorgente e ogni qualvolta lo 
-facciamo apriamo alla possibilità di introdurre nuove anomalie e bug nel codice stesso.
-
-Vediamo le tecniche che abbiamo a disposizione.
-
-#### Tecnica naïve
-
-Consiste nell'introdurre nel modulo in esame comandi di uscita che stampino il valore intermedio assunto dalle variabili.
-
--   facile da applicare (bastano un compilatore e un esecutore);
--   richiede la modifica del codice (e quindi la sua rimodifica una volta individuata la anomalia);
--   poco flessibile (modifica e compilazione per ogni nuovo stato).
-
-Può andare bene in pochi casi laddove il codice è progettato talmente bene e il modulo è così ben isolato che basta 
-scrivere una unica printf da cui si è in grado di risalire all'anomalia: scenario un po' troppo idealistico.
+C'è da considerare comunque che con questa tecnica viene testato un **programma diverso**, in quanto ha presente delle _print_ aggiuntive apparentemente innocue e senza effetti collaterali. 
 
 #### Tecnica naïve avanzata
 
-Un miglioramento parziale si può ottenere sfruttando funzionalità del linguaggio oppure alcuni tool:
+Un miglioramento parziale si può ottenere sfruttando le **funzionalità del linguaggio** oppure alcuni tool, come:
+- `#ifdef` e `gcc -D` per il C
+- **librerie di logging** (con diverso livello); 
+- **asserzioni**: possono essere viste anche come _oracoli interni_ al codice, segnalando facilmente stati illegali.
 
-- Utilizzare costrutti come #ifdef e -D (in C)
-- Usare librerie di logging (con messaggi differenziati)
-- Usare asserzioni: possono essere viste come oracoli interni al codice, sono la valutazione di uno stato non una sua
-  rappresentazione e permettono di avere un riscontro solo laddove lo stato non è valido.
+Resta comunque una **tecnica naïve** in quanto si sta ancora modificando il codice in modo che fornisca informazioni aggiuntive.
 
-Resta comunque una tecnica naïve in quanto stiamo ancora modificando il codice in modo tale che ci fornisca informazioni
-aggiuntive.
+### Dump di memoria
 
-#### Dump di memoria
+Consiste nel produrre una **immagine esatta** della **memoria** dopo un passo di esecuzione: scrivere su un file il contenuto intero della memoria a livello di linguaggio macchina.
 
-Consiste nel produrre una immagine esatta della memoria dopo un passo di esecuzione: scrivere su un file il contenuto 
-intero della memoria a livello di linguaggio macchina.
+    Segmentation fault (core dumped)
 
-Non richiede modifica del codice, ma è spesso difficile da gestire per la differenza tra la rappresentazione astratta 
-dello stato (legata alle strutture dati del linguaggio utilizzato) e la rappresentazione fornita dallo strumento.
+Nei sistemi a 32 bit, la dimensione dei dump può arrivare fino a 4GB.
 
-#### Debugging simbolico
+Non richiede modifica del codice, ma è spesso **difficile da gestire** a causa della differenza tra la rappresentazione astratta dello stato (legata alle strutture dati del linguaggio utilizzato) e la rappresentazione fornita dallo strumento.
+Viene prodotta una **enorme mole di dati** molto spesso inutile.
+ 
+### Debugging simbolico
 
-Gli stati intermedi sono prodotti usando una rappresentazione compatibile con quella del linguaggio usato, in termini 
-quindi di variabili e nello stesso domino di astrazione di come l'abbiamo scritto. Gli stati sono rappresentati come 
-strutture dati e valori a esse associati. 
-I debugger simbolici forniscono ulteriori strumenti (*watch* o *spy monitor*) che permettono di visualizzare il 
-comportamento del programma in maniera selettiva. È possibile inserire breakpoint e watch su variabili.
+Il debugger simbolico fornisce **informazioni sullo stato** utilizzando gli **stessi simboli** per cui le locazioni di memoria sono state definite e quindi rendendo utile l'attività di **ispezione dello stato**.
 
-È possibile anche scegliere e gestire la granularità del passo di esecuzione:
+In aggiunta, i debugger simbolici forniscono **ulteriori strumenti** (*watch* o *spy monitor*) che permettono di visualizzare il 
+comportamento del programma in maniera selettiva. 
 
-- Singolo passo;
+È possibile inserire **breakpoint** e **watchpoint** su linee di codice eventualmente in base al valore di variabili, scegliendo anche la granularità del successivo passo di esecuzione:
+- **singolo**;
+- **dentro una funzione**;
+- **drop/reset del frame**: vengono scartate le variabili nel frame d'esecuzione ritornando ad una situazione precedente.
 
-- entrare dentro a una funzione;
+#### Debugging per prova
 
-- drop/reset del frame.
+È possibile istruire il debugger per **esaminare automaticamente** gli stati ottenuti in modo da verificarne la correttezza.
+Utilizzando **watch condizionali** è possibile aggiungere **asserzioni a livello di monitor**.
 
-Inoltre, si può:
+Ad esempio, è possibile chiedere al _monitor_ (l'_esecutore_ del programma) di controllare che gli indici di un array siano sempre interni all'intervallo di definzione.
 
--   modificare il contenuto di una variabile (o zona di memoria)
--   modificare il codice, anche se non è sempre possibile. Necessita ricompilazione ma poi si prosegue dal punto in cui ci si era interrotti
--   Rappresentazioni grafiche dei dati
+#### Altre funzionalità
 
-#### È possibile automatizzare il debugging?
+Inoltre, nei debugger moderni si può:
+- __modificare il contenuto di una variabile__ (o zona di memoria) a runtime;
+- __modificare il codice__: nonostante non sia sempre possibile, può essere comodo per esempio dopo tante iterazioni di un ciclo;
+- __rappresentazioni grafiche__ dei dati: strutture dinamiche come puntatori, alberi e grafi possono essere rappresentate graficamente per migliorare la comprensione dello stato.
 
-<http://debuggingbook.org/>
+### Automazione
 
-Delta (differential) debugging
+**L'attività di debugging, può essere automatizzata?**
 
-Andreas Zeller
+Andreas Zeller nel suo [Debugging Book](http://debuggingbook.org/) tratta questo argomento proponendo alcune soluzioni.
+
+I due concetti principali sono i seguenti:
+- __shrinking input__: dato un **input molto grande** e complesso che causa un malfunzionamento, strumenti automatici possono provare a ridurlo il più possibile in modo da semplificare il debugging;
+- __differential debugging__: dato lo stesso input, in maniera automatica vengono esplorati gli stati del programma mutando ad ogni iterazione piccole porzioni di codice.
+
+Quest'ultima proposta è simile al comando **`git bisect`** di Git: data una versione vecchia in cui il bug non è presente, una versione nuova in cui lo è e un oracolo che stabilisce se il bug è presente o meno, Git esegue una **ricerca dicotomica** per trovare la versione che ha introdotto il problema.
