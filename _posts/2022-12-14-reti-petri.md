@@ -290,11 +290,10 @@ Se ciò non si verifica esiste almeno un posto in cui è possibile aumentare ten
 
 {% responsive_image path: 'assets/14_esempio-rete-illimitata.png' %}
 
-<!--MY-->
 
 ## Da reti di Petri a Automi
 
-Precedentemente è stato mostrato come a partire da un'automa sia possibile ricavare una rete di petri, ma è possibile fare il contrario?
+Precedentemente è stato mostrato come a partire da un automa a stati finiti sia possibile ricavare una rete di Petri, ma è possibile fare il contrario?
 Se la rete è limitata allora l'insieme di raggiungibilità è finito, di conseguenza è possibile definire un automa a stati finiti corrispondente che prende ogni marcatura raggiungibile come un proprio stato e ne traccia le transizioni di stato dell'automa conseguenti alla transizione scattata nella rete di Petri.
 
 - gli stati sono le possibili marcature dell'insieme di raggiungibilità;
@@ -302,10 +301,12 @@ Se la rete è limitata allora l'insieme di raggiungibilità è finito, di conseg
 
 Riuscire a passare dalle reti di Petri agli automi ci permette di modellare un problema in modo più sintetico, ma allo stesso tempo rimane possibile utilizzare i tool di analisi che sfrutta cose già esistenti per gli automi a stati finiti, l'unico problema è che questo vale solo per reti limitate.
 
+<!--MY-->
+
 ## Vitalità di una transizione
 
-Una transizione $$t$$ in una marcatura $$M$$ è detta _viva_ con un certo __grado__ se:
-- __grado 0__ non è abilitata in nessuna marcatura appartanente all'insieme di raggiungibilità (è __morta__), quindi qualunque evoluzione avvenga nella rete, la transizione non portà mai scattare (non è sempre un aspetto negativo);
+Una transizione $$t$$ in una marcatura $$M$$ si può dire _viva_ con un certo __grado__:
+- __grado 0__ (è __morta__) non è abilitata in nessuna marcatura appartanente all'insieme di raggiungibilità, quindi qualunque evoluzione avvenga nella rete, la transizione non portà mai scattare (non è sempre un aspetto negativo);
 - __grado 1__ esiste almeno una marcatura raggiungibile a partire da $$M$$ in cui la transizione è abilitata;
 - __grado 2__ per ogni numero $$n$$ naturale escluso lo zero esiste almeno una sequenza di scatti ammissibile a partire da $$M$$ in cui la transizione scatta $$n$$ volte, ovvero è possibile far scattare la transizione un numero grande a piacere di volte; <!-- differenza tra 2 e 3 da chiarire meglio, si capisce meglio dal'esempio sotto l'immagine -->
 - __grado 3__ esiste una sequenza di scatti ammissibile a partire da $$M$$ per cui la transizione scatta infinite volte;
