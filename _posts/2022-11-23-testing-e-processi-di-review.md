@@ -1233,197 +1233,145 @@ Al termine della procedura, possiamo analizzare due criticità:
 - una volta generati i casi di test serve comunque un **oracolo** che possa dare la risposta giusta. \\
 Esistono delle tecniche di **property-based testing** che piuttosto di analizzare i risultati considerano particolari proprietà che dovrebbero sempre valere, o invarianti.
 
-### Test funzionale e OO?
+## Object orientation e testing funzionale
 
-Come ci siamo posti la domanda per il testing strutturale anche qui ci chiediamo come si relazionano il testing funzionale
-e l'object orientation?
+Il testing funzionale si basa sulle **funzionalità** del codice e non sui dettagli implementativi, quindi l'OOP **non dovrebbe cambiare niente**.
+Questa affermazione è in effetti vera nel testing **black box**, ma nei **test d'integrazione** non più. 
 
-Visto che il testing funzionale non si dovrebbe basare sul codice in realtà non dovrebbe essere così d'interessare questa
-domanda, tuttavia necessità di una più attenta analisi.  
-Per quanto riguarda il testing funzionale, nel senso più stretto del termine, quando è completamente black box e non si sa 
-assolutamente nulla del codice che si sta testando è inevitabilmente vero che l'object orientation cambia poco niente a
-quello che è il lavoro del tester.  
-Tuttavia il testing funzionale viene fatto anche su codice che si conosce e un esempio possono essere i test fatti
-in fase di integrazione dove si vuole testare i vari componenti dal punto di vista esterno mettendoli insieme per 
-ricostruire il sistema finale. I testi di integrazione possono essere fatti seguendo logiche diverse ma nella maggiorparte
-dei casi si segue una logica bottom-up o top-down seguendo una qualche forma di albero di composizione dei vari componenti.
+Nei linguaggi procedurali i test di integrazione sono scritti seguendo logiche solitamente **bottom-up** o **top-down** seguendo una qualche forma di **albero di decomposizione** dei vari componenti. \\
+Nell'OOP invece, la situazione è **molto più caotica**: le relazioni tra le classi sono spesso cicliche e non gerarchiche (tranne per l'ereditarietà &mdash; la relazione meno interessante).
 
-La differenza principale è proprio questa: nel caso della object orientation questi alberi di composizione dei componenti
-di solito non ci sono o comunque la situazione è molto più caotica. In fase di integrazione possono esserci problemi legati al 
-fatto che non esiste una struttura gerarchica che possa guidare l'integrazione delle unità: le relazioni tra componenti 
-o classi sono spesso cicliche, tranne per l'ereditarietà che paradossalmente in questo caso è quella che ci 
-interessa meno. Relazioni interessanti in questa fase sono infatti associazioni, aggregazioni o dipendenze e tutte rendono 
-molto più complicato identificare il sottoinsieme di classi da testare.
+Relazioni interessanti in questa fase sono infatti _associazioni_,_aggregazioni_ o _dipendenze_, ma rendono complicato identificare il **sottoinsieme di classi da testare**.
+Per fare ciò si possono comunque utilizzare alcuni strumenti già visti:
+- nei diagrammi degli **use cases e scenari** si possono testare i componenti citati;
+- nei **sequence diagram** si possono testare le classi protagoniste delle interazioni a scambio di messaggi descritte;
+- per gli **state diagram** abbiamo già visto sopra.
 
-È possibile però trovare dei cluster significativi grazie agli strumenti che abbiamo già visto:
-- Use cases e scenari
+# Software inspection
 
-- Sequence Diagram e copertura dei thrad de messaggi (?)
+Un'altra classe di tecniche di verifica e convalida è la **software inspection**, ovvero tecniche manuali per individuare e 
+correggere gli errori basati su una attività di gruppo come la *pair programming* vista a laboratorio.
 
-- State Diagram
+Le tecniche di software inspection sono molto interessanti in quanto hanno **pochi requisiti** e l'unico **tool** richiesto è l'**umano**, che deve ispezionare il codice, spesso in riunioni di gruppo (5-6 persone).
 
-### Software inspection
+Oltre ad un eseguibile, l'**oggetto sotto ispezione** può essere un codice che non funziona o specifiche formali o informali.
+Si può fare quindi durante tutte le fasi del ciclo di vita di un software.
 
-Un'altra classe di tecniche di verifica e convalida è la software inspection. Sono tecniche manuali per individuare e 
-correggere gli errori basati su una attività di gruppo come per esempio la pair programming che abbiamo visto a laboratorio.
+## Fagan code inspection
 
-Sono tecniche molto interessanti in quanto hanno pochissimi requisiti, no tool, sono tecniche manuali in cui il tool è umano. 
-Questo deve guardare il codice in quelle che sono delle riunioni di gruppo. Essendo tecniche umane queste godono di una 
-certa flessibilità che altre tecniche come il testing non hanno: oggetto di ispezione può essere codice sorgente sia 
-che possa essere compilato che non, ma soprattutto queste tecniche possono essere estesa anche alle fasi di progetto e 
-raccolta dei requisiti e dunque alle specifiche formali e non.
+La **Fagan code inspection** è una metodologia sviluppata da Michael Fagan alla IBM negli anni '70. 
+La metodologia prevede che un **gruppo di esperti** esegua una serie di passi per verificare il codice sorgente, al fine di individuare eventuali errori, incongruenze o altri problemi. \\
+È **la più diffusa** tra le tecniche di ispezione, nonché la più rigorosa e definita.
 
-La Fagan code inspection è una metodologia sviluppata da Michael Fagan alla IBM negli anni '70. La metodologia prevede 
-che un gruppo di esperti esegua una serie di passi per verificare il codice sorgente, al fine di individuare eventuali 
-errori, incongruenze o altri problemi. È la più diffusa tra le tecniche di ispezione (più rigorosa e definita).
+### Ruoli
 
-#### Ruoli
+Essendo un'attività di gruppo, nella software inspection vengono identificati alcuni ruoli.
 
-Come detto la software inspection è un'attività di gruppo per cui vanno identificati alcuni ruoli all'interno di tale gruppo:
+- **Moderatore**: è colui che coordina i meeting e sceglie i partecipanti, ha la responsabilità di mantenere e far rispettare le regole. 
+È di solito preso da un altro processo/progetto in modo da non avere conflitti di interessi. 
+- **Readers e Testers**: non sono persone diverse, semplicemente a seconda dei momenti i partecipanti possono coprire uno di questi due ruoli: i primi leggono il codice al gruppo, mentre i secondi cercano difetti. 
+La lettura del codice è una vera e propria _parafrasi_ di esso, ovvero una interpretazione del codice spiegando quello che fa ma seguendo comunque la struttura di esso.
+- **Autore**: è colui che ha scritto il codice sotto ispezione; è un partecipante passivo che risponde a eventuali domande. 
+È simile al ruolo del _cliente_ nell'eXtreme Programming: pronto a rispondere a qualsiasi domanda per accelerare il lavoro degli altri.
 
-- **Moderatore**: è colui che coordina i meeting e sceglie i partecipanti, ha la responsabilità di mantenere e far 
-  rispettare le regole; è di solito preso da un altro processo/progetto in modo da non avere interessi. 
-- **Readers e Testers**: non sono persone diverse, semplicemente a seconda dei momenti i partecipanti possono coprire 
-  uno di questi due ruoli: i primi leggono il codice al gruppo, mentre i secondi cercano difetti; la lettura del codice 
-  è una vera e propria parafrasi di esso, interpretazione del codice spiegando quello che fa ma seguendo comunque la struttura di esso.
-- **Autore**: colui che ha scritto il codice sotto ispezione; è un partecipante passivo che risponde a eventuali domande. 
-  È simile al ruolo del cliente dell'eXtreme Programming: pronto a rispondere a qualsiasi domanda per accelerare il lavoro degli altri.
+### Processo
 
-#### Processo
-
-Abbiamo visto le persone, vediamo ora come si articola il processo di ispezione del codice. Questo prevede una serie di passi, 
-dalla pianificazione alla verifica del codice, all'eventuale rilavorazione e alla verifica finale.
+Secondo la tecnica **Fagan** di ispezione del codice, il processo si articola nel seguente modo.
 
 1.  **Planning**: in questa prima fase il moderatore sceglie i partecipanti, si definiscono i loro ruoli e il tempo da dedicare alla ispezione fissando anche i vari incontri.
-2.  **Overview**: fase in cui si dà a tutti i partecipanti del materiale sul progetto che permetterà ai vari partecipanti di costruirsi un background sul progetto stesso e all'intero gruppo di risparmiare tempo prezioso in ottica della riunione vera e propria.
-3.  **Preparation**: attività svolta offline per la comprensione del codice o della struttura del sistema sulla base ovviamente anche del materiale distribuito durante la fase di overview.
-4.  **Inspection**: vera e propria fase di inspection. In questa fase si esegue la ispezione dettagliata del codice, verificando che esso soddisfi le regole definite in precedenza e segnalando eventuali problemi o anomalie. Durante l'ispezione, il gruppo di esperti esamina il codice riga per riga, confrontando il codice con le specifiche e cercando di individuare errori, incongruenze o altri problemi.
+2.  **Overview**: viene fornito a tutti i partecipanti materiale sul progetto per permettere di costruire un background all'interno del gruppo in ottica della riunione vera e propria.
+3.  **Preparation**: i partecipanti _"offline"_ comprendono il codice e la sua struttura autononamente sulla base anche del materiale distribuito nella fase precedente;
+4.  **Inspection**: la vera e propria fase di ispezione. 
+In questa fase si verifica che il codice soddisfi le regole definite in precedenza e si segnalano eventuali problemi o anomalie. 
+Durante l'ispezione, il gruppo di esperti esamina il codice riga per riga, confrontandolo con le specifiche e cercando di individuare errori, incongruenze o altri problemi.
 5.  **Rework**: una volta individuati i problemi, l'autore del codice si occupa di correggere i difetti individuati.
-6.  **Followup**: possibile re-ispezione del nuovo codice ottenuto dopo la fase di rework.
+6.  **Follow-up**: possibile re-ispezione del nuovo codice ottenuto dopo la fase precedente.
 
 #### Ispezione
 
-Il **goal** di questa fase è quello di trovare e registrare il maggior numero di difetti, ma non correggerli. È importante
-capire l'importanza del goal e rispettarlo, la tentazione di correggere i difetti e sicuramente fortissima ma non è 
-compito dei partecipanti farlo, anche perché come detto questi spesso sono capi progetto ognuno con le proprie idee e 
-preferenze e metterli d'accordo può non essere facile.
+Durante la fase di ispezione, l'obiettivo è **trovare e registrare** i difetti, **senza coreggerli**: la tentazione di correggere i difetti è sicuramente fortissima ma non è compito dei partecipanti farlo. 
+I partecipanti sono tutti con le proprie idee e preferenze e metterli d'accordo può non essere facile. \\
+Sarà infatti l'autore a correggere successivamente i problemi.
 
-Consiste in al massimo 2 sessioni di 2 ore al giorno durante le quali lavorare approssimativamente a 150 source lines all'ora.  
-Quest'ultimo vincolo molto indicativo in quanto cambia da linguaggio a linguaggio ma anche da progetto a progetto in base 
-all'attenzione ai dettagli richiesta e alla complessità del codice.
+Sono previste **al massimo** 2 sessioni di 2 ore al giorno durante le quali lavorare approssimativamente a **150 linee di codice all'ora**.
+Quest'ultimo vincolo è **molto indicativo** in quanto cambia in base al linguaggio, al progetto, all'attenzione ai dettagli richiesta e alla complessità.
 
-Come detto, l'**approccio** consiste nel parafrasare linea per linea il codice con il fine quindi di risalire alla semantica
-del codice sorgente sotto ispezione a partire dal codice stesso e nel mentre registrare il maggior numero di difetti possibile. 
-Una possibilità è anche fare il "test a mano".
+Una possibilità prevista in questa fase è anche quella di fare _"test a mano"_.
 
-#### Checklist
+### Checklist
 
-A differenza del testing dove a partire dai malfunzionamenti si risale ai difetti e dunque agli sbagli commessi, qui il 
-thought-process è l'inverso: l'ispezione, per trovare le anomalie, parte dai motivi, gli sbagli, che più frequentemente 
-hanno portato a inserire determinate anomalie nel codice e controlla che nessuno di questi sia stato commesso.  
-Invece di concentrarsi sul manifestarsi di un malfunzionamento come fa di solito il testing, l'ispezione si concentra sul
-perché le anomalie vengono inserite nel codice e man mano che si raccolgono nuovi sbagli questi vengono inseriti in una 
-checklist: dall'esperienza, dal passato, dalla storia si raccoglie della conoscenza utile a non ripetere gli stessi errori. 
+A **differenza del testing** dove a partire dai malfunzionamenti si risale ai difetti e dunque agli sbagli commessi, il _thought-process_ per le **checklist** è inverso: **si parte dagli _sbagli_** che più frequentemente hanno portato ad inserire determinate anomalie nel codice e si controlla che nessuno di questi sia stato commesso nuovamente.
 
-Ovviamente vi è una qualche conoscenza già nota a priori, reperibile dalla letteratura, di tutte le cose 
-che è meglio evitare perché hanno portato più volte ad avere anomalie nel codice: tale conoscenza è raccolta in quelle
-che sono le checklist comuni per i vari linguaggi. Tuttavia se l'ispezione del codice è una tecnica così efficace lo è 
-soprattutto per la sua capacità di imparare dalla nostra esperienza, dalla storia di un determinato progetto. Questo apprendere
-man mano che un progetto va avanti si traduce in checklist che evolveranno man mano che si incontrano nuovi sbagli.
+In letteratura è reperibile la **conoscenza** di tutto ciò che è meglio evitare poiché in passato ha portato più volte ad avere anomalie nel codice.
+Tale conoscenza è raccolta in **checklist comuni** per i vari linguaggi.
 
-#### Checklist - esempio NASA
+Inoltre, l'ispezione del codice funziona così bene anche perché tali checklist possono essere **redatte internamente** all'azienda, in base all'**esperienza** passata e alla storia di un determinato progetto. \\
+Man mano che il progetto va avanti, l'**incontro di un nuovo sbaglio** si traduce in un nuovo item nella checklist. 
 
-_From "Software Formal Inspections Guidebook", Office of Safety and Mission Assurance, NASA-GB-A302 August 1993_
+#### Esempio NASA
 
-Circa 2.5 pagine per it C, 4 per FORTRAN
+La NASA nel suo <a href="../assets/13_nasa-software-inspection.pdf"><i>Software Formal Inspections Guidebook</i></a> (1993) ha formalizzato circa **2.5 pagine di checklist** per C e 4 per FORTRAN.
 
-Divise in: Functionality, Data Usage, Control, Linkage, Computation, Maintenance, Clarity
+Sono divise in _functionality_, _data usage_, _control_, _linkage_, _computation_, _maintenance_ e _clarity_.
 
-- Esempio:
+Di seguito sono elencati alcuni esempi.
 
-  - Does each module have a single function?
+> - [ ] Does each module have a single function?
+> - [ ] Does the code match the Detailed Design?
+> - [ ] Are all constant names upper case?
+> - [ ] Are pointers not `typecast` (except assignment of `NULL`)?
+> - [ ] Are nested `#include` files avoided?
+> - [ ] Are non-standard usage isolated in subroutines and well documented?
+> - [ ] Are there sufficient comments to understand the code?
 
-  - Does the code match the Detailed Design?
+### Struttura di incentivi
 
-  - Are all constant names upper case?
+Per un gruppo lavorare bene, occorre prevedere delle **dinamiche positive** di incentivi.
 
-  - Are pointers not typecast (except assignment of NULL)?
+Innanzitutto, è importante sottolineare che i difetti trovati **non devono essere utilizzati** per la valutazione del personale.
+Il programmatore non deve essere incentivato a nascondere i difetti.
 
-  - Are nested "#include" files avoided?
+Dall'altra parte si possono considerare per la valutazione del personale i difetti trovati **dopo l'ispezione**, in modo da essere incentivati a trovarli tutti durante.
 
-  - Are non-standard usage isolated in subroutines and well documented?
+### Variante: _active_ design reviews
 
-  - Are there sufficient comments to understand the code?
+Purché il processo di ispezione funzioni al meglio **le persone** coinvolte **devono partecipare**, ma per come era stato strutturato Fagan qualche anno dopo si accorse che un revisore poteva essere presente ma non partecipare, rimanendo in silenzio e pensando ad latro.
 
-#### Incentive structure
+Innanzitutto, per sopperire a questo problema i partecipanti vanno **scelti** tra persone di adeguata esperienza e sopratutto assicurando che nel team vi siano revisori per diversi aspetti nel progetto.
 
-Perché l'ispezione funzioni però, essendo un'attività di gruppo devono esserci delle dinamiche positive, degli incentivi
-o almeno non ci devono essere elementi disturbanti. In quest'ottica i difetti trovati durante l'ispezione non devono 
-essere utilizzati per la valutazione del personale: lo sviluppatore non va incentivato a nascondere i difetti.  
+L'**autore** è inoltre incentivato a leggere e porre gli item delle checklist all'attenzione dei revisore, chiedendo diverse domande.
+I revisori sono quindi costretti a partecipare.
 
-Dall'altra parte i difetti trovati dopo che è stata fatta l'ispezione sono da tenere in considerazione
-per la valutazione del personale: in questo modo si è incentivati a trovare tutti i difetti durante l'ispezione.
+## Automazione
 
+L'ispezione del codice è una tecnica manuale ma esistono **strumenti di supporto automatici** in grado di velocizzare notevolmente il lavoro, per esempio per:
+- **controlli banali**, come la formattazione.
+In fase di ispezione manuale si controlla il risultato del controllo automatico; 
+- **riferimenti**: checklist e standard in formati elettronici facilmente consultabili e compilabili;
+- **aiuti alla comprensione del codice**: ovvero tool che permettono di navigare e leggere il codice con maggiore facilità e spesso utilizzati durante attività di _reengineering_;
+- **annotazione e comunicazioni** del team, come l'email;
+- **guida al processo e rinforzo**: non permettere di chiudere il processo se non sono stati soddisfatti alcuni requisiti (come la necessità di approvazione prima di mergiare una PR).
 
-#### Variante: Active Design Reviews
+## Funziona?
 
-L'active design reviews è una piccola variante che sempre Fagan introdusse qualche anno dopo per migliorare il processo
-di ispezione basandosi sul fatto che perché questo funzione al meglio le persone coinvolte devono partecipare: per come
-l'abbiamo strutturato nel processo di ispezione un revisore non preparato può stare seduto tranquillamente e non parrtecipare.
+Prove empriche dicono di **sì** e anche che è _cost-effective_.
+Perché? 
+- esiste un __processo rigoroso e dettagliato__;
+- si basa sull'**accumulo dell'esperienza** automigliorandosi con il tempo (vedi le _checklist_);
+- gli **incentivi sociali funzionano**; 
+- a differenza del testing è possibile con la mente umana **astrarre il dominio completo** dei dati; 
+- è applicabile anche a **programmi incompleti**;
 
-Per sopperire a questa possibile non partecipazione di personale non preparato ovviamente i partecipanti vanno scelti 
-aventi adeguata esperienza e soprattutto in modo tale che nel team vi siano diversi revisori per diversi aspetti del progetto.
-Inoltre è l'autore a leggere e porre le checklist ai revisori, ponendo loro quindi anche domande: i revisori dovendo 
-rispondere sono costretti a partecipare.
+La software inspection funziona così bene che è utilizzata come _baseline_ per valutare altre tecniche di verifica e convalida.
 
-#### Automazione dell'ispezione
+### Limiti
 
-Sebbene sia una tecnica manuale esistono tool di supporto per:
+Il **livello del test** può essere solo all'unità, in quanto la mente umana ha difficoltà a lavorare in situazioni in cui sono presenti molte informazioni contemporaneamente in assenza di astrazioni e indirettezze;
 
-- Automatizzazione di controlli banali (e.g., formattazione)
+Inoltre la software inspection **non è incrementale**: la fase di follow-up non è così efficace, in quanto è necessario ricominciare l'ispezione da capo.
 
-- Riferimenti: Checklists, Standard con esempi, formati elettronici più facilmente consultabile e compilabili
-
-- Aiuti alla comprensione del codice quindi tool comuni a quelli di attività di reengineering
-
-  - Evidenziazione di parti rilevanti
-
-  - Navigazione nel codice
-
-  - Diversi tipi di rappresentazione dei dati e delle architetture
-
-- Annotazioni & comunicazioni
-
-- Guida al processo e rinforzo: non permettere di chiudere il processo se non sono soddisfatti alcuni
-
-Vedi: Reengineering vs reverse engineering
-
-#### Funziona?
-
-Principalmente sì. La pratica ci dice che è cost-effective. Perché?
-
-- Processo rigoroso e dettagliato
-
-- Basato su accumulo di esperienza (es. Checklist) si auto migliora il prof è molto convinto di questo punto
-
-- Aspetti sociali del processo (riguardo all'autore soprattutto): tenere conto delle dinamiche di incentivi e non disturbanti
-
-- Si considera l'intero dominio dei dati: a differenza del testing dove è impossibile fare del testing esaustivo, con la mente umana riusciamo spesso ad astrarre e trattare l'intero dominio dei dati contemporaneamente.
-
-- E applicabile anche a programmi incompleti
-
-#### Limiti
-
-- Livello del test: solo a livello di unità. La mente umana funziona bene se si astrae ma nel momento in cui si deve 
-lavorare su molte informazioni contemporaneamente può andare in difficoltà.
-
-- Non incrementale: evoluzione del software? Si esiste la fase di follow-up ma non è così banale: la re-ispezione che 
-si fa a questo punto spesso è una vera e priopria nuova ispezione e quindi per nulla incrementale, vanno ripetute tutte 
-le fasi come se fosse la prima volta che le facciamo.
-
-#### Conclusione: Fagans's Law L17
-
-Inspections significantly increase productivity, quality, and project stability.
+__Legge di Fagan (L17)__.
+> Le ispezioni aumentano in maniera significativa la produttività, qualità e la stabilità del progetto.
 
 ### Confronto tra le varie tecniche
 #### È un confronto sensato?
