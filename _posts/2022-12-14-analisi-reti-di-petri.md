@@ -386,8 +386,8 @@ Facendo i calcoli si ottengono tre basi di questo sistema, ovvero 3 vettori che 
 Le basi sono:
 
 $$
-(-1, 0, 1, 0, 4)
-(1, 0, -1, 4, 0)
+(-1, 0, 1, 0, 4) \\
+(1, 0, -1, 4, 0) \\
 (1, 1, 0, 0, 0)
 $$
 
@@ -401,6 +401,51 @@ L'algoritmo in questione è __l'algoritmo di Farkas__, che come già detto serve
 
 {% responsive_image path: assets/15_algoritmo-farkas.png %}
 
+L'algoritmo inizia creando una matrice $$D_0$$ a partire dalla matrice di incidenza $$C$$ a cui viene appesa una matrice identità di dimensione $$n$$ (dove $$n$$ è il numero di linee della matrice $$C$$).
+Successivamente per ogni colonna da 1 a $$m$$ si prendono le coppie di righe che nella colonna i-esima hanno dei numeri di segno opposto (non per forza con lo stesso valore assoluto), e per ognuna di queste coppie si devono fare i seguenti calcoli:
+- si crea la linea $$d$$ ottenuta combinando linearmente la linea $$d_1$$ moltiplicata per il valore assoluto dell'elemento i-esimo della riga $$d_2$$, con la linea $$d_2$$ moltiplicata per il valore assoluto dell'elemento i-esimo della riga $$d_1$$.
+Facendo questo si farantisce che l'elementi i-esimo della riga $$d$$ sia uguale a 0.
+- Successivamente per non far crescere troppo i numeri si divide $$d$$ per il massimo comun divisore, e questa colonna la si chiama $$d'$$ (teoricamente non è un passaggio necessario). <!-- non si capisce bene di cosa, penso degli elementi della colonna  -->
+- Si aggiunge la riga cosi ottenuta alla matrice $$D$$, questo per ogni coppia di righe che hanno sengi opposti (siccome ci si trova ancora nel ciclo).
+
+Una volta finito terminato il ciclo, si scartano tutte le colonne il cui i-esimo elemento è diverso da 0, questo si fa per tutte le colonne $$i$$ della matrice di incidenza iniziale.
+A questo punto si eliminano le prime $$m$$ della matrice complessiva ($$D$$), siccome sono tutti zeri, e alla fine rimangono solo i p-invarianti.
+
+### Continuazione esempio utilizzando Farkas
+Nell'esempio iniziato in precedenza si era arrivati ad un punto in cui si necessitava di basi particolari, ovvero quelle semi-positive (i p-invarianti semi-positivi in pratica).
+Per fare ciò si applica l'algoritmo appena descritto, quindi si crea la matrice $$D_0$$ in questo modo.
+
+{% responsive_image path: assets/15_matrice-D.png %}
+
+Successivamente, guardando la prima colonna, le uniche coppie di righe che hanno segno opposto sono la prima e la seconda, e la seconda e la terza.
+A questo punto ne faccio la combinazione lineare e tolgo le linee in cui la prima colonna contiene un elemento diverso da 0 (quindi le prime 3 della matrice colorata), e mi rimane la seguente matrice. 
+
+{% responsive_image path: assets/15_giro-prima-colonna.png %}
+
+Successivamente faccio lo stesso per tutte le altre colonne, e l'unico caso in cui bisogna effettivamente fare qualcosa è la colonna 3, in cui le righe con segni opposti sono la prima e la terza, e la seconda e la terza (in questo esempio non c'è bisogno di dividere mer l'mcd, i numeri sono piccoli).
+Applicando gli stessi passaggi di prima, questo è ciò che risulta.
+
+{% responsive_image path: assets/15_giro-terza-colonna.png %}
+
+A questo punto, togliendo tutte le prime 4 colonne di 0, la matrice che rimane è quella finale, contenente i 3 vettori $$h$$ che sono basi, con la caratteristica che per costruzione non possono essere negativi.
+
+### Interpretazione dei risultati ottenuti
+Una volta fatto tutto ciò l'unico risultato ottenuto è che la rete è limitata? no, è necessario interpretare i risultati ottenuti per capire di più.
+
+gli $$h$$ sono stati finalmente ricavati, gli $$m_0$$ sono noti, quindi le uniche incognite sono gli $$m$$ della marcatura generica che è possibile raggiungere.
+Sapendo che la formula iniziale era $$hm = hm_0$$ e sostituendo, si scopre che moltiplicando il p-invariante $$(1, 1, 0, 0, 0)$$ per la marcatura iniziale $$m_0$$ (ovvero il vettore colonna $$(4, 0, 4, 2, 0)$$), si ottiene come risultato che $$hm = 4$$.
+Questo significa che: 
+
+$$
+\text{LettoriPronti} + \text{LettoriAttivi} = 4
+$$
+
+I posti il cui peso è 1 (peso dato dal p-invariante) sono LettoriPronti e LettoriAttivi, mentre il $$4$$ dipende dal numero di gettoni in LettoriPronti nella marcatura iniziale (quinidi ciò che c'è a sinistra dell'uguaglianda dipende dai p-invarianti, mentre ciò he c'è a destra dalla marcatura iniziale).
+Questo sta a significare che i lettori non possono aumentare o diminuire, erano 4 e rimarranno sempre 4, quinsi la somma dei due è costante.
+Questo risultato potevamo già saperlo ma ora l'abbiamo ricavato automaticamente tramite dei calcoli.
+Lo stesso vale anche per gli scrittori, si può fare lo stesso ragionamento per cui rimangono costanti.
+
+Esiste un terzo risultato più interessante, ovvero
 ## T-invarianti
 il concetto è simile alle P invarianti ma fa riferimento a sequenze di scatti che mi riporta alla situazione iniziale.
 
