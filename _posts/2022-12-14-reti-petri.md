@@ -392,7 +392,7 @@ $$
 $$
 
 Per ogni transizione appartenente a $$T$$ in uscita da $$p$$, quindi tale per cui esiste una relazione di flusso dal posto $$p$$ alla transizione $$t$$ deve esistere un flusso che va dalla transizione $$t$$ al posto complementare $$pc$$ avente lo stesso peso. \\
-Inoltre, per le transizioni in ingresso al posto $$p$$, quindi per ogni transizione $$t$$ appartenente a $$T$$ in ingresso a $$p$$, quindi tale per cui esiste un flusso da $$t$$ al posto $$p$$ deve esistere un flusso che va dal posto complementare $$pc$$ a $$t$$ di direzione opposta e avente lo stesso peso.
+Inoltre, per le transizioni in ingresso al posto $$p$$ (quindi per ogni transizione $$t$$ appartenente a $$T$$ in ingresso a $$p$$) tali per cui esista un flusso da $$t$$ al posto $$p$$, deve esistere un flusso che va dal posto complementare $$pc$$ a $$t$$ di direzione opposta e avente lo stesso peso.
 
 Questa formula garantisce che la **somma** del numero di gettoni tra il posto e il suo complementare sia costante, permettendo quindi di formulare la **condizione di abilitazione** (lavorando sul preset della transizione) in modo da dipendere anche dal numero di gettoni presenti nel posto in arrivo.
 
@@ -410,7 +410,7 @@ $$
 \end{align*}
 $$
 
-Considerando l'immagine seguente, infatti, possiamo notare come la rete di sinistra abbia ancora una transazione abilitata, mentre quelal di destra no.
+Considerando l'immagine seguente, infatti, possiamo notare come la rete di sinistra abbia ancora una transazione abilitata, mentre quella di destra no.
 Nella seconda rete è come se **lo scatto venisse spezzato in due fasi**: la prima in cui vengono generati i gettoni nel posto (in questo caso $$p_3$$), la seconda invece in cui vengono tolti tanti gettoni quanto è il peso dell flusso da $$p_3$$ a $$t_1$$. \\
 Nella prima rete invece questo non accade, è come se si verificasse tutto nello stesso istante.
 
@@ -502,7 +502,7 @@ $$
 \forall M' \in R(\pt, \, M) \: \Big \vert \: \sum_{p \in P} H(p) M'(p) = k.
 $$
 
-Sapendo inoltre che $$\forall p \in P \: \vert \: H(p) \geq 0$$, allora ogni elemento della sommatoria ha un **contributo nullo o positivo**.
+Sapendo inoltre che $$\forall p \in P \: \vert \: H(p) > 0$$, allora ogni elemento della sommatoria ha un **contributo nullo o positivo**.
 Infatti, se non ci sono gettoni all'interno del posto il contributo della sommatoria sarà un numero positivo ($$H(p)$$) moltiplicato per 0, quindi nullo. 
 
 Quindi, se esiste almeno una marcatura di $$p$$ cui numero di gettoni è diverso da 0, il suo contributo è positivo ma limitato da $$k$$.
