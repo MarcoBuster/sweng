@@ -362,19 +362,44 @@ Quindi questi P-invarianti valgono per qualunque marcatura venga assegnata alla 
 Quindi si è arrivati a dire che $$hC = 0$$, che è un sistema di equazioni linerare, risolvibile con varie tecniche presentate successivamente.
 
 ### Copertura di P-Invarianti
-* Una combinazione lineare di P-invarianti è anch'essa un P-invariante
-* Un P-Invariante che ha tutti pesi >= 0 è detto sempipositivo
-* Se un posto ha peso positivo in un P-invariante semi-positivo allora il posto è limitato
+Una combinazione lineare di P-invarianti (e quindi di soluzioni del sistema) è anch'essa un P-invariante.
+Inoltre un P-Invariante che ha tutti pesi $$\geqslant$$ 0 è detto __semi-positivo__, di conseguenza se un posto ha peso positivo in un P-invariante semi-positivo allora il posto è limitato, questo perchè se almeno una volta la somma di queste componenti (positive) è finita, allora lo è per tutte (è lo stesso discorso fatto per le reti conservative).<!-- il perchè non mi è chiarissimo-->
+Ciò che è stato appena detto riguarda i posti con peso positivo, per quelli con peso zero invece potrebbe succedere di avere gettoni illimitati, questo perchè avendo pesi negativi i gettoni in posti aventi pesi uguali ma opposti si elidono.
+Quindi avere dei pesi negativi non dice nulla sulla limitatezza dei posti nella rete, mentre se tutti sono maggiori o uguali a zero si ha la garanzia che i posti sono limitati.
+Questo mi porta dire che se una rete è ricoperta da P-invarianti, ovvero esiste per ogni posto almeno un p-invariante semi-positivo il cui peso di tale posto sia positivo, ovvero la rete è limitata.
+Un altro modo più complesso per dire ciò è:
+Se esiste una combinazione lineare di p-invarianti per cui il p-invariante è tutto strettamente positivo, allora si arriva ad avere la funzione di conservatività.
 
-Questo mi porta dire che se una rete è ricoperta da P-invarianti allora per ogni posto esiste almeno un pinvariante semipositivo il cui peso di tale posto sia positivo OVVERO la rete è limitata 
+### Esempio p-invarianti
+Ecco finalmente un esempio su ciò che è appena stato spiegato, riprendendo una vecchia rete già utilizzata come esempio.
 
+{% responsive_image path: assets/15_esempio-p-invarianti.png %}
 
-## Algoritmo di Farkas (1902)
+Partendo da ciò per trovare i p-invarianti è necessario risolvere il seguente sistema considerando $$hC = 0$$, ovvero moltiplicando il vettore delle incognite $$h$$ per ogni colonna della matrice $$C$$.
 
-È un algoritmo che trova le basi minime semipositive
+{% responsive_image path: assets/15_sistema.png %}
 
-{Algoritmo}
+Ci si accorge facilmente che la prima e la seconda equazione lineare sono uguali a meno di una costante moltiplicativa, quindi non sono linearmente indipendenti, cosi come la terza e la quarta.
+Quindi basta prendere un'equazione per coppia per risolvere il sistema.
+Facendo i calcoli si ottengono tre basi di questo sistema, ovvero 3 vettori che combinati linearmente danno qualunque soluzione.
 
+Le basi sono:
+
+$$
+(-1, 0, 1, 0, 4)
+(1, 0, -1, 4, 0)
+(1, 1, 0, 0, 0)
+$$
+
+Avendo 5 incognite e 2 equazioni è facile capire che le soluzioni sono infinite, però tra queste ce ne sono alcune particolari.
+Infatti di queste tre basi, l'ultima ha tutti gli elementi semi-positivi, di conseguenza i posti corrispondenti alle prime due posizioni (quelle con i numeri strttamente positivi), sono limitati.
+Però non si riesce ancora a caprire da ciò che è stato appena ricavato se la rete è limitata oppure no (cosa che in realtà era già nota), allora si può sfruttare un algoritmo utile a trovare le basi minime privilegiando però quelle semipositive.
+
+### Algoritmo di Farkas (1902)
+
+L'algoritmo in questione è __l'algoritmo di Farkas__, che come già detto serve a trovare le basi minime si un sistema di equazioni, però privilegiando però quelle semipositive.
+
+{% responsive_image path: assets/15_algoritmo-farkas.png %}
 
 ## T-invarianti
 il concetto è simile alle P invarianti ma fa riferimento a sequenze di scatti che mi riporta alla situazione iniziale.
