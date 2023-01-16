@@ -27,7 +27,7 @@ Tutti i contenuti saranno rilasciati sotto licenza [Creative Commons BY-NC-SA 4.
 ## Visualizzare
 
 Gli appunti sul branch `master` e sui branch `lezioni/*` sono [automaticamente compilati](https://gitlab.di.unimi.it/silab-gang/appunti-deploy) in HTML e disponibili su [https://appunti.studentiunimi.it/sweng/](https://appunti.studentiunimi.it/sweng/).
-L'accesso è protetto da un'**autenticazione HTTP**: username `sweng` / password `ariane5`. 
+L'accesso è protetto da un'**autenticazione HTTP**: username `sweng` / password `centralenucleare`.
 
 ## Contribuire
 
