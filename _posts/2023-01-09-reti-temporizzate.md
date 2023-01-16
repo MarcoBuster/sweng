@@ -1,6 +1,7 @@
+---
 layout: post
-title: "[01] Introduzione"
-date:   2023-11-09 14:30:00 +0200
+title: "[16] Reti di Petri temporizzate"
+date:   2023-01-09 14:30:00 +0200
 toc: true
 ---
 
