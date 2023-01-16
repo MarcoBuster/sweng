@@ -27,7 +27,7 @@ Per contro nelle reti di Petri ci sono __diversi stati attivi__ in un dato momen
 
 Un vantaggio delle reti di Petri è che possono essere viste in maniera informale dal cliente.
 È infatti facile rappresentare una rete di Petri come un grafo in cui ogni nodo rappresenta o un __posto__ o una __transizione__ e gli archi i collegamenti presenti tra le transizioni e i posti.
-Il grafo è __bipartito__, ovvero un grafo in cui nodi di un tipo sono messi in relazione __solo__ con nodi dell'altro tipo:  in questo caso _i posti possono essere collegati soltano a transizioni e viceversa_.
+Il grafo è __bipartito__, ovvero un grafo in cui nodi di un tipo sono messi in relazione __solo__ con nodi dell'altro tipo: in questo caso _i posti possono essere collegati soltano a transizioni e viceversa_.
 
 Ad ogni posto è assegnato un certo numero di ___gettoni___ (o __token__) – sarà successivamente approfondito il senso dell'assegnamento di un numero infinito di gettoni a un posto.
 
@@ -57,7 +57,7 @@ In questo caso vediamo le __PT net__ (reti con posti e transizioni) che sono le 
 Una rete di Petri classicamente è una 5-tupla $$[P, \, T; \; F, \, W, \, M_0]$$ in cui:
 - $$P$$ è l'insieme degli **identificatori dei posti**;
 - $$T$$ è l'insieme degli **identificatori delle transizioni**;
-- $$F$$ è la **relazione di flusso**;
+- $$F$$ è l'insieme delle **relazioni di flusso**;
 - $$W$$ è una funzione che associa un **peso ad ogni flusso**; 
 - $$M_0$$ è la **marcatura iniziale**, ovvero l'assegnamento iniziale dei _gettoni_.
 
@@ -115,7 +115,7 @@ Specificando in modo descrittivo le notazioni precedenti:
 - per ogni identificatore $$p$$ appartenente al preset ma non al postset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ \\
 meno il peso dell'arco che collega $$p$$ a $$t$$;
 - per ogni identificatore $$p$$ appartenente al postset ma non al preset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ \\
-più il peso dell'arco che collega $$p$$ a $$t$$;
+più il peso dell'arco che collega $$t$$ a $$p$$;
 - per ogni identificatore $$p$$ appartenente sia al preset sia al postset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ \\
 meno il peso dell'arco che collega $$p$$ a $$t$$ più il peso dell'arco che collega $$t$$ a $$p$$;
 - per ogni identificatore $$p$$ appartenente all'insieme dei posti meno l'intersezione tra preset e postset di $$p$$ la marcatura non cambia.
@@ -167,9 +167,9 @@ Ora è possibile identificare una situazione particolare, ovvero quella in cui l
 Nelle reti di Petri descritte fino ad ora non è stato presentato lo **scatto simultaneo** delle transizioni, ma nulla vieta che possa avvenire in un contesto reale.
 In tal caso si tratterebbe di un'istanza di __non determinismo__, ovvero _non si può dire quale transizione deve scattare_. 
 Sono quindi 3 le situazioni che si possono verificare:
-- viene attivata la prima transizione;
-- viene attivata la seconda transizione;
-- non viene attivata nessuna transizione (la _non evoluzione_ è comunque un'evoluzione).
+- scatta la prima transizione;
+- scatta la seconda transizione;
+- non scatta nessuna transizione (la _non evoluzione_ è comunque un'evoluzione).
 
 Nel caso in cui fosse stato necessario definire che una delle due transizioni scatti prima dell'altra, ci si troverebbe di fronte ad una rete **non corretta**: è infatti possibile modificare la rete in modo tale che imponga un ordine di scatto alle transizioni.
 
@@ -179,7 +179,7 @@ Per capire ciò è possibile osservare un secondo esempio in cui è presentata u
 
 {% responsive_image path: 'assets/14_rete-alternativa.png' %}
 
-La differenza che salta subito all'occhio è il numero di gettoni presenti all'interno di $$p_0$$ che indicano il numero di posizioni libere nel buffer.
+La differenza che salta subito all'occhio è il numero di gettoni presenti all'interno di $$b_0$$ che indicano il numero di posizioni libere nel buffer.
 Questo è un vantaggio perchè se il buffer dovesse cambiare la sua capienza, sfruttando questa rete è sufficiente modificare la marcatura di $$b_0$$ e il problema sarebbe risolto; la rete precedente avrebbe invece bisogno di una pesante modifica per essere adattata. \\
 Di conseguenza si può applicare lo stesso concetto per il consumatore e per il produttore: aumentandone il numero dei gettoni (rispettivamente in $$p_0$$ e $$c_0$$) aumenterebbe il numero di entità in grado di produrre e consumare.
 
@@ -218,7 +218,7 @@ Questa formula indica che:
 - $$t_2$$ viene abilitata dallo scatto di $$t_1$$ in $$M$$.
 
 Si può notare una **relazione d'ordine non simmetrica** in cui _lo scatto di $$t_1$$_ è una condizione sufficiente per cui $$t_2$$ possa scattare: questo tipo di relazione permette quindi di creare un **ordine di scatto** delle transizioni.
-È condizione sufficiente e non necessaria perchè osservando l'esempio sottostante è facile capire che lo sacatto di $$t_0$$ non è necessario per far si che $$t_2$$ scatti: infatti anche se dovesse avvenire lo scatto di $$t_2$$, la transizione $$t_2$$ diventerebbe comunque abilitata.
+È condizione sufficiente e non necessaria perchè osservando l'esempio sottostante è facile capire che lo sacatto di $$t_0$$ non è necessario per far si che $$t_2$$ scatti: infatti anche se dovesse avvenire lo scatto di $$t_2$$, la transizione $$t_1$$ diventerebbe comunque abilitata.
 
 {% responsive_image path: 'assets/14_sequenza.png' %}
 
@@ -231,7 +231,7 @@ Due transizioni $$(t_1, \, t_2)$$ sono in:
     - $$\exists p \in \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \mid M(p) < W(\langle p, \, t_1 \rangle) + W(\langle  p, \, t_2\rangle)$$.
 
 Analizzando i due tipi di conflitto è possibile notare che:
-- due transizioni sono in __conflitto strutturale__ se l'intersezione dei due preset è vuota, quindi non hanno posti in ingresso in comune: di conseguenza non possono interferire tra loro per quanto riguarda le condizioni di abilitazione.
+- due transizioni sono in __conflitto strutturale__ se l'intersezione dei due preset non è vuota e quindi hanno posti in ingresso in comune: possono quindi interferire tra loro.
 Il conflitto strutturale dipende solo dalla topologia dela rete, infatti non vengono citate le marcature;
 - due transizioni sono in __conflitto effettivo__ se sono entrambe abilitate in una marcatura $$M$$ ed esiste un posto in ingresso in comune ai due preset tale per cui il numero di gettoni in quel posto è minore della somma dei pesi dei due flussi che vanno dal posto alla transizione (quindi il posto in ingresso non ha abbastanza gettoni per far scattare entrambe le transizioni).
 Entrano quindi in conflitto sulla disponibilità di gettoni nel preset.
@@ -263,7 +263,7 @@ Di seguito viene mostrato un esempio di conflitto _effettivo_ e _strutturale_.
 
 ### Concorrenza
 
-È in qualche modo intuitivo consoderare la relazione di concorrenza come la relazione opposta alla relazione di conflitto: due transizioni $$(t_1, \, t_2)$$ sono in:
+È in qualche modo intuitivo considerare la relazione di concorrenza come la relazione opposta alla relazione di conflitto: due transizioni $$(t_1, \, t_2)$$ sono in:
 - __concorrenza strutturale__ $$\Longleftrightarrow \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) = \varnothing$$;
 - __concorrenza effettiva__ in una marcatura $$M \Longleftrightarrow$$
     - $$\boxed{M \ [ \ t_1 >} \cap \boxed{M \ [ \ t_2 >} $$;
@@ -306,7 +306,7 @@ $$
 \end{align}
 $$
 
-cioè se esiste un numero naturale $$k$$ tale per cui per ogni marcatura $$M'$$ raggiungibile da $$M$$, per ogni posto $$p$$ all'interno della rete il numero di gettoni in quella marcatura _raggiungibile_ è minore di $$k$$ &mdash; ovvero se è possibile porre un numero finito tale per cui dopo qualsiasi evoluzione non esista alcun posto che possiede un numero di gettoni maggiore di $$k$$ &mdash; allora è possibile affermare che **la rete è limitata**. \\
+cioè se esiste un numero naturale $$k$$ tale per cui per ogni marcatura $$M'$$ raggiungibile da $$M$$, per ogni posto $$p$$ all'interno della rete il numero di gettoni in quella marcatura _raggiungibile_ è minore o uguale di $$k$$ &mdash; ovvero se è possibile porre un numero finito tale per cui dopo qualsiasi evoluzione non esista alcun posto che possiede un numero di gettoni maggiore di $$k$$ &mdash; allora è possibile affermare che **la rete è limitata**. \\
 Se ciò non si verifica esiste almeno un posto in cui è possibile aumentare tendenzialmente all'infinito il numero di gettoni, tramite una certa evoluzione della rete.
 È importante sottolineare che la limitatezza di una rete può dipendere dalla sua **marcatura iniziale**.
 
