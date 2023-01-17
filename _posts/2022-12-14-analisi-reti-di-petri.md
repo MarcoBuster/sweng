@@ -445,22 +445,69 @@ Questo sta a significare che i lettori non possono aumentare o diminuire, erano 
 Questo risultato potevamo già saperlo ma ora l'abbiamo ricavato automaticamente tramite dei calcoli.
 Lo stesso vale anche per gli scrittori, si può fare lo stesso ragionamento per cui rimangono costanti.
 
-Esiste un terzo risultato più interessante, ovvero
+Esiste un terzo risultato più interessante, ovvero facendo la somma dei lettori attivi, più la risorsa, più quattro volte gli scrittori attivi deve risultare sempre 4 (che è la marcatura iniziale in risorsa), ovvero:
+
+$$
+\text{LettoriAttivi} + \text{Risorsa} + 4 \cdot \text{ScrittoriAttivi} = 4
+$$
+
+Come prima, la parte a sinistra di questo risultato è dato dal p-invariante $$(0, 1, 1, 0, 4)$$, in cui zero è il peso del posto "LettoriPronti", uno quello di "LettoriAttivi", uno quello di "Risorsa", zero quello di "ScrittoriPronti" e infine quattro quello di "ScrittoriAttivi".
+Invece la parte a destra deriva dalla marcatura iniziale moltiplicata per il p-invariante preso in considerazione (quindi $$(0 \cdot 4)+(1 \cdot 0)+(1 \cdot 4)+(0 \cdot 2)+(4 \cdot 0) = 4$$).
+
+In tutti questi risultati è implicito che tutti gli operandi (quindi LettoriAttivi, ScrittoriAttivi, ecc...) devono essere maggiori o uguali a zero
+
+Ma questo cosa significa? facendo degli spostamenti è possibile riscrivere l'ultimo risultato in questo modo:
+
+$$
+\frac{4 \cdot \text{ScrittoriAttivi}}{4} = \frac{4 - \text{LettoriAttivi} - \text{Risorsa}}{4} = \\
+\text{ScrittoriAttivi} = 1 - \frac{\text{LettoriAttivi}}{4} -\frac{\text{Risorsa}}{4} = \\
+\text{ScrittoriAttivi} = 1 - (\frac{\text{LettoriAttivi} + \text{Risorsa}}{4})
+$$
+
+A questo punto "LettoriAttivi" + "Risorsa" si sa essere un valore positivo, che diviso per 4 rimane un numero positivo, a meno che non siano entrambi 0.
+Questo vuol dire che il numero di scrittori attivi è al massimo uno, di conseguenza gli scrittri attivi sono al massimo uno, ovvero si escludono a vicenda.
+Se i lettori attivi sono almeno 1, non c'è più posto per uno scrittore attivo, questo sta a significare che gli scrittori attivi e i lettori attivi sono in __mutua esclusione__ (se ho lettori attivi non posso avere scrittori attivi).
+
+Ora se si fa la stessa cosa ma per i lettori attivi, si ottiene che:
+
+$$
+4 \cdot (1 - \text{ScrittoriAttivi}) -  \text{Risorsa} = \text{LettoriAttivi}
+$$
+
+Per cui se esiste un limite superiore sul numero di lettori (ovvero $$4$$, che però questo limite è dato dalla risorsa), che rimangono incompatibili con il numero di scrittori (se c'è uno scrittore attivo avremo come risultato che i lettori attivi sono un numero negativo, il che non è possibile).
+<!-- Penso sia giusto ma ricontrollare quest'ultima cosa -->
+In conclusione è possibile affermare che:
+- se lettori attivi $$> 0 \rightarrow $$ scrittori attivi $$= 0$$;
+- se scrittori attivi $$> 0 \rightarrow $$ lettori attivi $$= 0$$;
+- scrittori attivi $$\leqslant 1$$
+- lettori attivi $$\leqslant 4 $$ (dato dal numero di gettoni in risorsa).
+
 ## T-invarianti
-il concetto è simile alle P invarianti ma fa riferimento a sequenze di scatti che mi riporta alla situazione iniziale.
+Concettualmente è molto simile ai p-invarianti, ma pone dei vincoli di costanza di invariabilità sulle sequenze di scatti, ovvero:
+- si possono _ripetere ciclicamente_ delle occorrenze di scatti;
+- queste sequenze di scatti cicliche portano alla situazione iniziale, ovvero allo __stato base__.
 
-m' = m+C·s
+Anche in questo caso si consideri l'equazione per trovare una marcatura raggiungibile a partire da una marcatura dopo una sequenza di scatti.
 
+$$
+Mn = M + C \cdot s
+$$
+
+Ora però è necessario applicare i vincoli appena esposti, quindi è necessario tornare allo stato base, questo significa che:
+
+$$
 m' = m
+$$
 
-Soluzioni del sistema C·s = 0
+Di conseguenza, vuol dire che si pone $$C \cdot s = 0$$, e risolvendo questa operazione è possibile ricavare $$s$$ (che ricordiamo essere un vettore delle occorrenze di scatti __non per forza a qualcosa di sensato__). 
+Se si trova almeno una sequenza di scatti ammissibile relativa al vettore $$s$$ allora significa che è stata trivata una sequenza ciclica, per cui un t-invariante.
 
-ATTENZIONE: non tutte sono ammissibili
+Rispetto ai p-invarianti, che non era possibile trovare tutti ma sicuramente erano validi (condizione sufficiente), abbiamo una situazione opposta, ovvero sicuramente trovo dei t-invarianti ma non c'è la sicurezza che siano validi (soddisfare l'equaizone è condizione necessaria ma non sufficiente, per essere t-invariante).
 
-****Esercizio: modellare con una rete di petri il problema della capra, il cavolo e il cane****
-
+Se una rete è limitata e è copribile da t-invarianti, allora è dimostrabile che è anche viva.
 
 # Controllori con specifica a stati proibiti
+Tramite le reti di Petri, oltre ai sistemi reali si possono modellare anche dei __controllori__ che forzano o limitano certi comportamenti del sistema.
 
 Trattiamo questa modellizzazioni nel mondo ideale in cui:
 
