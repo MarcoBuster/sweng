@@ -4,35 +4,88 @@ title: "[15] Analisi di Reti di Petri"
 date: 2022-12-14 14:40:00 +0200
 toc: true
 ---
-# Analisi delle reti di petri
-Le reti di Petri sono state introdotte per poter analizzare un sistema ancora prima di avere il codice, in modo da poter ragionare sul sistema.
-Per fare ciò si potrebbe porre delle domande del tipo:
+# Analisi delle reti di Petri
+Le reti di Petri sono state introdotte per poter **analizzare un sistema** ancora prima di avere il codice.
+Alcune domande da porsi sono:
 - può essere raggiunta una determinata marcatura?
 - è possibile una certa sequenza di scatti?
 - esiste uno stato di deadlock all'interno della rete?
 - la rete (o una certa transizione) è viva? e di che grado?
 
-Per rispondere a queste domande esistono diverse tecniche che sonon suddivise in:
-- Dinamiche
-    - Albero (grafo) delle marcature raggiungibili (chiamato anche grafo di raggiungibilità);
-    - Albero (grafo) della copertura delle marcatura raggiungibili (chiamato anche grafo di copertura).
-- Statiche:
-    - Identificazione delle P-invarianti (caratteristiche invarianti riguardanti i posti);
-    - Identificazione delle T-invarianti (caratteristiche invarianti riguardanti alle transizioni).
+Per rispondere a queste domande esistono diverse tecniche, suddivise in:
+- **tecniche dinamiche**:
+    - albero (grafo) delle marcature raggiungibili (chiamato anche **grafo di raggiungibilità**);
+    - albero (grafo) di copertura delle marcatura raggiungibili (chiamato anche **grafo di copertura**);
+- **tecniche statiche**:
+    - identificazione delle **P-invarianti** (caratteristiche invarianti riguardanti i posti);
+    - identificazione delle **T-invarianti** (caratteristiche invarianti riguardanti alle transizioni).
 
-Le tecniche dinamiche sono quelle che ragionano sugli stati raggiungibili durante l'esecuzione della rete di Petri (o di un programma), mentre le tecniche statiche sono quelle che ragionano sulla topologia della rete, ovvero su come è fatta strutturalmente.
+Le tecniche dinamiche ragionano sugli **stati raggiungibili** durante l'esecuzione della rete di Petri (o di un programma), mentre le statiche sulla **topologia della rete**.
 
 ## Albero di raggiungibilità
-Per creare l'albero di raggiungibilità è necessario adottare il seguente algoritmo:
+Per generare l'_albero di raggiungibilità_ di una rete di Petri si può applicare il seguente **algoritmo**.
 
-1. creare la radice dell'albero corrispondente ad un nodo rappresentatne la marcatura iniziale, e etichettalo come "nuovo";
-2. finchè esistono nodi "nuovi" esegui questi passi:
-    1. seleziona una Marcatura $$M$$ con etichetta "nuovo" e prendiamolo in considerazione, togliendo l'etichetta;
-    2. se la marcatura $$M$$ è identica ad una marcatura di un altro nodo che si trova sul cammino dalla radice a $$M$$, etichetta $$M$$ come "duplicata" (perchè esiste già e sono già note le sue evoluzioni) e passa ad un'altra marcatura;
-    3. se invece in questa nuova marcatura $$M'$$ non è abilitata nessuna transizione, è da etichettare come "finale", e di conseguenza ci si trova in uno stato di deadlock;
-    4. altrimenti finchè esistono transizioni abilitate in $$M$$ è necessario eseguire i seguenti passi per ogni transizione abilitata in $$M$$:
-        1. creare la marcatura $$M'$$ prodotta dallo stato della transizione;
-        2. creare un nodo corrispondente a $$M'$$ e successivamente aggiungere un arco da $$M$$ a $$M'$$ e marcare $$M'$$ come "nuovo".
+<style>
+  .algorithm p {
+    margin-bottom: 0;
+  }
+</style>
+
+<ol class="algorithm">
+  <li markdown="1">
+  **crea la radice** dell'albero corrispondente alla marcatura iniziale $$M_0$$ ed etichettala come _nuova_;
+  </li>
+  <li markdown="1">
+  **_<u>finché</u>_ esistono nodi etichettati come _"nuovi"_** esegui:
+  <ol>
+  <li markdown="1">
+  **seleziona** una marcatura $$M$$ etichettata come _"nuova"_; \\
+    prendila in considerazione e **rimuovi l'etichetta** _"nuova"_.
+  </li>
+  <li markdown="1">
+  ***<u>se</u>*** la **marcatura** $$M$$ è **identica** ad una marcatura di un altro nodo allora:
+  - **etichetta** $$M$$ come **"duplicata"**;
+  - ***<u>continua</u>*** passando alla prossima iterazione.
+  </li>
+  <li markdown="1">
+  ***<u>se</u>*** nella **marcatura** $$M$$ non è abilitata **nessuna transazione** allora:
+  <ul>
+  <li markdown="1">
+  **etichetta** $$M$$ come **"finale"**;
+  </li>
+  <li markdown="1">
+  _situazione di deadlock_.
+  </li>
+  </ul>
+  ***<u>altrimenti</u>*** esegui:
+  <ul markdown="1">
+  <li markdown="1">
+  ***<u>finché</u>* esistono transazioni abilitate** in $$M$$ esegui:
+  <ul>
+  <li markdown="1">
+  ***<u>per ogni</u> transazione* $$t$$ abilitata** in $$M$$ esegui:
+  <ol>
+  <li markdown="1">
+  **crea** la **marcatura** $$M'$$ prodotta dallo **scatto** di $$t$$;
+  </li>
+  <li markdown="1">
+  **crea** un nuovo **nodo** corrispondente alla marcatura $$M'$$;
+  </li>
+  <li markdown="1">
+  **aggiungi** un **arco** nell'albero al nodo corrispondente di $$M$$ al nodo di $$M'$$;
+  </li>
+  <li markdown="1">
+  **etichetta** la **marcatura** $$M'$$ come **"nuova"**.
+  </li>
+  </ol>
+  </li>
+  </ul>
+  </li>
+  </ul>
+  </li>
+  </ol>
+  </li>
+</ol>
 
 ### Esempio albero di raggiungibilità
 Un esempio di esercizio in cui è necessario utilizzare un albero di raggiungibilità potrebbe essere:
