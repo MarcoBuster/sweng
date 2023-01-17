@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[15] Analisi di Reti di Petri"
+title: "[15] Analisi di reti di Petri"
 date: 2022-12-14 14:40:00 +0200
 toc: true
 ---
@@ -87,151 +87,247 @@ Per generare l'_albero di raggiungibilità_ di una rete di Petri si può applica
   </li>
 </ol>
 
-### Esempio albero di raggiungibilità
-Un esempio di esercizio in cui è necessario utilizzare un albero di raggiungibilità potrebbe essere:
+### Esempio
+Di seguito è mostrata una consegna di un esercizio riguardo gli alberi di raggiungibilità.
 
-modellare tramite una rete di Petri l'accesso ad una risorsa condivisa tra quattro lettori e due scrittori, ricordandosi che i lettori possono accedere contemporaneamente, emntre gli scrittori necessitano di un accesso esclusivo.
+> Modellare tramite una rete di Petri l'accesso ad una risorsa condivisa tra quattro lettori e due scrittori, ricordandosi che i lettori possono accedere contemporaneamente, mentre gli scrittori necessitano di un accesso esclusivo.
 
-Un primo approccio è quello di creare una rete per i lettori e una per gli scrittori, successivamenti si procede modellando la risorsa condivisa su cui è necessario operare, collegando tutte le diverse parti create.
+Come primo approccio, si possono creare due reti, una per i lettori e una per gli scrittori.
+È possibile successivamente procedere modellando la _Risorsa_ condivisa collegando le diverse parti create.
 
 {% responsive_image path: assets/15_esempio-1-albero-raggiungibilita.png %}
 
-A questo punto però i lettori non sono in grado di leggere dalla risorsa in modo concorrente, siccome nel posto "Risorsa" è presente un solo gettone, di conseguenza è necessario far si che i gettoni siano 4 in modo che tutti i lettori possano accedervi.
-Sorge un altro problema però, bisogna fare in modo che gli scrittori non possano accedere alla risorsa se sta venendo letta, e la soluzione è quella di mettere un peso di quattro sugli archi da "risorsa" a "S_inizia" e da "S_finisce" a "Risorsa".
-In questo modo uno scrittore per accedere dovrà avere a disposizione tutti i token di "Risorsa", che significa che nessun altro sta utilizzando la risorsa.
-Il risultato finale è il seguente:
+Essendo presente un solo gettone nel posto _Risorsa_, i **lettori** non sono 
+in grado di accedervi contemporaneamente.
+Per risolvere questo problema, si può aumentare il numero di gettoni all'interno di _Risorsa_ a 4.
+Per evitare che gli scrittori possano accedere alla _Risorsa_ mentre viene letta, è possibile aggiungere un peso pari a 4 sugli archi da "_Risorsa"_ a _"S\_inizia"_ e da _"S\_finisce"_ a _"Risorsa"_.
+
+Così facendo, per accedere alla _Risorsa_ uno **scrittore** dovrà attendere che tutti i token saranno depositati in essa, garantendo che nessun'altro sta utilizzando la risorsa.
+
+Il **risultato finale** è il seguente.
 
 {% responsive_image path: assets/15_esempio-1-albero-raggiungibilita-rete-completa.png %}
 
-Una volta creata la rete finale, è possibile creare l'albero di raggiungibilità seguendo l'algoritmo precedente. Il primo passo è quello di creare il nodo radice, che corrisponde alla marcatura iniziale, quindi avremo un nodo 40420 marcato come nuovo.
-Successivamente, per ogni nodo marcato come nuovo, bisogna togliere la marcatura e verificare se esistono dei nodi dalla radice al nodo che stiamo considerando, e in questo esiste solo il nodo radice, quindi si può proseguire.
-A questo punto per ogni transizione abilitata nella marcatura presa in considerazione bisogna creare la marcatura (questa fase è rappresentata dall'arco) e successivamente bisogna creare un nodo corrispondente marcato come nuovo.
-La situazione attuale è la seguente:
+#### Costruzione dell'albero di raggiungibilità
+
+<div style="display: none">
+$$
+\require{color}
+\def\node#1{\fcolorbox{black}{white}{#1}}
+\def\nodenew#1{\fcolorbox{lime}{white}{#1}}
+$$
+</div>
+
+Una volta creata la rete finale, è possibile **generare** l'albero di raggiungibilità seguendo l'**algoritmo precedente**.
+
+Il primo passo è creare il **nodo radice** corrispondente alla marcatura iniziale e marcarlo come <span style="color: green"><i>nuovo</i></span>: $$\nodenew{40420}$$. 
+
+<!-- <???> -->
+Successivamente, occorre procedere _per ogni nodo marcato come nuovo_. 
+In questo caso l'unico nodo marcato come _nuovo_ è $$\nodenew{40420}$$.
+Dopo aver rimosso l'etichetta _nuovo_ si verifica che, partendo dalla radice dell'albero, non siano già presenti altri nodi uguali.
+Essendo $$\node{40420}$$ esso stesso la radice (e unico nodo dell'albero), si procede.
+
+A questo punto, per ogni transazione abilitata nella marcatura presa in considerazione ($$\node{40420}$$) la si fa **scattare** generando le altre marcature marcate come _nuovo_ ($$\nodenew{40011}$$ e $$\nodenew{31320}$$) che quindi si **collegano** con un arco alla marcatura originale ($$\node{40420}$$).
+
+La situazione attuale è la seguente.
 
 {% responsive_image path: assets/15_esempio-1-albero-prima-giro-algoritmo.png %}
 
-Ora bisogna procedere con l'algoritmo ripetendo i passi fino ad arrivare in una situazione in cui non esistono più nodi nuovi, ricordandosi di marcare come duplicati tutti i nodi che verranno a crearsi, che però sono già presenti almeno una volta nell'albero.
+Si procede quindi con l'algoritmo ripetendo i passi fino ad arrivare in una situazione in cui **non esistono più nodi nuovi**, marcando nel mentre come duplicati tutti i nodi che si re-incontrano nonostante siano già presenti almeno una volta nell'albero.
 
-La situazione finale sarà questa:
+La **situazione finale** sarà la seguente.
 
 {% responsive_image path: assets/15_esempio-1-albero-finale.png %}
 
-<!-- immagine orrenda, da sistemare ora non ho tempo-->
+L'albero di raggiungibilità sopra in figura è a ora **completo** e rappresenta tutti gli _stati_ raggiungibili.
 
-A questo punto tramite questo albero di raggiungibilità rappresenta tutti gli stati raggiungibili dal sistema, non esistono altre marcature raggiungibili dalla marcatura iniziale.
-Se si volesse verificare che gli scrittori sono in mutua esclusione con i lettori, basterà controllare se esiste una marcatura in cui il secondo e il quinto numero (rispettivamente "LettoriAttivi" e "ScrittoriAttivi") sono entrambi maggiori di zero.
+Grazie a questo albero, se si volesse verificare che gli scrittori sono in **mutua esclusione** con i lettori, basterà controllare se esiste una marcatura in cui il secondo e il quinto numero (rispettivamente _"LettoriAttivi"_ e _"ScrittoriAttivi"_) sono entrambi contemporaneamente maggiori di zero.
 Si può verificare in modo esaustivo (model checking) guardando tutti i nodi dell'albero.
-Inoltre si può verificare se gli scrittori si escludono a vicenda, controllando se in ogni marcatura l'ultimo numero è maggiore di uno, oppure si può veridicare anche se esistono deadlock, veridicando se ci sono nodi terminali.
-Un caso particolare invece è verificare se la rete è viva, in quanto è più semplice controllare ciò sul grafo di raggiungibilità, e per ottenerlo bisogna collassare tutti i nodi con la stessa marcatura, riportando le frecce corrispondenti.
+Inoltre si può verificare se gli **scrittori** si **escludono a vicenda**, controllando se in ogni marcatura l'ultimo numero (_"ScrittoriAttivi"_) è maggiore di uno. 
+Si infine verificare l'assenza di **deadlock**, data dalla presenza o meno di nodi terminali.
+
+_Collassando_ i nodi aventi la stessa marcatura, si può verificare dall'albero di raggiungibilità se la rete è **viva**.
 
 {% responsive_image path: assets/15_grafo-di-raggiungibilita.png %}
 
 <!-- Anche questa fa un po schifo ma non ho il tool per migliorarla -->
 
-Questo è un sistema reversibile in cui ogni stato è un stato base, perchè da ogni stato è possibile raggiungere tutti gli altri stati.
+La rete è anche **reversibile** in quanto ogni stato è uno _stato base_ ed è quindi possibile raggiungere da ogni stato tutti gli altri stati.
+
+<!-- sistemare -->
 Ora avendo questo grafo è facile capire che la rete è viva, in quanto sono rappresentate tutte le transizioni all'interno del grafo, e siccome il sistema è reversibile, è possibile affermare che la rete è viva.
 
-### Limiti degli alberi di raggiungibilità
-Limiti:
-- Per poter creare un albero di raggiungibilità è necessario enumerare tutte le possibili marcature raggiungibili, di conseguenza la rete deve essere obbligatoriamente limitata, altrimenti non sarebbe possibile elencare tutti i nodi;
-- la crescita degli stati globali può essere ingestibile per una rete limitata (crescita esponenziale).
+### Limiti 
 
-Risposte:
-- Questa tecnica di analisi non è in grado di dire se la rete è limitata o meno;
+- Per poter creare un albero di raggiungibilità è necessario enumerare tutte le possibili marcature raggiungibili, di conseguenza **la rete deve essere obbligatoriamente limitata**: non sarebbe altrimenti possibile elencare tutti i nodi.
+- la **crescita** (esponenziale) del numero degli stati globali può risultare velocemente **ingestibile** per una rete limitata.
+
+Inoltre:
+- Questa tecnica di analisi non è in grado di rilevare se una rete è limitata o meno;
 - Nel caso in cui si sappia già che la rete è limitata:
     - l'albero di raggiungibilità non perde informazioni ed è la esplicitazione degli stati della rete (Quindi ne è di fatto la FSM corrispondente).
 
-## Albero di Copertura
-A questo punto risulterà normale chiedersi se sia possibile creare una struttura dati (albero e grafo) anche per le reti illimitate, in cui i nodi rappresenteranno gruppi di stati che possono essere infiniti.
-È bene introdurre il concetto di __copertura__ prima di procedere, quindi possiamo dire una marcatura $$M$$ __copre__ una marcatura $$M'$$ se e solo se:
+## Albero di copertura
+A questo punto risulterà normale chiedersi se sia possibile creare una struttura dati (albero e grafo) anche per le **reti illimitate**, cui nodi rappresenteranno _gruppi di stati_ potenzialmente infiniti. \\
+È bene introdurre il concetto di __copertura__ prima di procedere. 
+
+_Una marcatura $$M$$ __copre__ una marcatura $$M'$$ se e solo se:_
 
 $$
-\forall p \in P (p) \quad M(p) \geqslant M'(p)
+\forall p \in P (p) \: \vert \: M(p) \geq M'(p).
 $$
 
-Ovvero una marcatura $$M$$ copre una marcatura $$M'$$ se e solo se per ogni posto in $$P$$ la marcatura
-$$M(p)$$ è maggiore o uguale a $$M'(p)$$.
+Ovvero _se per ogni posto in $$P$$, la marcatura $$M(p)$$ è maggiore o uguale a $$M'(p)$$_.
 
-Al contrario invece $$M$$ si dice __copribile__ a partire da una marcatura $$M'$$ se:
+Al contrario, $$M$$ si dice __copribile__ da $$M'$$ se:
 
 $$
-\exists M'' \in R(M') \quad \text{t.c} \quad M'' \text{ copre } M
+\exists M'' \! \in R(M') \: \vert \: M'' \! \textit{ copre } M.
 $$
 
-Grazie a questo concetto è possibile ridefinire il concetto di transizione morta, infatti una transizione $$t$$ si dice __morta__ se e solo se data la sua marcatura minima $$M$$ (ovvero esattamente il numero gettoni necessari in ogni posto del suo preset per abilitare $$t$$), questa non è copribile a partire dalla marcatura corrente.
+Grazie al concetto di _copertura_ è possibile ridefinire quello di **transazione morte**: \\
+una transazione $$t$$ si dice __morta__ se e solo se data la sua _marcatura minima_ $$M$$ (ovvero il minor numero di gettoni necessario in ogni posto nel suo preset per abilitarla) questa **non è copribile** a partire dalla marcatura corrente.
 In caso contrario la transizione $$t$$ è almeno 1-viva.
-Questo suggerische che se una marcatura ne copre un'altra, tutto ciò che era possibile fare nella seconda marcatura, è possibile farlo anche nella prima.
-Di conseguenza è possibile modificare l'albero di raggiungibilità in modo tale che, quando viene creato un nodo è necessario verificare se tra i suoi predecessori ne esiste uno che lo copre, allora a questo punto nei posti dove c'è copertura propria (ovvero $$M(p) \geq M'(p)$$) si mette $$\omega$$.
-Il simbolo $$\omega$$ rappresenta un numero __grande a piacere__ (e non un numero qualisasi, questo è importante perchè potrebbe comportare l'esistenza di proprietà interessanti), che può andare all'infinito, ed è da tenere in  considerazopme quando bisofga cercare quali transizioni sono abilitate da esso.
-Questo tipo di notazione ($$\omega$$) viene introdotta per limitare aumento spropositato di nodi, comprimendo marcature tutte uguali a meno di questo numero $$\omega$$.
+
+Si conclude quindi che se una marcatura ne copre un'altra, tutte le azioni possibili nella prima **sono possibili** anche nella seconda.
+È quindi possibile modificare l'_albero di raggiungibilità_ in modo tale che, quando viene creato un nodo è necessario verificare se tra i suoi predecessori ne esiste uno che lo copre, allora a questo punto nei posti dove c'è copertura propria (ovvero $$M(p) \geq M'(p)$$) si mette $$\omega$$. \\
+Il **simbolo** $$\omega$$ rappresenta un numero __grande a piacere__ (e non _qualsiasi_), che può aumentare all'infinito: questo aspetto è da tenere in considerazione quando bisogna cercare quali transizioni sono abilitate da esso.
+Questo tipo di notazione ($$\omega$$) viene introdotta per limitare l'aumento spropositato di nodi nel diagramma, comprimendo marcature uguali se non per $$\omega$$.
+
+Se una marcatura copre la precedente, infatti, significa che è possibile ripetere gli scatti delle transizioni
+
+<!-- bo --->
 Infatti se una marcatura ne copre una precedente significa che è possibile ripetere gli scatti delle transizioni fatti per arrivare fino a quella marcatura, e di conseguenza se alla fine sono presenti più gettoni di prima in un posto significa ceh è possibile crearne un numero grande a piacere.
-È importante noatare come le transizione che erano abilitate in una certa marcatura $$M'$$ lo saranno anche in una marcatura diversa che copre $$M'$$, ma questo non vale per gli archi inibitori.
+<!-- fine bo -->
+
+È importante noatare come le transizione che erano **abilitate** in una certa marcatura $$M'$$ lo saranno anche in una marcatura diversa che copre $$M'$$, a meno che non ci siano archi inibitori.
 
 Ora è possibile definire l'algoritmo per la creazione di un albero di copertura, che però è molto sibile al precedente, a meno di qualche punto:
 
-1. Crea il nodo radice corrispondente alla marcatura iniziale ed etichettalo come "nuovo";
-2. Finchè esistono nodi "nuovi" esegui questi passi:
-    1. Seleziona una Marcatura $$M$$ etichettata come "nuova" e togli l'etichetta;
-    2. Se $$M$$ è identica ad una marcatura sul cammino dalla radice a $$M$$, etichetta $$M$$ come "duplicata" e passa ad un'altra marcatura;
-    3. Se nessuna transizione è abilitata in $$M$$, etichetta la marcatura come "finale";
-    4. Altrimenti finchè esistono transizioni abilitatein $$M$$ esegui i seguenti passi per ogni transizione $$t$$ abilitata in M:
-        1. Crea la marcatura $$M'$$ prodotta dallo scatto di $$t$$;
-        2. Se sul cammino dalla radice a $$M$$ esiste una marcatura $$M''$$ coperta da $$M'$$ aggiungi $$\omega$$ in tutte le posizioni corrispondenti a coperture proprie;
-        3. Crea un nodo corrispondente a $$M'$$, aggiungi un arco da $$M$$ a $$M'$$ ed etichetta $$M'$$ come "nuovo".
+<ol class="algorithm">
+  <li markdown="1">
+  **crea la radice** dell'albero corrispondente alla marcatura iniziale $$M_0$$ ed etichettala come _nuova_;
+  </li>
+  <li markdown="1">
+  **_<u>finché</u>_ esistono nodi etichettati come _"nuovi"_** esegui:
+  <ol>
+  <li markdown="1">
+  **seleziona** una marcatura $$M$$ etichettata come _"nuova"_; \\
+    prendila in considerazione e **rimuovi l'etichetta** _"nuova"_.
+  </li>
+  <li markdown="1">
+  ***<u>se</u>*** la **marcatura** $$M$$ è **identica** ad una marcatura di un altro nodo allora:
+  - **etichetta** $$M$$ come **"duplicata"**;
+  - ***<u>continua</u>*** passando alla prossima iterazione.
+  </li>
+  <li markdown="1">
+  ***<u>se</u>*** nella **marcatura** $$M$$ non è abilitata **nessuna transazione** allora:
+  <ul>
+  <li markdown="1">
+  **etichetta** $$M$$ come **"finale"**;
+  </li>
+  </ul>
+  ***<u>altrimenti</u>*** esegui:
+  <ul markdown="1">
+  <li markdown="1">
+  ***<u>finché</u>* esistono transazioni abilitate** in $$M$$ esegui:
+  <ul>
+  <li markdown="1">
+  ***<u>per ogni</u> transazione* $$t$$ abilitata** in $$M$$ esegui:
+  <ol>
+  <li markdown="1">
+  **crea** la **marcatura** $$M'$$ prodotta dallo **scatto** di $$t$$;
+  </li>
+  <li markdown="1">
+  ***<u>se</u>*** sul cammino dalla **radice** ($$M_0$$) alla **marcatura** $$M$$ \\
+  **esiste** una **marcatura** $$M''$$ **coperta** da $$M'$$ allora
+  <ul>
+  <li markdown="1">
+  **aggiungi** $$\omega$$ in tutte le posizioni corrispondenti a coperture proprie;
+  </li>
+  </ul>
+  </li>
+  <li markdown="1">
+  **crea** un nuovo **nodo** corrispondente alla marcatura $$M'$$;
+  </li>
+  <li markdown="1">
+  **aggiungi** un **arco** nell'albero al nodo corrispondente di $$M$$ al nodo di $$M'$$;
+  </li>
+  <li markdown="1">
+  **etichetta** la **marcatura** $$M'$$ come **"nuova"**.
+  </li>
+  </ol>
+  </li>
+  </ul>
+  </li>
+  </ul>
+  </li>
+  </ol>
+  </li>
+</ol>
 
-A partire dall'albero creato grazie a questo algoritmo è possibile generare um __grafo di copertura__, che anche in questo caso la macchina a stati finiti derivata dall'albero appena creato.
-Inoltre ripetendo l'algoritmo precedente su una rete limitata non si creerà mai un $$\omega$$, di conseguenza sarà equivalente ad un albero di raggiungibilità.
-Di conseguenza se l'algoritmo termina in ogni caso (sia per reti limitate che per reti illimitate) è sufficiente osservare l'albero per scoprire se una rete è limitata o no.
+Dall'albero generato da questo algoritmo è possibile arrivare al **grafo di copertura**.
 
-### Esempio albero di copertura
-Partendo dalla rete di Petri sottostante ed applicando l'algoritmo appena descritto è possibile arrivare ad un albero di copertura.
+Inoltre, ripetendo l'algoritmo precedente su una rete limitata viene generato un grafo di copertura senza $$\omega$$ e quindi equivalente a un albero di raggiungibilità.
+
+L'algoritmo **termina** in ogni caso: è sufficiente **osservare** l'albero risultante per stabilire se la rete considerata è limitata oppure no.
+
+### Esempio
+Partendo dalla rete di Petri sottostante ed applicando l'**algoritmo** appena descritto è possibile arrivare ad un **albero di copertura**.
 
 {% responsive_image path: assets/15_esempio-albero-copertura-rete.png %}
 
-Come visto nell'esempio della creazione di un albero di raggiungibilità, il primo passo da fare è crere il nodo radice corrispondente alla marcatura iniziale, ovvero il nodo 100, e marcarlo come nuovo.
-Successivamente, è necessario prendere in considerazione l'unico nodo nuovo presente, e in questo caso è presente la transizione $$t_1$$ che è abilitata, di conseguenza bisogna creare la marcatura $$M'$$ prodotta dallo scatto di $$t$$, che è 101.
-A questo punto si può notare come la radice sia una marcatura coperta da $$M'$$, in quanto:
-- 1 $$\geqslant$$ 1
-- 0 $$\geqslant$$ 0
-- 1 $$>$$ 0
+Come visto nell'esempio della creazione di un albero di raggiungibilità, il primo passo da fare è crere il nodo radice corrispondente alla marcatura iniziale ($$\nodenew{100}$$) e marcarlo come nuovo. \\
+Successivamente, è necessario considerare l'unico nodo esistente ($$\node{100}$$) e iterare tra le sue transazioni.
+In questo caso, è abilitata la transazione $$t_1$$ che porta a una marcatura $$M' = \nodenew{101}$$.
 
-quindi nel nodo corrispondente alla marcatura $$M'$$ possiamo sostituire l'unica coprtura propria (quella solo con il $$>$$ e non $$\geqslant$$) con il simbolo $$\omega$$ e marcare come nuovo il nodo.
-Questo è un esempio della parete di algorimo differente da quello dell'albero di raggiungibilità, di conseguenza il resto dell'esempio verrà solo mostrato dall'immagine sottostante.
+A questo punto si può notare come la radice sia una **marcatura coperta da $$M'$$**, in quanto:
+- $$M \: \vert \: 1 \geq 1 \: \vert \: M'$$;
+- $$M \: \vert \: 0\geq 0 \: \vert \: M'$$;
+- $$M \: \vert \: 1 > 0 \: \vert \: M'$$.
+
+Nel nodo corrispondente alla marcatura $$M'$$ è quindi possibile sostituire l'unica **copertura propria** (quella con il $$>$$ e non il $$\geq$$) con il simbolo $$\omega$$ e marcare il nodo.
+Questa è l'unica parte dell'algoritmo differente da quello che genera l'albero di raggiungibilità: il resto dell'esempio è quindi completato dall'immagine sottostante.
 
 {% responsive_image path: assets/15_esempio-albero-copertura-albero.png %}
 
-Tramite lo stesso procedimento attuato nella per gli alberi di raggiungibilità, possiamo trasformare il precedente albero in un grafo di copertura.
+Tramite lo stesso procedimento attuato per gli alberi di raggiungibilità, è possibile trasformare il precedente albero in un **grafo di copertura**.
 
 {% responsive_image path: assets/15_esempio-albero-copertura-grafo.png %}
 
-### Limitie proprietà degli alberi di copertura
-- Se $$\omega$$ non compare mai nell'albero di copertura la rete è __limitata__;
-- Una rete di Petri è __binaria__ se nell'albero di copertura compaiono solo 0 e 1;
-- Una transizione è morta (0-viva) se non compare mai come etichetta di un archo dell'albero di copertura;
-- condizione necessaria affinchè una marcatura $$M$$ sia __raggiungibile__ è l'esistenza di un nodo etichettato con na marcatura che ciore $$M$$ (questa non è una condizione sufficiente, le marcature coperte non sono per forza raggiungibili);
-- Non è possibile decidere se una rete è viva.
+### Considerazioni
+- se $$\omega$$ non compare mai nell'albero di copertura la rete è __limitata__;
+- una rete di Petri è __binaria__ se nell'albero di copertura compaiono solo 0 e 1;
+- una transizione è **morta** (0-viva) se non compare mai come etichetta di un arco dell'albero di copertura;
+- condizione necessaria affinchè una marcatura $$M$$ sia __raggiungibile__ è l'esistenza di un nodo etichettato con una marcatura che copre $$M$$ (non sufficiente: _le marcature coperte non sono necessariamente raggiungibili_);
+- non è possibile stabilire se una rete è **viva**.
 
 ### Esempio particolare
 
-È doveroso un ulteriore esempio particolare nel caso di reti non vive.
-Data una rete non viva come nella figura sotto, dall'albero di copertura non è possibile capire se la rete è effettivamente viva o no, infatti se nodo 01$$\omega$$ è duplicato, quindi non verrà più espanso.
+<!-- non ho capito, da sistemare ancora -->
+
+È doveroso un ulteriore esempio particolare nel caso di reti **non vive**. \\
+Data una _rete non viva_ (come nella figura sotto) dall'albero di copertura **non è possibile** evincere se la rete è effettivamente viva o no: infatti se il nodo $$\node{01$\omega$}$$ è duplicato, quindi non verrà più espanso.
 A questo punto non è possibile aggiungere all'interno dell'albero il nodo 010, in cui la rete raggiunge un deadlock.
 Questo però significa che questo albero di copertura è uguale a quello della stessa rete senza arco che collega $$p_3$$ a $$t_4$$, che in quel caso è una rete viva.
 Detto ciò si può affermare che tramite l'albero di copertura non è possibile dire se una rete è viva oppure no.
 
 {% responsive_image path: assets/15_esempio-particolare.png %}
 
-### Da albero di copertura a rete
-Svolgere l'operazione inversa, ovvero passare dall'albero di copertura alla rete di Petri è un'operazione che crea più "incertezza", nel senso che non è possibile ricavare molte informazioni come facendo l'operazione opposta.
-Infatti l'albero di copertura ci permette di rappresentare delle reti che possono essere illimitate, di conseguenza è del tutto normale avere come risultato una rete di cui non si conosce completamente la struttra (infatti ci potrebbero essere numerose reti associate ad un albero di copertura).
+#### Da albero di copertura a rete
+Passare dall'albero di copertura alla rete di Petri è un'operazione che rispetto all'inverso crea più **incertezza**. 
+L'albero di copertura permette infatti di rappresentare reti potenzialmente illimitate, è quindi normale avere come risultato reti di cui non si conosce la struttura: molte reti potrebbero essere associate **allo stesso albero**.
 
-Nell'esempio sottostante si può notare come la rete ha degli archi tratteggiati, che rappresentano degli archi che potrebbero esserci o meno, inoltre non tutti i pesi si conoscono.
-Questa mancanza di informazioni è data in gran parte dalla presenza di $$\omega$$, in quanto un nodo con all'interno un $$\omega$$ rappresenta diverse marcature.
-È importante notare come le marcature sicuramente raggiungibili sono quelle i cui nodi nell'albero di copertura non contengono $$\omega$$, delle altre marcature non si può essere certi.
+Nel seguente esempio si può notare come la rete ricavata presenta degli _archi tratteggiati_: **potrebbero essere presenti**, oppure no.
+Inoltre, sono assenti anche i pesi negli archi.
+Tale mancanza di informazioni è dovuta in gran parte dalla presenza di $$\omega$$: un nodo con all'interno $$\omega$$ rappresenta **diverse marcature**.
 
 {% responsive_image path: assets/15_esempio-da-albero-a-rete.png %}
 
-# Rappresentazione Matriciale
+È importante notare come le marcature **sicuramente raggiungibili** siano quelle i cui nodi nell'albero di copertura non contengono $$\omega$$: delle altre non si può essere certi.
+
+# Rappresentazione matriciale
 Prima di procedere con la spiegazione delle tecniche di analisi statiche, è necessario introdurre una nuovo modo per rappresentare le reti di Petri, ovvero la rappresentazione matriciale.
 Ovviamente è possibile passare da una rappresentazione all'altra tramite una trasformazione automatica in quanto sono rappresentazioni formali, non ambigue e complete.
 Quindi data una rete rappresentata graficamente o in forma logica, è possibile tradurla in modo automatico in una rete in forma matriciale, e viceversa.
