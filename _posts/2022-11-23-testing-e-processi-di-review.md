@@ -5,116 +5,123 @@ date: 2022-11-23 14:40:00 +0200
 toc: true
 ---
 
-# Testing
+# Testing strutturale
 
-La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da _problemi di comunicazione_. 
+La maggior parte dei problemi che si verificano durante lo sviluppo di un progetto sono causati da _problemi di comunicazione_.
 Ci possono essere incomprensioni quando le informazioni passano da una figura all'altra, come quando ci si interfaccia tra cliente, analista e programmatore.
 Il programmatore dovrà adattare il proprio linguaggio per farsi comprendere dal cliente prestando maggiore attenzione alla formalità e alla chiarezza della comunicazione con il passare del tempo.
 Più i concetti sono spiegati chiaramente, più è difficile incorrere in problemi successivi: è quindi necessario fare attenzione alla __terminologia__ utilizzata.
 
-Quando un programma si definisce ___corretto___?
+Partiamo quindi dalle basi: quando un programma si definisce ___corretto___?
 
-Considerando un generico programma $$P$$ come una funzione da un insieme di dati $$D$$ (dominio) a un insieme di dati $$R$$ (codominio) allora
-- $$P(d)$$ indica l'__esecuzione__ di $$P$$ su un dato in ingresso $$d \in D$$,
+Considerando un generico programma $$P$$ come una funzione da un insieme di dati $$D$$ (dominio) a un insieme di dati $$R$$ (codominio) allora:
+
+- $$P(d)$$ indica l'__esecuzione__ di $$P$$ su un certo input $$d \in D$$,
 - il risultato $$P(d)$$ è __corretto__ se soddisfa le specifiche, altrimenti è scorretto,
 - $$\operatorname{ok}(P, \, d)$$ indica la __correttezza__ di $$P$$ per il dato $$d$$
 
 quindi
 
 $$
-\boxed{P \text{ è } \textit{corretto} \Longleftrightarrow \forall d \in D \: | \operatorname{ok}(P, \, d)}.
+\boxed{P \text{ è } \textit{corretto} \Longleftrightarrow \forall d \in D \:, \text{ } \operatorname{ok}(P, \, d)}
 $$
 
-In conclusione, _un programma **è corretto** quando **per ogni dato** del dominio vale $$\operatorname{ok}(P, \, d)$$_.
+A parole, _un programma __è corretto__ quando __per ogni dato__ del dominio vale $$\operatorname{ok}(P, \, d)$$_.
 
-La correttezza del programma è indicata con $$\operatorname{ok}(P, \, D) = P \text{ è } \textit{corretto}$$.
+Per indicare la correttezza di programma $$P$$ si utilizza la notazione $$\operatorname{ok}(P, \, D)$$, che appunto indica che $$P$$ è _corretto_ per qualunque $$d \in D$$.
 
+## Definizione di test
 
-## Definizioni
+Durante l'attività di testing ciò che viene fatto è sottoporre il programma a una serie di stimolazioni per saggiarne il comportamento in tali circostanze.
+Eseguire un test vuole quindi dire eseguire il programma con una serie di input appartenenti al suo dominio e confrontare i risultati ottenuti con il risultato atteso secondo le specifiche.
 
-_Un **test** è un sottoinsieme del dominio dei dati_ e _un singolo **caso di test** è un elemento di esso_. \\
-Un test sono quindi __più stimolazioni__, mentre un caso di test è una __singola stimolazione__.
-
+Volendone dare una definizione più rigorosa, _un __test__ è un sottoinsieme del dominio dei dati_ e _un singolo __caso di test__ è un elemento di esso_.
+Un test sono quindi __più stimolazioni__, mentre un caso di test è una __singola stimolazione__. \\
 Matematicamente:
-* un test $$T$$ per un programma $$P$$ è un sottoinsieme del suo dominio $$D$$;
-* un elemento $$t$$ di un test $$T$$ è detto _caso di test_;
-* l'esecuzione di un test consiste nell'esecuzione del programma $$\forall t \in T \subseteq D$$.
+
+- un test $$T$$ per un programma $$P$$ è un sottoinsieme del suo dominio $$D$$;
+- un elemento $$t$$ di un test $$T$$ è detto _caso di test_;
+- l'esecuzione di un test consiste nell'esecuzione del programma $$\forall t \in T \subseteq D$$.
 
 Un programma $$P$$ supera (o _passa_) un test $$T$$ se:
 
 $$
-\operatorname{ok}(P, \, T) \Longleftrightarrow \forall t \in T \: |  \operatorname{ok}(P, \, t).
+\operatorname{ok}(P, \, T) \Longleftrightarrow \forall t \in T \:, \text{ } \operatorname{ok}(P, \, t)
 $$
 
-Quindi, _un programma è **corretto per un test** quando **per ogni caso di test** è **corretto**_.
+Quindi, _un programma è __corretto per un test__ quando __per ogni caso di test__ esso è __corretto___.
 
-_Un test $$\, T$$ ha **successo** se rileva uno o più malfunzionamenti presenti nel programma $$P$$_:
+Lo scopo dei test è però ricercare comportamenti anomali nel programma per permetterci di correggerli.
+Diciamo quindi che _un test $$\, T$$ ha __successo__ se rileva uno o più malfunzionamenti presenti nel programma $$P$$_:
 
 $$
-\operatorname{successo}(T, \, P) \Longleftrightarrow \exists t \in T \: | \: \lnot \operatorname{ok}(P, \, t) .
+\operatorname{successo}(T, \, P) \Longleftrightarrow \exists t \in T \: | \: \lnot \operatorname{ok}(P, \, t)
 $$
 
 ### Test ideale
 
-Se un test non rileva alcun malfunzionamento __non significa che il programma sia corretto__: il test è un'attività ottimistica e non ga
-Nel caso in cui il test non rilevi alcun malfunzionamento, non vuol dire che il mio programma sia corretto: come visto nella lezione precedente, il test è un'attività ottimistica.
+Se un test non rileva alcun malfunzionamento __non significa che il programma sia corretto__: come visto nella lezione precedente, il test è un'attività ottimistica e normalmente il passaggio di un test non garantisce l'assenza di anomalie.
+Questo smette però di essere vero nel caso di _test ideali_.
 
-_Un test $$T$$ è **ideale** per $$P$$ se e solo se_
+_Un test $$T$$ si definisce __ideale__ per $$P$$ se e solo se_
 
 $$\operatorname{ok}(P, \, T) \Rightarrow \operatorname{ok}(P, \, D)$$
 
-_ovvero se il superamento del test **implica la correttezza del programma**_.
+_ovvero se il superamento del test __implica la correttezza del programma___.
 
-In generale, è **_impossibile_ trovare un test ideale**.
+Purtroppo però in generale è ___impossibile_ trovare un test ideale__, come ci suggerisce la seguente ipotesi universalmente accettata:
 
 > __Tesi di Dijkstra__:
 >
 > _Il test di un programma può rilevare la presenza di malfunzionamenti ma non dimostrarne l'assenza._
 >
-> _Non esiste quindi un algoritmo che dato un programma arbitrario $$P$$ generi un test ideale finito \\
+> _Non esiste quindi un algoritmo che dato un programma arbitrario $$P$$ generi un test ideale __finito__ \\
 > (il caso $$T = D$$ non va considerato)._
 
-Perché è impossibile trovare un test ideale esaustivo? 
-Vediamo il seguente esempio:
+Notiamo come la tesi escluda esplicitamente il _test esaustivo_ $$T = D$$, restringendosi a considerare i test finiti (mentre il dominio $$D$$ potrebbe anche essere infinito).
+Per capire il perché di questa distinzione è sufficiente osservare il seguente esempio:
+
 ```java
 static int sum(int a, int b) {
     return a + b;
 }
 ```
 
-In Java un int è espresso su 32 bit, quindi il dominio ha di cardinalità $$2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
-Considerando un tempo di 1 nanosecondo per ogni caso di test, il tempo totale è più di 600 anni.
+In Java un int è espresso su 32 bit, quindi il dominio di questa semplice funzione somma ha cardinalità $$2^{32} \cdot 2^{32} = 2^{64} \sim 2 \cdot 10^{19}$$.
+Considerando quindi un tempo di esecuzione ottimistico di 1 nanosecondo per ogni caso di test, un test esaustivo che provi tutte le possibili combinazioni di interi impiegherebbe più di 600 anni per essere eseguito per intero.
 
-_Il **test esaustivo** è quindi **impraticabile**._
+_Il __test esaustivo__ è quindi __impraticabile__._
 
 ## Criteri di selezione
 
-Come è possibile scegliere un _sottoinsieme del dominio_ approssimando il _test ideale_? \\
-Quali caratteristiche dovrebbe avere il __criterio__ scelto per selezionare tale sottoinsieme?
+Assodato che un test ideale è impossibile da realizzare, come possiamo scegliere un _sottoinsieme del dominio_ che approssimi il più possibile un _test ideale_? \\
+Esistono una serie di __criteri di selezione__ che hanno proprio lo scopo di guidare la selezione dei casi di test all'interno del dominio in modo da massimizzare la probabilità che il test abbia successo.
+Prima però di illustrarne alcuni, vediamo quali caratteristiche dovrebbero avere questi criteri.
 
 ### Proprietà
 
 #### Affidabilità
-_Un criterio di selezione si dice **affidabile** se presi due test $$T_1$$ e $$T_2$$ in base a un criterio $$C$$ allora \\
+
+_Un criterio di selezione $$C$$ si dice __affidabile__ se presi due test $$T_1$$ e $$T_2$$ in base al criterio allora \\
 o entrambi hanno successo o nessuno dei due ha successo_.
 
 $$
 \boxed{
-    \operatorname{affidabile}(C, \, P) \Longleftrightarrow \left [
-        \forall T_1 \in C, \, \forall T_2 \in C \: | \operatorname{successo}(T_1, \, P) \Leftrightarrow \operatorname{successo}(T_2, \, P) 
-    \right ]
+    \operatorname{affidabile}(C, \, P) \Longleftrightarrow \left (
+        \forall T_1 \in C, \, \forall T_2 \in C \:, \text{ } \operatorname{successo}(T_1, \, P) \Leftrightarrow \operatorname{successo}(T_2, \, P)
+    \right )
 }
 $$
 
-
 #### Validità
-_Un criterio di selezione si dice **valido**_ _se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo e quindi rileva uno o più malfunzionamenti per il programma $$P$$:_
+
+_Un criterio di selezione si dice __valido___ _se qualora $$P$$ non sia corretto, allora esiste almeno un test $$T$$ selezionato in base al criterio $$C$$ che ha successo e quindi rileva uno o più malfunzionamenti per il programma $$P$$:_
 
 $$
 \boxed{
-    \operatorname{valido}(C, \, P) \Longleftrightarrow \left [ 
-        \lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C \: | \operatorname{successo}(T,\,P) 
-    \right ]
+    \operatorname{valido}(C, \, P) \Longleftrightarrow \left (
+        \lnot \operatorname{ok}(P, \, D) \Rightarrow \exists T \in C \: | \operatorname{successo}(T,\,P)
+    \right )
 }
 $$
 
@@ -129,23 +136,30 @@ static int raddoppia(int par) {
     return risultato;
 }
 ```
-Un criterio che seleziona
 
-* _"i sottoinsiemi di $$\{0, \, 2\}$$”_ è **affidabile**, perché il programma funziona sia con $$0$$ sia con $$2$$, ma **non valido**, perché sappiamo che il programma non è corretto e non viene trovato nessun malfunzionamento;
-* _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$”_ è **non affidabile**, perché i risultati dei casi di test non sono tutti coerenti, ma **valido** perché rileva i malfunzionamenti.
-* _"i sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$”_ è **affidabile**, perché i risultati dei casi di test sono tutti coerenti, e **valido** perché rileva i malfunzionamenti.
+Un criterio che seleziona:
+
+- _"i sottoinsiemi di $$\{0, \, 2\}$$”_ è __affidabile__, perché il programma funziona sia con $$0$$ sia con $$2$$, ma __non valido__, perché sappiamo che il programma non è corretto e non esiste un test che trovi malfunzionamenti;
+- _"i sottoinsiemi di $$\{0, \, 1, \, 2, \, 3, \, 4\}$$”_ è __non affidabile__, perché i risultati dei casi di test non sono tutti coerenti (e quindi il test $$T1=\{0,1\}$$ non ha successo mentre $$T2=\{0, 3\}$$ sì), ma __valido__ perché esiste un test che rileva i malfunzionamenti.
+- _"i sottoinsieme finiti di $$D$$ con almeno un valore maggiore di $$18$$”_ è __affidabile__, perché i risultati dei casi di test sono tutti coerenti, e __valido__ perché rileva i malfunzionamenti.
+
+In questo caso la ricerca di un criterio valido e affidabile era semplice perché conoscevamo già l'anomalia.
+Tuttavia, lo stesso non si può dire di un qualunque programma $$P$$ in quanto __non si conoscono i malfunzionamenti a priori__ e dunque è molto più difficile trovare criteri validi e affidabili.
 
 #### Conclusione
 
-L'obiettivo è scegliere un _criterio valido e affidabile_ ma ciò non è possibile, in quanto **non si conoscono i malfunzionamenti a priori** (in tal caso il test non avrebbe senso di esistere). 
+L'obiettivo sarebbe quindi quello di trovare un _criterio valido e affidabile_ sempre.
+Tuttavia ciò è purtroppo impossibile in quanto un criterio di questo tipo selezionerebbe test ideali, che sappiamo non esistere.
 
-Ma se il test __non ha successo__, è utile avere un _criterio valido e affidabile_?
+Immaginiamo infatti di avere un _criterio valido e affidabile_ e che un test selezionato da esso __non abbia successo__.
 Sapendo che:
+
 - non avendo successo allora non sono stati trovati errori,
-- essendo il criterio affidabile allora tutti gli altri test trovati per quel criterio non troveranno errori,
+- essendo il criterio affidabile allora tutti gli altri test selezionati da quel criterio non troveranno errori,
 - essendo il criterio valido allora se ci fosse stato un errore almeno uno dei test lo avrebbe trovato
 
-allora un programma è __corretto__ anche quando:
+allora il programma è __corretto__, ovvero abbiamo trovato un test che quando non ha successo implica la correttezza del programma: in poche parole, un _test ideale_.
+Esiste quindi un altro modo per implicare la correttezza di un programma:
 
 $$
 \boxed{
@@ -155,26 +169,36 @@ $$
 }
 $$
 
-Trovare un criterio che sia __contemporaneamente__ affidabile e valido significherebbe trovare un criterio che selezioni __test ideali__ che sappiamo non esistere per la _tesi di Dijkstra_.
+In conclusione, trovare un criterio che sia __contemporaneamente__ affidabile e valido significherebbe trovare un criterio che selezioni __test ideali__ che sappiamo non esistere per la _tesi di Dijkstra_.
+Dovremo dunque accontentarci di criteri che garantiscano solo una delle due caratteristiche.
 
 ### Utilità di un test
 
-Quali sono le __caratteristiche__ che __rendono utile__ un caso di test, ovvero che rendono "possibile" o "probabile" che il caso di test trovi l'errore?
-Di seguito sono elencati alcuni esempi:
-- __eseguire il comando che contiene l'anomalia__ – non è altrimenti possibile che il malfunzionamento si manifesti;
-- l'esecuzione del comando che contiene l'anomalia deve portare il sistema in uno \\
-__stato inconsistente__;
-- lo stato inconsistente dell'output deve propagarsi fino all'uscita del codice in esame in modo da __produrre un output diverso da quello atteso__;
+Abbandonata la vana speranza di un criterio di selezione universalmente valido che permetta di testare alla perfezione qualunque programma vediamo ora cosa significa _utilizzare_ un criterio di selezione per costruire un test.
+Come sappiamo un test altro non è che un insieme di casi di test, specifici input appartenenti al dominio del programma: un criterio di selezione governa dunque quanti e quali casi di test vengono aggiunti al test che si sta costruendo.
 
-È possibile utilizzare un metro di misura legato alle caratteristiche del codice: a ogni criterio è possibile associare una **metrica** che misuri la **copertura del codice** rispetto a uno specifico test (ovvero la percentuale di codice "utilizzata" in tutto il test) e che ci permetta di decidere quando smettere di testare, decidere quali altri casi di test è opportuno aggiungere o confrontare la bontà di test diversi.
+Possiamo quindi ora farci una domanda: quali sono le __caratteristiche__ che __rendono utile__ un caso di test, ovvero che rendono "possibile" o "probabile" che il caso di test evidenzi un malfunzionamento causato da un'anomalia?
+Ebbene, un caso di test utile deve:
+
+- __eseguire il comando che contiene l'anomalia__ – non è altrimenti possibile che il malfunzionamento si manifesti;
+- l'esecuzione del comando che contiene l'anomalia deve portare il sistema in uno
+__stato scorretto__, o per meglio dire __inconsistente__;
+- lo stato inconsistente deve propagarsi fino all'uscita del codice in esame in modo da __produrre un output diverso da quello atteso__;
+
+Un buon criterio di selezione dovrà quindi selezionare test contenenti casi di test utili: ma quanti dovrebbe contenerne?
+Per capire ciò si può utilizzare un metro di misura legato alle caratteristiche del codice: a ogni criterio è infatti possibile associare una __metrica__ che misuri la __copertura__ del test che si sta costruendo e che ci permetta di decidere _quando smettere di aggiungere casi di test_, _quali casi di test è opportuno aggiungere_ e di _confrontare la bontà di test diversi_.
+Aggiungeremo infatti solo casi di test che permettano di aumentare la metrica di copertura, e test in grado di garantire una copertura maggiore saranno inerentemente migliori di test con una copertura minore.
 
 ### Criteri noti
 
+Esploriamo quindi ora una serie di criteri di selezione, elencandone pro e contro, esplicitandone la metrica di copertura utilizzata e infine confrontandoli tra di loro per comprenderne le relazioni.
+
 #### Criterio di copertura dei comandi
 
-_Un test $$\ T$$ soddisfa il __criterio di copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$._
+_Un test $$\ T$$ soddisfa il __criterio di copertura dei comandi__ se e solo se ogni comando eseguibile del programma è eseguito in corrispondenza di almeno un caso di test $$t \in T$$._ \\
+La metrica è dunque la frazione di __comandi eseguibili su quelli eseguiti__ dall'intero test.
 
-Consideriamo il seguente programma in pseudocodice.
+Consideriamo per esempio il seguente programma in pseudocodice:
 
 <table>
 <thead>
@@ -211,23 +235,21 @@ Consideriamo il seguente programma in pseudocodice.
 
 È possibile ricostruire un __diagramma di flusso di esecuzione__ del codice trasformando ogni comando in un nodo del diagramma: _coprire tutti i comandi_ significa quindi visitare tutti i nodi raggiungibili.
 
-Applicare il _criterio di copertura dei comandi_ significa quindi trovare un insieme di casi di test in cui \\
-_per ogni nodo esiste un caso di test che passa per quel nodo_.
+Applicare il _criterio di copertura dei comandi_ significa quindi trovare un insieme di casi di test in cui _per ogni nodo esiste un caso di test che lo attraversa_.
 
-Il caso di test $$ \langle 3, \, 7 \rangle$$ risulterebbe quindi sufficiente, dato che soddisfa il criterio di copertura dei comandi.
+Nel nostro esempio il singolo caso di test $$ \langle 3, \, 7 \rangle$$ risulterebbe quindi sufficiente, dato che la sua esecuzione permette di _coprire_ tutti i comandi del programma.
+Tuttavia, pur massimizzando la metrica di copertura dei comandi tale test non è in grado di rilevare l'anomalia alla riga 7, in cui viene fatta una divisione senza prima controllare che il divisore sia diverso da zero.
 
-Soddisfare tale criterio **non garantisce** la correttezza del programma. \\
-Nell'esempio considerato, il caso di test $$\langle 0, \, 7 \rangle$$ provoca una divisione per zero.
+Soddisfare il criterio di copertura dei comando __non garantisce__ dunque la correttezza del programma.
+Come sappiamo infatti un'anomalia non sempre genera un malfunzionamento, per cui eseguire semplicemente tutte le righe di codice raggiungibili non assicura di rilevare eventuali errori.
 
 #### Criterio di copertura delle decisioni
 
-_Un test $$\ T$$ soddisfa il **criterio di copertura delle decisioni** se e solo se ogni decisione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test $$t \in T$$_.
+_Un test $$\ T$$ soddisfa il __criterio di copertura delle decisioni__ se e solo se ogni decisione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test $$t \in T$$_. \\
+La metrica è quindi la frazione delle __decisioni totali possibili__ presenti nel codice che sono state rese __sia vere che false__ nel test.
 
-La metrica è la percentuale delle **decisioni totali possibili** presenti nel codice che sono state rese \\
-**sia vere che false** nel test.
-
-Il criterio di copertura delle decisioni **implica il criterio di copertura dei comandi**.
-Estraendo il codice in un diagramma di flusso, è possibile coprire tutte le decisioni se e solo se ogni arco (_e quindi ogni nodo_) viene attraversato.
+Dovendo attraversare ogni possibile flusso di controllo il criterio di copertura delle decisioni __implica il criterio di copertura dei comandi__.
+Estraendo il codice in un diagramma di flusso, infatti, è possibile coprire tutte le decisioni se e solo se ogni arco (_e quindi ogni nodo_) viene attraversato.
 Non è invece vero l'inverso.
 
 <table>
@@ -265,15 +287,15 @@ Non è invece vero l'inverso.
 </table>
 
 Dall'esempio sopra, un test che soddisfi il suddetto criterio potrebbe includere $$\{ \langle 3, \, 7 \rangle, \, \langle 3, \, -2 \rangle \}$$.
-Nonostante sia un criterio _"migliore"_ del precedente, la copertura delle decisioni __non garantisce__ la correttezza del programma: nell'esempio il caso $$\langle 0, \, 5 \rangle$$ eseguirebbe una divisione per zero.
+Nonostante sia un criterio _"migliore"_ del precedente, la copertura delle decisioni __non garantisce__ la correttezza del programma: nell'esempio il caso $$\langle 0, \, 5 \rangle$$ eseguirebbe comunque una divisione per zero.
 
 #### Criterio di copertura delle condizioni
 
-_Un test $$\ T$$ soddisfa il __criterio di copertura delle condizioni__ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test t contenuto in T_
+_Un test $$\ T$$ soddisfa il __criterio di copertura delle condizioni__ se e solo se ogni singola condizione (effettiva) viene resa sia vera che falsa in corrispondenza di almeno un caso di test $$\ t \in T$$_. \\
+Similmente ai criteri precedenti, la metrica è quindi la percentuale delle __condizioni__ che sono state rese __sia vere che false__ su quelle per cui è possibile farlo.
 
-Similmente ai criteri precedenti, la metrica è la percentuale delle __condizioni__ che sono state rese __sia vere che false__ su quelle per cui è possibile farlo.
-
-Si noti come questo criterio __non implica__ il soddisfacimento di criteri precedenti.
+Sebbene simile, si tratta di un criterio diverso da quello di copertura delle decisioni: in caso di condizioni composte, come per esempio `x != 0 && y < 3`, la copertura delle decisioni imporrebbe che l'_intera condizione_ sia resa sia vera che falsa, mentre la copertura delle condizioni richiede di rendere vere e false le singole _condizioni atomiche_ `x != 0` e `y < 3` in almeno un caso di test. \\
+Come vedremo nell'esempio, ciò non impone quindi di seguire tutti i percorsi sul diagramma di flusso e fa sì che questo criterio __non implica__ il soddisfacimento di nessuno dei precedenti.
 
 <table>
 <thead>
@@ -311,50 +333,54 @@ Si noti come questo criterio __non implica__ il soddisfacimento di criteri prece
 </table>
 
 Nell'esempio sopra, il test $$ \{ \langle 0, \, 5 \rangle , \, \langle 5, \, -5 \rangle \} $$ __soddisfa il criterio di copertura della condizioni__ \\
-(`x != 0` è falsificato da $$\langle 0, \,5 \rangle$$ e verificato da $$\langle 5, \, -5 \rangle$$, mentre `y>0` è verificato da $$\langle 0, \, 5 \rangle$$ e falsificato da $$\langle 5, \, -5 \rangle$$), ma __la decisione è sempre vera__.
+(`x != 0` è falsificato da $$\langle 0, \,5 \rangle$$ e verificato da $$\langle 5, \, -5 \rangle$$, mentre `y > 0` è verificato da $$\langle 0, \, 5 \rangle$$ e falsificato da $$\langle 5, \, -5 \rangle$$), ma __la decisione è sempre vera__.
 
 Sono infatti presenti anomalie alla riga 6 (possibile divisione per zero) e alla riga 8 (overflow e divisione per zero), ma i comandi contenuti nella riga 8 non sono coperti.
+In questo caso più che mai, quindi, la copertura delle condizioni __non garantisce__ la correttezza del programma.
 
 #### Criterio di copertura delle decisioni e condizioni
 
-_Un test $$\ T$$ soddisfa il **criterio di copertura delle decisioni e delle condizioni** se e solo se **ogni decisione** vale sia vero che falso e **ogni condizione** che compare nelle decisioni del programma vale sia vero che falso per diversi casi di test $$t \in T$$_.
+_Un test $$\ T$$ soddisfa il __criterio di copertura delle decisioni e delle condizioni__ se e solo se __ogni decisione__ vale sia vero che falso e __ogni condizione__ che compare nelle decisioni del programma vale sia vero che falso per diversi casi di test $$\ t \in T$$_.
 
-È – intuitivamente – l'**intersezione** del criterio di copertura delle decisioni con il criterio di copertura delle condizioni.
+È – intuitivamente – l'__intersezione__ del criterio di copertura delle decisioni con il criterio di copertura delle condizioni, per cui il soddisfacimento di questo criterio __implica__ sia il criterio di copertura delle condizioni che quello di copertura delle decisioni (e quindi dei comandi).
 
-Nell'esempio 3, il test $$\{ \langle 0, \, -5 \rangle, \, \langle 5, \, 5 \rangle \}$$ soddisfa il criterio di copertura delle decisioni e condizioni.
+Nell'esempio 3, il test $$\{ \langle 0, \, -5 \rangle, \, \langle 5, \, 5 \rangle \}$$ soddisfa il criterio di copertura delle decisioni e condizioni e rileva l'anomalia alla riga 8 ma non quella alla riga 6.
+__Non garantisce__ quindi neanche in questo caso la correttezza del programma.
 
 #### Criterio di copertura delle condizioni composte
 
-_Un test $$\ T$$ soddisfa il **criterio di copertura delle condizioni composte** se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di $$t \in T$$_
+_Un test $$\ T$$ soddisfa il __criterio di copertura delle condizioni composte__ se e solo se ogni possibile composizione delle condizioni base vale sia vero che falso per diversi casi di test $$\ t \in T$$_.
 
-Si noti come __questo criterio implichi il precedente__ (criterio di copertura delle decisioni e condizioni).
+Viene cioè testata ogni possibile combinazione di valori delle condizioni atomiche quando queste sono aggregate in condizioni composte: riprendendo per esempio la condizione `x != 0 && y < 3`, vengono testati separatamente i casi $$\langle V, V\rangle$$, $$\langle V, F\rangle$$, $$\langle F, V\rangle$$ e $$\langle F, F\rangle$$. \\
+È quindi facile notare che __questo criterio implica il precedente__ (criterio di copertura delle decisioni e condizioni), implicando a sua volta il criterio di copertura delle decisioni, delle condizioni e dei comandi.
 
-Data la __natura combinatoria__ di questo criterio, all'aumento del numero di condizioni di base _il numero di casi di test_ cresce troppo rapidamente. 
-Inoltre dato che le condizioni di base potrebbero non risultare indipendenti tra loro, potrebbero esistere __combinazioni non fattibili__ inopportune da testare.
+Data la __natura combinatoria__ di questo criterio, all'aumento del numero di condizioni di base _il numero di casi di test_ cresce però troppo rapidamente, motivo per cui il soddisfacimento di questo criterio è considerato __non applicabile__ in pratica.
+Inoltre, dato che le condizioni di base potrebbero non risultare indipendenti tra loro, potrebbero esistere __combinazioni non fattibili__ che non avrebbe alcun senso testare.
 
 #### Criterio di copertura delle condizioni e delle decisioni modificate
 
-Certe combinazioni sono __più rilevanti__ di altre: se modificando una sola combinazione base si riesce a modificare l'esito della decisione, allora è molto significativa – indipendentemente dalla sua dimensione.
-Se invece l'esito della decisione non varia, allora la modifica può essere considerata neutra o meno significativa.
+Non volendo testare tutte le combinazioni di condizioni, ci si rende presto conto che certe combinazioni sono __più rilevanti__ di altre: se modificando una sola condizione atomica si riesce a modificare l'esito della decisione, allora è molto significativa – indipendentemente dalla sua dimensione.
+Se invece l'esito della decisione non varia, allora la modifica può essere considerata neutra o meno significativa. \\
+Il criterio così ottenuto prende il nome di __criterio di copertura delle condizioni e delle decisioni modificate__.
 
 Si dà quindi importanza nella selezione delle combinazioni al fatto che la modifica di una singola condizione base porti a __modificare l'esito della decisione__.
-Per ogni condizione base devono quindi esistere due casi di test che modificano il valore di una sola condizione base e che portino a un diverso esito della decisione.
+Per ogni condizione base devono quindi esistere due casi di test che modificano il valore di una sola condizione base e che portino a un diverso esito della decisione: in questo modo, inoltre, il criterio __implica quello di copertura delle condizioni e delle decisioni__.
 
-Si può dimostrare che se si hanno $$N$$ condizioni base __sono sufficienti $$N+1$$ casi di test__ per il criterio.
+Si può dimostrare che se si hanno $$N$$ condizioni base __sono sufficienti $$N+1$$ casi di test__ per soddisfare questo criterio, decisamente meno di quelli richiesti dal criterio delle condizioni composte.
 
 #### Implicazioni tra criteri di copertura
 
 {% responsive_image path: 'assets/13_criteri-copertura-implicazione.png' %}
 
-Il criterio delle condizioni composte va considerato troppo oneroso e quindi non applicabile. \\
-Gli altri criteri possono essere invece applicati.
+Ecco dunque uno schema delle implicazioni tra i vari criteri di copertura.
+Come si vede, il criterio delle condizioni composte va considerato troppo oneroso e quindi non applicabile, mentre gli altri criteri possono invece essere utilizzati anche nell'ambito di progetti di dimensioni reali.
 
 ### Altri criteri
 
-I criteri visti finora **non considerano i cicli** e possono essere soddisfatti da test che percorrono ogni ciclo al più una volta. 
+I criteri visti finora __non considerano i cicli__ e possono essere soddisfatti da test che percorrono ogni ciclo al più una volta.
 Molti errori però si verificano durante __iterazioni successive alla prima__, come per esempio quando si superano i limiti di un array.
 
-Occorre quindi criteri che tengano conto anche delle iterazioni.
+Occorre quindi sviluppare dei criteri che tengano conto anche delle iterazioni e stimolino i cicli un numero di volte sufficiente.
 
 <table>
 <thead>
@@ -395,55 +421,68 @@ Occorre quindi criteri che tengano conto anche delle iterazioni.
 
 #### Criterio di copertura dei cammini
 
-_Un test $$\ T$$ soddisfa il **criterio di copertura dei cammini** se e solo se ogni cammino del grafo di controllo del programma viene percorso per almeno un caso di $$t \in T$$_.
+_Un test $$\ T$$ soddisfa il __criterio di copertura dei cammini__ se e solo se ogni cammino del grafo di controllo del programma viene percorso per almeno un caso di $$t \in T$$_. \\
+La metrica è quindi il rapporto tra i __cammini percorsi__ e __quelli effettivamente percorribili__.
 
-La metrica è il rapporto tra i __cammini percorsi__ e __quelli effettivamente percorribili__.
-
-Questo criterio è molto generale ma è spesso impraticabile, anche per programmi semplici. \\
-È quindi considerato **non applicabile**.
+Questo criterio è molto generale ma è spesso impraticabile, anche per programmi semplici: la presenza di cicli imporrebbe infatti di testare tutti gli infiniti cammini che li attraversano un numero arbitrario di volte. Il criterio è quindi considerato __non applicabile__ in pratica.
 
 #### Criterio di $$n$$-copertura dei cicli
 
-_Un test soddisfa il **criterio di $$n$$-copertura** se e solo se ogni cammino del grafo contenente al massimo un numero d'iterazioni di ogni ciclo non superiore a $$n$$ viene percorso per almeno un caso di test._
+_Un test $$\ T$$ soddisfa il __criterio di $$\bf{\it{n}}$$-copertura__ se e solo se ogni cammino del grafo contenente al massimo un numero d'iterazioni di ogni ciclo non superiore a $$n$$ viene percorso per almeno un caso di test $$\ t \in T$$._
 
 La definizione sopra non significa che il test deve eseguire $$n$$ volte un ciclo, ma che per ogni numero $$k$$ compreso tra 0 e $$n$$ deve esistere un caso di test che esegue tale ciclo $$k$$ volte.
-Si sta quindi **limitando il numero massimo di percorrenze** dei cicli. \\
+Si sta quindi __limitando il numero massimo di percorrenze__ dei cicli. \\
 Di conseguenza, al crescere di $$n$$ il numero di test aumenta molto rapidamente.
-Inoltre, fissare $$n$$ a livello di programma può non essere un'azione così semplice: il numero d'iterazioni che necessita un ciclo per essere testato a fondo può essere __molto differente__ tra cicli diversi.
+Inoltre, fissare $$n$$ a livello di programma può non essere un'azione così semplice: il numero d'iterazioni che necessita un ciclo per essere testato a fondo può essere __molto differente__ a seconda del caso.
 
-Per cercare di minimizzare il numero di test, può essere sufficiente coprire solamente le casistiche: 
-- zero iterazioni; 
+Per cercare di minimizzare il numero di test spesso il criterio applicato è quello di __$$\bf{2}$$-copertura dei cicli__.
+Si tratta infatti del numero minimo che permette comunque di testare tutte le casistiche principali:
+
+- zero iterazioni;
 - una iterazione;
-- _molte_ iterazioni.
+- _più di una_ iterazione.
 
-Nell'esempio sopra, il caso $$n = 2$$ è il minimo per considerare casistiche non banali: infatti, con $$n = 1$$ il ciclo (`while`) sarebbe stato indistinguibile da una semplice selezione (`if`); testando due iterazioni si incomincia a testare le caratteristiche del ciclo.
+Il caso $$n = 2$$ è cioè il minimo per considerare casistiche non banali: dando uno sguardo all'esempio sopra, infatti, con $$n = 1$$ il ciclo (`while`) sarebbe stato indistinguibile da una semplice selezione (`if`); testando due iterazioni si incominciano a testare le vere caratteristiche del ciclo.
+Esso permette cioè di testare non solo i comandi che compongono il ciclo, ma anche sue le pre/post-condizioni ed eventuali invarianti.
 
-A differenza del criterio di copertura dei cammini, è considerato **applicabile**.
+A differenza del criterio di copertura dei cammini, il criterio di $$n$$-copertura è considerato __applicabile__ a programmi reali.
+
+#### Mappa finale delle implicazioni tra criteri di selezione
+
+Aggiungendo i criteri di copertura che considerano esplicitamente i cicli si ottiene il seguente schema di implicazione tra tutti i criteri di selezione:
+
+{% responsive_image path: assets/13_implicazioni-estese-criteri-copertura.png %}
 
 # Analisi statica
 
-L'analisi statica si base sull'esame di un **insieme finito di elementi** (*le istruzioni del programma*) contrariamente all'analisa dinamica che considera un insieme infinito (*gli stati delle esecuzioni*). 
-È un'attività **meno costosa del testing**, poiché non soffre del problema della _"esplosione dello spazio degli stati"_. 
+Come abbiamo detto nella lezione precedente, il testing dell'esecuzione del programma non è però l'unica cosa che possiamo fare per aumentare la fiducia nostra e del cliente nella correttezza del programma.
+Un'altra importante iniziativa in tal senso è l'ispezione tramite varie tecniche del _codice_ del programma, attività che prende il nome di __analisi statica__.
 
-Non considerando i valori specifici delle variabili, non ha la capacità di rilevare anomalie dipendenti da particolari valori assunti a runtime.
+L'analisi statica si basa cioè sull'esame di un __insieme finito di elementi__ (_le istruzioni del programma_), contrariamente all'analisi dinamica che invece considera un insieme infinito (_gli stati delle esecuzioni_).
+È un'attività perciò __meno costosa del testing__, poiché non soffre del problema dell'_"esplosione dello spazio degli stati"_.
 
-## Complilatori
+Considerando solamente il codice "statico" del programma, questa tecnica non ha la capacità di rilevare anomalie dipendenti da particolari valori assunti dalle variabili a runtime.
+Si tratta nondimeno di un'attività estremamente utile, che può aiutare a individuare numerosi errori e inaccortezze.
 
-I compilatori fanno analisi statica per fornire un eseguibile e per identificare errori sintattici nel codice.
+## Compilatori
 
-Il lavoro dei compilatori si può dividere solitamente in **quattro fasi**.
-I seguenti esempi sono presi dal compilatore di Rust, caratteristico per la quantità e qualità di analisi svolta durante la compilazione.
+Prima di trasformare il codice sorgente in eseguibile, i compilatori fanno un'attività di analisi statica per identificare errori sintattici (o presunti tali) all'interno del codice.
 
-- **analisi lessicale**: identifica i token appartenenti o non al linguaggio;
-  ```
+Il lavoro dei compilatori si può dividere solitamente in __quattro tipi di analisi__ (gli esempi sono presi dal compilatore di Rust, caratteristico per la quantità e qualità di analisi svolta durante la compilazione):
+
+- __analisi lessicale__: identifica i token appartenenti o meno al linguaggio, permettendo di individuare possibili errori di battitura;
+
+  ```txt
   error: expected one of `!`, `.`, `::`, `;`, `?`, `{`, `}`, or an operator, found `ciao`
   --> src/main.rs:2:9
     |
-  2 |     BELLA ciao = "mondo";
+  2 |     BRO ciao = "mondo";
     |           ^^^^ expected one of 8 possible tokens
   ```
-- **analisi sintattica**: controlla che i token identificati siano in una posizione _sensata_ per la grammatica del linguaggio;
-  ```
+
+- __analisi sintattica__: controlla che i token identificati siano in relazioni _sensate_ tra di loro in base alla grammatica del linguaggio, scovando così possibili errori di incomprensione del linguaggio;
+
+  ```txt
   error: expected `{`, found keyword `for`
   --> src/main.rs:2:14
     |
@@ -451,8 +490,10 @@ I seguenti esempi sono presi dal compilatore di Rust, caratteristico per la quan
     |              ^^^ expected `{`
     |
   ```
-* **controllo dei tipi**: nei linguaggi tipizzati, individua regole d'uso e incompatibilità dei tipi di dati;
-  ```
+
+- __controllo dei tipi__: nei linguaggi tipizzati, individua violazioni di regole d'uso dei tipi ed eventuali incompatibilità tra tipi di dati;
+
+  ```txt
   error[E0308]: mismatched types
   --> src/main.rs:2:24
     |
@@ -464,8 +505,10 @@ I seguenti esempi sono presi dal compilatore di Rust, caratteristico per la quan
 
   For more information about this error, try `rustc --explain E0308`.
   ```
-* **analisi flusso dei dati**: si cercano di rilevare problemi relativi alle evoluzioni dei valori associati alle variabili, come codice non raggiungibile.
-  ```
+
+- __analisi flusso dei dati__: si cercano di rilevare problemi relativi all'_evoluzione dei valori_ associati alle variabili, come per esempio porzioni di codice non raggiungibili.
+
+  ```txt
   error: equal expressions as operands to `!=`
   --> src/main.rs:2:8
     |
@@ -474,14 +517,15 @@ I seguenti esempi sono presi dal compilatore di Rust, caratteristico per la quan
     |
   ```
 
+Se i primi tre tipi di analisi sono abbastanza facili da comprendere, l'ultimo merita una maggiore attenzione, motivo per cui gli dedichiamo il prossimo paragrafo.
+
 ## Analisi Data Flow
 
-I primi utilizzi sono stati fatti nel campo dell'**ottimizzazione dei compilatori**: quest'ultimi sono per esempio _"contenti"_ di non compilare codice non raggiungibile.
-L'ingegneria del software deve occuparsi di trovare e prevenire le cause di questi errori.
+Nata nell'ambito dell'__ottimizzazione dei compilatori__, che per migliorare le proprie performance ricercavano porzioni di codice non raggiungibile da non compilare, l'__analisi del flusso di dati__ è stata più avanti imbracciata dall'ingegneria del software per ricercare e prevenire le cause di errori simili. \\
+Parlando di flusso dei dati si potrebbe pensare a un'analisi prettamente dinamica come il testing, ma l'insieme dei controlli statici che si possono fare sul codice per comprendere come vengono _utilizzati_ i valori presenti nel programma è invece particolarmente significativo.
 
-Il flusso dei dati sarebbe una analisi prettamente  dinamica, ma il sottoinsieme dei controlli statici è significativo.
-
-È possibile identificare staticamente il tipo di ogni operazione eseguita su una variabile e il loro **insieme dei legami di compatibilità**.
+È possibile infatti analizzare staticamente il tipo delle operazioni eseguite su una variabile e l'__insieme dei legami di compatibilità__ tra di esse per determinare se il valore in questione viene usato in maniera _semanticamente sensata_ all'interno del codice. \\
+Nello specifico, le operazioni che possono essere eseguite su un __dato__ sono solamente di tre tipi:
 
 <!-- KaTeX op macro definitions -->
 <div style="display: none; margin: 0;">
@@ -529,25 +573,23 @@ $$
 $$
 </div>
 
-Nel caso dei **dati**, definiamo tre semplici operazioni:
-* $$\op{d}$$ (**definizione**): il comando assegna un valore alla variabile;
-anche assegnare un parametro a una funzione che lo modifica è considerata un'operazione di (ri)definizione;
-* $$\op{u}$$ (**uso**): il comando legge il contenuto di una variabile, come l'espressione sul lato destro di un assegnamento; 
-* $$\op{a}$$ (**annullamento**): al termine dell'esecuzione del comando il valore della variabile non è significativo/affidabile.
-Per esempio, alla _prima dichiarazione_ di una variabile e al termine del suo scope il suo valore è da considerarsi inaffidabile.
+- $$\op{d}$$ (__definizione__): il comando __assegna un valore__ alla variabile; anche il passaggio del dato come parametro ad una funzione che lo modifica è considerata un'operazione di (ri)definizione;
 
-È possibile ridurre una qualsiasi sequenza d'istruzioni a una sequenza di $$\op{d}$$efinizioni, $$\op{u}$$si e \\
-$$\op{a}$$nnullamenti (operazioni).
+- $$\op{u}$$ (__uso__): il comando __legge il contenuto__ di una variabile, come per esempio l'espressione sul lato destro di un assegnamento;
+
+- $$\op{a}$$ (__annullamento__): al termine dell'esecuzione del comando il valore della variabile __non è significativo/affidabile__.
+  Per esempio, dopo la _dichiarazione senza inizializzazione_ di una variabile e al termine del suo _scope_ il valore è da considerarsi inaffidabile.
+
+Dal punto di vista di ciascuna variabile è possibile ridurre una qualsiasi sequenza d'istruzioni (_ovvero un cammino sul diagramma di flusso_) a una sequenza di definizioni, usi e annullamenti.
 
 ### Regole
 
-È possibile individuare la presenza di anomalie definendo alcune **regole di flusso** che devono essere rispettate in un programma corretto.
+Fatta questa semplificazione è allora possibile individuare la presenza di anomalie nell'uso delle variabili definendo alcune __regole di flusso__: alcune di queste devono essere necessariamente rispettate in un programma corretto (1 e 3), mentre altre hanno più a che fare con la semantica dell'uso di un valore (2).
 
 <ol>
 
 <li markdown="1">
-  L'**uso di una variabile** deve essere **sempre preceduto** in ogni sequenza **da una definizione** \\
-  **senza annullamenti intermedi**.
+  L'**uso di una variabile** deve essere **sempre preceduto** in ogni sequenza **da una definizione senza annullamenti intermedi**.
 
   $$
   \a\u\err
@@ -555,7 +597,7 @@ $$\op{a}$$nnullamenti (operazioni).
 
 </li>
 <li markdown="1">
-  La **definizione di una variabile** deve essere **sempre seguita** da **un uso**, **prima** di un suo **annullamento** o **definizione**. 
+  La **definizione di una variabile** deve essere **sempre seguita** da **un uso**, **prima** di un suo **annullamento** o nuova **definizione**.
 
   $$
   \d\a\err \\
@@ -564,7 +606,7 @@ $$\op{a}$$nnullamenti (operazioni).
 
 </li>
   <li markdown="1">
-  L'**annullamento di una variabile** deve essere **sempre seguito** da **una definizione**, **prima** di un **uso** o di un **altro annullamento**
+  L'**annullamento di una variabile** deve essere **sempre seguito** da **una definizione**, **prima** di un **uso** o **altro annullamento**.
   
   $$
   \a\a\err
@@ -573,7 +615,7 @@ $$\op{a}$$nnullamenti (operazioni).
 </li>
 </ol>
 
-Riassumendo, $$\a\op{u}$$, $$\d\op{a}$$, $$\d\op{d}$$ e $$\a\op{a}$$ sono sequenze che identificano **situazioni anomale**.
+Riassumendo, $$\a\op{u}$$, $$\d\op{a}$$, $$\d\op{d}$$ e $$\a\op{a}$$ sono sequenze che identificano __situazioni anomale__, anche se non necessariamente dannose: se per esempio usare una variabile subito dopo averla annullata rende l'esecuzione del programma non controllabile, un annullamento subito dopo una definizione non crea nessun problema a runtime, ma è altresì indice di un possibile errore concettuale.
 
 <table align="center" style="width: 50%">
 <tr>
@@ -604,7 +646,7 @@ Riassumendo, $$\a\op{u}$$, $$\d\op{a}$$, $$\d\op{d}$$ e $$\a\op{a}$$ sono sequen
 
 #### Esempio
 
-Consideriamo il seguente programma in C. 
+Consideriamo la seguente funzione C con il compito di scambiare il valore di due variabili:
 
 ```c
 void swap(int &x1, int &x2) {
@@ -614,7 +656,8 @@ void swap(int &x1, int &x2) {
     x2 = x1;
 }
 ```
-Le sequenze per ogni variabile sono le seguenti.
+
+Analizzando il codice, le sequenze per ogni variabile sono le seguenti:
 
 | Variabile | Sequenza | Anomalie |
 |-|-|-|
@@ -622,9 +665,14 @@ Le sequenze per ogni variabile sono le seguenti.
 | `x2` | $$\dots \d\u\op{d} \dots$$ | Nessuna |
 | `x3` | $$\dots \d\dR\opR{d} \dots$$ | `x3` viene definita più volte senza nel frattempo essere stata usata |
 
-### Sequenze
+Come si vede, in un codice sintatticamente corretto l'analisi Data Flow ci permette quindi di scovare un errore semantico osservando le sequenze di operazioni sulle sue variabili.
 
-Consideriamo il seguente programma C.
+### Sequenze Data Flow
+
+Abbiamo accennato più volte al concetto di "sequenza" di operazioni su una variabile.
+Più formalmente, definiamo __sequenza__ di operazioni per la variabile $$\mathtt{a}$$ secondo il cammino $$p$$ la concatenazione della tipologia delle istruzioni che coinvolgono tale variabile, e la indichiamo con $$\operatorname{P}(p, \, \mathtt{a})$$.
+
+Considerando per esempio il seguente programma C:
 
 ```c
 01  void main() {
@@ -642,9 +690,7 @@ Consideriamo il seguente programma C.
 13  }
 ```
 
-Definiamo $$\operatorname{P}(p, \, \texttt{a})$$ come la **sequenza** ottenuta per la variabile $$\texttt a$$ eseguendo il cammino $$p.$$
-
-Per esempio, considerando il codice sopra. 
+possiamo dire che:
 
 $$
 \begin{align*}
@@ -653,15 +699,20 @@ $$
 \end{align*}
 $$
 
-Eseguendo questo tipo di operazione su tutte le variabili si potrebbero verificare le eventuali anomalie, ma \\
-__i cammini sono potenzialmente infiniti__: per scoprirli dovremmo eseguire il programma e quindi uscire dal campo dell'analisi statica.
+Eseguendo questo tipo di operazione su tutte le variabili e per tutti i cammini del programma si potrebbe verificare la presenza eventuali anomalie, ma come sappiamo __i cammini sono potenzialmente infiniti__ quando il programma contiene cicli e decisioni: per scoprire quali percorsi segue effettivamente l'esecuzione del programma dovremmo eseguirlo e quindi uscire dal campo dell'analisi statica.
 
 #### Espressioni regolari
 
-In caso di cammini contenenti __cicli__ e __decisioni__ è possibile rappresentare $$P$$ utilizzando __espressioni regolari__. 
-Con $$\operatorname{P}([1 \rightarrow], \, \mathtt{a})$$ si indicano tutti i cammini che partono dall'istruzione $$1$$ per la variabile $$\mathtt{a}$$.
+Tuttavia non tutto è perduto: un caso di cammini contenenti __cicli__ e __decisioni__ è possibile rappresentare un insieme di sequenze ottenute dal programma $$P$$ utilizzando delle __espressioni regolari__.
+Con $$\operatorname{P}([1 \rightarrow], \, \mathtt{a})$$ si indica infatti l'espressione regolare che rappresenta __tutti i cammini__ che partono dall'istruzione $$1$$ per la variabile $$\mathtt{a}$$.
 
-Dal codice precedente, è possibile definire $$\operatorname{P}([1 \rightarrow], \, \mathtt{a})$$ come:
+Questo perché nelle espressioni regolari è possibile inserire, oltre che una serie di parentesi che isolano sotto-sequenze, anche due simboli molto particolari:
+
+- la __pipe__ (\|), che indica che i simboli (o le sotto-sequenze) alla propria destra e alla propria sinistra si _escludono_ a vicenda: _una e una sola_ delle due è presente;
+- l'__asterisco__ (\*), che indica che il simbolo (o la sotto-sequenza) precedente può essere _ripetuto da 0 a $$n$$ volte_.
+
+Grazie a questi simboli è possibile rappresentare rispettivamente decisioni e cicli.
+Prendendo per esempio il codice precedente, è possibile costruire $$\operatorname{P}([1 \rightarrow], \, \mathtt{a})$$ come:
 
 $$
 \begin{align*}
@@ -675,26 +726,25 @@ $$
 \end{align*}
 $$
 
-Osserviamo come $$\OpW{u}{7}$$ si ripeta due volte: questo può rendere _fastidioso_ ricercare errori, per via della difficoltà a considerare cammini multipli.
+Osserviamo come $$\OpW{u}{7}$$ si ripeta due volte: questo può rendere _fastidioso_ ricercare errori, per via della difficoltà di considerare cammini multipli.
+Comunque sia, una volta ottenuta un'espressione regolare è facile verificare l'eventuale presenza di errori applicando le solite regole (nell'esempio non ce n'erano).
 
-È comunque facilmente verificabile l'**assenza di errori** nell'espressione regolare sopra.
+Bisogna però fare attenzione a un'aspetto: le espressioni regolari così costruite rappresentano __tutti i cammini__ possibili del programma, ma __non tutti e i soli__!
+Trattandosi di oggetti puramente matematici, infatti, le espressioni regolari sono necessariamente _più generali_ di qualunque programma: esse non tengono infatti conto degli _effetti_ che le istruzioni hanno sui dati e delle relative proprietà che si possono inferire. \\
+Riprendendo a esempio l'espressione regolare di cui sopra, essa contiene la sequenza nella quale il ciclo viene eseguito _infinite volte_, ma osservando il programma è facile indovinare che tale comportamento non sia in realtà possibile: diminuendo progressivamente $$\mathtt{a}$$ e $$\mathtt{b}$$ a seconda di chi sia il maggiore si può dimostrare che prima o poi i due convergeranno allo stesso valore permettendo così di uscire dal ciclo.
 
-<!-- non ho capito le motivazioni -->
-L'espressione regolare rappresenta **tutti i cammini** del programma, ma non **_tutti e i soli_**:
-- DA FARE: motivazione A **(DO NOT MERGE)**
-- DA FARE: motivazione B **(DO NOT MERGE)**
-
-È impossibile scrivere un algoritmo che dato un qualsiasi programma riesca a generare un'espressione regolare che rappresenti **tutti e i soli** cammini, senza osservare i valori delle variabili. \\
-Il modello generato è quindi un'__astrazione pessimistica__.
-
-L'espressione reoglare sopra __non è l'unico modo possibile__ per rappresentare il programma. \\
-Si può anzi argomentare che l'espressione regolare
+In effetti, uno stesso programma può essere rappresentato tramite __un numero infinito di espressioni regolari__ valide.
+Si potrebbe addirittura argomentare che l'espressione regolare
 
 $$
 \Big ( \, \u \Big | \: \d \Big | \: \a \Big)*
 $$
 
-possa rappresentare qualsiasi programma.
+possa rappresentare qualsiasi programma. \\
+Allontanandosi però dai casi estremi, si dimostra essere impossibile scrivere un algoritmo che dato un qualsiasi programma riesca a generare un'espressione regolare che rappresenti __tutti e soli__ i suoi cammini possibili senza osservare i valori delle variabili.
+Bisogna dunque accontentarsi di trovare espressioni regolari che rappresentino __al meglio__ l'esecuzione del programma, ovvero con il minor numero di cammini impossibili rappresentati.
+
+Nell'analisi Data Flow tramite espressioni regolari è quindi necessario tenere conto che il modello generato è un'__astrazione pessimistica__: se viene notificata la presenza di un errore non si può essere certi che esso ci sia veramente, in quanto esso potrebbe derivare da un cammino non percorribile.
 
 ## Analisi statica e Testing
 
