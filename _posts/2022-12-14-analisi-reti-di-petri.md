@@ -378,8 +378,12 @@ Per indicare il vettore colonna $$k$$ da una matrice $$X$$ spesso verrà utilizz
 Per ogni posto, il vettore $$m$$ di dimensione $$\vert P \vert$$ indica la __marcatura corrente__.
 
 $$
-\forall i \in P \: \vert \: m[i] = M(p(i))
+\forall i \in 1..\vert P \vert \: \Big \vert \: m[i] = M(p(i))
 $$
+
+Che **differenza** c'è tra il vettore $$m$$ e $$M$$? Entrambi logicamente indicano la **stessa cosa**, ma:
+- gli indici di $$m$$ sono nell'insieme $$1..\vert P \vert$$;
+- gli indici di $$M$$ sono nell'insieme $$P$$.
 
 ## Definizione parte dinamica
 
@@ -464,7 +468,6 @@ Di seguito è presente un **esempio** che potrebbe chiarire le idee.
 
 {% responsive_image path: assets/15_esempio-sequenza-scatti.png %}
 
-<a id="anchor"></a>
 # Analisi statica
 
 È ora possibile introdurre due tecniche di **analisi statica** che si pongono come obiettivo la ricerca di **invarianti** all'interno della rete.
