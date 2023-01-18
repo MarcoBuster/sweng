@@ -954,95 +954,114 @@ Questa tecnica ovviamente non fornisce alcuna garanzia sull'efficacia dei test, 
 
 # Tecniche di review
 
+Finora abbiamo esplorato tecniche più o meno _automatiche_ per la ricerca di errori, che stimolavano il programma con specifici input o ne analizzavano il codice per individuare potenziali anomalie. \\
+Tuttavia, alcuni tipi di errori non possono essere rilevati con questi metodi: si tratta soprattutto errori legati a _incomprensione delle specifiche_.
+Del resto, attività come il testing richiedono che il programmatore fornisca l'output "corretto" che si aspetta dal programma che viene confrontato con quello effettivo per scovare eventuali differenze: se chi scrive il codice non comprende in primo luogo _cosa_ dovrebbe fare il suo software non c'è modo di individuare l'errore.
+
+Per questo motivo molto spesso il codice viene sottoposto ad un'attività di __review__, in cui un operatore umano ne analizza la struttura e il funzionamento: egli sarà chiaramente in grado di cogliere una serie di __errori semantici__ che sfuggono alla comprensione dei tool automatici di test.
+Spesso questa mansione viene svolta da un __team di testing__ separato dal team di sviluppo: non solo questo promuove l'effettiva ricerca di errori (_mentre gli sviluppatori avrebbero tutto l'interesse di non trovarne nessuno_), ma sottopone il software a uno sguardo esterno più critico e imparziale.
+
+Anche per la review esistono una serie di tecniche: vediamone quindi le principali.
+
 ## Beebugging
 
-Talvolta può capitare che il team di testing **non trovi errori** nel programma sotto osservazione: o il programma è effettivamente corretto (raro) o la review non viene svolta in maniera corretta.
+Talvolta può capitare che il team di testing __non trovi errori__ nel programma sotto osservazione.
+Oltre ad essere scoraggiante per chi esegue la review questo è spesso indice del fatto che tale attività non viene svolta in maniera corretta, poiché raramente un programma è effettivamente corretto al 100% dopo la prima scrittura.
 
-Un metodo efficace per risolvere questo problema è possibile utilizzare il **beebugging**, ovvero inserire deliberatamente $$n$$ errori nel codice prima di mandare il programma al team di testing. 
+Un metodo efficace per risolvere questo problema è il cosiddetto __beebugging__, una tecnica secondo la quale gli sviluppatori __inseriscono deliberatamente $$\bf{n}$$ errori__ nel codice prima di mandarlo in analisi al team di testing, a cui viene comunicato il numero $$n$$ di errori da trovare.
+L'ovvio vantaggio di questa tecnica è l'__incentivo__ per il team di testing a continuare a cercare errori, facendo sì che durante la ricerca ne vengano scovati molti altri non ancora noti.
 
-Il vantaggio ovvio di questa tecnica è l'**incentivo** per il team di testing a continuare a cercare errori.
-
-La metrica utilizzata è la **percentuale di errori trovati** (di quelli inseriti artificialmente), che può fornire un'indicazione del numero di errori totali rimanenti da trovare.
-Se per esempio il team di sviluppo ha aggiunto 10 bug _"artificiali"_ e durante il testing ne vengono trovati 8 più 2 non noti, si può supporre che il team di review riesce a trovare l'_80% degli errori_ e che quindi ce ne è ancora un altro _reale_ da trovare.
-
-È anche possibile che gli errori immessi artificialmente siano **troppo facili** o **troppo difficili** da trovare - è quindi azzardato arrivare a una conclusione come quella sopra.
+La metrica utilizzata per valutare l'efficacia del testing tramite questa tecnica è dunque la __percentuale di errori trovati__ tra quelli inseriti artificialmente, che può fornire un'indicazione della frazione di errori che il team di testing è in grado di trovare.
+Se per esempio il team di sviluppo ha aggiunto 10 bug _"artificiali"_ e durante il testing ne vengono trovati 8 più 2 non noti, si può supporre che il team di review riesce a trovare l'_80% degli errori_ e che quindi ce ne è ancora un altra porzione di errori _reali_ da scovare. \\
+Bisogna però essere molto cauti nel fare considerazioni di questo tipo: è possibile che gli errori immessi artificialmente siano __troppo facili__ o __troppo difficili__ da trovare, per cui conviene sempre prendere tutto con le pinze.
 
 ## Analisi mutazionale
 
-Una evoluzione del beebugging è l'**analisi mutazionale**.
-Dato un programma $$P$$ e un insieme di casi di test $$T$$, viene generato un insieme di programmi $$\Pi$$ _simili_ al programma $$P$$ in esame.
+Una evoluzione del beebugging è l'__analisi mutazionale__.
+Dato un programma $$P$$ e un test $$T$$ (_insieme di casi di test_), viene generato un insieme di programmi $$\Pi$$ _simili_ al programma $$P$$ in esame: tali programmi prendono il nome di __mutanti__. \\
+Si esegue poi il test $$T$$ su ciascun mutante: se $$P$$ era corretto i programmi in $$\Pi$$ __devono essere sbagliati__, ovvero devono produrre un __risultato diverso__ per almeno un caso di test $$t \in T$$.
+Se così non fosse, infatti, vorrebbe dire che il programma $$P$$ non viene opportunamente testato nell'aspetto in cui si discosta dal mutante che non ha sollevato errori, per cui non si può essere sicuri della sua correttezza.
+Non viene cioè testata la correttezza del programma, ma piuttosto __quanto il test è approfondito__.
 
-Ci si aspettano due cose:
-- se $$P$$ è corretto allora i programmi in $$\Pi$$ _**devono essere sbagliati**_;
-- per almeno un caso di test i programmi devono quindi produrre un risultato diverso.
-
-I tre passi da seguire per l'analisi mutazionale sono:
-1. **analisi** delle classi e generazione dei mutanti; 
-2. **selezionare** dei casi di test, in base alla metrica; 
-3. **esecuzione** dei casi di test, pensando anche alle performance;
+Si può quindi valutare la capacità di un test di rilevare le differenze introdotte nei mutanti tramite un nuovo criterio di copertura, che prende il nome di __criterio di copertura dei mutanti__.
 
 ### Criterio di copertura dei mutanti
 
-Formalizzando la tecnica come _criterio di copertura_, si può dire che
-_un test $$\ T$$ soddisfa il **criterio di copertura dei mutanti** se e solo se per ogni mutante $$\pi \in \Pi$$ esiste almeno un caso di test $$t \in T$$ la cui esecuzione produca per $$\pi$$ un risultato diverso da quelllo prodotto da $$P$$_.
+_Un test $$\ T$$ soddisfa il __criterio di copertura dei mutanti__ se e solo se per ogni mutante $$\pi \in \Pi$$ esiste almeno un caso di test $$t \in T$$ la cui esecuzione produca per $$\pi$$ un risultato diverso da quello prodotto da $$P$$_.
 
-La metrica è la **frazione di mutanti $$\pi$$ riconosciuta come diversa** da $$P$$ sul totale di mutanti generati.
+La metrica di valutazione di questo criterio è la __frazione di mutanti $$\pi$$ riconosciuta come diversa__ da $$P$$ sul totale di mutanti generati.
+Se non tutti i mutanti vengono scovati sarà necessario aggiungere dei casi di test che li riconoscano.
+
+I tre passi da seguire per costruire un test tramite l'analisi mutazionale sono quindi:
+
+1. __analisi__ delle classi e generazione dei mutanti;
+2. __selezionare__ dei casi di test da aggiungere a $$T$$, in base alla metrica di cui sopra;
+3. __esecuzione__ dei casi di test sui mutanti, pensando anche alle performance;
+
+Analizziamo ciascuno di tali step in maggior dettaglio.
 
 ### Generazione dei mutanti
 
-Nel caso ideale si vorrebbero avere dei mutanti simili al programma di partenza con **differenze minime**, che introducono potenziali anomalie.
-I mutanti sono **potenzialmente infiniti**, ma facili da automatizzare.
+Idealmente i mutanti generati dovrebbero essere il __meno differenti possibile__ dal programma di partenza, ovvero dovrebbe esserci __un mutante per ogni singola anomalia__ che sarebbe possibile inserire nel programma.
 
-Per mantenere la suite di test *eseguibile in tempi ragionevoli*, il numero di mutanti non deve essere troppo elevato: un centinaio è una buona stima, ma un migliaio sarebbe auspicabile.
-Visto il numero limitato, è necessario concentrarsi quindi sulla loro "__qualità__", in modo che trovino un errore.
+Questo richiederebbe però di generare __infiniti__ mutanti, mentre per mantenere la suite di test _eseguibile in tempi ragionevoli_ il numero di mutanti non dovrebbe essere troppo elevato: un centinaio è una buona stima, ma un migliaio sarebbe auspicabile. \\
+Visto il numero limitato è necessario dunque concentrarsi sulla "__qualità__" dei mutanti generati, dove i mutanti sono tanto più buoni quanto più permettono di scovare degli errori.
+Per questo motivo vengono creati degli specifici _operatori_ che dato un programma restituiscono dei mutanti _utili_.
 
 #### Operatori mutanti
 
-Gli **operatori mutanti** sono delle funzioni (o piccoli programmi) che dato un programma $$P$$ generano uno o più mutanti $$\pi$$.
-Essi operano eseguendo piccole **modifiche sintattiche** che modifichino la **semantica del programa** senza causare errori di compilazione.
+Come già accennato, gli __operatori mutanti__ sono delle funzioni (_o piccoli programmi_) che dato un programma $$P$$ generano un insieme di mutanti $$\Pi$$.
+Essi operano eseguendo piccole __modifiche sintattiche__ che modifichino la __semantica del programma__ senza però causare errori di compilazione.
 
-Esistono numerosi **problemi di prestazioni**, in quanto per ogni mutante occorre modificare il codice, ricompilarlo, controllare che non si sovrapponga allo spazio di compilazione delle classi di altri mutanti, ecc...
-I tool moderni lavorano quindi sull'**eseguibile** (nel caso di Java sul bytecode) per diminuire il lavoro da fare per ogni mutante ma stando attenti a non fare modifiche che non sarebbero state mai generate da nessun compilatore Java.
+Tali operatori si distinguono in __classi__ in base agli oggetti su cui operano:
 
-##### CLASSI DI OPERATORI
+- __costanti__ e __variabili__, per esempio scambiando l'occorrenza di una con l'altra;
+- __operatori__ ed __espressioni__, per esempio trasformando `<` in `<=`, oppure `true` in `false`;
+- __comandi__, per esempio trasformando un `while` in `if`, facendo così eseguire il ciclo una sola volta.
 
-Si distinguono operatori in **classi** in base agli oggetti su cui operano.
-- **costanti**, **variabili**, per esempio scambiando l'occorrenza di una con l'altra;
-- **operatori** ed **espressioni**, per esempio `<` in `<=`, oppure `true` in `false`;
-- **comandi**, per esempio un `while` in `if`, facendolo eseguire una sola volta.
+Alcuni operatori possono essere anche specifici su alcuni tipi di applicazioni, come nel caso di:
 
-Possono essere anche specifici su alcuni tipi di applicazioni, come:
-- __sistemi concorrenti__: operano principalmente sulle primitive di sincronizzazione – come eseguire una `notify()` invece che una `notifyAll()`;
-- __sistemi object orientend__: operano principalmente sulle interfacce dei moduli.
+- operatori per __sistemi concorrenti__: operano principalmente sulle primitive di sincronizzazione – come eseguire una `notify()` invece che una `notifyAll()`;
+- operatori per __sistemi object-oriented__: operano principalmente sulle interfacce dei moduli.
+
+Poiché la generazione dei mutanti è un'attività tediosa, il compito di applicare questi operatori viene spesso affidato a tool automatici.
+Esistono però numerosi __problemi di prestazioni__, in quanto per ogni mutante occorre modificare il codice, ricompilarlo, controllare che non si sovrapponga allo spazio di compilazione delle classi di altri mutanti e fare una serie di altre operazioni che comporano un pesante overhead.
+Per questo motivo i tool moderni lavorano spesso sull'__eseguibile__ in sé (_sul bytecode nel caso di Java_): sebbene questo diminuisca il lavoro da fare per ogni mutante è possibile che il codice eseguibile così ottenuto sia un programma che non sarebbe possibile generare tramite compilazione.
+Si espande quindi l'universo delle possibili anomalie anche a quelle _non ottenibili_, un aspetto che bisognerà tenere in considerazione nella valutazione della metrica di copertura.
 
 #### High Order Mutation
 
-Nella variante **HOM** (**High Order Mutation**) si applicano modifiche a **codice già modificato**.
-La giustificazione per tale tecnica è che esistono alcuni casi in cui trovare errori dopo aver applicato più modifiche è *più difficile* rispetto ad applicarne solo una.
-Può essere che un errore mascheri parzialmente lo stato inconsinstente dell'altro rendendo più difficile il rilevamento di malfunzionamenti. 
+Normalmente i mutanti vengono generati introducendo una _singola modifica_ al programma originale.
+Nella variante __HOM__ (__High Order Mutation__) si applicano invece modifiche a __codice già modificato__.
 
-### Risultati
+La giustificazione per tale tecnica è che esistono alcuni casi in cui trovare errori dopo aver applicato più modifiche è _più difficile_ rispetto ad applicarne solo una.
+Può essere che un errore mascheri parzialmente lo stato inconsistente dell'altro rendendo più difficile il rilevamento di malfunzionamenti, cosa che porta a generare test ancora più approfonditi.
+
+### Automatizzare l'analisi mutazionale
 
 Generalmente nel testing gli unici due _outcomes_ sono _risultato corretto_ o _non corretto_ e la metrica è una misura della correttezza del programma.
-Il discrimante delle tecniche di analisi mutazionale è invece il numero di casi di test che forniscono un risultato ***diverso*** da quello di $$P$$, indipendentemente dalla correttezza (di entrambi).
+Il discriminante delle tecniche di analisi mutazionale è invece il numero di casi di test che forniscono un risultato ___diverso___ da quello di $$P$$, indipendentemente dalla correttezza (di entrambi).
 
-Trovare errori con queste tecniche (specialmente l'HOM) misura quindi il **livello di approfondimento** dei casi di test e **non** la **correttezza** del programma.
+Come già detto, trovare errori con queste tecniche (specialmente l'HOM) misura quindi il __livello di approfondimento__ dei casi di test e __non__ la __correttezza__ del programma di partenza. \\
+Prescindere dalla _correttezza_ dei risultati ha però un aspetto positivo: per eseguire l'analisi mutazionale non è necessario conoscere il comportamento corretto del programma, eliminando la necessità di un _oracolo_ che ce lo fornisca.
+Si può quindi misurare la bontà di un insieme casi di test __automatizzando la loro creazione__: come già detto precedentemente, occorre però vigilare sulla __proliferazione del numero di esecuzioni__ da effettuare per completare il test – un caso di test dà infatti origine a $$n+1$$ esecuzioni, dove $$n$$ è il numero di mutanti.
 
-Trascindere dalla *correttezza* dei risultati ha anche aspetti positivi: per eseguire l'analisi mutazionale non è quindi necessario avere i comportamenti corretti (o l'__oracolo__). 
-Si può quindi misurare la bontà dei casi di test **automatizzando la loro creazione**: come già detto precedentemente, occorre però vigilare sulla **profilerazione del numero di esecuzioni** da effettuare per compleare un test – un caso di test dà origine a $$n+1$$ esecuzioni dove $$n$$ è il numero di mutanti.
+Il seguente diagramma di flusso visualizza quindi l'attività __facilmente automatizzabile__ di analisi mutazionale:
 
-Il seguente diagramma di flusso visualizza le attività (**facilmente automatizzabili**) svolte durante l'analisi.
 {% responsive_image path: 'assets/13_analisi-mutazionale-schema.png' %}
 
-Questo approccio benché semplice **non garantisce la terminazione**, perché:
-- quando si estrae un valore casuale, c'è sempre il rischio di **estrarre sempre lo stesso valore**;
-- si potrebbe essere _particolarmente sfortunati_ e **non trovare il valore corretto**;
-- **esistono infinite varianti** di programmi che svolgono la stessa funzione, anche se non sono sintatticamente identici. 
-Di conseguenza, una modifica sintattica potrebbe non avere alcun effetto sul funzionamento del programma.
+Benché semplice, questo algoritmo __non garantisce la terminazione__ per una serie di motivi:
 
-Per verificare la validità del test, è necessario controllare il **numero di mutanti generati**: se questo numero è elevato, il test non è affidabile. 
-In alternativa, è possibile _"nascondere"_ i mutanti, a patto che non sia richiesta una copertura totale. 
-In questo modo, è possibile **analizzare programmi** che sono **funzionalmente uguali ma sintatticamente diversi**, al fine di dimostrarne l'equivalenza o scoprire casi in cui essa non è valida.
+- quando si estrae un caso di test casuale, c'è sempre il rischio di __estrarre sempre lo stesso__;
+- si potrebbe essere _particolarmente sfortunati_ e __non trovare un caso di test utile__ in tempo breve;
+- __esistono infinite varianti__ di programmi __funzionalmente identici__ ma __sintatticamente diversi__, ovvero che svolgono la stessa funzione anche se sono diversi: una modifica sintattica potrebbe non avere alcun effetto sul funzionamento del programma, come per esempio scambiare `<` con `<=` in un algoritmo di ordinamento.
+  In tal caso, nessun nuovo caso di test permetterebbe di coprire il mutante, in quanto esso restituirebbe sempre lo stesso output del programma originale.
+
+Spesso viene quindi posto un timeout sull'algoritmo dipendente sia dal tempo totale di esecuzione, sia dal numero di casi di test estratti.
+
+Per verificare la validità del test, è necessario controllare il __numero di mutanti generati__: se questo numero è elevato, il test non era affidabile.
+In alternativa, è possibile _"nascondere"_ i mutanti, a patto che non sia richiesta una copertura totale.
+In questo modo, è possibile __analizzare programmi__ che sono __funzionalmente uguali ma sintatticamente diversi__, al fine di dimostrarne l'equivalenza o scoprire casi in cui essa non è valida.
 
 # Object oriented testing
 
@@ -1068,8 +1087,9 @@ Dal punto di vista teorico, appunto, il **collegamento dinamico** rende difficil
 
 ## Testare una classe
 
-Per **testare una classe**: 
-- la **si isola** utilizzando più _stub_ possibili per renderla eseguibile indipendentemente dal contesto; 
+Per **testare una classe**:
+
+- la **si isola** utilizzando più _stub_ possibili per renderla eseguibile indipendentemente dal contesto;
 - si implementano eventuali **metodi astratti** (stub); 
 - si aggiunge una funzione per permettere di estrarre ed esaminare lo stato dell'oggetto e quindi **bypassare l'incapsulamento**.
 - costruiamo una classe driver che permetta di istanziare oggetti e chiamare metodi secondo il **criterio di copertura** scelto.
