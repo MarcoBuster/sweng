@@ -175,7 +175,7 @@ A questo punto risulterà normale chiedersi se sia possibile creare una struttur
 _Una marcatura $$M$$ __copre__ una marcatura $$M'$$ se e solo se:_
 
 $$
-\forall p \in P (p) \: \vert \: M(p) \geq M'(p).
+\forall p \in P (p) \quad  M(p) \geq M'(p).
 $$
 
 Ovvero _se per ogni posto in $$P$$, la marcatura $$M(p)$$ è maggiore o uguale a $$M'(p)$$_.
@@ -183,7 +183,7 @@ Ovvero _se per ogni posto in $$P$$, la marcatura $$M(p)$$ è maggiore o uguale a
 Al contrario, $$M$$ si dice __copribile__ da $$M'$$ se:
 
 $$
-\exists M'' \! \in R(M') \: \vert \: M'' \! \textit{ copre } M.
+\exists M\smash{''} \! \in R(M') \quad M'' \! \textit{ copre } M.
 $$
 
 Grazie al concetto di _copertura_ è possibile ridefinire quello di **transazione morte**: \\
@@ -354,7 +354,7 @@ Per ogni flusso uscente dal posto $$i$$-esimo ed entrate nella transazione $$j$$
 In sintesi:
 
 $$
-\forall i \in 1..\vert P \vert , \, \forall j \in 1..\vert T \vert \: \Big \vert \: I[i][j] = \begin{cases}
+\forall i \in 1..\vert P \vert , \, \forall j \in 1..\vert T \vert \quad I[i][j] = \begin{cases}
 W(\langle p(i), \, t(j) \rangle) &\text{se} \ \langle p(i), \, t(j) \rangle \in F, \\
 0 &\text{altrimenti}.
 \end{cases}
@@ -363,7 +363,7 @@ $$
 Analogamente, per la matrice degli output $$O$$:
 
 $$
-\forall i \in 1..\vert P \vert , \, \forall j \in 1..\vert T \vert \: \Big \vert \: O[i][j] = \begin{cases}
+\forall i \in 1..\vert P \vert , \, \forall j \in 1..\vert T \vert \quad O[i][j] = \begin{cases}
 W(\langle t(j), \, p(i) \rangle) &\text{se} \ \langle t(j), \, p(i) \rangle \in F, \\
 0 &\text{altrimenti}.
 \end{cases}
@@ -394,7 +394,7 @@ La transizione $$j$$-esima è __abilitata in una marcatura__ (espressa dal vetto
 $$
 \boxed{m \ [ \ t (j) >} \Longleftrightarrow I[.][j] \leq m \\
 \textit{o se proprio vogliamo essere precisi...} \\
-\boxed{m \ [ \ t(j) >} \Longleftrightarrow \forall i \in 1..\vert P \vert \ \ \Big \vert \ \ I[i][j] \leq m[i].
+\boxed{m \ [ \ t(j) >} \Longleftrightarrow \forall i \in 1..\vert P \vert \quad I[i][j] \leq m[i].
 $$
 
 In sostanza, si controlla che il numero dei gettoni di ogni posto $$p(i)$$ del _preset_ sia maggiore o uguale del peso dell'arco che collega $$p(i)$$ alla transizione.
@@ -407,7 +407,7 @@ Lo **scatto** di una transizione $$j$$ in una marcatura $$m$$ produce una marcat
 $$
 \boxed{\boxed{m [ \ t(j) >} \: m'} \Longleftrightarrow m' = m - I[.][j] + O[.][j] \\
 \textit{o se proprio vogliamo essere precisi...} \\
-\boxed{\boxed{m [ \ t(j) >} \: m'} \Longleftrightarrow \forall i \in 1..\vert P \vert \ \ \Big \vert \ \ m'[i] = m[i] - I[i][j] + O[i][j]. \\
+\boxed{\boxed{m [ \ t(j) >} \: m'} \Longleftrightarrow \forall i \in 1..\vert P \vert \quad m'[i] = m[i] - I[i][j] + O[i][j]. \\
 $$
 
 {% responsive_image path: assets/15_esempio-scatto-transizione.png %}
@@ -420,7 +420,7 @@ La matrice $$O - I$$ presentata sopra è infatti chiamata __matrice di incidenza
 In formule:
 
 $$
-\forall i \in 1..\vert P \vert, \, \forall j \in 1.. \vert T \vert \ \ \Big \vert \ \  C[i][j] = O[i][j] - I[i][j].
+\forall i \in 1..\vert P \vert, \, \forall j \in 1.. \vert T \vert \quad C[i][j] = O[i][j] - I[i][j].
 $$
 
 {% responsive_image path: assets/15_esempio-matrice-incidenza.png %}
@@ -447,7 +447,7 @@ Matricialmente, l'esecuzione in sequenza di $$x_1$$ volte di $$t_1$$, $$x_2$$ vo
 Definendo un vettore $$s$$ tale per cui
 
 $$
-\forall j \in 1..\vert T \vert \ \ \Big \vert \ \ s[j] = \text{# di volte in cui $t(j)$ scatta}
+\forall j \in 1..\vert T \vert \quad s[j] = \text{# di volte in cui $t(j)$ scatta}
 $$
 
 è facile notare come l'__ordine di scatto non conta__.
@@ -518,7 +518,7 @@ La relazione vale infatti **per ogni** sequenza di scatti ammissibile $$s$$.
 La **formula precisa** è quindi:
 
 $$
-\forall s \: \vert \: hCs = 0 \\ 
+\forall s \quad hCs = 0 \\ 
 \text{con $s$ rappresentante una sequenza di scatti ammissibile.}
 $$
 
@@ -551,8 +551,7 @@ Matematicamente:
 
 $$
 \begin{align*}
-&\forall i \in 1..\vert P \vert, \, \exists h \in \mathbb{R}^{\vert P \vert} \: \vert \: hC = 0 \land h[.] \geq 0 \land h[i] > 0 \\
-%\Big ] \\
+&\forall i \in 1..\vert P \vert, \, \exists h \in \mathbb{R}^{\vert P \vert} \quad hC = 0 \land h[.] \geq 0 \land h[i] > 0 \\
 &\Rightarrow \text{$C$ rappresenta una rete limitata.}  
 \end{align*}
 $$
@@ -564,7 +563,6 @@ Di seguito è illustrato un esempio sulle proprietà viste delle $$P$$-invariant
 
 {% responsive_image path: assets/15_esempio-p-invarianti.png %}
 
-<a id="anchor"></a>
 Date le matrici $$I$$, $$O$$ e $$C = O - I$$ sopra è necessario risolvere il sistema $$hC = 0$$
 
 $$
