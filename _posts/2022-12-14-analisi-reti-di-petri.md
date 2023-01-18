@@ -439,7 +439,7 @@ $$
 si rinomini la sequenza ottenuta nel seguente modo:
 
 $$
-\boxed{\boxed{M [ \ s^{(n)} >} \: M^{(n)}}.
+\boxed{\boxed{M [ \ s >} \: M^{(n)}}.
 $$
 
 Esiste un **legame diretto** tra la marcatura iniziale e quella finale, che non preveda eseguire i **singoli passi**?
@@ -532,17 +532,32 @@ Trovare l'$$h$$ che rende $$hC = 0$$ è quindi **condizione sufficiente** ma non
 
 I $$P$$-invarianti determinati con l'espressione $$hC = 0$$ non dipendono dalla marcatura iniziale ma solo dalla **topologia** della rete: se venisse considerato anche $$s$$ sarebbero $$P$$-invarianti per qualunque evoluzione della rete _a partire dalla marcatura $$m$$_.
 
-
 Il sistema $$hC = 0$$ è un **sistema di equazioni lineare**, risolvibile con varie tecniche presentate successivamente.
 
-### Copertura di P-Invarianti
-Una combinazione lineare di P-invarianti (e quindi di soluzioni del sistema) è anch'essa un P-invariante.
-Inoltre un P-Invariante che ha tutti pesi $$\geqslant$$ 0 è detto __semi-positivo__, di conseguenza se un posto ha peso positivo in un P-invariante semi-positivo allora il posto è limitato, questo perchè se almeno una volta la somma di queste componenti (positive) è finita, allora lo è per tutte (è lo stesso discorso fatto per le reti conservative).<!-- il perchè non mi è chiarissimo-->
-Ciò che è stato appena detto riguarda i posti con peso positivo, per quelli con peso zero invece potrebbe succedere di avere gettoni illimitati, questo perchè avendo pesi negativi i gettoni in posti aventi pesi uguali ma opposti si elidono.
-Quindi avere dei pesi negativi non dice nulla sulla limitatezza dei posti nella rete, mentre se tutti sono maggiori o uguali a zero si ha la garanzia che i posti sono limitati.
-Questo mi porta dire che se una rete è ricoperta da P-invarianti, ovvero esiste per ogni posto almeno un p-invariante semi-positivo il cui peso di tale posto sia positivo, ovvero la rete è limitata.
-Un altro modo più complesso per dire ciò è:
-Se esiste una combinazione lineare di p-invarianti per cui il p-invariante è tutto strettamente positivo, allora si arriva ad avere la funzione di conservatività.
+### Copertura di $$P$$-invarianti
+Una **combinazione lineare** di $$P$$-invarianti (e quindi di soluzioni del sistema) è anch'essa una \\
+$$P$$-invariante.
+
+Una $$P$$-invariante $$h$$ avente tutti i pesi $$\geq 0$$ è detta __semi-positiva__.
+Se un posto ha _peso positivo_ in una \\
+$$P$$-invariante semi-positiva, allora  è **limitato** nel numero di gettoni massimi che può contenere. \\
+Se così non fosse, infatti, il contributo nella sommatoria vista precedentemente di $$h[i]s[i]$$ (con $$h[i] \geq 0$$ e $$s[i] > 0$$) sarebbe **potenzialmente illimitato**. \\
+Se un posto ha peso nullo, potrebbe quindi essere **illimitato**.
+
+Avere pesi dei posti **negativi** non fornisce nessuna informazione sulla limitatezza degli stessi nella rete.
+
+Infine, se **per ogni posto** esiste una $$P$$-invariante semi-positiva il cui peso del posto è positivo, allora la rete è **limitata**.
+Matematicamente:
+
+$$
+\begin{align*}
+&\forall i \in 1..\vert P \vert, \, \exists h \in \mathbb{R}^{\vert P \vert} \: \vert \: hC = 0 \land h[.] \geq 0 \land h[i] > 0 \\
+%\Big ] \\
+&\Rightarrow \text{$C$ rappresenta una rete limitata.}  
+\end{align*}
+$$
+
+Si può anche dire che se esiste una **combinazione lineare** di $$P$$-invarianti tale per cui il $$P$$-invariante risultante è **strettamente positivo**, allora ci si riconduce alla **funzione di conservatività**.
 
 ### Esempio p-invarianti
 Ecco finalmente un esempio su ciò che è appena stato spiegato, riprendendo una vecchia rete già utilizzata come esempio.
