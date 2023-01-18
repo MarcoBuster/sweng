@@ -558,31 +558,56 @@ $$
 $$
 
 Si può anche dire che se esiste una **combinazione lineare** di $$P$$-invarianti tale per cui il $$P$$-invariante risultante è **strettamente positivo**, allora ci si riconduce alla **funzione di conservatività**.
+### Esempio
 
-### Esempio p-invarianti
-Ecco finalmente un esempio su ciò che è appena stato spiegato, riprendendo una vecchia rete già utilizzata come esempio.
+Di seguito è illustrato un esempio sulle proprietà viste delle $$P$$-invarianti.
 
 {% responsive_image path: assets/15_esempio-p-invarianti.png %}
 
-Partendo da ciò per trovare i p-invarianti è necessario risolvere il seguente sistema considerando $$hC = 0$$, ovvero moltiplicando il vettore delle incognite $$h$$ per ogni colonna della matrice $$C$$.
-
-{% responsive_image path: assets/15_sistema.png %}
-
-Ci si accorge facilmente che la prima e la seconda equazione lineare sono uguali a meno di una costante moltiplicativa, quindi non sono linearmente indipendenti, cosi come la terza e la quarta.
-Quindi basta prendere un'equazione per coppia per risolvere il sistema.
-Facendo i calcoli si ottengono tre basi di questo sistema, ovvero 3 vettori che combinati linearmente danno qualunque soluzione.
-
-Le basi sono:
+<a id="anchor"></a>
+Date le matrici $$I$$, $$O$$ e $$C = O - I$$ sopra è necessario risolvere il sistema $$hC = 0$$
 
 $$
-(-1, 0, 1, 0, 4) \\
-(1, 0, -1, 4, 0) \\
-(1, 1, 0, 0, 0)
+h \begin{bmatrix}
+-1 & 1 & 0 & 0 \\
+1  & -1 & 0 & 0 \\
+-1 & 1 & -4 & 4 \\
+0 & 0 & -1 & 1 \\
+0 & 0 & 1 & -1
+\end{bmatrix} \! = 0,
 $$
 
-Avendo 5 incognite e 2 equazioni è facile capire che le soluzioni sono infinite, però tra queste ce ne sono alcune particolari.
-Infatti di queste tre basi, l'ultima ha tutti gli elementi semi-positivi, di conseguenza i posti corrispondenti alle prime due posizioni (quelle con i numeri strttamente positivi), sono limitati.
-Però non si riesce ancora a caprire da ciò che è stato appena ricavato se la rete è limitata oppure no (cosa che in realtà era già nota), allora si può sfruttare un algoritmo utile a trovare le basi minime privilegiando però quelle semipositive.
+che si trasforma nel seguente sistema di equazioni lineari:
+
+$$
+\begin{cases}
+-h_0 &+h_1 &-h_2 & & \hphantom{+h_4} = 0 \\
++h_0 &-h_1 &+h_2 & & \hphantom{+h_4} = 0 \\
+& &-4h_2 &-h_3 &+h_4 = 0 \\
+& &+4h_2 &+h_3 &-h_4 = 0.
+\end{cases}
+$$
+
+È facilmente notabile che la prima e la seconda equazioni sono uguali a meno di una costante moltiplicativa: sono quindi **linearmente dipendenti**, insieme alla terza e alla quarta. \\
+Chiedendo quindi a Wolfram|Alpha di risolvere il sistema
+
+$$
+\begin{cases}
+-h_0 &+h_1 &-h_2 & & \hphantom{+h_4} = 0 \\
+& &-4h_2 &-h_3 &+h_4 = 0,
+\end{cases}
+$$
+
+otteniamo le seguenti **basi**:
+
+$$
+\{ \langle -1, 0, 1, 0, 4 \rangle, \, \langle 1, 0, -1, 4, 0 \rangle, \, \langle 1, 1, 0, 0, 0 \rangle \},
+$$
+
+che se combinate linearmente generano **infinite soluzioni**.
+
+Tra le tre basi ottenute, l'ultima è **particolare** in quanto ha tutti gli elementi semi-positivi: di conseguenza i posti corrispondenti alle prime due posizioni (con pesi strettamente positivi) sono **limitati**. \\
+Rimane comunque difficile stabilire se la **rete** è limitata oppure no.
 
 ### Algoritmo di Farkas (1902)
 
