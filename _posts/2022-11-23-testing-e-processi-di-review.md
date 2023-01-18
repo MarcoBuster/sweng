@@ -694,7 +694,7 @@ possiamo dire che:
 
 $$
 \begin{align*}
-&\operatorname{P}([1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 12, 13], \, \texttt{a}) \\
+&\operatorname{P}([1, 2, 3, 4, 5, 6, 7, 8, 9, 7, 12, 13], \, \mathtt{a}) \\
 &= \A{2} \D{5} \U{7} \U{8} \U{9} \D{9} \U{7} \U{12} \A{13}
 \end{align*}
 $$
@@ -748,41 +748,45 @@ Nell'analisi Data Flow tramite espressioni regolari è quindi necessario tenere 
 
 ## Analisi statica e Testing
 
-Ma cosa c'entra l'**analisi statica** con il **testing**?
+Oltre ad essere un processo utile di per sé per il rilevamento di potenziali errori, l'__analisi statica__ può anche contribuire a guidare l'attività di __testing__. \\
+Per capire come, osserviamo che a partire dall'analisi statica è possibile fare le seguenti osservazioni:
 
-Dall'analisi statica è possibile arrivare per esempio alle seguenti osservazioni:
-- purché si presenti un malfunzionamento dovuto a una anomalia in una _definizione_, deve essere _usato_ il valore che è stato assegnato;
+- perché si presenti un malfunzionamento dovuto a una anomalia in una _definizione_, deve esserci un _uso_ che si serva del valore assegnato;
 - un ciclo dovrebbe essere ripetuto (di nuovo) se verrà _usato_ un valore _definito_ alla iterazione precedente.
 
-L'analisi statica può quindi aiutare a **selezionare i casi di test** basandosi sulle _sequenze definizione-uso_ delle variabili.
+L'analisi statica può quindi aiutare a __selezionare i casi di test__ basandosi sulle _sequenze definizione-uso_ delle variabili, costruendo cioè dei nuovi criteri di copertura.
 
 ### Terminologia
 
-Dato un comando $$i$$, si definisce $$\operatorname{def}(i)$$ come l'**insieme delle variabili** definite in $$i$$.
+Per rendere più scorrevole la spiegazione dei prossimi argomenti introduciamo innanzitutto un po' di terminologia.
 
-Data una variabile $$x$$ e un comando $$i$$, si definisce $$\operatorname{du}(x, \, i)$$ come l'**insieme dei nodi** $$j$$ tali che:
-- $$x \in \operatorname{def}(i)$$: \\
-la variabile $$x$$ è **definita** in $$i$$;
-- $$x$$ è **usata** in $$j$$;
-- **esiste un cammino** da $$i$$ a $$j$$, **libero da definizioni** di $$x$$: \\
-è necessario controllare che $$x$$ non sia stata sovrascritta nei nodi intermedi.
+Dato un nodo $$i$$ del diagramma di flusso (_un comando/riga del programma_), chiamiamo $$\operatorname{def}(i)$$ l'__insieme delle variabili definite in__ $$\bf{i}$$.
 
-### Criteri di copertura
+Data invece una variabile $$x$$ e un nodo $$i$$, chiamiamo $$\operatorname{du}(x, \, i)$$ l'insieme dei nodi $$j$$ tali che:
+
+- $$x \in \operatorname{def}(i)$$, ovvero la variabile $$x$$ è __definita__ in $$i$$;
+- $$x$$ è __usata__ nel nodo $$j$$;
+- __esiste un cammino__ da $$i$$ a $$j$$ __libero da definizioni__ di $$x$$, ovvero che se seguito non sovrascrive il valore di $$x$$.
+
+Si tratta cioè dell'__insieme di nodi $$\bf{j}$$ che _potrebbero_ usare il valore di $$\bf{x}$$ definito in $$\bf{i}$$__.
+
+### Criteri di copertura derivati dall'analisi statica
 
 #### Criterio di copertura delle definizioni
 
-_Un test $$\ T$$ soddisfa il **criterio di copertura delle definizioni** se e solo se per ogni nodo $$i$$ e ogni variabile $$x \in \operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad almeno uno degli elementi di $$\operatorname{du}(i, x).$$_
+_Un test $$\ T$$ soddisfa il __criterio di copertura delle definizioni__ se e solo se per ogni nodo $$i$$ e ogni variabile $$x \in \operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad __almeno uno__ degli elementi di $$\operatorname{du}(i, x).$$_
 
-Più formalmente:
+Ci si vuole cioè assicurare di testare tutte le definizioni, assicurandosi che funzionino osservando almeno un uso del valore da loro assegnato.
+Matematicamente si può dire che:
 
 $$
 \begin{align*}
-T \in C \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \exists j \in \operatorname{du}(i, \, x) \\
-&| \: \exists t \in T \ \text{che esegue un cammino da $i$ a $j$ senza ulteriori definizioni di $x$}.
+T \in C_{def} \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \exists j \in \operatorname{du}(i, \, x) \:, \\
+& \: \exists t \in T \ \text{che esegue un cammino da $i$ a $j$ senza ulteriori definizioni di $x$}.
 \end{align*}
 $$
 
-Riconsideriamo l'__esempio__ già visto in precendenza, considerando la variabile $$\texttt{a}$$.
+Riconsideriamo l'esempio già visto in precedenza, considerando la variabile $$\mathtt{a}$$:
 
 ```c
 01  void main() {
@@ -800,17 +804,17 @@ Riconsideriamo l'__esempio__ già visto in precendenza, considerando la variabil
 13  }
 ```
 
-Partiamo definendo gli insiemi dei nodi degli usi $$\operatorname{du}(i, \, \mathtt a)$$. 
+Partiamo definendo gli insiemi dei nodi degli usi $$\operatorname{du}(i, \, \mathtt a)$$:
+
 1. $$\operatorname{du}(5, \, \mathtt a)$$ = $$\{7, \, 8, \, 9, \, 11, \, 12\}$$;
 2. $$\operatorname{du}(9, \, \mathtt a)$$ = $$\{7, \, 8, \, 9, \, 11, \, 12\}$$.
 
-È solo **un caso** il fatto che in questo esempio siano uguali.
+È solo __un caso__ il fatto che in questo esempio tali insiemi siano uguali. \\
+Comunque sia, l'obiettivo è _per ognuna delle due definizioni_ ottenere un __uso__ di tale definizione:
 
-L'obiettivo è _per ognuna delle due definizioni_ ottenere un __uso__ di tale definizione.
-
-1. Per la prima definizione la soluzione è banale, a riga 7 la variabile $$\mathtt a$$ viene letta:
+1. Per la prima definizione la soluzione è banale, a riga 7 la variabile $$\mathtt a$$ viene letta sempre:
 $$\D{5}\U{7}$$.
-2. Per la seconda, invece, è necessario scegliere un valore tale per cui il flusso di esecuzione entri almeno una volta nel ciclo: 
+2. Per la seconda, invece, è necessario scegliere un valore tale per cui il flusso di esecuzione entri almeno una volta nel ciclo ed esegua almeno una volta la riga 9:
 $$\D{9}\U{7}$$.
 
 Un test che soddisfa totalmente il criterio può essere il seguente:
@@ -819,28 +823,26 @@ $$
 T = \{ \langle 8, \, 4 \rangle \}.
 $$
 
-Il criterio di copertura delle definizioni non copre tutti i comandi e di conseguenza **non implica il criterio di copertura dei comandi**.
+Come si vede, il criterio di copertura delle definizioni non copre tutti i comandi e di conseguenza __non implica il criterio di copertura dei comandi__.
 
 #### Criterio di copertura degli usi
 
-_Un test $$\ T$$ soddisfa il **criterio di copertura degli usi** se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$, appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad \\
-**ogni elemento** di $$\operatorname{du}(i, \, x).$$_
+_Un test $$\ T$$ soddisfa il __criterio di copertura degli usi__ se e solo se per ogni nodo $$i$$ e ogni variabile $$x$$ appartenente a $$\operatorname{def}(i)$$, $$T$$ include un caso di test che esegue un cammino libero da definizioni da $$i$$ ad __ogni elemento__ di $$\operatorname{du}(i, \, x).$$_
 
-Più formalmente:
+Sembra simile al precedente, con la differenza che ora bisogna coprire __tutti__ i potenziali usi di una variabile definita.
+Questo appare ancora più chiaro osservando la formula matematica:
 
 $$
 \begin{align*}
-T \in C \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \forall j \in \operatorname{du}(i, \, x) \\
-&| \: \exists t \in T \ \text{che esegue un cammino da $i$ a $j$ senza ulteriori definizioni di $x$}.
+T \in C_{path} \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \forall j \in \operatorname{du}(i, \, x) \:, \\
+& \: \exists t \in T \ \text{che esegue un cammino da $i$ a $j$ senza ulteriori definizioni di $x$}.
 \end{align*}
 $$
 
-Per ogni definizione di una variabile, **tutti i suoi possibili usi** devono essere coperti.
+Si noti però che il criterio di copertura degli usi __non implica il criterio di copertura delle definizioni__, perché nel caso in cui non esistano $$j \in \operatorname{du}(i, \, x)$$ l'uso del $$\forall$$ è più _"permissivo"_ del $$\exists$$ del criterio precedente: quest'ultimo richiedeva infatti che per ogni definizione esistesse almeno un uso, mentre il criterio di copertura degli usi non pone tale clausola (_se non ci sono usi il $$\forall$$ è sempre vero_).
+Viene quindi da sé che questo criterio non copre neanche il criterio di copertura dei comandi.
 
-Il criterio di copertura degli usi **non implica** il criterio di copertura dei comandi, perché nel caso in cui non esistano $$j \in \operatorname{du}(i, \, x)$$, l'uso del $$\forall$$ è più _"permissivo"_ del $$\exists$$ del criterio precedente.
-Vien da sé che questo criterio non copre anche il criterio di copertura dei comandi.
-
-Come **esempio**, riconsideriamo il programma in C visto in precedenza.
+Riconsideriamo nuovamente il programma in C visto in precedenza come esempio:
 
 ```c
 01  void main() {
@@ -858,12 +860,12 @@ Come **esempio**, riconsideriamo il programma in C visto in precedenza.
 13  }
 ```
 
-Riconsideriamo la variabile $$\mathtt a$$ e i relativi insieme dei nodi degli usi.
+Come prima, consideriamo la variabile $$\mathtt a$$ e i relativi insieme dei nodi degli usi per ogni sua definizione:
 
 1. $$\operatorname{du}(5, \, \mathtt a)$$ = $$\{7, \, 8, \, 9, \, 11, \, 12\}$$;
 2. $$\operatorname{du}(9, \, \mathtt a)$$ = $$\{7, \, 8, \, 9, \, 11, \, 12\}$$.
 
-Per ogni definizione occorre coprire __tutti gli usi__.
+Per ogni definizione occorre coprire __tutti gli usi__:
 
 <style>
   #criterio-usi-tabella {
@@ -906,46 +908,49 @@ $$
 T = \{ \langle 4, \,  8 \rangle, \, \langle 12, \, 8 \rangle, \, \langle 12, \, 4 \rangle \}.
 $$
 
-Uno spunto di discussione proposto dal professore è se è meglio __minimizzare__ i __casi di test__ o le __iterazioni per caso__.
-Opinione diffusa è preferire **minimizzare le iterazioni** in modo da poter rilevare con più precisione gli errori, riducendo il numero di istruzioni.
-In alcune situazioni però aumentare il numero di iterazioni può diminuire il tempo di esecuzione totale dei test.
+Questo esempio permette di notare qualcosa sulla natura dei cicli: dovendo testare ogni percorso al loro interno è necessario fare almeno due iterazioni.
+Può quindi sorgere un dubbio: è meglio che le due iterazioni siano fatte nello stesso caso di test o in casi test separati? Ovvero, è meglio __minimizzare__ i __casi di test__ o le __iterazioni per caso__? \\
+Opinione diffusa è quella secondo cui è preferibile __minimizzare le iterazioni__: partizionando le casistiche in diversi casi di test è possibile rilevare con più precisione gli errori, riducendo il tempo di debug.
+In alcune situazioni però aumentare il numero di iterazioni può diminuire il tempo di esecuzione totale dei test, in quanto dovendo riavviare il programma per ciascun caso di test la somma dei tempi di startup può diventare significativa per software molto massicci.
 
 #### Criterio di copertura dei cammini DU
 
-Esistono diversi cammini che soddisfano il criterio precedente. \\
-Questo criterio richiede che siano selezionati _tutti_.
+Nel criterio precedente si richiedeva di testare _un_ cammino da ogni definizione ad ogni suo uso, ma come sappiamo i cammini tra due istruzioni di un programma possono essere molteplici.
+Potrebbe dunque sorgere l'idea di testarli _tutti_: da questa intuizione nasce il __criterio di copertura dei cammini DU__.
 
 $$
 \begin{align*}
-T \in C \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \forall j \in \operatorname{du}(i, \, x), \\
-&\forall \text{cammino da $i$ a $j$ senza ulteriori definizioni di $x$} \\
-&| \: \exists t \in T \ \text{che lo esegue}.
+T \in C_{pathDU} \Longleftrightarrow& \forall i \in P, \  \forall x \in \operatorname{def}(i), \ \forall j \in \operatorname{du}(i, \, x), \\
+&\forall \text{ cammino da $i$ a $j$ senza ulteriori definizioni di $x$} \\
+& \exists t \in T \ \text{che lo esegue}.
 \end{align*}
 $$
 
-Questo criterio può essere **utile da ipotizzare**, ma è considerato **impraticabile** (_"sopra la barra rossa"_).
-
-#### Criterio di _copertura del budget_
-
-Molto spesso nei contesti reali l'unico criterio applicato è quello di **copertura del budget**: si continuano a creare casi di test finché non sono finite le risorse (tempo e soldi).
+Questo criterio può essere __utile da ipotizzare__, ma a causa dell'esplosione combinatoria del numero dei cammini è considerato __impraticabile__ (_"sopra la barra rossa"_).
 
 ### Oltre le variabili
 
-L'analisi del flusso dati si può estendere anche su altri _"oggetti"_, non solo variabili.
-
+L'analisi del flusso dati si può estendere anche su altri _"oggetti"_, non solo variabili. \\
 Per esempio, è possibile prevedere le seguenti operazioni su un __file__:
+
 - $$\op{a}$$ (__apertura__): specializzata in _per lettura_ o _per scrittura_;
 - $$\op{c}$$ (__chiusura__);
-- $$\op{r}$$ (__lettura__);
+- $$\op{l}$$ (__lettura__);
 - $$\op{s}$$ (__scrittura__).
 
-Alcune regole che si possono prevedere possono essere: 
-1. $$\op{r}$$, $$\op{s}$$ e $$\op{c}$$ devono essere precedute da $$\op{a}$$ senza $$\op{c}$$ intermedie;
+Date queste operazioni si possono individuare una serie di regole, come per esempio:
+
+1. $$\op{l}$$, $$\op{s}$$ e $$\op{c}$$ devono essere precedute da $$\op{a}$$ senza $$\op{c}$$ intermedie;
 2. $$\op{a}$$ deve essere seguita da $$\op{c}$$ prima di un'altra $$\op{a}$$;
 3. legami tra tipo di apertura (per lettura o per scrittura) e relative operazioni.
 
-È interessante notare il **legame** tra l'attività di analisi del flusso di dati e i diagrammi UML a stati finiti: un _oggetto_ risponde a una certa _tipologia di eventi_, può essere in diversi _stati_ e in certi _stati_ non sono amesse alcune _operazioni_.
-Nessuna delle due discipline entra nel merito del valore delle variabili.
+È interessante notare il __legame__ tra l'attività di analisi del flusso di dati e i diagrammi UML a stati finiti: un _oggetto_ risponde a una certa _tipologia di eventi_, può essere in diversi _stati_ e in certi _stati_ non sono ammesse alcune _operazioni_.
+Si noti come nessuna delle due discipline entra comunque nel merito del valore delle variabili, relegato ad un'analisi a runtime.
+
+#### Criterio di _copertura del budget_
+
+Molto spesso nei contesti reali l'unico criterio applicato è quello di __copertura del budget__: si continuano a creare casi di test finché non sono finite le risorse (tempo e soldi).
+Questa tecnica ovviamente non fornisce alcuna garanzia sull'efficacia dei test, ed è sicuramente sconsigliata.
 
 # Tecniche di review
 
