@@ -74,10 +74,10 @@ Data la 5-tupla appena descritta esistono le seguenti proprietà:
 
 Utilizziamo inoltre alcune _scorciatoie_:
 
-- $$\operatorname{Pre}(a) = \{ d \in (P \cup T) \: \vert \: \langle d, \, a \rangle \in F \}$$. \\
+- $$\operatorname{Pre}(a) = \{ d \in (P \cup T) \quad \langle d, \, a \rangle \in F \}$$. \\
 Il **preset** di un nodo $$a$$ è l'insieme degli elementi $$d$$ appartenenti all'unione degli insiemi degli identificatori di posti e transizioni tali che esiste una relazione di flusso tra $$d$$ e $$a$$ appartenente a $$F$$. \\
 In sostanza questo insieme rappresenta l'insieme degli **identificatori antecedenti** ad $$a$$;
-- $$\operatorname{Post}(a) = \{ d \in (P \cup T) \: \vert \: \langle a,\, d \rangle \in F \}$$. \\
+- $$\operatorname{Post}(a) = \{ d \in (P \cup T) \quad \langle a,\, d \rangle \in F \}$$. \\
 Il **postset** di un nodo $$a$$ è l'insieme degli elementi $$d$$ appartenenti all'unione degli insiemi degli identificatori di posti e transizioni tali che esiste una relazione di flusso tra $$a$$ e $$d$$ appartenente a $$F$$. \\
 In sostanza questo insieme rappresenta l'insieme degli **identificatori successivi** ad $$a$$.
 
@@ -89,7 +89,7 @@ Una transizione $$t \in T$$ è __abilitata__ in una particolare marcatura $$M$$ 
 
 $$
 \boxed{
-    \forall p \in \operatorname{Pre}(t) \: \vert \: M(p) \geq W( \langle p, \, t \rangle )
+    \forall p \in \operatorname{Pre}(t) \quad M(p) \geq W( \langle p, \, t \rangle )
 }.
 $$
 
@@ -104,10 +104,10 @@ Lo __scatto__ di una transizione $$t \in T$$ in una particolare marcatura $$M$$ 
 
 $$
 \begin{aligned}
-\forall p \in \operatorname{Pre}(t) \setminus \operatorname{Post}(t) \: &\vert \:  M'(p) = M(p) - W(\langle p, \, t \rangle); \\
-\forall p \in \operatorname{Post}(t) \setminus \operatorname{Pre}(t) \: &\vert \: M'(p) = M(p) + W(\langle t, \, p \rangle); \\
-\forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t) \: &\vert \: M'(p) = M(p) - W(\langle p, \, t \rangle) + W(\langle t, \, p \rangle); \\
-\forall p \in P - \left ( \operatorname{Post}(t) \cap \operatorname{Pre}(t) \right ) \: &\vert \: M'(p) = M(p).
+\forall p \in \operatorname{Pre}(t) \setminus \operatorname{Post}(t) &\quad  M'(p) = M(p) - W(\langle p, \, t \rangle); \\
+\forall p \in \operatorname{Post}(t) \setminus \operatorname{Pre}(t) &\quad M'(p) = M(p) + W(\langle t, \, p \rangle); \\
+\forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t) &\quad M'(p) = M(p) - W(\langle p, \, t \rangle) + W(\langle t, \, p \rangle); \\
+\forall p \in P - \left ( \operatorname{Post}(t) \cap \operatorname{Pre}(t) \right ) &\quad M'(p) = M(p).
 \end{aligned}
 $$
 
@@ -267,7 +267,7 @@ Di seguito viene mostrato un esempio di conflitto _effettivo_ e _strutturale_.
 - __concorrenza strutturale__ $$\Longleftrightarrow \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) = \varnothing$$;
 - __concorrenza effettiva__ in una marcatura $$M \Longleftrightarrow$$
     - $$\boxed{M \ [ \ t_1 >} \cap \boxed{M \ [ \ t_2 >} $$;
-    - $$\forall p \in \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \: \vert \: M(p) \geqslant W(\langle p, \, t_1 \rangle) + W(\langle  p, \, t_2\rangle)$$.
+    - $$\forall p \in \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \quad M(p) \geq W(\langle p, \, t_1 \rangle) + W(\langle  p, \, t_2\rangle)$$.
 
 Quest'ultima formula indica che due identificatori delle transizioni sono in concorrenza effettiva se e solo se per tutti i posti che hanno in comune c'è un numero di gettoni sufficienti per farle scattare entrambe.
 
@@ -285,7 +285,7 @@ Ovviamente è anche possibile che non ci sia alcun tipo di concorrenza: è suffi
 <span style="display: none;">$$\def\pt{\mathcal{P/T}}$$</span>
 L'insieme di raggiungibilità $$R$$ di una rete $$\pt$$ a partire da una marcatura $$M$$ è il più piccolo insieme di marcature tale che:
 - $$M \in R(\pt, \, M)$$;
-- $$M' \in R(\pt, \, M) \land \exists t \in T \: \vert \: \boxed{\boxed{M' \ [\ t >} \, M''} \Longrightarrow M'' \in R(\pt, \, M)$$.
+- $$M' \in R(\pt, \, M) \land \exists t \in T \quad \boxed{\boxed{M' \ [\ t >} \, M''} \Longrightarrow M'' \in R(\pt, \, M)$$.
 
 Questa definizione induttiva viene interpretata nel seguente modo:
 - __passo base__: la marcatura $$M$$ appartiene all'insieme di raggiungibilità $$R(\pt, \, M)$$ \\
@@ -300,10 +300,7 @@ Una proprietà importante delle reti di Petri è la __limitatezza__, che indica 
 Volendo dare una definizione più formale è possibile dire che una rete posti-transizioni ($$\pt$$) con marcatura $$M$$ si dice __limitata__ se e solo se:
 
 $$
-\begin{align}
-&\exists k \in \mathbb N, \: \forall M' \! \in R(\pt, \, M), \: \forall p \in P \\
-&| \: M'(p) \leq k
-\end{align}
+\exists k \in \mathbb N, \: \forall M' \! \in R(\pt, \, M), \: \forall p \in P \quad M'(p) \leq k
 $$
 
 cioè se esiste un numero naturale $$k$$ tale per cui per ogni marcatura $$M'$$ raggiungibile da $$M$$, per ogni posto $$p$$ all'interno della rete il numero di gettoni in quella marcatura _raggiungibile_ è minore o uguale di $$k$$ &mdash; ovvero se è possibile porre un numero finito tale per cui dopo qualsiasi evoluzione non esista alcun posto che possiede un numero di gettoni maggiore di $$k$$ &mdash; allora è possibile affermare che **la rete è limitata**. \\
@@ -384,10 +381,10 @@ un posto $$pc$$ è _complementare_ di $$p$$ se e solo se
 
 $$
 \begin{align}
-\forall t \in T \: \Big [ \exists \langle p, \, t \rangle \in F &\Longleftrightarrow \exists \langle t, \, pc \rangle \in F \: \vert \: W(\langle p,\, t \rangle) = W(\langle t, \, pc \rangle) \Big ] \\
+\forall t \in T \: \Big [ \exists \langle p, \, t \rangle \in F &\Longleftrightarrow \exists \langle t, \, pc \rangle \in F \quad W(\langle p,\, t \rangle) = W(\langle t, \, pc \rangle) \Big ] \\
 \land \
 \forall t \in T \: \Big [ \exists \langle t, \, p \rangle \in F
-&\Longleftrightarrow \exists \langle pc, \, t \rangle \in F \: \vert \: W(\langle pc, \, t \rangle) = W(\langle t, \, p \rangle) \Big ] .
+&\Longleftrightarrow \exists \langle pc, \, t \rangle \in F \quad W(\langle pc, \, t \rangle) = W(\langle t, \, p \rangle) \Big ] .
 \end{align}
 $$
 
@@ -404,9 +401,9 @@ $$t \in T$$ è __abilitata__ in $$M$$ se solo se:
 
 $$
 \begin{align*}
-\forall p \in \operatorname{Pre}(t) &\: \vert \: M(p) \geq W(\langle p, t \rangle) \\
-\forall p \in \operatorname{Post}(t) \setminus \operatorname{Pre}(t) &\: \vert \: M(p) + W(\langle t, p \rangle) \leq C(p) \\
-\forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t) &\: \vert \: M(p) - W(\langle p, t \rangle) + W(\langle t, p \rangle) \leq C(p).
+\forall p \in \operatorname{Pre}(t) &\quad M(p) \geq W(\langle p, t \rangle) \\
+\forall p \in \operatorname{Post}(t) \setminus \operatorname{Pre}(t) &\quad M(p) + W(\langle t, p \rangle) \leq C(p) \\
+\forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t) &\quad M(p) - W(\langle p, t \rangle) + W(\langle t, p \rangle) \leq C(p).
 \end{align*}
 $$
 
@@ -485,7 +482,7 @@ La conservatività è una proprietà di una rete rispetto ad una funzione $$H$$ 
 Esiste quindi una **funzione di pesi** $$H: P \rightarrow \mathbb N \setminus \{ 0 \}$$ tale per cui una rete $$\pt$$ con una marcatura $$M$$ si dice __conservativa rispetto ad $$H$$__ se e solo se:
 
 $$
-\forall M' \in R(\pt, \, M) \: \Big \vert \: \sum_{p \in P} H(p) M'(p) = \sum_{p \in P} H(p) M(p).
+\forall M' \in R(\pt, \, M) \quad \sum_{p \in P} H(p) M'(p) = \sum_{p \in P} H(p) M(p).
 $$
 
 Ovvero, per ogni marcatura $$M'$$ raggiungibile dalla marcatura iniziale data una certa marcatura e una funzione $$H$$, si dice che la rete è conservativa se la sommatoria dei gettoni di ogni posto (quest'ultimi pesati attraverso la funzione $$H$$) è _**costante** per qualunque marcatura raggiungibile_.
@@ -499,10 +496,10 @@ Esiste inoltre un **legame** tra **conservatività** e **limitatezza**, ovvero _
 Assumendo che $$\sum_{p \in P} H(p) M(p)=k$$, allora
 
 $$
-\forall M' \in R(\pt, \, M) \: \Big \vert \: \sum_{p \in P} H(p) M'(p) = k.
+\forall M' \in R(\pt, \, M) \quad \sum_{p \in P} H(p) M'(p) = k.
 $$
 
-Sapendo inoltre che $$\forall p \in P \: \vert \: H(p) > 0$$, allora ogni elemento della sommatoria ha un **contributo nullo o positivo**.
+Sapendo inoltre che $$\forall p \in P \quad H(p) > 0$$, allora ogni elemento della sommatoria ha un **contributo nullo o positivo**.
 Infatti, se non ci sono gettoni all'interno del posto il contributo della sommatoria sarà un numero positivo ($$H(p)$$) moltiplicato per 0, quindi nullo. 
 
 Quindi, se esiste almeno una marcatura di $$p$$ cui numero di gettoni è diverso da 0, il suo contributo è positivo ma limitato da $$k$$.
@@ -513,7 +510,7 @@ Questo vale per ogni posto all'interno della rete, riconducendosi di conseguenza
 La _conservatività stretta_ è un particolare caso di conservatività definibile come segue: una rete $$\pt$$ conservativa rispetto alla funzione $$H$$ che assegna pesi tutti uguali a 1 si dice _strettamente conservativa_.
 
 $$
-\forall M' \in R(\pt, \, M) \: \Big \vert \: \sum_{p \in P} M'(p) = \sum_{p \in P} M(p).
+\forall M' \in R(\pt, \, M) \quad \sum_{p \in P} M'(p) = \sum_{p \in P} M(p).
 $$
 
 La sommatoria del numero di gettoni per ogni posto in una _qualsiasi marcatura_ è **costante**, ovvero è uguale alla sommatoria dei gettoni della marcatura iniziale per ogni posto. 
@@ -522,7 +519,7 @@ In altre parole, dopo lo scatto di una transazione viene forzata la **distruzion
 Matematicamente questo concetto si può esprimere anche tramite questa espressione:
 
 $$
-\forall t \in T \: \Big \vert \: \sum_{p \in \operatorname{Pre}(t)} W(\langle p, \,  t \rangle) = \! \sum_{p \in \operatorname{Post}(t)} \! W(\langle t, \, p \rangle)
+\forall t \in T \quad \sum_{p \in \operatorname{Pre}(t)} W(\langle p, \,  t \rangle) = \! \sum_{p \in \operatorname{Post}(t)} \! W(\langle t, \, p \rangle)
 $$
 
 Per ogni transizione $$t$$ la somma dei pesi degli archi che collegano ogni elemento del preset di $$t$$ alla transizione $$t$$ deve essere uguale alla sommatoria dei pesi degli archi che collegano la transizione $$t$$ con ogni posto nel postset di $$t$$.
