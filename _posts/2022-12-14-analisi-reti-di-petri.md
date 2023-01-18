@@ -328,145 +328,159 @@ Tale mancanza di informazioni è dovuta in gran parte dalla presenza di $$\omega
 È importante notare come le marcature **sicuramente raggiungibili** siano quelle i cui nodi nell'albero di copertura non contengono $$\omega$$: delle altre non si può essere certi.
 
 # Rappresentazione matriciale
-Prima di procedere con la spiegazione delle tecniche di analisi statiche, è necessario introdurre una nuovo modo per rappresentare le reti di Petri, ovvero la rappresentazione matriciale.
-Ovviamente è possibile passare da una rappresentazione all'altra tramite una trasformazione automatica in quanto sono rappresentazioni formali, non ambigue e complete.
-Quindi data una rete rappresentata graficamente o in forma logica, è possibile tradurla in modo automatico in una rete in forma matriciale, e viceversa.
-Il vantaggio di questa rappresentazione è la maggiore semplicità nel trattare le reti in modo matematico, e sopratutto in maniera più efficiente.
+Prima di procedere con la spiegazione delle tecniche di analisi statiche, è necessario introdurre una nuovo modo per rappresentare le reti di Petri: la **rappresentazione matriciale**.
+Essendo tutte rappresentazioni _formali_, _non ambigue_ e _complete_, data una qualsiasi rete rappresentata graficamente o in forma logica, è possibile **trasformarla automaticamente** in una rete in forma matriciale, e viceversa.
+
+Il vantaggio principale della rappresentazione matriciale è la **maggiore semplicità** ed **efficienza** nel **trattamento matematico** delle reti.
 
 Le matrici che verranno utilizzate sono diverse, tra cui:
-- matrice $$I$$: rappresenta gli archi in ingresso, ovvero le coppie di flussso che da un posto vanno nelle transizioni;
-- matrice $$O$$: rappresenta gli archi in uscita, ovvero le coppie di flussso che da una transizione vanno nei posti;
-- vettore $$M$$: rappresenta la marcatura dei posti.
+- $$I$$: rappresenta gli **archi in ingresso**, ovvero le coppie di flussso che da un posto vanno nelle transizioni;
+- $$O$$: rappresenta gli **archi in uscita**, ovvero le coppie di flussso che da una transizione vanno nei posti;
+- vettore $$m$$: rappresenta la **marcatura** dei posti.
 
 ## Definizione parte statica
 
 ### Matrici $$I$$ e $$O$$
 
-Diversamente dalla rappresentazione logica in cui venivano utilizzati degli indicatori alfanumerici per riferirsi ai posti e alle transizioni, nella rappresentaziona matriciale viene assegnato un indice ad ogni posto e ad ogni transizione.
-Ogni indice deve essere possibilmente continuo, quindi senza salti, e deve essere biunivoco, ovvero ogni indice corrisponde ad un posto e ogni posto corrisponde ad un indice.
+Diversamente dalla rappresentazione logica in cui venivano utilizzati degli indicatori alfanumerici per riferirsi ai posti e alle transizioni, nella rappresentaziona matriciale viene assegnato un **indice** ad ogni posto e ad ogni transizione.
+Ogni indice deve essere possibilmente **continuo** (senza salti) e **biunivoco**: ogni indice corrisponde ad un posto e ogni posto corrisponde ad un indice.
 
-- posti: $$p: 1..\mid P \mid  \rightarrow P$$
-- transizioni: $$t: 1..\mid T \mid  \rightarrow T$$
+- indice dei **posti**: $$p: 1..\vert P \vert \rightarrow P$$
+- indice delle **transizioni**: $$t: 1..\vert T \vert \rightarrow T$$
 
-La dimensione di ognuna delle due matrici è $$\mid P \mid \times \mid T \mid$$, ovvero la cardinalità dei posti corrisponde al numero di righe e il numero delle transizioni corrisponde al numero delle colonne.
+La **dimensione** delle due matrici è $$\vert P \vert \times \vert T \vert$$: la **cardinalità dei posti** corrisponde al numero di righe e il **numero delle transizioni** corrisponde al numero delle colonne.
 
-La definizione matematica della matrice degli input $$I$$ è:
-
-$$
-\forall <p(i), t(j)> \in F \qquad I[i][j] = W(<p(i),t(j)>)
-$$
-
-Per ogni flusso che va dal posto i-esimo alla transizione j-esima appartenente all'insieme dei flussi della rete, allora l'elemento $$[i][j]$$ della matrice $$I$$ è uguale al peso del flusso che va dal posto i-esimo alla transizione j'esima.
-Mentre per tutti gli altri flussi che non esistono all'interno della rete la posizione corispondendte della matrice $$I$$ conterrà 0 (è come dire che se un arco non esiste, esso ha peso zero).
+Per ogni flusso uscente dal posto $$i$$-esimo ed entrate nella transazione $$j$$-esima, l'elemento $$I[i][j]$$ equivale al **peso** di tale flusso, oppure $$0$$ se il flusso non esiste.
+In sintesi:
 
 $$
-\forall <p(i), t(j)> \notin F \qquad I[i][j] = 0
+\forall i \in 1..\vert P \vert , \, \forall j \in 1..\vert T \vert \: \Big \vert \: I[i][j] = \begin{cases}
+W(\langle p(i), \, t(j) \rangle) &\text{se} \ \langle p(i), \, t(j) \rangle \in F, \\
+0 &\text{altrimenti}.
+\end{cases}
 $$
 
-Lo stesso vale per la matrice degli output $$O$$:
+Analogamente, per la matrice degli output $$O$$:
 
 $$
-\forall <t(j), p(i)> \in F \qquad O[i][j] = W(<t(j),p(i)>)
+\forall i \in 1..\vert P \vert , \, \forall j \in 1..\vert T \vert \: \Big \vert \: O[i][j] = \begin{cases}
+W(\langle t(j), \, p(i) \rangle) &\text{se} \ \langle t(j), \, p(i) \rangle \in F, \\
+0 &\text{altrimenti}.
+\end{cases}
 $$
 
-$$
-\forall <t(j), p(i)> \notin F \qquad O[i][j] = 0
-$$
-
-Per indicare il vettore colonna $$k$$ do una matrice $$X$$ spesso verrà utilizzata la notazione $$X[.][k]$$
+Per indicare il vettore colonna $$k$$ da una matrice $$X$$ spesso verrà utilizzata la notazione $$X[.][k]$$.
 
 {% responsive_image path: assets/15_esempio-rappresentazione-matriciale-I-O.png %}
 
 ### Marcatura $$m$$
-È un vettore di colonna di dimensione $$\mid P \mid$$ e indica la marcatura (corrente) per ogni posto, si calcola a partire dalla funzione marcatura e si indica in questo modo:
+
+Per ogni posto, il vettore $$m$$ di dimensione $$\vert P \vert$$ indica la __marcatura corrente__.
 
 $$
-m[i] = M(p(i))
+\forall i \in P \: \vert \: m[i] = M(p(i))
 $$
 
 ## Definizione parte dinamica
 
 ### Abilitazione di una transizione
-La transizione j-esima è __abilitata in una marcatura__ espressa dal vettore $$m$$ se e solo se il vettore colonna della matrice di input è minore o uguale al vettore colonna $$m$$.
 
-La formula per definire ciò è la seguente;
+La transizione $$j$$-esima è __abilitata in una marcatura__ (espressa dal vettore $$m$$) se e solo se il _vettore colonna_ della sua matrice di **input** $$I[.][j]$$ è minore o uguale alla marcatura corrente $$m$$:
 
 $$
-\text{m[tj>} \iff I[.][j] \leqslant m
+\boxed{m \ [ \ t (j) >} \Longleftrightarrow I[.][j] \leq m \\
+\textit{o se proprio vogliamo essere precisi...} \\
+\boxed{m \ [ \ t(j) >} \Longleftrightarrow \forall i \in 1..\vert P \vert \ \ \Big \vert \ \ I[i][j] \leq m[i].
 $$
 
-Ovviamente il confronto si deve fare tra tutti gli elementi corrispondenti dei due vettori colonna (gli elementi totali per ogni vettore colonna sono $$\mid P \mid$$).
-In sostanza si va a controllare se il numero dei gettoni di ogni posto $$j$$ del preset è maggiore o uguale del peso dell'arco che collega il j-esimo posto alla transizione.
+In sostanza, si controlla che il numero dei gettoni di ogni posto $$p(i)$$ del _preset_ sia maggiore o uguale del peso dell'arco che collega $$p(i)$$ alla transizione.
 
 {% responsive_image path: assets/15_esempio-marcature-abilitate.png %}
 
 ### Scatto di una transizione
-Lo scatto di una transizione $$j$$ in una marcatura $$m$$ produce una marcatura $$m'$$ che si ricava sottraendo elemento per elemento al vettore di partenza la colonna j-esima della matrice di input, e sommando al risultato la colonna j-esima della matrice output.
-
-in formula, m [ tj > m' allora:
+Lo **scatto** di una transizione $$j$$ in una marcatura $$m$$ produce una marcatura $$m'$$ che si ricava sottraendo elemento per elemento al vettore di partenza la colonna $$j$$-esima della matrice di input e squindi ommando al risultato la colonna j-esima della matrice output.
 
 $$
-m' = m - I[.][j] + O[.][j]
+\boxed{\boxed{m [ \ t(j) >} \: m'} \Longleftrightarrow m' = m - I[.][j] + O[.][j] \\
+\textit{o se proprio vogliamo essere precisi...} \\
+\boxed{\boxed{m [ \ t(j) >} \: m'} \Longleftrightarrow \forall i \in 1..\vert P \vert \ \ \Big \vert \ \ m'[i] = m[i] - I[i][j] + O[i][j]. \\
 $$
 
 {% responsive_image path: assets/15_esempio-scatto-transizione.png %}
 
-Una caratteristica importante dell'operazione matriciale per trovare $$m'$$ è che due operandi su tre sono matrici fisse ($$I$$ e $$O$$), di conseguenza è possibile precalcolare $$O - I$$.
+È importante notare come nell'operazione sopra due operandi su tre sono matrici costanti ($$I$$ e $$O$$): è quindi possibile **precalcolare** $$O - I$$ per efficienza.
 
-### Matrice di incidenza C
-la matrice $$O - I$$ appena presentata è chiamata __matrice di incidenza__, di indica con la lettera $$C$$, ed è utile per ottiimzzare lo scatto.
-dati due identidicatori $$a$$ e $$b$$, il valore in ogni posizione della matrice è dato dalla sottrazione tra il peso dell'arco che collega $$b$$ a $$a$$ meno il peso dell'arco che va da $$a$$ a $$b$$.  
+### Matrice di incidenza $$C$$
+La matrice $$O - I$$ presentata sopra è infatti chiamata __matrice di incidenza__ e si indica con la lettera $$C$$: \\
+è utile per ottimizzare l'operazione _scatto_ di una rete in forma matriciale.
+In formule:
+
+$$
+\forall i \in 1..\vert P \vert, \, \forall j \in 1.. \vert T \vert \ \ \Big \vert \ \  C[i][j] = O[i][j] - I[i][j].
+$$
 
 {% responsive_image path: assets/15_esempio-matrice-incidenza.png %}
 
-Questa matrice non va a sostituire le matrici di input e di output, infatti $$C$$ serve per calcolare lo scatto ma non per calcolare l'abilitazione.
-Infatti per reti non pure (le reti pure sono le reti che non hanno elementi in comune tra preset e postset di ogni posto) il valore presente in un qualsiasi posto della matrice potrebbe essere dato da una qualsiasi combinazione di pesi relativi ad archi in ingresso ed uscita.
-In altre parole, viene persa l'informazione necessaria per capire se una transizione è abilitata, ovvero il numeto di gettoni richiesti dlla transizione per essere abilitata.
+$$C$$ **non sostituisce** le matrici di input $$I$$ e output $$O$$, in quanto $$I$$ è ancora necessaria per calcolare l'abilitazione di una transazioni.
+Per le **reti non pure**, infatti, il valore presente in un qualsiasi posto della matrice potrebbe essere dato da una _qualsiasi combinazione_ di pesi relativi ad archi in ingresso ed uscita, in quanto per la stessa posizione $$\langle i, \, j \rangle$$ entrambe le matrici potrebbero assumere un valore.
 
 ### Sequenze di scatti
-Si consideri una sequenza di $$n$$ scatti che porta la rete da una marcatura iniziale $$m$$ alla marcatura $$M^n$$, ovvero:
-
-M [ t1 > M', M'[ t2 > M'', $$\rightarrow$$ M [ t1t2 > M''
-
-e cosi via per $$n$$ scatti, e si rinomini questa sequenza in questo modo
-
-M [ Sn > Mn
-
-Ci si può chiedere se esiste un legame tra la marcatura iniziale e quella finale più diretto rispetto all'esecuzione di tutti i singoli passi.
-La risposta è si, infatti matricialmente questo si traduce nell'esecuzione di $$x$$ volte (dove $$x$$ è il numero di volte in cui scatta $$t_1$$) l'effetto netto di ciò che succede quando scatta $$t_1$$, e cosi via per tutte le transizioni scattate.
-In altre parole facendo matricialmente $$C \cdot s$$ (dove $$s$$ è il vettore di dimensione $$\mid T \mid$$ contenente il numero degli scatti per ogni transizione), è possibile calcolare l'effetto netto dell'intera sequenza di scatti con un'unica operazione.
-Questo risultato sommato alla marcatura iniziale restituisce la marcatura dopo gli $$n$$ scatti.
-
-La seguente formula descrive ciò che è stato appena spiegato:
+Si consideri una **sequenza** di **$$n$$ scatti** che porti la rete da una marcatura iniziale $$M$$ a una marcatura $$M^n$$. \\
+Ripetendo il seguente processo per $$n$$ scatti
 
 $$
-Mn = M + C \cdot s
+\boxed{\boxed{M [ \ t_1 >} \: M' \vphantom{M''}}, \; \boxed{\boxed{M' [ \ t_2 >} \: M''} \rightarrow \boxed{\boxed{M [ \ t_1t_2 >} \: M''},
 $$
 
-È necessario specificare che $$s$$ non è in grado di specificare se la sequenza presa in considerazione esista o no, e non dice neanche quale sequenza è, infatti non specifica in che ordine sono avvenuti gli scatti.
-Quindi non è possibile sapere se $$s$$ rappresenta una sequenza ammissibile di scatti, però potrebbe dirmi se non lo è (quindi se il vettore non è compatibile con alcuna sequenza), e per farlo basta applicare la formula $$Mn = M + C \cdot s$$, e verificare se il vettore $$Mn$$ contenga elementi negativi.
-È possibile però che anche se $$Mn$$ contiene solo elementi positivi, la sequenza non sia ammissibile, e questo si verifica nel caso in cui anche nei risultati intermedi siano stati presenti dei numeri negativi nel vettore.
-<!-- Questa roba significa che facendo i calcoli uno alla volta, se ad un certo punto in un risultato intermedio sono presenti dei numeri negativi nel vettore, allora non va bene, non so se è chiaro nella spiegazione -->
+si rinomini la sequenza ottenuta nel seguente modo:
 
-In conclusione è possibile effettuare questo calcolo solo se si è certi che la sequenza di scatti sia ammissibile.
+$$
+\boxed{\boxed{M [ \ s^{(n)} >} \: M^{(n)}}.
+$$
 
-Di seguito è presente un esempio che potrebbe chiarire le idee:
+Esiste un **legame diretto** tra la marcatura iniziale e quella finale, che non preveda eseguire i **singoli passi**?
+Matricialmente, l'esecuzione in sequenza di $$x_1$$ volte di $$t_1$$, $$x_2$$ volte di $$t_2$$ fino a $$x_n$$ volte di $$t_n$$ è **fattorizzabile**.
+Definendo un vettore $$s$$ tale per cui
+
+$$
+\forall j \in 1..\vert T \vert \ \ \Big \vert \ \ s[j] = \text{# di volte in cui $t(j)$ scatta}
+$$
+
+è facile notare come l'__ordine di scatto non conta__.
+Calcolando quindi $$Cs$$ è quindi possibile calcolare l'**effetto netto** dell'intera sequenza di scatti, svolgendo un'unica operazione.
+Sommando $$Cs$$ alla marcatura iniziare $$M$$, si ottiene lo stato della marcatura finale $$M^{(n)}$$.
+
+$$
+M^{(n)} = M + C s.
+$$
+
+È opportuno specificare che $$s$$ non è in grado di determinare l'**esistenza** o l'**ordine** della sequenza presa in considerazione.
+Non è quindi possibile sapere se $$s$$ corrisponde a una _sequenza ammissibile_ di scatti, ma è facile escluderlo: se $$M^{(n)}$$ contiene numeri negativi, allora $$s$$ corrisponde sicuramente ad una **sequenza inammissibile**.
+In generale, se anche in un solo passo intermedio $$M^{(i)}$$ è negativo, allora la sequenza considerata non è ammissibile.
+
+In conclusione, è possibile effettuare questo calcolo solo se si è **certi** che la sequenza di scatti sia **ammissibile**.
+
+Di seguito è presente un **esempio** che potrebbe chiarire le idee.
 
 {% responsive_image path: assets/15_esempio-sequenza-scatti.png %}
 
-# Analisi Statica
+<a id="anchor"></a>
+# Analisi statica
 
-Ora è possibile introdrre le due tecniche di analisi statica, che consistono nella ricerca di invarianti all'niterno di una rete, più nello specifico esistono:
+È ora possibile introdurre due tecniche di **analisi statica** che si pongono come obiettivo la ricerca di **invarianti** all'interno della rete.
+Più nello specifico, esistono:
 
-- __P-invarianti__: ovvero invarianti sui posti, relativi alla marcatura dei posti;
-- __T-invarianti__: ovvero invarianti relativi alle sequenze di scatto.
+- __$$P$$-invarianti__: invarianti relative alla **marcatura dei posti**;
+- __$$T$$-invarianti__: invarianti relative alla **sequenza di scatto**.
 
 ## P-invarianti
 
-Un P-invariante è una caratteristica che non varia, relativa ai gettoni dei posti, e viene rappresentato da un vettore di pesi $$h$$ di dimensione $$\mid P \mid$$.
-Questo vettore ricorda la funzione $$H$$ della definizione di una rete conservativa, con la differenza che i pesi non sono obbligatoriamente maggiori di zero.
-Quindi nel caso in cui il P-invariante ha tutti i pesi maggiori di zero, corrisponderebbe ad una funzione $$H$$ tale per cui la rete è conservativa, e sfruttare i P-invarianti è un classico modo per trovare le funzioni $$H$$.
-Inoltre siccome una rete conservativa rispetto ad una funzione $$H$$ è anche limitata, sfruttare i P-invarianti è un metodo alternativo per verificare che la rete sia limitata, oltre a fare l'albero di copertura e verificare che non ci siano $$\omega$$.
+Una $$P$$-invariante è una caratteristica relativa alla marcatura dei posti che **non cambia**; viene rappresentata da un **vettore di pesi** $$h$$ di dimensione $$\vert P \vert$$.
+
+Il vettore $$h$$ ricorda la funzione $$H: P \Rightarrow \mathbb N \setminus \{ 0 \}$$ dalla definizione di **rete conservativa**, con l'unica differenza che gli elementi di $$h$$ possono essere nulli. \\
+Nel caso in cui una $$P$$-invariante abbia tutti i pesi maggiori di zero allora $$h \equiv H$$: la rete sarebbe quindi conservativa e quindi anche **limitata**.
+
+Tramite l'analisi delle $$P$$-invarianti è quindi possibile stabilire se una rete è conservativa e quindi limitata, fornendo un'**alternativa** al metodo dell'albero di copertura.
 
 Ciò che deve essere invariante (costante) è la somma pesata del numero di gettoni (quindi del vettore marcatura $$m$$) per $$h$$, questo per ogni marcatura $$m'$$ raggiungibile da $$m$$.
 
