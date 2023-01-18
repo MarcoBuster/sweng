@@ -476,7 +476,7 @@ Più nello specifico, esistono:
 - __$$P$$-invarianti__: invarianti relative alla **marcatura dei posti**;
 - __$$T$$-invarianti__: invarianti relative alla **sequenza di scatto**.
 
-## P-invarianti
+## $$P$$-invarianti
 
 Una $$P$$-invariante è una caratteristica relativa alla marcatura dei posti che **non cambia**; viene rappresentata da un **vettore di pesi** $$h$$ di dimensione $$\vert P \vert$$.
 
@@ -485,47 +485,55 @@ Nel caso in cui una $$P$$-invariante abbia tutti i pesi maggiori di zero allora 
 
 Tramite l'analisi delle $$P$$-invarianti è quindi possibile stabilire se una rete è conservativa e quindi limitata, fornendo un'**alternativa** al metodo dell'albero di copertura.
 
-Ciò che deve essere invariante (costante) è la somma pesata del numero di gettoni (quindi del vettore marcatura $$m$$) per $$h$$, questo per ogni marcatura $$m'$$ raggiungibile da $$m$$.
-
-in formula:
+Per ogni marcatura $$m'$$ _raggiungibile_ da $$m$$, l'**invariante** è la somma pesata del numero di gettoni ($$m$$) per $$h$$.
 
 $$
-\forall m' \text{ raggiunguibile da }m \quad hm = hm'
+\forall m' \text{ raggiungibile da }m \: \vert \: hm = hm' \\
+\textit{o se proprio vogliamo essere precisi...} \\
+\forall m' \text{ raggiungibile da }m \: \Big \vert \: \sum_{i=1}^{\vert P \vert} h[i] m[i] = \sum_{i=1}^{\vert P \vert} h[i] m'[i].
 $$
 
-A questo punto però se $$m'$$ è raggiungibile da $$m$$, significa che esiste una sequenza di scatti ammissibili che permette di passare da $$m$$ a $$m'$$, allora per quanto è stato detto in precedenza, vale la relazione $$m' = m + C \cdot s$$.
-Ma allora, possiamo sostuire $$m'$$ e $$m$$ con $$hm$$, in modo tale da avere
+Se $$m'$$ è raggiungibile da $$m$$, allora esiste una **sequenza di scatti** ammissibile $$s$$ tale per cui 
+
+$$
+m' = m + C s,
+$$
+
+ma allora, sapendo che $$hm' = hm$$ è possibile **sostituire** $$m'$$ e $$m$$ con $$hm$$ in modo da avere
 
 $$
 hm = hm + hCs
 $$
 
-in cui abbiamo lo stesso elemento sia a destra che a sinistra, quindi possiamo eliminarlo
+quindi, semplificando i due $$hm$$,
 
 $$
-hCs = 0
+\boxed{hCs = 0}.
 $$
 
-questo però per ogni $$s$$ che rappresenti una sequenza ammissibile a partire da $$m$$, quindi non sono andate perse tutte le informazioni su $$m$$.
+Ritornando alle assunzioni iniziali, tale proprietà vale solo se esiste una **sequenza di scatti ammissibile**: le informazioni su $$m$$ non sono andate perse.
 
-A questo punto però ci si trova di fronte ad una formula in cui è presente:
-- La martice $$C$$ che è nota;
-- il vettore di pesi $$h$$ che è l'incognita;
-- $$s$$ che è un insieme di vettori potenzialmente infinito. <!-- non è chiaro perchè un insieme di vettori e non un vettore-->
+Nell'ultima formula è presente la matrice $$C$$ (**nota**), il vettore di pesi $$h$$ (**incognita**) e il vettore $$s$$ (**variabile libera**). 
+La relazione vale infatti **per ogni** sequenza di scatti ammissibile $$s$$.
+La **formula precisa** è quindi:
 
-Se si assume che $$hC = 0$$ si perde completamente l'informazione che indica cosa rappresenta $$s$$, infatti se $$hC$$ è un vettore di zeri, qualsiasi vettore sia $$s$$, moltiplicato per un vettore di zeri risulterà uno scalare che è zero.
-Un esempio abbastanza semplice è quello di una rete che possiede una transizione morta, il cui vettore $$s$$ conterrà nella posizione corrispondente ad essa sempre 0.
-A questo punto anche se $$hC$$ conterrà un qualsiasi valore, avremo come risultato della moltiplicazione con il posto della transizione morta nel vettore $$s$$, il valore zero.
-Questo ci dimostra che non è necessario che $$hC$$ sia uguale a zero per far si che $$hCs$$ sia uguale a 0.
-Però sicuramente se $$hC = 0$$ allora anche $$hCs = 0$$, di conseguenza è condizione sufficiente ma non necesaria.
-In altre parole togliendo il vettore $$s$$ non c'è più il problema della parte dinamica, e quindi è possibile risolvere il sistema (ricordiamo che dobbiamo trovare $$h$$ e abbiamo la matrice $$C$$) solo sulla base delle informazioni topologiche ($$C$$) della rete.
-Però questa diventa una coddizione sufficiente e non necessaria per cui $$h$$ sia un P-invariante (non necessaria perchè esistono degli $$h$$ che non rendono $$hC = 0$$ che potrebbero essere P-invarianti).
+$$
+\forall s \: \vert \: hCs = 0 \\ 
+\text{con $s$ rappresentante una sequenza di scatti ammissibile.}
+$$
 
-In conclusione, $$hC = 0$$ è una condizione sufficiente e verificabile staticamente (perchè implicitamente vale per tutti gli $$s$$) per trovare i P-invarianti (gli $$h$$) della rete.
-Questi sono gli invarianti che non dipendono dalla marcatura iniziale, ma solo dall parte topologica della rete, perchè togliendo $$s$$ è stata rimossa la dipendenza da $$m$$.
-Quindi questi P-invarianti valgono per qualunque marcatura venga assegnata alla rete, se invece venisse considerato $$s$$ sarebbero P-invarianti per qualunque evoluzione della rete a paretire dalla marcatura $$m$$.
+Assumendo per un momento che $$hC = 0$$, allora qualsiasi sia $$s$$ il risultato è sempre zero, **perdendo informazione** su quest'ultima. \\
+Analogamente, in una rete che possiede una **transazione morta** la corrispondente posizione in $$s$$ sarà sempre zero causando l'azzeramento anche della relativa posizione nel risultato.
 
-Quindi si è arrivati a dire che $$hC = 0$$, che è un sistema di equazioni linerare, risolvibile con varie tecniche presentate successivamente.
+Non è quindi **necessario** che $$hC = 0$$ per far sì che $$hCs = 0$$, ma è sicuramente **sufficiente**.
+
+In conclusione, considerando solo $$hC = 0$$ è possibile **escludere** la **componente dinamica** dalla proprietà ragionando solo in base alle informazioni topologiche ($$C$$) della rete.
+Trovare l'$$h$$ che rende $$hC = 0$$ è quindi **condizione sufficiente** ma non necessaria per cui $$h$$ è una $$P$$-invariante, tenendo a mente che esistono comunque $$h$$ che non rendono $$hC = 0$$ ma potrebbero essere $$P$$-invarianti.
+
+I $$P$$-invarianti determinati con l'espressione $$hC = 0$$ non dipendono dalla marcatura iniziale ma solo dalla **topologia** della rete: se venisse considerato anche $$s$$ sarebbero $$P$$-invarianti per qualunque evoluzione della rete _a partire dalla marcatura $$m$$_.
+
+
+Il sistema $$hC = 0$$ è un **sistema di equazioni lineare**, risolvibile con varie tecniche presentate successivamente.
 
 ### Copertura di P-Invarianti
 Una combinazione lineare di P-invarianti (e quindi di soluzioni del sistema) è anch'essa un P-invariante.
