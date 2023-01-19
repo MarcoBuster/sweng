@@ -622,29 +622,71 @@ Per **ogni coppia di righe** $$\langle d_1, \, d_2 \rangle$$:
 - si crea una riga temporanea $$d$$ ottenuta **combinando linearmente** la linea $$d_1$$ moltiplicata per il valore assoluto dell'$$i$$-esimo elemento della riga $$d_2$$ e sommando il viceversa. \\
 Così facendo, l'$$i$$-esimo argomento della riga $$d$$ è uguale a **zero**;
 - per evitare instabilità numerica dovuta a numeri troppo grandi si divide $$d$$ per il **massimo comun divisore** dei suoi elementi, assegnando il risultato a $$d'$$;
-- si aggiunge la riga $$d'$$ così ottenuta all'ultima riga della matrice $$D_{i-1}$$.
+- si estende la matrice $$D_{i-1}$$ aggiungendo una nuova ultima riga $$d'$$.
 
 Una volta terminato il ciclo sulla coppia di righe, si **scartano** tutte le righe della matrice $$D_{i-1}$$ cui $$i$$-esimo elemento è diverso da $$0$$.
 Infine, al termine del ciclo esterno si eliminano le prime $$m$$ colonne di $$D_{m}$$, essendo azzerate.
 Nella matrice risultante (corrispondente alla matrice $$E_n$$) sono presenti i $$P$$-invarianti.
 
-### Continuazione esempio utilizzando Farkas
-Nell'esempio iniziato in precedenza si era arrivati ad un punto in cui si necessitava di basi particolari, ovvero quelle semi-positive (i p-invarianti semi-positivi in pratica).
-Per fare ciò si applica l'algoritmo appena descritto, quindi si crea la matrice $$D_0$$ in questo modo.
+### Continuazione dell'esempio con Farkas
 
-{% responsive_image path: assets/15_matrice-D.png %}
+Nell'esempio iniziato in precedenza si era arrivati ad un punto in cui si necessitava ottenere **basi semi-positive** e quindi $$P$$-invarianti semi-positivi: per fare ciò si può applicare l'algoritmo sopra descritto. 
 
-Successivamente, guardando la prima colonna, le uniche coppie di righe che hanno segno opposto sono la prima e la seconda, e la seconda e la terza.
-A questo punto ne faccio la combinazione lineare e tolgo le linee in cui la prima colonna contiene un elemento diverso da 0 (quindi le prime 3 della matrice colorata), e mi rimane la seguente matrice. 
+Si inizia creando la matrice $$D_0 = [C \: \vert \: E_n]$$:
 
-{% responsive_image path: assets/15_giro-prima-colonna.png %}
+$$
+D_0 = \begin{bmatrix}
+-1  &1  &0  &0  &1 &0  &0  &0  &0 \\
+ 1  &-1 &0  &0  &0 &1  &0  &0  &0 \\
+-1  &1  &-4 &4  &0 &0  &1  &0  &0 \\
+ 0  &0  &-1 &1  &0 &0  &0  &1  &0 \\
+ 0  &0  &1  &-1 &0 &0  &0  &0  &1
+\end{bmatrix}.
+$$
 
-Successivamente faccio lo stesso per tutte le altre colonne, e l'unico caso in cui bisogna effettivamente fare qualcosa è la colonna 3, in cui le righe con segni opposti sono la prima e la terza, e la seconda e la terza (in questo esempio non c'è bisogno di dividere mer l'mcd, i numeri sono piccoli).
-Applicando gli stessi passaggi di prima, questo è ciò che risulta.
+Osservando la **prima colonna** ($$i = 1$$) si nota che sono presenti due coppie di righe aventi segno opposto: la prima e la seconda, la seconda e la terza.
 
-{% responsive_image path: assets/15_giro-terza-colonna.png %}
+A questo punto si possono **combinare linearmente** le coppie appendendo i risultati come **ultima riga**:
 
-A questo punto, togliendo tutte le prime 4 colonne di 0, la matrice che rimane è quella finale, contenente i 3 vettori $$h$$ che sono basi, con la caratteristica che per costruzione non possono essere negativi.
+$$
+D_0 = \begin{bmatrix}
+-1  &1  &0  &0  &1 &0  &0  &0  &0 \\
+ 1  &-1 &0  &0  &0 &1  &0  &0  &0 \\
+-1  &1  &-4 &4  &0 &0  &1  &0  &0 \\
+ 0  &0  &-1 &1  &0 &0  &0  &1  &0 \\
+ 0  &0  &1  &-1 &0 &0  &0  &0  &1 \\
+ 0  &0  &0  &0  &1  &1  &0  &0  &0 \\
+ 0  &0  &-4 &4  &0  &1  &1  &0  &0
+\end{bmatrix}.
+$$
+
+Le prime tre righe contengono nella colonna $$i$$-esima (la prima) elementi non nulli; si **scartano**:
+
+$$
+D_1 = \begin{bmatrix}
+ 0  &0  &-1 &1  &0 &0  &0  &1  &0 \\
+ 0  &0  &1  &-1 &0 &0  &0  &0  &1 \\
+ 0  &0  &0  &0  &1  &1  &0  &0  &0 \\
+ 0  &0  &-4 &4  &0  &1  &1  &0  &0
+\end{bmatrix}.
+$$
+
+Si procede iterativamente senza ulteriori azioni fino alla terza colonna, dove sono presenti **due coppie di righe** aventi segni opposti in posizione $$i$$: la prima e la seconda, la prima e la quarta.\\
+Applicando gli stessi passaggi di prima, la matrice $$D_3$$ che si ottiene è la seguente:
+
+$$
+D_3 = \begin{bmatrix}
+ 0  &0  &0  &0  &1  &1  &0  &0  &0 \\
+ 0  &0  &0  &0  &0  &1  &1  &0  &4 \\
+ 0  &0  &0  &0  &0  &0  &0  &1  &1
+\end{bmatrix}.
+$$
+
+Infine, considerando la matrice $$D_m$$ senza le prime colonne nulle, si ottengono le seguenti basi di $$h$$:
+
+$$
+\{ \langle 1, 1, 0, 0, 0 \rangle, \, \langle 0, 1, 1, 0, 4 \rangle, \, \langle 0, 0, 0, 1, 1 \rangle \}.
+$$
 
 ### Interpretazione dei risultati ottenuti
 Una volta fatto tutto ciò l'unico risultato ottenuto è che la rete è limitata? no, è necessario interpretare i risultati ottenuti per capire di più.
