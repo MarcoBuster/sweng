@@ -688,58 +688,61 @@ $$
 \{ \langle 1, 1, 0, 0, 0 \rangle, \, \langle 0, 1, 1, 0, 4 \rangle, \, \langle 0, 0, 0, 1, 1 \rangle \}.
 $$
 
-### Interpretazione dei risultati ottenuti
-Una volta fatto tutto ciò l'unico risultato ottenuto è che la rete è limitata? no, è necessario interpretare i risultati ottenuti per capire di più.
+#### Interpretazione dei risultati ottenuti
 
-gli $$h$$ sono stati finalmente ricavati, gli $$m_0$$ sono noti, quindi le uniche incognite sono gli $$m$$ della marcatura generica che è possibile raggiungere.
-Sapendo che la formula iniziale era $$hm = hm_0$$ e sostituendo, si scopre che moltiplicando il p-invariante $$(1, 1, 0, 0, 0)$$ per la marcatura iniziale $$m_0$$ (ovvero il vettore colonna $$(4, 0, 4, 2, 0)$$), si ottiene come risultato che $$hm = 4$$.
-Questo significa che: 
+Non ci sono elementi per determinare la **limitatezza** della rete.
 
-$$
-\text{LettoriPronti} + \text{LettoriAttivi} = 4
-$$
+Conoscendo ora possibili valori per $$h$$, nella relazione $$hm = hm_0$$ l'unica incognita al momento è $$m$$: la **marcatura generica** che è possibile raggiungere.
 
-I posti il cui peso è 1 (peso dato dal p-invariante) sono LettoriPronti e LettoriAttivi, mentre il $$4$$ dipende dal numero di gettoni in LettoriPronti nella marcatura iniziale (quinidi ciò che c'è a sinistra dell'uguaglianda dipende dai p-invarianti, mentre ciò he c'è a destra dalla marcatura iniziale).
-Questo sta a significare che i lettori non possono aumentare o diminuire, erano 4 e rimarranno sempre 4, quinsi la somma dei due è costante.
-Questo risultato potevamo già saperlo ma ora l'abbiamo ricavato automaticamente tramite dei calcoli.
-Lo stesso vale anche per gli scrittori, si può fare lo stesso ragionamento per cui rimangono costanti.
-
-Esiste un terzo risultato più interessante, ovvero facendo la somma dei lettori attivi, più la risorsa, più quattro volte gli scrittori attivi deve risultare sempre 4 (che è la marcatura iniziale in risorsa), ovvero:
+Considerando il **primo $$P$$-invariante** $$h_1 = \langle 1, 1, 0, 0, 0 \rangle$$ e la marcatura iniziale $$m_0 = \langle 4, 0, 4, 2, 0 \rangle$$ si ottiene la **relazione** $$h_1m = hm_0 = 4$$ riguardante i seguenti posti:
 
 $$
-\text{LettoriAttivi} + \text{Risorsa} + 4 \cdot \text{ScrittoriAttivi} = 4
+\text{LettoriPronti} + \text{LettoriAttivi} = 4. \tag{$h_1$}
 $$
 
-Come prima, la parte a sinistra di questo risultato è dato dal p-invariante $$(0, 1, 1, 0, 4)$$, in cui zero è il peso del posto "LettoriPronti", uno quello di "LettoriAttivi", uno quello di "Risorsa", zero quello di "ScrittoriPronti" e infine quattro quello di "ScrittoriAttivi".
-Invece la parte a destra deriva dalla marcatura iniziale moltiplicata per il p-invariante preso in considerazione (quindi $$(0 \cdot 4)+(1 \cdot 0)+(1 \cdot 4)+(0 \cdot 2)+(4 \cdot 0) = 4$$).
+I posti cui peso è $$1$$ (proveniente da $$h_1$$) sono $$\text{LettoriPronti}$$ e $$\text{LettoriAttivi}$$, mentre il $$4$$ dipende dal numero di gettoni in $$\text{LettoriPronti}$$ in $$m_0$$: la somma dei due è garantita essere **costante**. \\
+In generale, i **termini** a sinistra dipendono da $$h$$, quelli a destra da $$m_0$$.
 
-In tutti questi risultati è implicito che tutti gli operandi (quindi LettoriAttivi, ScrittoriAttivi, ecc...) devono essere maggiori o uguali a zero
-
-Ma questo cosa significa? facendo degli spostamenti è possibile riscrivere l'ultimo risultato in questo modo:
+Per $$h_2 = \langle 0, 0, 0, 1, 1 \rangle$$ il procedimento è lo stesso:
 
 $$
-\frac{4 \cdot \text{ScrittoriAttivi}}{4} = \frac{4 - \text{LettoriAttivi} - \text{Risorsa}}{4} = \\
-\text{ScrittoriAttivi} = 1 - \frac{\text{LettoriAttivi}}{4} -\frac{\text{Risorsa}}{4} = \\
-\text{ScrittoriAttivi} = 1 - (\frac{\text{LettoriAttivi} + \text{Risorsa}}{4})
+\text{ScrittoriPronti} + \text{ScrittoriAttivi} = 2. \tag{$h_2$}
 $$
 
-A questo punto "LettoriAttivi" + "Risorsa" si sa essere un valore positivo, che diviso per 4 rimane un numero positivo, a meno che non siano entrambi 0.
-Questo vuol dire che il numero di scrittori attivi è al massimo uno, di conseguenza gli scrittri attivi sono al massimo uno, ovvero si escludono a vicenda.
-Se i lettori attivi sono almeno 1, non c'è più posto per uno scrittore attivo, questo sta a significare che gli scrittori attivi e i lettori attivi sono in __mutua esclusione__ (se ho lettori attivi non posso avere scrittori attivi).
-
-Ora se si fa la stessa cosa ma per i lettori attivi, si ottiene che:
+Il terzo risultato, per $$h_3 = \langle 0, 1, 1, 0, 4  \rangle$$ è il **più interessante**:
 
 $$
-4 \cdot (1 - \text{ScrittoriAttivi}) -  \text{Risorsa} = \text{LettoriAttivi}
+\text{LettoriAttivi} + \text{Risorsa} + 4 \cdot \text{ScrittoriAttivi} = 4 \tag{$h_3$}.
 $$
 
-Per cui se esiste un limite superiore sul numero di lettori (ovvero $$4$$, che però questo limite è dato dalla risorsa), che rimangono incompatibili con il numero di scrittori (se c'è uno scrittore attivo avremo come risultato che i lettori attivi sono un numero negativo, il che non è possibile).
-<!-- Penso sia giusto ma ricontrollare quest'ultima cosa -->
-In conclusione è possibile affermare che:
-- se lettori attivi $$> 0 \rightarrow $$ scrittori attivi $$= 0$$;
-- se scrittori attivi $$> 0 \rightarrow $$ lettori attivi $$= 0$$;
-- scrittori attivi $$\leqslant 1$$
-- lettori attivi $$\leqslant 4 $$ (dato dal numero di gettoni in risorsa).
+In tutti i risultati è **implicito** che tutti gli **operandi** devono essere **interi maggiori o uguali a zero**.
+
+<a id="anchor"></a>
+Con dell'algebra è possibile riscrivere l'**ultimo risultato** ($$h_3$$) nel seguente modo:
+
+$$
+\begin{align}
+\frac{4 \cdot \text{ScrittoriAttivi}}{4} &= \frac{4 - \text{LettoriAttivi} - \text{Risorsa}}{4} \\
+\text{ScrittoriAttivi} &= 1 - \frac{\text{LettoriAttivi}}{4} -\frac{\text{Risorsa}}{4} \\
+\text{ScrittoriAttivi} &= 1 - \frac{\text{LettoriAttivi} + \text{Risorsa}}{4}.
+\end{align}
+$$
+
+Dall'ultima espressione è possibile determinare che gli $$\text{ScrittoriAttivi}$$ sono o **zero** o **uno**, in quanto $$\frac{\text{LettoriAttivi} + \text{Risorsa}}{4}$$ è necessariamente positivo.
+A questo punto "LettoriAttivi" + "Risorsa" si sa essere un valore positivo, che diviso per 4 rimane un numero positivo, a meno che non siano entrambi 0. \\
+È quindi garantito matematicamente che gli scrittori sono in **mutua esclusione**.
+
+Procedendo similmente per i lettore, si ottiene che:
+
+$$
+\text{LettoriAttivi} = 4 \cdot (1 - \text{ScrittoriAttivi}) -  \text{Risorsa}.
+$$
+
+Si può quindi concludere che:
+- $$\text{ScrittoriAttivi} \leq 1$$;
+- $$\text{LettoriAttivi} \leq 4$$;
+- $$\text{LettoriAttivi} > 0 \Longrightarrow \text{ScrittoriAttivi} = 0$$;
+- $$\text{ScrittoriAttivi} > 0 \Longrightarrow \text{LettoriAttivi} = 0$$.
 
 ## T-invarianti
 Concettualmente è molto simile ai p-invarianti, ma pone dei vincoli di costanza di invariabilità sulle sequenze di scatti, ovvero:
