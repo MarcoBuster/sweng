@@ -793,7 +793,7 @@ CONTROLLARE significa assicurarsi che vengano rispettate certe proprietà: espri
 ## Mutua esclusione
 Si parta sa una situazione in cui ci sono due entità in cui devono escludersi dalla zona critica di essere contemporaneamente in $$P_1$$ e in $$P_3$$.
 
-{% responsive_image path: assets/15_aggiunta-posto-controllore.png %}
+{% responsive_image path: assets/15_mutua-esclusione-situazione-iniziale.png %}
 
 ovvero il vincolo deve essere:
 
@@ -803,7 +803,7 @@ $$
 
 Per fare ciò la tecnica del controllore a stati proibiti aggiunge posti di controllo utili ad interagire e modificare il comportamento delle transizioni.
 
-{% responsive_image path: assets/ %}
+{% responsive_image path: assets/15_aggiunta-posto-controllore.png %}
 
 In questo caso viene aggiunto un posto controllore ($$P_c$$, ricopre il ruolo della variabile di slack, infatti il prof lo chiama posto di slack) che garantisca che sia esattamente uguale a uno, quindi deve venire rispettata questo vincolo:
 
