@@ -609,19 +609,24 @@ Rimane comunque difficile stabilire se la **rete** è limitata oppure no.
 
 ### Algoritmo di Farkas (1902)
 
-L'algoritmo in questione è __l'algoritmo di Farkas__, che come già detto serve a trovare le basi minime si un sistema di equazioni, però privilegiando però quelle semipositive.
+E se esistesse un algoritmo che predilige la ricerca di **basi minime** per un sistema di equazioni, privilegiando quelle **semipositive**?
+L'algoritmo in questione è l'__algoritmo di Farkas__.
 
 {% responsive_image path: assets/15_algoritmo-farkas.png %}
 
-L'algoritmo inizia creando una matrice $$D_0$$ a partire dalla matrice di incidenza $$C$$ a cui viene appesa una matrice identità di dimensione $$n$$ (dove $$n$$ è il numero di linee della matrice $$C$$).
-Successivamente per ogni colonna da 1 a $$m$$ si prendono le coppie di righe che nella colonna i-esima hanno dei numeri di segno opposto (non per forza con lo stesso valore assoluto), e per ognuna di queste coppie si devono fare i seguenti calcoli:
-- si crea la linea $$d$$ ottenuta combinando linearmente la linea $$d_1$$ moltiplicata per il valore assoluto dell'elemento i-esimo della riga $$d_2$$, con la linea $$d_2$$ moltiplicata per il valore assoluto dell'elemento i-esimo della riga $$d_1$$.
-Facendo questo si farantisce che l'elementi i-esimo della riga $$d$$ sia uguale a 0.
-- Successivamente per non far crescere troppo i numeri si divide $$d$$ per il massimo comun divisore, e questa colonna la si chiama $$d'$$ (teoricamente non è un passaggio necessario). <!-- non si capisce bene di cosa, penso degli elementi della colonna  -->
-- Si aggiunge la riga cosi ottenuta alla matrice $$D$$, questo per ogni coppia di righe che hanno sengi opposti (siccome ci si trova ancora nel ciclo).
+Sia $$n$$ il numero di righe e $$m$$ il numero di colonne della matrice di incidenza $$C$$. \\
+L'algoritmo inizia creando una matrice $$D_0$$ ottenuta da $$C$$ alla quale viene appesa una matrice di identità $$E_n$$ di dimensione $$n \cdot n$$.
+Quindi, **per ogni colonna** $$i$$ da $$1$$ a $$m$$ si considerano le **coppie di righe** $$\langle d_1, \, d_2 \rangle$$ aventi nella $$i$$-esima riga numeri di segno opposto (non necessariamente uguali in valore assoluto).
 
-Una volta finito terminato il ciclo, si scartano tutte le colonne il cui i-esimo elemento è diverso da 0, questo si fa per tutte le colonne $$i$$ della matrice di incidenza iniziale.
-A questo punto si eliminano le prime $$m$$ della matrice complessiva ($$D$$), siccome sono tutti zeri, e alla fine rimangono solo i p-invarianti.
+Per **ogni coppia di righe** $$\langle d_1, \, d_2 \rangle$$: 
+- si crea una riga temporanea $$d$$ ottenuta **combinando linearmente** la linea $$d_1$$ moltiplicata per il valore assoluto dell'$$i$$-esimo elemento della riga $$d_2$$ e sommando il viceversa. \\
+Così facendo, l'$$i$$-esimo argomento della riga $$d$$ è uguale a **zero**;
+- per evitare instabilità numerica dovuta a numeri troppo grandi si divide $$d$$ per il **massimo comun divisore** dei suoi elementi, assegnando il risultato a $$d'$$;
+- si aggiunge la riga $$d'$$ così ottenuta all'ultima riga della matrice $$D_{i-1}$$.
+
+Una volta terminato il ciclo sulla coppia di righe, si **scartano** tutte le righe della matrice $$D_{i-1}$$ cui $$i$$-esimo elemento è diverso da $$0$$.
+Infine, al termine del ciclo esterno si eliminano le prime $$m$$ colonne di $$D_{m}$$, essendo azzerate.
+Nella matrice risultante (corrispondente alla matrice $$E_n$$) sono presenti i $$P$$-invarianti.
 
 ### Continuazione esempio utilizzando Farkas
 Nell'esempio iniziato in precedenza si era arrivati ad un punto in cui si necessitava di basi particolari, ovvero quelle semi-positive (i p-invarianti semi-positivi in pratica).
