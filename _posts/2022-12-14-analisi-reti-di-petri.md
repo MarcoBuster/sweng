@@ -768,38 +768,109 @@ Se una rete è **limitata** e copribile da $$T$$-invarianti, allora è dimostrab
 # Controllori con specifica a stati proibiti
 Tramite le reti di Petri, oltre ai sistemi reali si possono modellare anche dei __controllori__ che forzano o limitano certi comportamenti del sistema.
 
-Trattiamo questa modellizzazioni nel mondo ideale in cui:
+Quindi è possibile definire gli stati come cose che possono verificarsi, e le transizioni come eventi che vedo verificarsi.
 
-* Transizioni osservate
-* Transizioni controllate
+Lo scopo di questi meccanismi è quello di controllare il fatto che le transizioni possano fare certe operazioni oppure no.
+Dicendo cosi si potrebbe pensare di poter fare qualsiasi cosa, ma nella realtà però ci sono due classi problemi, ovvero:
+- non tutte le transizioni sono osservabili (il controllore non ne è in grado oppure è troppo oneroso farlo);
+- alle volte l'osservazione di alcune situazioni  ne comporta il cambiamento.
+
+Inoltre __non tutto è controllabile__ (ad esempio non posso dire ad una centrale nucleare in surriscaldamento di non esplodere, al massimo posso attivare i sistemi di sicurezza).
+
+Ma cosa significa controllare? Ciò che si intende è che vengano rispettate certe proprietà, ovvero che si ottenga un comportamento desiderato.
+Questo, nel modello del controllore a stati proibiti, si traduce nel fatto che una __combinazione lineare__ delle marcature non deve superare un certo valore.
+
+Perciò è necessario fissare una caratteristica su un sottoinsieme di posti, un po come per i p-invarianti, in quel caso era che fosse uguale ad un certo valore, in questo invece è che sia __minore o uguale__ ad un certo valore.
+
+Però è _sempre_ possibile riportare un sistema di disequazioni ad un sistema di equazioni inserendo delle variabili aggiuntive (chiamate variabili si __slack__).
+
+Ad esempio è possibile passare da $$L \cdot M \leqslant  b$$ all'equazione $$L \cdot M + x = b$$ dove $$x$$ è posto maggiore o uguale a 0.
 
 possono sempre applicabili senza problemi
 
 CONTROLLARE significa assicurarsi che vengano rispettate certe proprietà: esprimiamo il comportamento desiderato del nostro sistema dicendo che una combinazione lineare delle marcature non deve superare un certo valore
 
 ## Mutua esclusione
+Si parta sa una situazione in cui ci sono due entità in cui devono escludersi dalla zona critica di essere contemporaneamente in $$P_1$$ e in $$P_3$$.
 
-Devono escludersi dalla zona critica:
-* P1 + P2 <= 1
-* Aggiungioamo un posto controllore Pc
-  * P1+P3+Pc = 1
-* Poi
-  * aggiungiamo una riga opportuna a c e un elemento a m
+{% responsive_image path: assets/15_aggiunta-posto-controllore.png %}
+
+ovvero il vincolo deve essere:
+
+$$
+P_1 + P_3 \leqslant 1
+$$
+
+Per fare ciò la tecnica del controllore a stati proibiti aggiunge posti di controllo utili ad interagire e modificare il comportamento delle transizioni.
+
+{% responsive_image path: assets/ %}
+
+In questo caso viene aggiunto un posto controllore ($$P_c$$, ricopre il ruolo della variabile di slack, infatti il prof lo chiama posto di slack) che garantisca che sia esattamente uguale a uno, quindi deve venire rispettata questo vincolo:
+
+$$
+P_1 + P_3 + P_c = 1
+$$
+
+Successivamente bisogna collegare $$P_c$$ con le diverse transizioni, e questo consiste nell'aggiungere una riga nella matrice di incidenza $$C$$ (questa tecnica si può applicare anche con più condizioni contemporaneamente, e in quel caso bisogna aggiungere un posto per ogni disequazione).
+Inoltre essendoci un posto in più bisogna aggiungere un elemento al vettore marcatura $$m$$.
+
+Tutto ciò si rappresenta in questo modo:
+
+$$
+C_{nuova} = \begin{bmatrix}
+  C_s \\
+  C_c
+\end{bmatrix} \\
+$$
+
+Dove $$C_s$$ è la matrice di incidenza del sistema a cui viene giustapposta la riga $$C_c$$ aggiunta a causa dell'inserimento del posto $$P_c$$.
 
 
-{Latex}
+$$
+M_0 = \begin{bmatrix}
+  M_{0_s} \\
+  M_{0_c}
+\end{bmatrix} \\
+$$
 
-LMs + Mc = [L I]M = b
+Dove $$M_{0_s}$$ è la marcatura iniziale del sistema, mentre $$M_{0_c}$$ è la marcatura iniziale del posto $$P_c$$.
 
-Ma allora vogliamo dire che [L I] è un P-Invariante e quindi deve valere:
+E quello che si vuole ottenere è che:
 
-[L I]C = O
+$$
+LM_s + M_c = b 
+$$
 
-LCs + ICc = 0
+che è la traduzione matriciale del vincolo richiesto in precedenza.
+È però possibile scrivere quest'ultima formula in un modo diverso, ovvero:
 
-Cc
+$$
+\begin{bmatrix}
+  L I
+\end{bmatrix}
+M = b
+$$
 
-{Latex,Latex,Latex, sintesi in LAtex}
+in cui $$\begin{bmatrix} L I\end{bmatrix}$$ è la giustapposizione tra L e la matrice identita (che viene fattorizzata), tutto moltiplicato per la giustapposizione di $$M_s$$ e $$M_c$$, che è $$M$$.
+<!-- È molto sus questa cosa -->
+Ma allora ciò che si vuole dire è che $$\begin{bmatrix} L I\end{bmatrix}$$ è un p-invariante della rete, di conseguenza deve valere:
+
+$$
+\begin{bmatrix}
+  L I
+\end{bmatrix}
+C = 0
+$$
+
+e tornando alla formula di partenza, quest'ultima formula corrisponde a dire:
+
+$$
+L C_s + I C_c = 0
+$$
+
+e ciò sognifica che le righe da aggiungere al sistema sono uguali a $$C_c = -LC_s$$, dove $$C_s$$ è la matrice di incidenza della rete originaria (che è nota), $$L$$ sono stati posti da noi, quindi $$C_c$$ si trova facendo semplicemente il calcolo.
+
+
 
 
 ### Sintesi del controllore
