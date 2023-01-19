@@ -490,7 +490,7 @@ Per ogni marcatura $$m'$$ _raggiungibile_ da $$m$$, l'**invariante** è la somma
 $$
 \forall m' \text{ raggiungibile da }m \: \vert \: hm = hm' \\
 \textit{o se proprio vogliamo essere precisi...} \\
-\forall m' \text{ raggiungibile da }m \: \Big \vert \: \sum_{i=1}^{\vert P \vert} h[i] m[i] = \sum_{i=1}^{\vert P \vert} h[i] m'[i].
+\forall m' \text{ raggiungibile da }m \quad \sum_{i=1}^{\vert P \vert} h[i] m[i] = \sum_{i=1}^{\vert P \vert} h[i] m'[i].
 $$
 
 Se $$m'$$ è raggiungibile da $$m$$, allora esiste una **sequenza di scatti** ammissibile $$s$$ tale per cui 
@@ -744,29 +744,26 @@ Si può quindi concludere che:
 - $$\text{LettoriAttivi} > 0 \Longrightarrow \text{ScrittoriAttivi} = 0$$;
 - $$\text{ScrittoriAttivi} > 0 \Longrightarrow \text{LettoriAttivi} = 0$$.
 
-## T-invarianti
-Concettualmente è molto simile ai p-invarianti, ma pone dei vincoli di costanza di invariabilità sulle sequenze di scatti, ovvero:
-- si possono _ripetere ciclicamente_ delle occorrenze di scatti;
-- queste sequenze di scatti cicliche portano alla situazione iniziale, ovvero allo __stato base__.
+## $$T$$-invarianti
 
-Anche in questo caso si consideri l'equazione per trovare una marcatura raggiungibile a partire da una marcatura dopo una sequenza di scatti.
+I $$T$$-invarianti sono concettualmente **molto simili** ai $$P$$-invarianti, ma pongono alcuni vincoli di **invariabilità** sulle **sequenze di scatti**, ovvero:
+- si **possono ripetere** ciclicamente;
+- portano alla situazione iniziale (**stato base**).
 
-$$
-Mn = M + C \cdot s
-$$
-
-Ora però è necessario applicare i vincoli appena esposti, quindi è necessario tornare allo stato base, questo significa che:
+Partendo dall'equazione $$m' = m + Cs$$, poniamo il **vincolo** $$m' = m$$ in quanto la sequenza deve tornare alla marcatura iniziale.
+Le **soluzioni** del sistema sono quindi:
 
 $$
-m' = m
+Cs = 0,
 $$
 
-Di conseguenza, vuol dire che si pone $$C \cdot s = 0$$, e risolvendo questa operazione è possibile ricavare $$s$$ (che ricordiamo essere un vettore delle occorrenze di scatti __non per forza a qualcosa di sensato__). 
-Se si trova almeno una sequenza di scatti ammissibile relativa al vettore $$s$$ allora significa che è stata trivata una sequenza ciclica, per cui un t-invariante.
+con $$C$$ costante e $$s$$ un **vettore di incognite**, rappresentante una sequenza ammissibile.
 
-Rispetto ai p-invarianti, che non era possibile trovare tutti ma sicuramente erano validi (condizione sufficiente), abbiamo una situazione opposta, ovvero sicuramente trovo dei t-invarianti ma non c'è la sicurezza che siano validi (soddisfare l'equaizone è condizione necessaria ma non sufficiente, per essere t-invariante).
+Se si risolve il sistema e si trova un vettore $$s$$ rappresentante una sequenza di scatti ammissibile, allora tale sequenza è **ciclica** per cui $$s$$ è un $$T$$-invariante.
 
-Se una rete è limitata e è copribile da t-invarianti, allora è dimostrabile che è anche viva.
+A differenza dei $$P$$-invarianti (trovarne uno è *condizione sufficiente* purché sia valido), per un $$T$$-invariante soddisfare l'equazione è **condizione necessaria** ma non sufficiente per la **validità** della sequenza.
+
+Se una rete è **limitata** e copribile da $$T$$-invarianti, allora è dimostrabile che è anche **viva**.
 
 # Controllori con specifica a stati proibiti
 Tramite le reti di Petri, oltre ai sistemi reali si possono modellare anche dei __controllori__ che forzano o limitano certi comportamenti del sistema.
