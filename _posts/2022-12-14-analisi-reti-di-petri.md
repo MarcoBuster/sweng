@@ -791,7 +791,7 @@ possono sempre applicabili senza problemi
 CONTROLLARE significa assicurarsi che vengano rispettate certe proprietà: esprimiamo il comportamento desiderato del nostro sistema dicendo che una combinazione lineare delle marcature non deve superare un certo valore
 
 ## Mutua esclusione
-Si parta sa una situazione in cui ci sono due entità in cui devono escludersi dalla zona critica di essere contemporaneamente in $$P_1$$ e in $$P_3$$.
+Si parta sa una situazione in cui ci sono due entità che devono escludersi dalla zona critica, ovvero non deve essere possibile che ci siano contemporaneamente gettoni in $$P_1$$ e in $$P_3$$.
 
 {% responsive_image path: assets/15_mutua-esclusione-situazione-iniziale.png %}
 
@@ -851,8 +851,8 @@ $$
 M = b
 $$
 
-in cui $$\begin{bmatrix} L I\end{bmatrix}$$ è la giustapposizione tra L e la matrice identita (che viene fattorizzata), tutto moltiplicato per la giustapposizione di $$M_s$$ e $$M_c$$, che è $$M$$.
-<!-- È molto sus questa cosa -->
+in cui $$\begin{bmatrix} L I\end{bmatrix}$$ è la giustapposizione tra L (vettore dei vincoli lineari (? tipo p-invarianti)) e la matrice identita (che viene fattorizzata), tutto moltiplicato per la giustapposizione di $$M_s$$ e $$M_c$$, che è $$M$$.
+<!-- È molto sus questa cosa, anche perchè non so cosa è L, se non ho capito male è come se fosse il p-invariante di questa cosa FORSE (forse il vettore dei pesi dei posti se non ricordo male, sono le 3 non vado a ricontrollare ora ) -->
 Ma allora ciò che si vuole dire è che $$\begin{bmatrix} L I\end{bmatrix}$$ è un p-invariante della rete, di conseguenza deve valere:
 
 $$
@@ -868,17 +868,116 @@ $$
 L C_s + I C_c = 0
 $$
 
-e ciò sognifica che le righe da aggiungere al sistema sono uguali a $$C_c = -LC_s$$, dove $$C_s$$ è la matrice di incidenza della rete originaria (che è nota), $$L$$ sono stati posti da noi, quindi $$C_c$$ si trova facendo semplicemente il calcolo.
+e ciò sognifica che
 
+$$
+C_c = -LC_s
+$$
 
-
+Ovvero le righe da aggiungere al sistema ($$C_c$$) sono uguali a $$-LC_s$$, dove $$C_s$$ è la matrice di incidenza della rete originaria (che è nota), $$L$$ sono stati posti da noi, quindi $$C_c$$ si trova facendo semplicemente il calcolo.
 
 ### Sintesi del controllore
 
+{% responsive_image path: assets/15_archi-posto-controllore.png %}
 
-{{{PAPAPAPAAAAAAPAAAAPAPAPAPAAAAAAAAAAAAA}}}
+$$
+C_s = \begin{bmatrix}
+  0  &-1    &0   &1 \\
+  0   &1    &0  &-1 \\
+ -1   &0    &1   &0 \\
+  1   &0   &-1   &0
+\end{bmatrix},
 
+L= \begin{bmatrix}
+  0  &1  &0  &1
+\end{bmatrix}.
+$$
 
+$$
+-LC_s = \begin{bmatrix}
+  -1  &-1  &1  &1
+\end{bmatrix}.
+$$
+
+Il Vettore $$-LC_s$$ definisce gli archi in ingresso e in uscita dalle transizioni per il posto controllore $$P_c$$.
+Il posto ha in ingresso $$T_0$$ e $$T_1$$ (gli elementi con -1) mentre in uscita $$T_2$$ e $$T_3$$ (gli elementi con 1).
+
+Da questi risultati è possibile ottenere anche la marcatura iniziale del posto controllore ($$M_{0_c}$$), ovvero grazie alla formula
+
+$$
+LM_{0_s} + M_{0_c} = b
+$$
+
+applicando delle trasformazioni all'equazioni è possibile arrivare a dire ciò:
+
+$$
+M_{0_c} = b - LM_{0_s}
+$$
+
+Si conosce $$L$$, si conosce la marcatura iniziale del sistema $$M_{0_s}$$, e si conosce anche $$b$$, che vale 1, di conseguenza si conosce $$M_{0_c}$$ che vale 1.
+Nel posto controllore la marcatura iniziale quindi è 1.
+
+In conclusione le due formule principali da conoscere sono le seguenti:
+
+- calcolare le righe da aggiungere alla matrice di incidenza: $$C_c = -LC_s$$;
+- calcolare la marcatura iniziale del posto controllore: $$M_{0_c} = b - LM_{0_s}$$
+
+### Esempio controllore
+Riprendendo il classico esempio dei lettori e scrittori, in questo esempio sono separati ma non si conosce il modo di sincronizzarli, o almento fino ad ora.
+
+{% responsive_image path: assets/15_esempio_mutua_esclusione_lettori_scrittori.png %}
+
+Abbiamo bisogno della mutua esclusione tra lettori attivi e scrittori attivi, ovvero:
+
+$$
+\text{LAttivi} + \text{SAttivi} \leqslant 1
+$$
+
+inoltre è necessario un secondo vincolo, ovvero che non deve esserci mutua esclusione tra lettori, quindi il peso di un lettore attivo è un quarto rispetto a quello di un lettore attivo, di conseguenza quest'ultimo si prende 4 slot.
+
+<!-- Non ho capito la formula sotto, dovrebbe essere il contrario, perchè cosi sono gli scrittori attivi ad avere peso un quarto rispetto a quello dei lettori no? -->
+
+$$
+\text{LAttivi} + 4\text{SAttivi} \leqslant 4
+$$
+
+sfruttando i seguenti dati è possibile realizzare nella rete i vincoli sopra (in questo caso faremo il secondo).
+
+$$
+LM \leqslant b$
+
+L = \begin{bmatrix}
+  0  &1  &0  &4
+\end{bmatrix}.
+
+b = 4
+
+M_0 = \begin{bmatrix}
+  4  &0  &2  &0
+\end{bmatrix}.
+
+C = \begin{bmatrix}
+  -1  &1    &0   &0 \\
+  1   &-1    &0  &0 \\
+  0   &0    &1   &-1 \\
+  0   &0   &-1   &1
+\end{bmatrix},
+$$
+
+sfruttando le formule viste prima è possibile trovare la riga da aggiungere alla matrice di incidenza:
+
+$$
+C_c = -LC_s = \begin{bmatrix}
+  -1  &1  &4  &-4
+\end{bmatrix}.
+$$
+
+Questo indica i rami con i pesi relativi dal posto controllore
+e anche la marcatura iniziale del posto controllore:
+
+$$
+M_{0_c} = b - LM_{0_s} = 4
+$$
 
 # Estensioni delle reti di petri
 
