@@ -869,7 +869,6 @@ Le righe da aggiungere al sistema $$C_c$$ sono quindi **uguali** a $$-LC_s$$, do
 - $$L$$ è il **vincolo desiderato**, fissato;
 - $$C_c$$ la si trova con un **semplice calcolo matriciale**.
 
-<a id="anchor"></a>
 ### Sintesi del controllore
 
 Continuando l'esempio precedente, l'obiettivo è trovare .
@@ -912,61 +911,56 @@ In **conclusione**, le due formule principali da conoscere sono le seguenti:
 - $$\boxed{C_c = -LC_s}$$ per calcolare le **righe** da aggiungere alla **matrice di incidenza** $$C_s$$;
 - $$\boxed{M_{0c} = b - LM_{0s}}$$ per calcolare la **marcatura iniziale** del posto controllore $$P_c$$.
 
-### Esempio controllore
-Riprendendo il classico esempio dei lettori e scrittori, in questo esempio sono separati ma non si conosce il modo di sincronizzarli, o almento fino ad ora.
+### Esempio
+Riprendendo il classico esempio dei **lettori** e **scrittori**, lo scopio di questo esercizio è collegare le due parti assicurando l'accesso esclusivo alla risorsa.
 
 {% responsive_image path: assets/15_esempio_mutua_esclusione_lettori_scrittori.png %}
 
-Abbiamo bisogno della mutua esclusione tra lettori attivi e scrittori attivi, ovvero:
+Dovendo imporrre la **mutua esclusione** tra lettori e scrittori, poniamo i seguenti vincoli:
 
 $$
-\text{LAttivi} + \text{SAttivi} \leqslant 1
+\begin{cases}
+\text{LettoriAttivi} + \text{ScrittoriAttivi} \leq 1 \\
+\text{LettoriAttivi} + 4 \cdot \text{ScrittoriAttivi} \leq 4 .
+\end{cases}
 $$
 
-inoltre è necessario un secondo vincolo, ovvero che non deve esserci mutua esclusione tra lettori, quindi il peso di un lettore attivo è un quarto rispetto a quello di un lettore attivo, di conseguenza quest'ultimo si prende 4 slot.
-
-<!-- Non ho capito la formula sotto, dovrebbe essere il contrario, perchè cosi sono gli scrittori attivi ad avere peso un quarto rispetto a quello dei lettori no? -->
-
-$$
-\text{LAttivi} + 4\text{SAttivi} \leqslant 4
-$$
-
-sfruttando i seguenti dati è possibile realizzare nella rete i vincoli sopra (in questo caso faremo il secondo).
+<a id="anchor"></a>
+Il primo vincolo è incluso nel secondo, quindi possiamo ignorarlo. \\
+Date le **seguenti informazioni**, possiamo realizzare nella rete i vincoli sopra.
 
 $$
-LM \leqslant b$
-
-L = \begin{bmatrix}
-  0  &1  &0  &4
-\end{bmatrix}.
-
-b = 4
-
 M_0 = \begin{bmatrix}
   4  &0  &2  &0
-\end{bmatrix}.
-
+\end{bmatrix},
+\quad
 C = \begin{bmatrix}
   -1  &1    &0   &0 \\
   1   &-1    &0  &0 \\
   0   &0    &1   &-1 \\
   0   &0   &-1   &1
-\end{bmatrix},
+\end{bmatrix}
+\tag{Dati della rete}
+$$
+$$
+LM \leq b \tag{Vincolo}
+$$
+$$
+L = \begin{bmatrix} 0 &1 &0 &4 \end{bmatrix} 
+\quad
+b = 4
+\tag{Parametri del vincolo}
 $$
 
-sfruttando le formule viste prima è possibile trovare la riga da aggiungere alla matrice di incidenza:
+È sufficiente quindi sfruttare le formule viste prima per trovare la **nuova riga della matrice di incidenza** e la **marcatura iniziale** di $$P_0$$.
 
 $$
-C_c = -LC_s = \begin{bmatrix}
+\begin{align}
+C_c = -LC_s &= \begin{bmatrix}
   -1  &1  &4  &-4
-\end{bmatrix}.
-$$
-
-Questo indica i rami con i pesi relativi dal posto controllore
-e anche la marcatura iniziale del posto controllore:
-
-$$
-M_{0_c} = b - LM_{0_s} = 4
+\end{bmatrix} \\
+M_{0_c} = b - LM_{0_s} &= 4.
+\end{align}
 $$
 
 # Estensioni delle reti di petri
