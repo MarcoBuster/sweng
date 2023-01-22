@@ -419,7 +419,8 @@ Utilizzando i __posti complementari__ è infatti possibile rappresentare **solo 
 Come è possibile superare questa limitazione? 
 Si possono pensare due approcci:
 - si trova un altro approccio diverso dai posti complementari;
-- si cerca di dimostrare che una rete pura ha sempre un equivalente rete non pura.
+- si cerca di dimostrare che una rete non pura ha sempre una equivalente rete pura; \\
+quindi, si procede a rimuovere la capacità utilizzando i posti complementari.
 
 Entrambe le soluzioni non sono così immediate.
 
