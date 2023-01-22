@@ -43,7 +43,9 @@ $on-laptop:        800px;
     }
 }
 
-
+table {
+    margin-bottom: 15px;
+}
 
 // Import partials from `sass_dir` (defaults to `_sass`)
 @import
