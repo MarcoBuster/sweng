@@ -48,7 +48,7 @@ Per generare l'_albero di raggiungibilità_ di una rete di Petri si può applica
   - ***<u>continua</u>*** passando alla prossima iterazione.
   </li>
   <li markdown="1">
-  ***<u>se</u>*** nella **marcatura** $$M$$ non è abilitata **nessuna transazione** allora:
+  ***<u>se</u>*** nella **marcatura** $$M$$ non è abilitata **nessuna transizione** allora:
   <ul>
   <li markdown="1">
   **etichetta** $$M$$ come **"finale"**;
@@ -60,10 +60,10 @@ Per generare l'_albero di raggiungibilità_ di una rete di Petri si può applica
   ***<u>altrimenti</u>*** esegui:
   <ul markdown="1">
   <li markdown="1">
-  ***<u>finché</u>* esistono transazioni abilitate** in $$M$$ esegui:
+  ***<u>finché</u>* esistono transizioni abilitate** in $$M$$ esegui:
   <ul>
   <li markdown="1">
-  ***<u>per ogni</u> transazione* $$t$$ abilitata** in $$M$$ esegui:
+  ***<u>per ogni</u> transizione* $$t$$ abilitata** in $$M$$ esegui:
   <ol>
   <li markdown="1">
   **crea** la **marcatura** $$M'$$ prodotta dallo **scatto** di $$t$$;
@@ -128,7 +128,7 @@ In questo caso l'unico nodo marcato come _nuovo_ è $$\nodenew{40420}$$.
 Dopo aver rimosso l'etichetta _nuovo_ si verifica che, partendo dalla radice dell'albero, non siano già presenti altri nodi uguali.
 Essendo $$\node{40420}$$ esso stesso la radice (e unico nodo dell'albero), si procede.
 
-A questo punto, per ogni transazione abilitata nella marcatura presa in considerazione ($$\node{40420}$$) la si fa **scattare** generando le altre marcature marcate come _nuovo_ ($$\nodenew{40011}$$ e $$\nodenew{31320}$$) che quindi si **collegano** con un arco alla marcatura originale ($$\node{40420}$$).
+A questo punto, per ogni transizione abilitata nella marcatura presa in considerazione ($$\node{40420}$$) la si fa **scattare** generando le altre marcature marcate come _nuovo_ ($$\nodenew{40011}$$ e $$\nodenew{31320}$$) che quindi si **collegano** con un arco alla marcatura originale ($$\node{40420}$$).
 
 La situazione attuale è la seguente.
 
@@ -186,8 +186,8 @@ $$
 \exists M\smash{''} \! \in R(M') \quad M'' \! \textit{ copre } M.
 $$
 
-Grazie al concetto di _copertura_ è possibile ridefinire quello di **transazione morte**: \\
-una transazione $$t$$ si dice __morta__ se e solo se data la sua _marcatura minima_ $$M$$ (ovvero il minor numero di gettoni necessario in ogni posto nel suo preset per abilitarla) questa **non è copribile** a partire dalla marcatura corrente.
+Grazie al concetto di _copertura_ è possibile ridefinire quello di **transizione morte**: \\
+una transizione $$t$$ si dice __morta__ se e solo se data la sua _marcatura minima_ $$M$$ (ovvero il minor numero di gettoni necessario in ogni posto nel suo preset per abilitarla) questa **non è copribile** a partire dalla marcatura corrente.
 In caso contrario la transizione $$t$$ è almeno 1-viva.
 
 Si conclude quindi che se una marcatura ne copre un'altra, tutte le azioni possibili nella prima **sono possibili** anche nella seconda.
@@ -222,7 +222,7 @@ Ora è possibile definire l'algoritmo per la creazione di un albero di copertura
   - ***<u>continua</u>*** passando alla prossima iterazione.
   </li>
   <li markdown="1">
-  ***<u>se</u>*** nella **marcatura** $$M$$ non è abilitata **nessuna transazione** allora:
+  ***<u>se</u>*** nella **marcatura** $$M$$ non è abilitata **nessuna transizione** allora:
   <ul>
   <li markdown="1">
   **etichetta** $$M$$ come **"finale"**;
@@ -231,10 +231,10 @@ Ora è possibile definire l'algoritmo per la creazione di un albero di copertura
   ***<u>altrimenti</u>*** esegui:
   <ul markdown="1">
   <li markdown="1">
-  ***<u>finché</u>* esistono transazioni abilitate** in $$M$$ esegui:
+  ***<u>finché</u>* esistono transizioni abilitate** in $$M$$ esegui:
   <ul>
   <li markdown="1">
-  ***<u>per ogni</u> transazione* $$t$$ abilitata** in $$M$$ esegui:
+  ***<u>per ogni</u> transizione* $$t$$ abilitata** in $$M$$ esegui:
   <ol>
   <li markdown="1">
   **crea** la **marcatura** $$M'$$ prodotta dallo **scatto** di $$t$$;
@@ -279,8 +279,8 @@ Partendo dalla rete di Petri sottostante ed applicando l'**algoritmo** appena de
 {% responsive_image path: assets/15_esempio-albero-copertura-rete.png %}
 
 Come visto nell'esempio della creazione di un albero di raggiungibilità, il primo passo da fare è crere il nodo radice corrispondente alla marcatura iniziale ($$\nodenew{100}$$) e marcarlo come nuovo. \\
-Successivamente, è necessario considerare l'unico nodo esistente ($$\node{100}$$) e iterare tra le sue transazioni.
-In questo caso, è abilitata la transazione $$t_1$$ che porta a una marcatura $$M' = \nodenew{101}$$.
+Successivamente, è necessario considerare l'unico nodo esistente ($$\node{100}$$) e iterare tra le sue transizioni.
+In questo caso, è abilitata la transizione $$t_1$$ che porta a una marcatura $$M' = \nodenew{101}$$.
 
 A questo punto si può notare come la radice sia una **marcatura coperta da $$M'$$**, in quanto:
 - $$M \: \vert \: 1 \geq 1 \: \vert \: M'$$;
@@ -350,7 +350,7 @@ Ogni indice deve essere possibilmente **continuo** (senza salti) e **biunivoco**
 
 La **dimensione** delle due matrici è $$\vert P \vert \times \vert T \vert$$: la **cardinalità dei posti** corrisponde al numero di righe e il **numero delle transizioni** corrisponde al numero delle colonne.
 
-Per ogni flusso uscente dal posto $$i$$-esimo ed entrate nella transazione $$j$$-esima, l'elemento $$I[i][j]$$ equivale al **peso** di tale flusso, oppure $$0$$ se il flusso non esiste.
+Per ogni flusso uscente dal posto $$i$$-esimo ed entrate nella transizione $$j$$-esima, l'elemento $$I[i][j]$$ equivale al **peso** di tale flusso, oppure $$0$$ se il flusso non esiste.
 In sintesi:
 
 $$
@@ -425,7 +425,7 @@ $$
 
 {% responsive_image path: assets/15_esempio-matrice-incidenza.png %}
 
-$$C$$ **non sostituisce** le matrici di input $$I$$ e output $$O$$, in quanto $$I$$ è ancora necessaria per calcolare l'abilitazione di una transazioni.
+$$C$$ **non sostituisce** le matrici di input $$I$$ e output $$O$$, in quanto $$I$$ è ancora necessaria per calcolare l'abilitazione di una transizioni.
 Per le **reti non pure**, infatti, il valore presente in un qualsiasi posto della matrice potrebbe essere dato da una _qualsiasi combinazione_ di pesi relativi ad archi in ingresso ed uscita, in quanto per la stessa posizione $$\langle i, \, j \rangle$$ entrambe le matrici potrebbero assumere un valore.
 
 ### Sequenze di scatti
@@ -523,7 +523,7 @@ $$
 $$
 
 Assumendo per un momento che $$hC = 0$$, allora qualsiasi sia $$s$$ il risultato è sempre zero, **perdendo informazione** su quest'ultima. \\
-Analogamente, in una rete che possiede una **transazione morta** la corrispondente posizione in $$s$$ sarà sempre zero causando l'azzeramento anche della relativa posizione nel risultato.
+Analogamente, in una rete che possiede una **transizione morta** la corrispondente posizione in $$s$$ sarà sempre zero causando l'azzeramento anche della relativa posizione nel risultato.
 
 Non è quindi **necessario** che $$hC = 0$$ per far sì che $$hCs = 0$$, ma è sicuramente **sufficiente**.
 
@@ -764,16 +764,15 @@ A differenza dei $$P$$-invarianti (trovarne uno è *condizione sufficiente* purc
 
 Se una rete è **limitata** e copribile da $$T$$-invarianti, allora è dimostrabile che è anche **viva**.
 
-<a id="anchor"></a>
 # Controllori con specifica a stati proibiti
 Tramite le reti di Petri si possono __modellare dei controllori__ che forzano o limitano certi comportamenti del sistema.
 _Controllare_ significa **assicurarsi** che vengano rispettate certe proprietà.
 
-È possibile definire gli __stati__ come situazioni che _si possono verificare_, e le __transazioni__ come _eventi che si verificano_.
-Lo scopo è __controllare__ che le transazioni possano svolgere certe operazioni, oppure no.
+È possibile definire gli __stati__ come situazioni che _si possono verificare_, e le __transizioni__ come _eventi che si verificano_.
+Lo scopo è __controllare__ che le transizioni possano svolgere certe operazioni, oppure no.
 
 Esistono due **classi di problemi** che limitano la capacità espressiva dei controllori:
-- **non tutte le transazioni sono osservabili**: il controllore non ne ha le capacità, oppure è un'attività troppo onerosa; 
+- **non tutte le transizioni sono osservabili**: il controllore non ne ha le capacità, oppure è un'attività troppo onerosa; 
 - l'osservazione di alcune situazioni ne **comporta il cambiamento**.
 
 Inoltre, __non tutto è controllabile__: non si può chiedere ad una centrale nucleare in surriscaldamento di non esplodere, ma si possono attivare i sistemi di sicurezza.
@@ -792,90 +791,83 @@ LM + x = b \: \vert \: x \geq 0.
 $$
 
 ## Mutua esclusione
-Si parta sa una situazione in cui ci sono due entità che devono escludersi dalla zona critica, ovvero non deve essere possibile che ci siano contemporaneamente gettoni in $$P_1$$ e in $$P_3$$.
+
+Il problema della mutua esclusione è l'**accesso esclusivo** a zona critica da parte di più soggetti.
+Nel seguente esempio si vuole imporre che non sia possibile avere gettoni contemporaneamente in $$P_1$$ e $$P_3$$.
 
 {% responsive_image path: assets/15_mutua-esclusione-situazione-iniziale.png %}
 
-ovvero il vincolo deve essere:
+Matematicamente il vincolo si può esprimere con la seguente **disequazione**.
 
 $$
-P_1 + P_3 \leqslant 1
+P_1 + P_3 \leq 1
 $$
 
-Per fare ciò la tecnica del controllore a stati proibiti aggiunge posti di controllo utili ad interagire e modificare il comportamento delle transizioni.
+La tecnica del _controllore a stati proibiti_ aggiunge tanti __posti di controllo__ quanti sono il __numero di disequazioni__ (e quindi il numero di variabili di _slack_) per modificare il comportamento delle transizioni.
 
-{% responsive_image path: assets/15_aggiunta-posto-controllore.png %}
-
-In questo caso viene aggiunto un posto controllore ($$P_c$$, ricopre il ruolo della variabile di slack, infatti il prof lo chiama posto di slack) che garantisca che sia esattamente uguale a uno, quindi deve venire rispettata questo vincolo:
+In questo caso, per trasformare la disequazione in un'equazione si aggiunge una variabile di slack, rappresentante il nuovo **posto controllore** $$P_c$$.
 
 $$
 P_1 + P_3 + P_c = 1
 $$
 
-Successivamente bisogna collegare $$P_c$$ con le diverse transizioni, e questo consiste nell'aggiungere una riga nella matrice di incidenza $$C$$ (questa tecnica si può applicare anche con più condizioni contemporaneamente, e in quel caso bisogna aggiungere un posto per ogni disequazione).
-Inoltre essendoci un posto in più bisogna aggiungere un elemento al vettore marcatura $$m$$.
-
-Tutto ciò si rappresenta in questo modo:
+{% responsive_image path: assets/15_aggiunta-posto-controllore.png %}
+<a id="anchor"></a>
+Per collegare $$P_c$$ alle diverse transizioni occorre aggiungere una riga $$C_c$$ nella **matrice di incidenza** $$C_s$$:
 
 $$
-C_{nuova} = \begin{bmatrix}
+C_\text{nuova} = \begin{bmatrix}
   C_s \\
   C_c
-\end{bmatrix} \\
+\end{bmatrix}.
 $$
 
-Dove $$C_s$$ è la matrice di incidenza del sistema a cui viene giustapposta la riga $$C_c$$ aggiunta a causa dell'inserimento del posto $$P_c$$.
-
-
-$$
-M_0 = \begin{bmatrix}
-  M_{0_s} \\
-  M_{0_c}
-\end{bmatrix} \\
-$$
-
-Dove $$M_{0_s}$$ è la marcatura iniziale del sistema, mentre $$M_{0_c}$$ è la marcatura iniziale del posto $$P_c$$.
-
-E quello che si vuole ottenere è che:
+Inoltre, bisogna aggiungere la marcatura iniziale $$M_{0c}$$ del posto $$P_c$$ alla **marcatura iniziale** del sistema $$M_{0s}$$:
 
 $$
-LM_s + M_c = b 
+M_{0} = \begin{bmatrix}
+  M_{0s} \\
+  M_{0c}
+\end{bmatrix}.
 $$
 
-che è la traduzione matriciale del vincolo richiesto in precedenza.
-È però possibile scrivere quest'ultima formula in un modo diverso, ovvero:
+Riscrivendo quindi il vincolo matricialmente otteniamo:
+
+$$
+LM_s + M_c = b.
+$$
+
+Sia $$\begin{bmatrix} L I\end{bmatrix}$$ la giustapposizione tra $$L$$ e la **matrice identità** $$I$$ e $$M$$ la giustapposizione di $$M_s$$ e $$M_c$$, allora:
 
 $$
 \begin{bmatrix}
   L I
 \end{bmatrix}
-M = b
+M = b.
 $$
 
-in cui $$\begin{bmatrix} L I\end{bmatrix}$$ è la giustapposizione tra L (vettore dei vincoli lineari (? tipo p-invarianti)) e la matrice identita (che viene fattorizzata), tutto moltiplicato per la giustapposizione di $$M_s$$ e $$M_c$$, che è $$M$$.
-<!-- È molto sus questa cosa, anche perchè non so cosa è L, se non ho capito male è come se fosse il p-invariante di questa cosa FORSE (forse il vettore dei pesi dei posti se non ricordo male, sono le 3 non vado a ricontrollare ora ) -->
-Ma allora ciò che si vuole dire è che $$\begin{bmatrix} L I\end{bmatrix}$$ è un p-invariante della rete, di conseguenza deve valere:
+<!-- DO NOT MERGE: non chiarissimo questo passaggio -->
+L'espressione sopra ricorda la definizione di $$P$$-invariante ($$hm = 0$$).
+È quindi possibile riscriverla come 
 
 $$
 \begin{bmatrix}
   L I
 \end{bmatrix}
-C = 0
+C = 0,
 $$
 
-e tornando alla formula di partenza, quest'ultima formula corrisponde a dire:
+che, rifacendosi al vincolo originale, si può a sua volta riscrivere come
 
 $$
-L C_s + I C_c = 0
+L C_s + I C_c = 0 \\
+\boxed{C_c = -LC_s}.
 $$
 
-e ciò sognifica che
-
-$$
-C_c = -LC_s
-$$
-
-Ovvero le righe da aggiungere al sistema ($$C_c$$) sono uguali a $$-LC_s$$, dove $$C_s$$ è la matrice di incidenza della rete originaria (che è nota), $$L$$ sono stati posti da noi, quindi $$C_c$$ si trova facendo semplicemente il calcolo.
+Le righe da aggiungere al sistema $$C_c$$ sono quindi **uguali** a $$-LC_s$$, dove:
+- $$C_s$$ è la **matrice di incidenza** del **sistema** originale;
+- $$L$$ è il **vincolo desiderato**, fissato;
+- $$C_c$$ la si trova con un **semplice calcolo matriciale**.
 
 ### Sintesi del controllore
 
@@ -886,7 +878,7 @@ C_s = \begin{bmatrix}
   0  &-1    &0   &1 \\
   0   &1    &0  &-1 \\
  -1   &0    &1   &0 \\
-  1   &0   &-1   &0
+  1   &0   &-1   &0>
 \end{bmatrix},
 
 L= \begin{bmatrix}
