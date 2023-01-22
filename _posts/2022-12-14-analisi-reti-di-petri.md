@@ -717,7 +717,6 @@ $$
 
 In tutti i risultati è **implicito** che tutti gli **operandi** devono essere **interi maggiori o uguali a zero**.
 
-<a id="anchor"></a>
 Con dell'algebra è possibile riscrivere l'**ultimo risultato** ($$h_3$$) nel seguente modo:
 
 $$
@@ -765,30 +764,32 @@ A differenza dei $$P$$-invarianti (trovarne uno è *condizione sufficiente* purc
 
 Se una rete è **limitata** e copribile da $$T$$-invarianti, allora è dimostrabile che è anche **viva**.
 
+<a id="anchor"></a>
 # Controllori con specifica a stati proibiti
-Tramite le reti di Petri, oltre ai sistemi reali si possono modellare anche dei __controllori__ che forzano o limitano certi comportamenti del sistema.
+Tramite le reti di Petri si possono __modellare dei controllori__ che forzano o limitano certi comportamenti del sistema.
+_Controllare_ significa **assicurarsi** che vengano rispettate certe proprietà.
 
-Quindi è possibile definire gli stati come cose che possono verificarsi, e le transizioni come eventi che vedo verificarsi.
+È possibile definire gli __stati__ come situazioni che _si possono verificare_, e le __transazioni__ come _eventi che si verificano_.
+Lo scopo è __controllare__ che le transazioni possano svolgere certe operazioni, oppure no.
 
-Lo scopo di questi meccanismi è quello di controllare il fatto che le transizioni possano fare certe operazioni oppure no.
-Dicendo cosi si potrebbe pensare di poter fare qualsiasi cosa, ma nella realtà però ci sono due classi problemi, ovvero:
-- non tutte le transizioni sono osservabili (il controllore non ne è in grado oppure è troppo oneroso farlo);
-- alle volte l'osservazione di alcune situazioni  ne comporta il cambiamento.
+Esistono due **classi di problemi** che limitano la capacità espressiva dei controllori:
+- **non tutte le transazioni sono osservabili**: il controllore non ne ha le capacità, oppure è un'attività troppo onerosa; 
+- l'osservazione di alcune situazioni ne **comporta il cambiamento**.
 
-Inoltre __non tutto è controllabile__ (ad esempio non posso dire ad una centrale nucleare in surriscaldamento di non esplodere, al massimo posso attivare i sistemi di sicurezza).
+Inoltre, __non tutto è controllabile__: non si può chiedere ad una centrale nucleare in surriscaldamento di non esplodere, ma si possono attivare i sistemi di sicurezza.
 
-Ma cosa significa controllare? Ciò che si intende è che vengano rispettate certe proprietà, ovvero che si ottenga un comportamento desiderato.
-Questo, nel modello del controllore a stati proibiti, si traduce nel fatto che una __combinazione lineare__ delle marcature non deve superare un certo valore.
+Nel modello del __controllore a stati proibiti__, l'attività di _controllo_ si traduce formalmente in una __combinazione lineare__ delle marcature che deve rimanere sotto una certa soglia. \\
+Si vincola quindi per un __sottoinsieme di posti__ che la combinazione lineare di una marcatura $$M$$ con un __vettore dei pesi__ $$L$$ sia minore o uguale (e non solo _uguale_ come nei $$P$$-invarianti) di una soglia data:
 
-Perciò è necessario fissare una caratteristica su un sottoinsieme di posti, un po come per i p-invarianti, in quel caso era che fosse uguale ad un certo valore, in questo invece è che sia __minore o uguale__ ad un certo valore.
+$$
+LM \leq b.
+$$
 
-Però è _sempre_ possibile riportare un sistema di disequazioni ad un sistema di equazioni inserendo delle variabili aggiuntive (chiamate variabili si __slack__).
+Come abbiamo visto nel corso di _Ricerca Operativa_, è **sempre** possibile riportare un __sistema di disequazioni__ ad un sistema di equazioni __inserendo variabili aggiuntive__ (___slack___) semipositive:
 
-Ad esempio è possibile passare da $$L \cdot M \leqslant  b$$ all'equazione $$L \cdot M + x = b$$ dove $$x$$ è posto maggiore o uguale a 0.
-
-possono sempre applicabili senza problemi
-
-CONTROLLARE significa assicurarsi che vengano rispettate certe proprietà: esprimiamo il comportamento desiderato del nostro sistema dicendo che una combinazione lineare delle marcature non deve superare un certo valore
+$$
+LM + x = b \: \vert \: x \geq 0.
+$$
 
 ## Mutua esclusione
 Si parta sa una situazione in cui ci sono due entità che devono escludersi dalla zona critica, ovvero non deve essere possibile che ci siano contemporaneamente gettoni in $$P_1$$ e in $$P_3$$.
