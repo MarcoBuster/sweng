@@ -812,7 +812,7 @@ P_1 + P_3 + P_c = 1
 $$
 
 {% responsive_image path: assets/15_aggiunta-posto-controllore.png %}
-<a id="anchor"></a>
+
 Per collegare $$P_c$$ alle diverse transizioni occorre aggiungere una riga $$C_c$$ nella **matrice di incidenza** $$C_s$$:
 
 $$
@@ -869,51 +869,48 @@ Le righe da aggiungere al sistema $$C_c$$ sono quindi **uguali** a $$-LC_s$$, do
 - $$L$$ è il **vincolo desiderato**, fissato;
 - $$C_c$$ la si trova con un **semplice calcolo matriciale**.
 
+<a id="anchor"></a>
 ### Sintesi del controllore
 
-{% responsive_image path: assets/15_archi-posto-controllore.png %}
+Continuando l'esempio precedente, l'obiettivo è trovare .
 
 $$
-C_s = \begin{bmatrix}
+
+\begin{align*}
+C_s &= \begin{bmatrix}
   0  &-1    &0   &1 \\
   0   &1    &0  &-1 \\
  -1   &0    &1   &0 \\
-  1   &0   &-1   &0>
-\end{bmatrix},
-
-L= \begin{bmatrix}
+  1   &0   &-1   &0
+\end{bmatrix} \quad
+L = \begin{bmatrix}
   0  &1  &0  &1
+\end{bmatrix} \\
+
+-LC_s &= \begin{bmatrix}
+  -1  &-1  & \phantom{-} 1  & \phantom{-} 1
 \end{bmatrix}.
+\end{align*}
 $$
 
-$$
--LC_s = \begin{bmatrix}
-  -1  &-1  &1  &1
-\end{bmatrix}.
-$$
+{% responsive_image path: assets/15_archi-posto-controllore.png %}
 
-Il Vettore $$-LC_s$$ definisce gli archi in ingresso e in uscita dalle transizioni per il posto controllore $$P_c$$.
-Il posto ha in ingresso $$T_0$$ e $$T_1$$ (gli elementi con -1) mentre in uscita $$T_2$$ e $$T_3$$ (gli elementi con 1).
+Il vettore $$-LC_s$$ definisce gli **archi in ingresso** e **in uscita** dalle transizioni per il **posto controllore** $$P_c$$: \\
+il posto ha in ingresso $$T_0$$ e $$T_1$$ (gli elementi con -1) mentre in uscita $$T_2$$ e $$T_3$$ (gli elementi con 1).
 
-Da questi risultati è possibile ottenere anche la marcatura iniziale del posto controllore ($$M_{0_c}$$), ovvero grazie alla formula
+Da questi risultati è possibile ottenere anche la **marcatura iniziale** del posto controllore ($$M_{0_c}$$):
 
 $$
-LM_{0_s} + M_{0_c} = b
+LM_{0s} + M_{0c} = b \\
+M_{0c} = b - LM_{0s}.
 $$
 
-applicando delle trasformazioni all'equazioni è possibile arrivare a dire ciò:
+Essendo tutti termini noti, è facile rispondere che la **marcatura iniziale** di $$P_c$$ è uguale a 1.
 
-$$
-M_{0_c} = b - LM_{0_s}
-$$
+In **conclusione**, le due formule principali da conoscere sono le seguenti:
 
-Si conosce $$L$$, si conosce la marcatura iniziale del sistema $$M_{0_s}$$, e si conosce anche $$b$$, che vale 1, di conseguenza si conosce $$M_{0_c}$$ che vale 1.
-Nel posto controllore la marcatura iniziale quindi è 1.
-
-In conclusione le due formule principali da conoscere sono le seguenti:
-
-- calcolare le righe da aggiungere alla matrice di incidenza: $$C_c = -LC_s$$;
-- calcolare la marcatura iniziale del posto controllore: $$M_{0_c} = b - LM_{0_s}$$
+- $$\boxed{C_c = -LC_s}$$ per calcolare le **righe** da aggiungere alla **matrice di incidenza** $$C_s$$;
+- $$\boxed{M_{0c} = b - LM_{0s}}$$ per calcolare la **marcatura iniziale** del posto controllore $$P_c$$.
 
 ### Esempio controllore
 Riprendendo il classico esempio dei lettori e scrittori, in questo esempio sono separati ma non si conosce il modo di sincronizzarli, o almento fino ad ora.
