@@ -963,24 +963,11 @@ M_{0_c} = b - LM_{0_s} &= 4.
 \end{align}
 $$
 
-# Estensioni delle reti di petri
+# Reti con priorità
+Ad ogni transazione è associata una **priorità**: quando in una marcatura $$n$$ transazioni sono abilitate, la scelta della prossima da far scattare è **determinata** dalla sua priorità.
 
-* Reti temporizzate (ci interessano)
-  * Temporizzate ad alto livello
-* Stocastiche (nope)
-* Generiche ad alto livello (interessanti ma nope)
+Date le opportune priorità, è quindi possibile **guidare** la progressione della rete verso la soluzione richiesta.
 
-
-Tutto questo ci serve per modellare sistemi Hard Real-time, sistemi critice che devono garantire molte cose. Vogliamo quindi avere modelli DETERMINISTICI
-
-# Modelli temporali
-
-* Esistono diverese proposte sulla maniera migliore per aggiungere il tempo alle reti di Petri:
-  * Ritardi sui posti
-  * Ritardi sulle transizioni
-  * Tempi di scatto sulle transizioni
-    * Tempi che possono essere unici o multipli, in un intervallo ecc...
-    * Possono essere fissi o variabili
-    * Assoluti o relativi
-
-{...}
+Ci sono due svantaggi principali a questo approccio: 
+- rischio di creare di __cicli infiniti__;
+- si perde la _località di decisione_ della abilitazione di una transazione: non è quindi più possibile fare analisi locale. 
