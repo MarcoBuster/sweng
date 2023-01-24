@@ -88,14 +88,187 @@ Tutto questo insieme di variabili permette di definire reti temporizzate basate 
 Avremo per esempio le _reti Time Petri_, che utilizzano tempi di scatto relativi, multipli e a intervalli costanti; le _reti Time Petri colorate_, simili alle precedenti ma che usano tempi assoluti; le _reti Time Petri ad alto livello_, che usano insiemi variabili, e molte altre.
 
 Tra tutte queste tipologie, tuttavia, ci concentreremo sulle __reti Time Basic__.
-Introdotte per la prima volta da Ghezzi e dai suoi collaboratori nel 1989, tali reti utilizzano __insiemi matematici variabili__ di tempi di scatto __assoluti__ associati alle transizioni.
-In virtù delle inclusioni di cui abbiamo già detto, queste reti sono quindi le più generali possibile, e dunque anche le più interessanti.
+In virtù delle inclusioni di cui abbiamo già detto tali reti saranno quindi le più generali possibile e, dunque, anche le più interessanti.
 
 # Reti Time Basic
 
-<!-- To Be Continued... -->
+Prima di darne una vera e propria definizione matematica iniziamo a introdurre le __reti Time Basic__ (__TB__) in modo informale.
+
+Introdotte per la prima volta da Ghezzi e dai suoi collaboratori nel 1989, le reti TB associano __insiemi variabili__ di tempi di scatto __assoluti__ alle transizioni: ciascuna transizione possiede cioè un insieme di tempi in cui _potrebbe_ scattare, definito in maniera dinamica a seconda dello stato.
+Tali tempi di scatto potrebbero poi essere definiti sia in termini assoluti che in termini dei __tempi associati ai gettoni__.
+
+{% responsive_image path: assets/16_TBN-intro.png %}
+
+Nelle reti TB infatti i gettoni non sono più anonimi, ma caratterizzati ciascuno da un __timestamp__ che indica il __momento in cui sono stati creati__ ($$\operatorname{t}(posto)$$).
+A differenza delle normali reti di Petri i gettoni sono quindi __distinguibili__: questo non significa che due gettoni non possano avere lo stesso timestamp, ma solo che non tutti i gettoni sono uguali (_mentre gettoni generati dalla stessa transizione o da transizioni diverse scattate in parallelo avranno invece lo stesso timestamp_).
+
+Per ogni transizione viene poi introdotto il concetto di __tempo di abilitazione__ ($$\bf{enab}$$), ovvero il __momento in cui la transizione viene abilitata__: poiché una transizione è abilitata quando tutti i posti nel suo preset contengono tanti gettoni quanto il peso dell'arco entrante in essa, il tempo di abilitazione di una transizione sarà pari al __massimo tra i timestamp__ dei gettoni che compongono la __tupla abilitante__. \\
+Poiché i posti nel preset della transizione potrebbero contenere più gettoni di quelli necessari per farla scattare, una transizione potrebbe avere __più tempi di abilitazione diversi__ in base ai gettoni considerati per la tupla abilitante.
+
+Ovviamente i __tempi di scatto__ delle transizioni __non potranno essere minori__ del tempo di abilitazione, in quanto una transizione non può scattare prima di essere abilitata.
+Gli insiemi dei tempi di scatto potranno invece _dipendere_ dal tempo di abilitazione: così, per esempio, una transizione potrebbe scattare 2 secondi dopo essere stata abilitata, oppure tra 3 e 5 minuti dall'abilitazione. \\
+A tal proposito, molto spesso i tempi di scatto saranno rappresentati come __intervalli__ $$[min,max]$$ piuttosto che come insiemi: nei nostri esempi adotteremo questa convenzione, ma è bene tenere in mente che tali insiemi potrebbero avere qualunque possibile forma.
+
+## Definizioni matematiche
+
+Facciamo un po' di chiarezza introducendo delle definizioni rigorose per tutto quanto citato nell'introduzione. \\
+Una rete Time Basic è una __6-tupla__ del tipo $$\langle P, T, \Theta, F, tf, m_0 \rangle$$, dove:
+
+- $$P, T, F$$ sono identici all'insieme dei posti, delle transizioni e al flusso delle normali reti di Petri;
+- $$\Theta$$ (_theta_) è il __dominio temporale__, ovvero l'insieme numerico che contiene le rappresentazioni degli istanti di tempo;
+- $$tf$$ è una funzione che associa ad ogni transizione $$t \in T$$ una __funzione temporale__ $$\operatorname{tf_{t}}$$ che data in input la __tupla abilitante__ $$\bf{en}$$, ovvero l'__insieme dei timestamp__ dei gettoni scelti per l'abilitazione nel preset, restituisce un __insieme di tempi di scatto possibili__:
+
+  $$\operatorname{tf_{t}}(en) \subseteq \Theta$$
+  
+  Per esempio, se per una transizione $$t$$ i tempi di scatto sono nell'intervallo $$[min, max]$$, allora $$\operatorname{tf_{t}}(en) = \{r \, \vert \, min \leq r \leq max\}$$.
+
+- $$m_0$$ è un multiset che esprime la __marcatura iniziale__: si tratta cioè di una funzione che ad ogni __posto__ associa un insieme di coppie __timestamp-molteplicità__ che indicano il numero di gettoni con tale timestamp all'interno del posto:
+
+  $$m_0 : P \rightarrow \{ (\theta, \operatorname{mul}(\theta)) \, \vert \, \theta \in \Theta \}$$
+
+  Tutte le __marcature__ esprimibili per le reti Time Basic assumeranno la forma di simili funzioni.
+
+Con questi costrutti matematici siamo in grado di descrivere completamente lo stato di una rete Time Basic.
+Tuttavia sorge ora spontanea una domanda: dovendo modellare il concetto di tempo, come __evolve__ una rete TB?
+
+## Evoluzione
+
+Dovendo modellare lo __scorrere del tempo__, le reti Time Basic dovranno operare una serie di accortezze per quanto riguarda la loro evoluzione.
+
+Abbiamo per esempio già detto che il tempo di scatto di una transizione dovrà necessariamente essere maggiore del suo tempo di abilitazione, e che tale tempo di scatto sarà pari al timestamp dei gettoni generati dalla transizione.
+Tuttavia, questo non è abbastanza: il concetto di tempo è particolarmente sfuggente e, soprattutto, __difficile da definire in maniera univoca__. \\
+Al contrario, per le reti Time Basic vengono definite diverse __semantiche temporali__, ovvero diverse interpretazioni del concetto di "tempo" che richiederanno il rispetto di una serie di assiomi durante l'evoluzione della rete.
+Tali interpretazioni, ciascuna utile per modellare diversi sistemi e requisiti di tempo, variano anche in complessità; in questo corso partiremo dunque dalla semantica più semplice per poi costruire su di essa quelle più complesse.
+
+### Semantica temporale debole (WTS)
+
+Informalmente, la __semantica temporale debole__ (_Weak Time Semantic_, __WTS__) impone che una transizione possa scattare _solo_ in uno degli __istanti identificati dalla sua funzione temporale__ e __non possa scattare _prima_ di essere stata abilitata__.
+
+Tuttavia, ___una transizione non è costretta a scattare___ anche se abilitata: essa _potrebbe_ scattare, ma non è forzata a farlo.
+Questo permette di modellare eventi solo __parzialmente definiti__, ovvero che potrebbero accadere sotto determinate condizioni ma non è possibile dire se lo faranno o no: esempi notevoli sono guasti o decisioni umane, eventi cioè non completamente prevedibili.
+Si noti che a differenza dei modelli stocastici delle reti di Petri in questo caso non ci interessa la _probabilità_ con cui gli eventi potrebbero accadere, ma solo che potrebbero accadere.
+
+Per imporre questa interpretazione del concetto di tempo l'evoluzione di una rete Time Basic deve seguire i seguenti __assiomi temporali__:
+
+- (__A1__) __Monotonicità rispetto alla marcatura iniziale__: tutti i tempi di scatto di una sequenza di scatto devono essere __non minori__ ($$\geq$$) di uno qualunque dei timestamp dei gettoni della marcatura iniziale. \\
+  Ogni marcatura deve cioè essere __consistente__, ovvero non contenere gettoni prodotti "nel futuro".
+
+- (__A3__) __Divergenza del tempo__ (_non-zenonicità_): __non__ è possibile avere un __numero infinito__ di scatti in un intervallo di __tempo finito__. \\
+  Questo assioma serve ad assicurarsi che il tempo __avanzi__!
+  Esso assicura cioè che il tempo non si possa fermare e soprattutto che esso non possa essere suddivisibile in infinitesimi: il sistema evolve soltanto quando il tempo va avanti.
+
+Le sequenze di scatti che soddisfano questi due assiomi vengono dette __sequenze ammissibili in semantica debole__.
+
+### Semantica temporale monotonica debole (MWTS)
+
+Come i più attenti avranno notato, nell'elencare gli assiomi necessari per la semantica temporale debole abbiamo saltato un ipotetico assioma A2.
+Ebbene, ciò non è un caso: esiste infatti un'estensione della semantica WTS che aggiunge tra i propri requisiti il rispetto di tale assioma.
+
+Si tratta della __semantica temporale monotonica debole__ (_Monotonic WTS_, __MWTS__), e differisce dalla semantica WTS perché impone necessariamente che i tempi di scatto delle transizioni all'interno di una sequenza siano monotoni non decrescenti, forzando così il fatto che nell'intera rete __il tempo non possa tornare indietro__. \\
+Più formalmente, la semantica introduce il seguente assioma:
+
+- (__A2__) __Monotonicità dei tempi di scatto di una sequenza__: tutti i tempi di scatto di una sequenza di scatti devono essere ordinati nella sequenza in maniera __monotonicamente non decrescente__ ($$\geq$$). \\
+  Anche questo serve a garantire la proprietà intuitiva di __consistenza__, evitando cioè che il tempo torni indietro.
+  Non richiedendo però che i tempi siano disposti in modo strettamente crescente ma ammettendo che nella sequenza lo __stesso tempo sia ripetuto__ si lascia aperta la possibilità che nella rete più transizioni scattino in contemporanea, oppure che due transizioni scattino in tempi talmente ravvicinati che la granularità temporale del modello non è in grado di rilevare la differenza.
+
+Le sequenze di scatti che soddisfano gli assiomi A1, A2 e A3 vengono dette __sequenze ammissibili in semantica monotonica debole__. \\
+Sebbene sembri una differenza da nulla, imporre la monotonicità dei tempi di scatto ha in realtà ripercussioni piuttosto grandi: in una rete che segue la MWTS quando si analizzano gli scatti è necessario non solo fare un'analisi locale del preset e del tempo di abilitazione e scatto della transizione, ma anche assicurarsi che non ci sia nessuna transizione nella rete in grado di scattare prima.
+Si __perde cioè la caratteristica di località__, introducendo la necessità di mantenere un'informazione comune sull'__ultimo scatto__ nella rete.
+
+#### WTS $$\equiv$$ MWTS
+
+Fortunatamente per noi esiste un teorema che afferma che _per ogni sequenza di scatti ammissibile in semantica debole $$S_{WTS}$$ __esiste__ una sequenza di scatti ammissibile in semantica monotonica debole $$S_{MWTS}$$ __equivalente__ ottenibile per semplice __permutazione__ delle occorrenze degli scatti._
+
+Non si tratterà di sequenze uguali, ma entrambe le sequenze produrranno la __stessa marcatura finale__.
+Questo è un enorme vantaggio, in quanto ciò ci permette di infischiarcene della monotonicità degli scatti durante l'analisi della rete, potendo così sfruttare la __località__ e conseguentemente le __tecniche di analisi per le reti di Petri__ (ad alto livello) già viste in precedenza.
+
+##### <big>Esempio di traduzione</big>
+
+Si prenda in esame la rete in figura:
+
+{% responsive_image path: assets/16_esempio-wts-mwts.png %}
+
+Assumendo i timestamp iniziali di tutti i gettoni uguali a zero, si consideri la seguente sequenza ammissibile WTS di scatti:
+
+$$ \text{T1 scatta al tempo 12} \rightarrow \text{T3 scatta al tempo 14} \rightarrow \text{T2 scatta al tempo 4}$$
+
+Tale sequenza non rispetta la monotonicità, in quanto T2 scatta "nel passato" dopo lo scatto di T3, e produce la marcatura $$\langle0, 0, 1, 0, 1\rangle$$.
+Tuttavia, riordinando la sequenza come:
+
+$$ \text{T2 scatta al tempo 4} \rightarrow \text{T1 scatta al tempo 12} \rightarrow \text{T3 scatta al tempo 14}$$
+
+è possibile ottenere una marcatura identica ma con una sequenza che rispetta ora la monotonicità, essendo cioè ammissibile in semantica temporale monotonica debole.
+
+### Semantica temporale forte (STS)
+
+Finora abbiamo lasciato aperta la possibilità che una transizione pur _potendo_ scattare non lo facesse.
+Questa alternativa non è però contemplata in molti modelli temporizzati, in cui il __determinismo__ gioca un forte ruolo: spesso si vuole che se una transizione può scattare, allora __deve__ scattare entro il suo massimo tempo di scatto ammissibile.
+
+Per forzare questo comportamento viene creata una semantica temporale apposita, che prende il nome di __semantica temporale forte__ (_Strong Time Semantic_, __STS__): essa impone che _una transizione __deve scattare__ ad un suo possibile tempo di scatto __a meno che non venga disabilitata__ prima del proprio massimo tempo di scatto ammissibile_.
+Aggiungere quest'ultima clausola permette alle transizioni di non dover prevedere il futuro: se esse fossero programmate per scattare in un certo istante ma prima di esso lo scatto di un'altra transizione le disabilitasse non si richiederebbe che esse tornino indietro nel tempo per scattare all'ultimo istante di tempo _utile_.
+
+Essendo un ulteriore irrigidimento rispetto alla semantica temporale monotonica debole, la STS dovrà sia rispettare gli assiomi A1, A2 e A3, sia la seguente nuova coppia di assiomi, che porta il totale a cinque:
+
+- (__A4__) __Marcatura forte iniziale__: il __massimo tempo di scatto__ di tutte le transizioni abilitate nella __marcatura iniziale__ dev'essere __maggiore o uguale del massimo timestamp__ associato ad un gettone in tale marcatura. \\
+  Questo assicura cioè che la marcatura iniziale sia __consistente con la nuova semantica__ temporale: un gettone dotato di timestamp superiore al tempo di scatto massimo di una transizione abilitata non sarebbe potuto essere generato _prima_ che la transizione scattasse (cosa che deve fare!), rendendo quindi la marcatura in questione non più quella iniziale.
+
+- (__A5__) __Sequenza di scatti forte__: una sequenza di scatti ammissibile in semantica __MWTS__ che parta da una __marcatura forte iniziale__ è una __sequenza di scatti _forte___ se per ogni scatto il tempo di scatto della transizione __non è maggiore__ del massimo tempo di scatto di un'altra transizione abilitata. \\
+  Si sta cioè accertando che ogni transizione scatti entro il suo tempo massimo se non viene disabilitata prima da un altro scatto: per fare ciò, si permette alle transizioni di scattare _solo_ se non ci sono altre transizioni abilitate che sarebbero già dovute scattare, costringendo quindi queste ultime a farlo per far continuare a evolvere la rete.
+
+Ecco dunque che sequenze di scatto che soddisfano gli assiomi A1, A2, A3, A4 e A5 vengono dette __sequenze ammissibili in semantica forte__.
+
+#### STS $$\not\equiv$$ MWTS
+
+In virtù dell'ultimo assioma si potrebbe pensare che esista un modo per trasformare ogni sequenza di scatti MWTS in una sequenza STS, realizzando così un'equivalenza.
+Purtroppo, però, non è così: una sequenza STS è sempre anche MWTS, ma __non è sempre vero il contrario__.
+
+Poiché infatti non è più possibile a causa dell'assioma A2 riordinare le sequenze per ottenerne altre di equivalenti, è possibile trovare numerose sequenze che sono MWTS ma non STS.
+Riprendendo la rete già vista in precedenza e assumendo anche in questo caso dei timestamp iniziali nulli per i gettoni:
+
+{% responsive_image path: assets/16_esempio-wts-mwts.png %}
+
+è facile vedere che la sequenza ammissibile in semantica monotonica debole:
+
+$$\text{T1 scatta al tempo 6} \rightarrow \text{T1 scatta al tempo 12} \rightarrow \text{T3 scatta al tempo 14}$$
+
+non è invece una sequenza ammissibile in semantica forte, in quanto lo scatto di T2 abilita la transizione T3, che dovrebbe quindi scattare entro il tempo 9 ($$enab = 6$$) ma non lo fa.
+
+### Semantica temporale mista
+
+Può però capitare che dover imporre una semantica temporale fissa per l'intera rete si riveli limitante nella modellazione di sistemi reali: questi potrebbero infatti includere sia agenti deterministici (_es. computer_) che agenti stocastici (_es. esseri umani_).
+
+Si introduce quindi una nuova __semantica temporale mista__ (_Mixed Time Semantic_), in cui la semantica temporale debole (monotonica) o forte viene associata alle __singole transizioni__ piuttosto che all'intera rete.
+In questo modo:
+
+- le __transizioni forti__ _dovranno_ scattare entro il loro tempo massimo a meno che non vengano disabilitate prima;
+- le __transizioni deboli__ _potranno_ scattare in uno qualunque dei loro possibili tempi di scatto.
+
+Essendo meno comuni, solitamente sono le transizioni deboli ad essere esplicitamente indicate graficamente nelle reti con una $$W$$ all'interno del rettangolo che le rappresenta: tutte le altre transizioni sono invece di default considerate forti.
+
+#### <big>Analisi di abilitazione in presenza di transizioni forti</big>
+
+Introdotta quindi la possibilità che esistano all'interno delle reti delle transizioni forti che devono necessariamente scattare entro il loro tempo massimo di scatto non è ora più tanto semplice fare __analisi di abilitazione__, vale a dire quel tipo di analisi che cerca di tracciare su una linea temporale gli intervalli durante i quali certe transizioni sono abilitate.
+
+Per capire perché, osserviamo la seguente rete Time Basic, che segue una semantica temporale mista:
+
+{% responsive_image path: assets/16_analisi-rete.png %}
+
+Analizzando localmente le singole transizioni, come se avessero tutte semantica temporale debole, si può ottenere il seguente diagramma temporale di abilitazione:
+
+{% responsive_image path: assets/16_analisi-1.png %}
+
+Tuttavia, questo diagramma è __scorretto__.
+La presenza di una transizione forte che deve scattare entro il tempo 10, ovvero T2, non ci permette di dire nulla oltre tale tempo, in quanto _il suo scatto potrebbe disabilitare altre transizioni_.
+Questo era vero anche per la transizione debole T1, ma il suo essere debole permetteva comunque di ignorare tale eventualità nella prospettiva che la transizione, pur potendo, non scattasse: questo tipo di ragionamento non è però purtroppo più possibile in semantica temporale forte.
+
+In sostanza, __le transizioni forti bloccano il nostro orizzonte temporale__. \\
+Ecco dunque che il vero diagramma temporale di abilitazione della rete è il seguente:
+
+{% responsive_image path: assets/16_analisi-2.png %}
 
 ## Modellare un passaggio a livello con una rete di petri
+
+<!-- Fare la review da qui! Grazie, review solitario -->
 
 -- img
 
