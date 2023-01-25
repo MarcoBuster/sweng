@@ -119,7 +119,7 @@ Una rete Time Basic è una __6-tupla__ del tipo $$\langle P, T, \Theta, F, tf, m
 - $$tf$$ è una funzione che associa ad ogni transizione $$t \in T$$ una __funzione temporale__ $$\operatorname{tf_{t}}$$ che data in input la __tupla abilitante__ $$\bf{en}$$, ovvero l'__insieme dei timestamp__ dei gettoni scelti per l'abilitazione nel preset, restituisce un __insieme di tempi di scatto possibili__:
 
   $$\operatorname{tf_{t}}(en) \subseteq \Theta$$
-  
+
   Per esempio, se per una transizione $$t$$ i tempi di scatto sono nell'intervallo $$[min, max]$$, allora $$\operatorname{tf_{t}}(en) = \{r \, \vert \, min \leq r \leq max\}$$.
 
 - $$m_0$$ è un multiset che esprime la __marcatura iniziale__: si tratta cioè di una funzione che ad ogni __posto__ associa un insieme di coppie __timestamp-molteplicità__ che indicano il numero di gettoni con tale timestamp all'interno del posto:
@@ -270,9 +270,9 @@ Ecco dunque che il vero diagramma temporale di abilitazione della rete è il seg
 
 <!-- Fare la review da qui! Grazie, review solitario -->
 
--- img
+{% responsive_image path: assets/16_passaggio-a-livello.png %}
 
-abbiamo parlato 2 famiglie di linguaggi , quelli operativi e quelli relazionali
+Esistono due famiglie di linguaggi , quelli operativi e quelli relazionali
 
 dichiarativi : linguaggi logici , vanno ad indicare le proprietà che deve avere il nostro sistema
 
@@ -289,7 +289,7 @@ Soluzione:
 
 2 parti del sistema: treno , passaggio a livello
 
--- img 2
+{% responsive_image path: assets/16_passaggio-a-livello-soluzione.png %}
 
 la cosa che mette insiemde queste due parti del sistema è il fatto che perchè venga aperto qualcosa devo essere sicuro che sia uscito il treno , perchè venga chiesto di chiudere qualcosa deve essere segnato il treno è entrato in r .
 
@@ -301,7 +301,11 @@ non posso mettere un test di entrata e uscita da chiuso a entra in l , perchè c
 
 Per far questo dobbiamo intredurre i tempi
 
--- img3
+{% responsive_image path: assets/16_passaggio-a-livello-con-tempi.png %}
+
+E la rete associata a questo schema è la seguente
+
+{% responsive_image path: assets/16_passaggio-a-livello-con-tempi-soluzione.png %}
 
 per far questo dobbiamo ragionare sui tempi , abbiamo ragionato fin ad ora su zone e aree, da quando cè il sensore e si arriva l si ha un tempo t1, annalizziamo che c'è un limite di velocità dunque d'orario che deve rispettare , noto il limite di velocità che deve mantere,da li deriviamo il tempo minimo di percorrenza del treno nel lasso di tempo [sensore: i] è t1.
 
@@ -317,20 +321,20 @@ Chiamo il tempo G il tempo di chiusora del passaggio a livello
 
 il ci dovrà t2 unità di tempo e puo aspettare un y di signalazione di uscita , t2 è poco affidabile, magari è in una falltollarenge dove controllo se t2+ numero alto no passa il treno creao un errore.
 
-t2 è un dato superfluo , non mi serve per dare la risposta, l abbiamo messo 
+t2 è un dato superfluo , non mi serve per dare la risposta, l abbiamo messo
 
 quando il segnale mi arriva posso rialzare la sbarra
 
 t1-G deve essere positivo. perchè altrimenti arriva il treno e la sbarra non è ancora abbassata.
 
  Questa rete sta usando una semantica temporale forte.
- 
+
  nel momento in cui devo controllare un sistema , avere un tempo indefinito ci obliga ad avere una semantica forte.
- 
+
  oltre al sistema se modelliamo anche l ambiente è piu facile avere una semantica debole dato che abbiamo meno controllo della situazione.
- 
+
  il rischio di questo sistema è il fatto che ho dato per scontanto il fatto che io lavori solo con un treno, potrebbe essere sia interpretata come errore di specifiche o errore di cose non espresse,dunque la nostra soluzione non è corretta.
- 
+
 si potrebbe far si che non puo entrare un secondo treno fino a quando non è uscito quello precedente , come se ci fosse un semaforo entraInR è rosso fino a quando non esce da l.
 
 se ho un treno esce e la zona è tutta libera e io cerco di chiudere prima che si sia aperta il treno mozza qualche persona.
@@ -338,7 +342,7 @@ possiamo far si che il treno si riabbassi appena un altro treno entraInR, prendi
 
 Oppure per ottimizzare facciamo abbasare la sbarra anche se sta aprendo ed è a metà.
 
-questa rete potremmo simularla , potremmo costruire l albero di raggiungibilità. 
+questa rete potremmo simularla , potremmo costruire l albero di raggiungibilità.
 Però prima bisogna definirlo per poterlo fare.
 
 ## Fine esempio
@@ -352,7 +356,7 @@ una rete di questo livello tra i campi di una classe avremo il campo che si chia
 Sintatticamente la parte di avere una rete con un certo contenuto informativo lo posso rappresentare.
 
 dire che posso modellare come concetto secondario il tempo con semantica debole vuol dire che deve rispettare:
- 
+
  - Chronos + assiomi 1,3 = WTS(weak time semantic), marcatura iniziale e definizione dei tempi di scatto(la guardia).
  - chronos + assiomi 1,2,3 = MWTS(monotonic weak time semantic), deve avanzare e mai tornare indietro, prendiamo un posto lo mettiamo in incresso e uscita a tutte le transizione in quel posto c'è sempre un getto con un tempo che è l ultimo scatto, visto che tutte le transizioni non possono scattare ad un tempo precendente a un gettone che hanno in ingresso. il gettono che forza l ultimo scatto porta alla monotonicità.Per far cio il costo è ancora accettabile.
  - chronos + assiomi 1,2,3,4,5 = STS, l interazione fra le varie entità è molto piu complicato dato che si basa su molti piu parametri in confronto dall' ultimo tempo di scatto, è possibile se c'è un posto in cui l informazione collegata a quel gettone in quelle transioni è l intera topologia di quella rete e l intero stato di quella rete.
@@ -362,7 +366,7 @@ Questo non vuol dire che non sia utile mettere insieme i linguaggi semanticament
 - aspetti temporali (TB net), il timestamp gestito tramite le funzioni Tmin e Tmax
 - Dipendenze di aspetti funzionali da aspetti temporali , posso ragionare in maniera piu sensata ai problemi
 
-immagine slide 9
+{% responsive_image path: assets/16_HLTPNs.png %}
 
 sul esempio del sistema controaerea: se aggiungo la variabile del tempo, la variabile dipende  dalla velocità dei due oggetti , e non piu' in modo arbitrario, non sappiamo piu' solo in che tempo siamo ma anche altre informazioni del sistema diventano temporizzate. Queste reti qua sono piu' complesse , ma si nota che la parte complessa rimane quella temporale , i problemi rimangono gli stessi , se noi defianiamo delle tecniche di analisi per le reti time basic che ragionano sulla parte temporale, queste poi sono mutuabili in maniera identica sulle reti di alto livello temporizzate, perchè sono 2 aspetti ortogonali, la complessità rimane uguale nei due casi , ed è la parte piu' complessa dei due modelli. Appunto per questo i sistemi realtime sono molto piu' critici.
 
@@ -378,7 +382,7 @@ Funzioni temporali , assumiamo che tf_t sia un intervallo con estremi inclusi es
 
 formula latex slide 12
 
-immagine pag 13
+{% responsive_image path: assets/16_esempio_albero_raggiungibilita_reti_temporizzate.png %}
 
 Sample Reachability Tree
 
@@ -386,65 +390,75 @@ questa rete che abbiamo già studiato che aveva una transizione weak time semant
 S0: Marcatura: µ (P1) = {τ1} µ (P2) = {τ0} µ (P3) = {τ0} , C0 := 0 ≤ τ0 ∧ τ0 ≤ 10 ∧ τ0 ≤ τ1 ∧ τ1 ≤ τ0 + 15 , dunque adesso abbiamo uno stato creato con una sua definizione, ne prendiamo uno e indentifichaimoi gli enabling, S1: Marcatura: µ (P3) = {τ0} µ (P4) = {τ2} ,C1 := C0 ∧ τ2 ≤ τ0 + 5 ∧ τ1 ≤ τ ,  non ragiona su valori numeri ma su valori simbolici , almeno siamo sicuro che da s0 abbiamo le evoluzioni di tutte e 3 le transizioni,adesso vogliamo creare i nodi che vengono creati seguendo le possibili evoluzioni dunque Aggiornamento di marcatura e
 vincoli S2: Marcatura: µ (P3) = {τ0} µ (P5) = {τ3},C2 := C0 ∧ τ3 ≥ τ1 + 8 ∧ τ3 ≤ τ0 + 10, alla fine è lo stesso ragionamento che faccio per cercare gli enabling, se trovo vincoli che si scontrano si a disabilitare la transizione, per l S3: Marcatura: µ (P1) = {τ1} µ (P2) = {τ0} µ (P6) = {τ4},C3 := C0 ∧ τ4 ≥ τ0 + 3 ∧ τ4 ≤ τ0 + 15 ∧ τ4 ≥ τ1 ∧ ( τ4 ≤ τ0 + 10 ∨ τ1 > τ0 + 2 ), è piu complicata perchè ha dei vincoli dati anche dalle altre transizioni dunque dovrà aspettare lo scatto di s2 a meno che non sia disabilitata.
 
-immagine slide 14
+{% responsive_image path: assets/16_esempio_albero_raggiungibilita_reti_temporizzate-grafico.png %}
+
 notiamo che t2 non è abilitata , dunque non ha influenza sulle altra transizioni e qui t3 è molto piu' abilitata, t1 non ha influenza perchè è debole , dunque quello che accade è che dobbiamo dire che deve essere minore di τ0 + 4 oppure il suo tempo è vuoto ed ecco perchè il vincolo risulta molto piu complicato.
 
 allora lo scatto simbolico di una transizione t crea uno stato simbolico caratterizzato dal vincolo Cn : formula latex slide 15, la soddisfacibilità del vincolo stabilice anche la abilitazione delle transizione.
 
-Dunque se andiamo a rivedere il calcolo 
+Dunque se andiamo a rivedere il calcolo
 
 nel caso s1 dobbiamo anche aggiungere ∧ (τ2 ≤ τ0 + 10 ∨…) ∧ (τ2 ≤ τ0 + 15 ∨…)  nel caso s2 dobbiamo aggiungere ∧ (τ3 ≤ τ0 + 15 ∨…), invece nel caso s3 dobbiamo aggiungere  ( τ4 ≤ τ0 + 10 ∨ τ1 + 8 > τ0 + 10 ∨ τ1 > τ0 + 10), andando a mutare la parte della dipendenza da t2 con τ4 ≥ τ1.
 
-dunque 
+dunque
 
 T1 aggiunge τ1 ≤ τn ∧ τn ≤ τ0 + 5 ∧ τn ≥ τ4 ∧ ( τn ≤ τ0 + 10 ∨ τ0 + 10 < τ1 + 8 ∨ τ0 + 10 < τ4 )
 T2 aggiunge τ1 + 8 ≤ τn ∧ τn ≤ τ0 + 10 ∧ τn ≥ τ4
 
 dunque T1 è abilitata solo se T1 è abilitata se τ4 ≤ τ0 + 5  e T2 è abilitata se τ1 ≤ τ0 + 2, troviamo un caso è solo abilitato T1: τ0 = 6, τ1 = 9, τ4 = 10, un caso in cui è solo abilitata T2: τ0 = 6, τ1 = 7, τ4 = 15, un caso in cui sono entrambe abilitate : τ0 = 6, τ1 = 7, τ4 = 10, è un caso finale in cui non c'è nessuna evoluzione (deadlock) : τ0 = 6, τ1 = 9, τ4 = 17.
 
-T1,T2,T3 verranno marcati in base ai loro livelli di abilitazione, non abbiamo una forma normale per rappresentare questi stati , dunque non possiamo confrontare stati e scoprire se li abbiamo già visitati come avevamo fatto con gli alberi di copertura precedenti, abbiamo un albero infinito, apparrentemente inutile , puo capitare che faccia simultaneamente la verifica mentre costruisce i vari stati , dunque costruire fino al punto che mi interessa. Possiamo verificare prorità entro un limite finito di tempo, bounded invariance : qualcosa che non cambia ed è sempre vera, bounded liveness: qualcosa che raggiungero con i miei stati e queste cose posso verificarle in un tempo limitato di tempo. 
+T1,T2,T3 verranno marcati in base ai loro livelli di abilitazione, non abbiamo una forma normale per rappresentare questi stati , dunque non possiamo confrontare stati e scoprire se li abbiamo già visitati come avevamo fatto con gli alberi di copertura precedenti, abbiamo un albero infinito, apparrentemente inutile , puo capitare che faccia simultaneamente la verifica mentre costruisce i vari stati , dunque costruire fino al punto che mi interessa. Possiamo verificare prorità entro un limite finito di tempo, bounded invariance : qualcosa che non cambia ed è sempre vera, bounded liveness: qualcosa che raggiungero con i miei stati e queste cose posso verificarle in un tempo limitato di tempo.
 
 Vorremmo raggiungere dei grafi , dove il primo passo è arrivare a grafi aciclici per poi avvicinarci a quelli ciclici, se riusciamo a scordarci la sotria di come arriviamo a un nodo è possibile ritrovare degli stati , dunque come siamo arrivati ad arrivare ad una certe marcatura , facendo così riusciamo ad arrivare ad un grafo aciclico , perchè il terzo assioma proibisce di avere eventi infiti in un tempo finito in s0 dato che s0 è finito, pero' possiamo lo stesso muoverci verso i grafi aciclici semplificando dei constraints , esprimendo il costraint solo in termini della marcatura corrente, rimappando i costraint indiretti, dunque non dovrei associarli a nulla, dunque trasformare : µ (P4) = {τ7} µ (P6) = {τ4},C6 := 0 ≤ τ0 ∧ τ0 ≤ 10 ∧ τ0 ≤ τ1 ∧ τ1 ≤ τ0 + 15 ∧ τ4 ≤ τ0 + 15 ∧ τ1 ≤ τ4 ∧ τ4 ≥ τ0 + 3 ∧ (τ4 ≤ τ0 + 10 ∨ τ1 > τ0 + 2) ∧ τ7 ≤ τ0 + 5 ∧ τ4 ≤ τ7 , in µ (P4) = {τ2} µ (P6) = {τ1},C6 := τ1 ≥ 3 ∧ τ1 ≤ τ2 ∧ τ2 ≤ τ1+ 2 ∧ τ2 ≤ 15. rinnominando le mie marcature(τ4 è diventato τ1).
 
-immagine matrice pag 22
+## Algoritmo Floyd
+
+<!-- Queste 4 immagini sono da disporre durante la spiegazione dell'algo di floyd -->
+
+{% responsive_image path: assets/16_Floyd-grafo-1.png %}
+{% responsive_image path: assets/16_Floyd-grafo-2.png %}
+{% responsive_image path: assets/16_Floyd-grafo-3.png %}
+{% responsive_image path: assets/16_Floyd-metrici.png %}
 
 questa cosa è fattibile applicando semplicemente l'algoritmo di Floyd, dove abbiamo una matrice dove mettiamo i nostri vincoli: A+2 <= B <= A+ 5,B <= C <= B + 6, posso togliere B mantenendo i vincoli , applicando floyd , prendendo la matrice basta trovare la relazione tra a e c , sommo le due disequazioni e trovo che a-b <= -2 e b-c <= 0 , scopro meccanicamente(applicando floyd) che converge.
 
+### Esempio caldaia:
+{% responsive_image path: assets/16_esempio-caldaia.png %}
 
-Esempio:
-rete di un caldaia immagine pag 24
+{% responsive_image path: assets/16_esempio-caldaia-parte.png %}
 
 tutto il sistema mira a guardare se la valvola è aperta(esce gas) e non c'è la fiamma faccio dei controlli dato che altrimenti salterebbe tutto in aria(se non so da quanto tempo c'è il gas aperto), analizziamo la parte sulla fiamma immagine slide 25 , notiamo che già questa singola parte ha stati infiniti , ma dato che abbiamo semplificato l uguaglianze tra gli stati, cerchiamo di contenere uno stato dentro un altro , Stato A è contenuto nello stato B se e solo se tutte le marcature rappresentate da A sono rappresentate anche da B(relazione di inclusione tra stati), dunque avranno lo stesso assegnamento di timestamp e C_A implica C_B, questo quando noto che mi va bene inglobare in uno stato un altro stato dato che coesistono tutte le volte che è vero A è vero anche B.
 
-Esempio immagine slide 27
+### Esempio inclusione semplice
+
+{% responsive_image path: assets/16_esempio-inclusione-semplice.png %}
 
 nella rete scatta t1 mi porta nello stato una volta normalizzato è avere t0 >=1 e il prossimo scatto con t0 >=2 e cosi' via , questo vuol dire che senza inclusione genererebbe infiniti stati (stessa marcatura ma con diversi vincoli, C1: T0 >= 1 , CN: Tn >= n).
 
-immagine slide 28 
+{% responsive_image path: assets/16_caldaia-grafico.png %}
+
 con questa piccola verifica siamo riusciti a condenzare un albero infiniti in un grafo finito, tuttavia non è abbastanza per il gas burner, notiamo che ci sono dei ricongiungimenti però ci sono delle costanti alte, abbiamo scale diverse ed abbiamo dei riferimenti sui tempi assoluti e questo non mi permette di trovare stati simili. abbiamo bisogno di osservare se le funzioni temporali non fanno riferimento a tempi assoluti, per essere capre di indentificare ciò che accade a partire da una marcatura bastano i constraint relativi tra i timestamp , ci basta sapere le relazione tra un gettone e un altro.
 
-esempio su tempi relativi slide 30
+### Esempio tempi relativi
+{% responsive_image path: assets/16_esempio-tempi-relativi.png %}
+
+{% responsive_image path: assets/16_dimenticare-tempi-assoluti.png %}
 
 in questo caso lo stato non include quello successivo , pero' se mi accorgo che non gli interessa di un tempo assoluto , considero i tempi costanti come variabili che possono essere eliminate dato che mantenere i riferimenti ai tempi assoluti genererebbe infiniti stati. questa modifica ci aiuta molto a semplificare la situazione ma non è abbastanza slide 31, ma abbiamo ancora dei tempi assoluti dato che ci sono i gettoni morti che non vengono eliminati, dunque si introducce il Time Anonymous Timestamp il quale dice che se il timestamp associato a un gettone in una marcatura M non verrà mai usato per stabilire come evolverà la rete a partire da quella marcatura, allora è possibile anonimizzare il tempo di tale gettone.
 
-esempio di time Anonymous slide 33 immagine
+### Esempio time anonymous
+{% responsive_image path: assets/16_esempio-time-anonymous.png %}
 
 ci accorgiamo che se scatta T2 abbiamo finito , toglie 2 gettoni e non ne crea, se scatta t1 consuma e rimette un nuovo gettone in p1 , per cui p2 rimane li e di seguito in qualsiasi stato verranno marcati sul fatto che p2 sia vuoto, dunque basta dimenticasi cosa c'è in p2 , quello che accade è che passo da uno stato dove ho p2 che marca in maniera errata i vari stati ad uno stato dove semplifico la situazione anonimizzando i tempi anonimi.
 
 se uniamo queste 3 tecniche appena fatte dunque l inclusione, i tempi relativi e i tempi anonimi arriviamo ad un grafo finito. immagine slide 35.Troviamo soluzioni bounded.
 
+{% responsive_image path: assets/16_perdita-informazioni.png %}
+
+{% responsive_image path: assets/16_perdita-informazioni-2.png %}
+
+
 Tuttavia abbiamo perso delle informazioni, con l inclusione abbiamo possibilmente creato dei cammini non percorribili (immagine slide 36), perdo delle relazioni precise tra gli stati per via dei vincoli relativi, possiamo arricchire le informazioni sugli archi per non perdere tutte le informazioni (immagine slide 37) , invece per via dei tempi anonimi vado a non sempre verificare raggiungibilità di una marcatura definita da vincoli sui timestamp, perdo questa informazione cerco di rieseguirlo per vedere cosa avveniva nel caso opposto in caso di necessità di analisi , dunque per concludere siamo passati dal problema di avere gettoni che avevano una informazione che li rendeva distinguibili a gettoni che hanno tempo TA a rendeli equivalenti(anonimizzati) e quindi rappresentabili globalmente da un numero.
 
 non ancora dimostrato:
 nelle reti temporizzate se sono non limitate significa che non sono limitate sul numero di gettoni TA che possono generare.
-
- 
- 
-  
-
-
-
-
-
-
-
