@@ -182,7 +182,7 @@ Fortunatamente per noi esiste un teorema che afferma che _per ogni sequenza di s
 Non si tratterà di sequenze uguali, ma entrambe le sequenze produrranno la __stessa marcatura finale__.
 Questo è un enorme vantaggio, in quanto ciò ci permette di infischiarcene della monotonicità degli scatti durante l'analisi della rete, potendo così sfruttare la __località__ e conseguentemente le __tecniche di analisi per le reti di Petri__ (ad alto livello) già viste in precedenza.
 
-##### <big>Esempio di traduzione</big>
+##### <big><u>Esempio di traduzione</u></big>
 
 Si prenda in esame la rete in figura:
 
@@ -266,148 +266,194 @@ Ecco dunque che il vero diagramma temporale di abilitazione della rete è il seg
 
 {% responsive_image path: assets/16_analisi-2.png %}
 
-## Modellare un passaggio a livello con una rete di petri
+# Analisi delle reti Time Basic
 
-<!-- Fare la review da qui! Grazie, review solitario -->
+Definite le reti Time Basic in ogni loro aspetto è dunque arrivato il momento di __analizzarle__.
 
-{% responsive_image path: assets/16_passaggio-a-livello.png %}
+Esattamente come le reti di Petri, infatti, le reti TB fanno parte di quei __linguaggi operazionali__ utilizzati per illustrare il funzionamento di un sistema senza entrare nei dettagli della sua effettiva implementazione ($$\neq$$ _linguaggi dichiarativi/logici, che si usano invece per costruire il sistema a partire dalle proprietà richieste_).
+Visto questo ruolo, è necessario possedere una serie di __strumenti di analisi__ specifici che permettano di "simulare" il funzionamento della rete per comprenderne l'evoluzione e le proprietà: ciò appare particolarmente evidente se si ricorda che le reti TB vengono spesso utilizzate per modellare sistemi _Hard Real-Time_ in cui si deve avere la __certezza__ del fatto che il sistema rispetterà tutta una serie di caratteristiche prima ancora di iniziare i lavori.
 
-Esistono due famiglie di linguaggi , quelli operativi e quelli relazionali
+## Reti TB come reti ad Alto Livello?
 
-dichiarativi : linguaggi logici , vanno ad indicare le proprietà che deve avere il nostro sistema
+Ma è davvero necessario sviluppare un'intera serie di nuove tecniche di analisi specifiche per le reti Time Basic, o è possibile riutilizzare almeno in parte metodologie già discusse?
 
-operazionali: sono tipi di linguaggi che a modellare fisicamente una possibile implementazione/rappresentazione del nostro sistema senza vincolare di come la struttura va fatta.Appunto è interpretata come una modellizazione di riferimento , agli effetti esterni si dovrà comportare seguendo il modello.
+Si potrebbe infatti immaginare di considerare le reti TB come un tipo particolare di __reti ad Alto Livello__ (ER).
+Come abbiamo già accennato, questo tipo di reti permettono infatti ai gettoni di avere un __qualunque contenuto informativo__ e di definire le transizioni come una coppia __predicato-azione__: il predicato descrive la condizione di abilitazione della transizione in funzione dei valori dei gettoni nel preset, mentre l'azione determina che valore avranno i gettoni creati nel postset. \\
+Volendo modellare il __tempo come concetto derivato__, ovvero non delineato esplicitamente ma che emerga comunque dal _funzionamento_ della rete, si potrebbero quindi creare delle reti ad Alto Livello con le seguenti caratteristiche:
 
-Se noi facciamo una rete di petri dove mettiamo 50 stati da una parte, 30 da un altra, non vuol dire che nel codice avro' una classe con il sottoinsieme degli stati. Significa che il programma si dovrà comportare come esso.
+- __contenuto informativo dei gettoni__: un'unica variabile temporale __chronos__ che contiene il timestamp della loro creazione;
+- __predicati delle transizioni__: funzioni che controllano i timestamp dei gettoni nel preset e i propri tempi di scatto per determinare l'abilitazione o meno;
+- __azioni delle transizioni__: generazione di gettoni dotati tutti dello _stesso dato temporale_, il quale è _non minore dei timestamp di tutti i gettoni nella tupla abilitante_.
 
-L utilità di queste specifiche scritte in maniera formale oltre a essere per la comunicazione con il cliente(se fosse solo per questo gli aprocci agile magari con attenzione al vocabolario delimitandole ad un certo significato(no sinonimi) sarebbe sufficiente), questo linguaggio piu formale e logico è che posso ragionarci sopra in modo molto più automatica, posso avviare fasi di verifica e convalida prima ancora di iniziare a scrivere il codice. quei pericoli di fraintendimenti di avere interpretato male o di non aver capito un problema possono essere risolti.
+Con queste accortezze è possibile riprodurre i timestamp e le regole di scatto di una rete TB.
+Come sappiamo bene, tuttavia, questo non basta per modellare il _concetto_ di tempo: per avere un'espressività simile a quella delle reti Time Basic è infatti necessario anche il rispetto di una __semantica temporale__ e, in particolare, di quella più stringente, ovvero la semantica temporale forte (STS).
 
-Problema: Passaggio a livello , con sensore prima del passaggio , noi dovevamo garantire che quando passava il treno noi abbasavamo la sbarra.
-un secondo sensore ci avvisava del uscita del treno.
+Nelle reti ad Alto Livello bisognerà dunque far rispettare i cinque assiomi temporali perché la traduzione da reti TB a reti ER sia completa.
+Vediamo dunque come ciò potrebbe essere fatto:
 
-Soluzione:
+- gli assiomi __A1__ e __A3__ sono sufficientemente semplici da modellare all'interno dei predicati delle transizioni, rendendo così la __semantica temporale debole__ rappresentabile nelle reti ad Alto Livello;
 
-2 parti del sistema: treno , passaggio a livello
+- l'assioma __A2__ è già più complesso da realizzare, in quanto richiede che lo scatto di una transizione generi dei gettoni con un timestamp maggiore di quello di tutti gli altri gettoni nella rete (_imponendo così che il tempo avanzi_).
+  Tuttavia tale limite può essere aggirato con l'aggiunta di un __posto globale__ contenente il __gettone dell'ultimo scatto__ e aggiunto al preset di ogni transizione: in questo modo il gettone nel posto globale rappresenterà il _tempo corrente della rete_ e imporrà che i nuovi gettoni generati abbiano timestamp maggiore di esso.
+  In questo modo una rete ER può realizzare anche la __semantica temporale monotonica debole__;
 
-{% responsive_image path: assets/16_passaggio-a-livello-soluzione.png %}
+- gli assiomi __A4__ e __A5__, invece, si rivelano __estremamente problematici__: essi richiedono infatti che ciascuna transizione conosca il massimo tempo di scatto di tutte le altre transizioni per "decidere" se poter scattare oppure no.
+  I predicati delle transizioni dovrebbero cioè avere in input l'intero stato della rete: sebbene questa cosa sia _teoricamente_ realizzabile con l'aggiunta di un posto globale in ingresso e uscita da ogni transizione in cui un gettone contenga come _contenuto informativo l'intero stato della rete_, nella pratica cio è __irrealizzabile__.
 
-la cosa che mette insiemde queste due parti del sistema è il fatto che perchè venga aperto qualcosa devo essere sicuro che sia uscito il treno , perchè venga chiesto di chiudere qualcosa deve essere segnato il treno è entrato in r .
+Come si vede, dunque, la necessità di modellare la __semantica temporale forte__ fa sì che __non si possa ridurre le reti TB a un caso particolare delle reti ER__, perdendo così anche la possibilità di utilizzare le tecniche di analisi già sviluppate per esse.
 
-se io provassi a simulare questa rete, non avrei solo i comportamenti voluti.
+### Reti Time Petri ad Alto Livello (HLTPN)
 
-questa di per se non puo funzionare se non ha una informazione temporale, perchè se per eroore faccio scattare entraInL il treno passa con le sbarre alzate.
-
-non posso mettere un test di entrata e uscita da chiuso a entra in l , perchè corrisponderebbe a dire al treno se sei su l e non è chiuso fai una frenata per inchiodare, è irreliastico , qui devo essere sicuro che quando il treno passa deve trovare il verde.
-
-Per far questo dobbiamo intredurre i tempi
-
-{% responsive_image path: assets/16_passaggio-a-livello-con-tempi.png %}
-
-E la rete associata a questo schema è la seguente
-
-{% responsive_image path: assets/16_passaggio-a-livello-con-tempi-soluzione.png %}
-
-per far questo dobbiamo ragionare sui tempi , abbiamo ragionato fin ad ora su zone e aree, da quando cè il sensore e si arriva l si ha un tempo t1, annalizziamo che c'è un limite di velocità dunque d'orario che deve rispettare , noto il limite di velocità che deve mantere,da li deriviamo il tempo minimo di percorrenza del treno nel lasso di tempo [sensore: i] è t1.
-
-questa distanza del sensore con la messa a distanza adatta per darci il giusto preavviso per abbassare le sbarre.
-
-cè un tempo t2, che è il tempo che dovrà percorrere la zona.
-dispoenndo di queste 2 informazioni , possiamo arricchire la nostra specifica, ragionare con il cliente:
-che in EntrainR non mi devo far trovare impreparato e posso aspettare un tempo t [0,infinito] , invece quando entro inL so passerà un tempo x(che calcolerò in base alla velocità massima  del treno).
-
-non controllo i malfunziomenti sui sistema.
-
-Chiamo il tempo G il tempo di chiusora del passaggio a livello
-
-il ci dovrà t2 unità di tempo e puo aspettare un y di signalazione di uscita , t2 è poco affidabile, magari è in una falltollarenge dove controllo se t2+ numero alto no passa il treno creao un errore.
-
-t2 è un dato superfluo , non mi serve per dare la risposta, l abbiamo messo
-
-quando il segnale mi arriva posso rialzare la sbarra
-
-t1-G deve essere positivo. perchè altrimenti arriva il treno e la sbarra non è ancora abbassata.
-
- Questa rete sta usando una semantica temporale forte.
-
- nel momento in cui devo controllare un sistema , avere un tempo indefinito ci obliga ad avere una semantica forte.
-
- oltre al sistema se modelliamo anche l ambiente è piu facile avere una semantica debole dato che abbiamo meno controllo della situazione.
-
- il rischio di questo sistema è il fatto che ho dato per scontanto il fatto che io lavori solo con un treno, potrebbe essere sia interpretata come errore di specifiche o errore di cose non espresse,dunque la nostra soluzione non è corretta.
-
-si potrebbe far si che non puo entrare un secondo treno fino a quando non è uscito quello precedente , come se ci fosse un semaforo entraInR è rosso fino a quando non esce da l.
-
-se ho un treno esce e la zona è tutta libera e io cerco di chiudere prima che si sia aperta il treno mozza qualche persona.
-possiamo far si che il treno si riabbassi appena un altro treno entraInR, prendiamo un tempo cuscinetto, lo facciamo ripartire da una situazione stabile. Dunque il treno passerà solo se sono in una situazione stabile e sotto controllo.
-
-Oppure per ottimizzare facciamo abbasare la sbarra anche se sta aprendo ed è a metà.
-
-questa rete potremmo simularla , potremmo costruire l albero di raggiungibilità.
-Però prima bisogna definirlo per poterlo fare.
-
-## Fine esempio
-
-Potevamo fare a meno del tempo? dunque considerando il tempo come concetto derivato?
-
-non abbiamo guardato le reti ad alto livello , i gettoni hanno un contenuto informatico/dato arbitrariamente complesso (pure una classe per gettone). i gettoni gli distruggiamo e creiamo la nostra transizione deve guardare dentro i dati per farsene qualcosa ma il contenuto informatico è quello che io mi aspetto che sia abilitante alla transizione? la mia transizione scatta per un certo dato non per tutti i tipi di gettoni. Metto una ulteriore condizione per lo scatto della transizione ragionando sul contenuto informativi dei gettoni. Cosi' posso distruggerli in pace dato che gli ho analizzati , magari i gettoni che produciamo saranno uguali a quelli che distruggiamo , dunque abbiamo una guardia e una azione.
-
-una rete di questo livello tra i campi di una classe avremo il campo che si chiama tempo , variabile associata ai gettoni (chronos), i predicati determinano la possibilità di scatto di una transizione a partire dai valori dei gettoni, gli definisce la stessa funzione che prima esprimevamo come l insieme dei tempi di possibile scatto come guardia della mia transizione che lavora sui cui posti , le azioni determinano e garantiscono i valori dei gettoni creati, calcoleranno i tempi dei gettoni in uscita stando attenti a produrre lo stesso valore per i gettoni creati e devono essere non minori dei valori dei chronos(tempi) dei gettoni rimossi.
-
-Sintatticamente la parte di avere una rete con un certo contenuto informativo lo posso rappresentare.
-
-dire che posso modellare come concetto secondario il tempo con semantica debole vuol dire che deve rispettare:
-
- - Chronos + assiomi 1,3 = WTS(weak time semantic), marcatura iniziale e definizione dei tempi di scatto(la guardia).
- - chronos + assiomi 1,2,3 = MWTS(monotonic weak time semantic), deve avanzare e mai tornare indietro, prendiamo un posto lo mettiamo in incresso e uscita a tutte le transizione in quel posto c'è sempre un getto con un tempo che è l ultimo scatto, visto che tutte le transizioni non possono scattare ad un tempo precendente a un gettone che hanno in ingresso. il gettono che forza l ultimo scatto porta alla monotonicità.Per far cio il costo è ancora accettabile.
- - chronos + assiomi 1,2,3,4,5 = STS, l interazione fra le varie entità è molto piu complicato dato che si basa su molti piu parametri in confronto dall' ultimo tempo di scatto, è possibile se c'è un posto in cui l informazione collegata a quel gettone in quelle transioni è l intera topologia di quella rete e l intero stato di quella rete.
-
-Questo non vuol dire che non sia utile mettere insieme i linguaggi semanticamente deboli a quelli semanticamente forti, HLTPN(high level timed petri net) ,nel caso delle reti precedentemente usate si parlava di ER net(tunnel enviroment relationship net), le HLTPN possono modellare :
-- aspetti funzionali (ER net), tipici della verifica ad alto livello
-- aspetti temporali (TB net), il timestamp gestito tramite le funzioni Tmin e Tmax
-- Dipendenze di aspetti funzionali da aspetti temporali , posso ragionare in maniera piu sensata ai problemi
+Appurato che non è possibile tracciare un'equivalenza tra le reti TB e le reti ER viene dunque introdotto un modello ancora più completo, che racchiuda al suo interno sia gli __aspetti funzionali__ delle reti ad Alto Livello sia gli __aspetti temporali__ delle reti Time Basic: si tratta delle __reti Time Petri ad Alto Livello__ (_High-Level Time Petri Nets_, __HLTPN__).
 
 {% responsive_image path: assets/16_HLTPNs.png %}
 
-sul esempio del sistema controaerea: se aggiungo la variabile del tempo, la variabile dipende  dalla velocità dei due oggetti , e non piu' in modo arbitrario, non sappiamo piu' solo in che tempo siamo ma anche altre informazioni del sistema diventano temporizzate. Queste reti qua sono piu' complesse , ma si nota che la parte complessa rimane quella temporale , i problemi rimangono gli stessi , se noi defianiamo delle tecniche di analisi per le reti time basic che ragionano sulla parte temporale, queste poi sono mutuabili in maniera identica sulle reti di alto livello temporizzate, perchè sono 2 aspetti ortogonali, la complessità rimane uguale nei due casi , ed è la parte piu' complessa dei due modelli. Appunto per questo i sistemi realtime sono molto piu' critici.
+Come appare chiaro dalla figura, all'interno delle reti HLTPN __gli aspetti funzionali possono dipendere da quelli temporali e viceversa__, espandendo così incredibilmente le capacità rappresentative del modello.
+Si tratta di reti ovviamente molto complesse, anche se a dire il vero gran parte della complessità giunge dall'analisi della componente temporale: se riusciremo ad analizzare le reti temporizzate potremo riuscire ad analizzare anche le reti HLTPN.
 
-Analisi di reti temporizzate , solo aproccio dinamico
+## Analisi di raggiungibilità temporale
 
-Analisi di raggiunbilità, consiste nell enumerazioni degli stati finiti raggiungibili, potevamo dominare le reti non limitate con l 'albero di copertura pero' andando a perdere delle informazioni pero' riuscendo a mantere una struttura capece a rispondere a varie domande , i problemi che saltano subito fuori quando si parla di una rete temporizzata sono:
-- il momento che avviene lo scatto di una transizione puo' produrre infiniti stati che si differenziano tra loro per il tempo associati ai gettoni prodotti, stati tra di loro molto simili pero' il loro contenuto informativo è sempre diverso
-- la rete puo evolvere all'infinito , quindi il tempo avanza dunque gli stati sono sempre diversi , quindi l albero di raggiungibilità è infinito , dunque è un problema utilizzarlo, non puo essere trattato nella stessa maniera dele reti non limitate, perchè li il concetto di copertura stava sul fatto che i gettoni fossero anonimi, qui abbiamo gettoni che si distuinguono tra di loro.
+Rassegnatici dunque alla necessità di creare nuove tecniche di analisi specifiche per le reti temporizzate iniziamo a parlare di __analisi dinamica__ a partire dall'__analisi di raggiungibilità__, ovvero la tecnica con cui nelle reti di Petri classiche eravamo in grado di __enumerare gli stati finiti raggiungibili__.
 
-Rappresentazione simbolica degli stati , è una marcatura in termini di reti temporizzate, multiset di valori assegnati ad ogni posto , i vari valori dei vari gettoni per ogni posto ,  rappresenta un insime possibili stati con in comune lo stesso numero di gettoni in ogni posto (Marcatura P/T), uno stato simbolico dunque numerico è una coppia [µ, C], dove µ associa multiset di identificatori simbolici ai posti quindi associo degli identificatori invece di numeri, oltre agli insieme di simboli gli diamo C che sono i vincoli (dis)equazioni che rappresentano le relazioni tra gli identificatori simbolici.
+Provando ad adottare lo stesso approccio nei confronti delle reti TB ci si rende però subito conto di un enorme __problema__: le reti temporizzate hanno sempre __infiniti stati__, in quanto lo scatto di una singola transizione può produrre un'infinità di stati di arrivo che si differenziano unicamente per il timestamp dei gettoni generati.
+Sebbene la marcatura sia identica, le informazioni temporali legate ai gettoni sono differenti, distinguendo così ciascuno di tali stati della rete. \\
+Bisogna inoltre considerare che per sua stessa natura il tempo avanza, rendendo così le reti temporizzate in grado di __evolvere all'infinito__: anche raggiungendo una marcatura che non abilita alcuna transizione, la rete continua ad evolvere in quanto il _tempo corrente_ continua ad avanzare.
 
-Funzioni temporali , assumiamo che tf_t sia un intervallo con estremi inclusi esprimibili mediante espressioni lineari funzioni dei tempi dei token in ingresso e di tempi assoluti , fissiamo un tmin_t limite inferiore, tmax_t limite superiore che corrisponde a dire:
+Dovendo costruire un __albero di raggiungibilità__ questo sarebbe quindi sicuramente __infinito__, anche se in un modo diverso rispetto a quanto già visto per le reti non limitate: in quel caso infatti i gettoni non erano distinguibili, cosa che ci aveva permesso di raggrupparne un numero qualsiasi sotto il simbolo $$\omega$$, mentre in questo caso le differenze nei timestamp impediscono un simile approccio.
 
-formula latex slide 12
+Al contrario, per ottenere per le reti TB un'analisi simile all'analisi di raggiungibilità delle reti classiche è necessario __ridefinire__ completamente il concetto di __stato raggiungibile__.
 
-{% responsive_image path: assets/16_esempio_albero_raggiungibilita_reti_temporizzate.png %}
+### Stati simbolici
 
-Sample Reachability Tree
+Per riformulare il concetto stesso di raggiungibilità partiamo da innanzitutto da quello di __marcatura__: nelle reti temporizzate queste associavano infatti a ciascun posto un _multiset_ in cui ad ogni timestamp era associato il numero di gettoni con tale timestamp presente nel posto.
 
-questa rete che abbiamo già studiato che aveva una transizione weak time semantic, e due a strong time semantic, le prime due erano in concorrente per i gettoni in t1 t2 invece t3 indipendente, similmente come era l albero di copertura c'è la prima fase che è l inizializzazione che vuol dire costrire un nodo radice del nostro albero che corrisponde alla marcatura iniziale, quando la facciamo simbolica possiamo definire un insieme di marcature:
-S0: Marcatura: µ (P1) = {τ1} µ (P2) = {τ0} µ (P3) = {τ0} , C0 := 0 ≤ τ0 ∧ τ0 ≤ 10 ∧ τ0 ≤ τ1 ∧ τ1 ≤ τ0 + 15 , dunque adesso abbiamo uno stato creato con una sua definizione, ne prendiamo uno e indentifichaimoi gli enabling, S1: Marcatura: µ (P3) = {τ0} µ (P4) = {τ2} ,C1 := C0 ∧ τ2 ≤ τ0 + 5 ∧ τ1 ≤ τ ,  non ragiona su valori numeri ma su valori simbolici , almeno siamo sicuro che da s0 abbiamo le evoluzioni di tutte e 3 le transizioni,adesso vogliamo creare i nodi che vengono creati seguendo le possibili evoluzioni dunque Aggiornamento di marcatura e
-vincoli S2: Marcatura: µ (P3) = {τ0} µ (P5) = {τ3},C2 := C0 ∧ τ3 ≥ τ1 + 8 ∧ τ3 ≤ τ0 + 10, alla fine è lo stesso ragionamento che faccio per cercare gli enabling, se trovo vincoli che si scontrano si a disabilitare la transizione, per l S3: Marcatura: µ (P1) = {τ1} µ (P2) = {τ0} µ (P6) = {τ4},C3 := C0 ∧ τ4 ≥ τ0 + 3 ∧ τ4 ≤ τ0 + 15 ∧ τ4 ≥ τ1 ∧ ( τ4 ≤ τ0 + 10 ∨ τ1 > τ0 + 2 ), è piu complicata perchè ha dei vincoli dati anche dalle altre transizioni dunque dovrà aspettare lo scatto di s2 a meno che non sia disabilitata.
+Per evitare la difficoltà di distinguere tra gettoni con timestamp diversi viene introdotto nelle reti TB il concetto di __stato simbolico__, un oggetto matematico che sostituendo ai timestamp specifici degli identificatori simbolici dei gettoni permette di _rappresentare un __insieme di possibili stati__ con in comune lo stesso numero di gettoni in ciascun posto_ (esattamente come la marcatura delle reti classiche).
+
+Più formalmente, uno stato simbolico è una __tupla__ $$[\mu, C]$$, dove:
+
+- $$\mu$$ è la __marcatura simbolica__, che associa a ciascun posto un _multiset_ di __identificatori simbolici__ che rappresentano i timestamp dei gettoni in tale posto.
+  Timestamp uguali saranno rappresentati dallo stesso simbolo, anche se si trovano in posti diversi: questo permette di mantenere l'__identità__ tra timestamp;
+
+- $$C$$ è un sistema di __vincoli__ (_constraint_), ovvero equazioni e disequazioni che rappresentano le relazioni tra gli identificatori simbolici dei gettoni.
+  In questo modo è possibile mantenere le __relazioni__ tra i timestamp dei gettoni pur non rappresentando esplicitamente il loro valore.
+
+Un'esempio aiuterà a chiarire ogni dubbio.
+Immaginiamo di avere una rete TB con 3 posti $$(P1, P2, P3)$$, ciascuno con un solo gettone al loro interno, e la seguente marcatura iniziale: $$\langle \{0\}, \{1\}, \{0\} \rangle$$.
+Volendoci disfare dei timestamp espliciti dei gettoni, che tutto sommato ci interessano relativamente, dobbiamo __mantenere due informazioni__:
+
+- che i gettoni in $$P1$$ e $$P3$$ hanno lo _stesso timestamp_;
+- che il gettone in $$P2$$ ha _timestamp maggiore_ di 1 del timestamp dei gettoni negli altri due posti.
+
+Per fare ciò lo stato simbolico generato assegnerà lo stesso identificatore ai gettoni in $$P1$$ e $$P3$$ e espliciterà nei vincoli la relazione tra tempi.
+Otterremo dunque lo stato simbolico iniziale:
+
+$$\mu(P1)=\{\tau_0\}, \: \: \: \mu(P2)=\{\tau_1\}, \: \: \: \mu(P3)=\{\tau_0\}$$
+
+$$C_0: \: \: \: \tau_1=\tau_0+1$$
+
+Infine, ci si potrebbe accorgere che in realtà non ci interessa che il timestamp del gettone in $$P2$$ sia esattamente $$\tau_0+1$$, ma solamente che esso sia maggiore di $$\tau_0$$.
+Ecco dunque che spesso si mutano i vincoli in __disequazioni__:
+
+$$C_0: \: \: \: \tau_0<\tau_1$$
+
+### Albero di raggiungibilità temporale
+
+Utilizzando la definizione di stato simbolico appena vista è possibile costruire tramite un algoritmo un __albero di raggiungibilità temporale__, in cui gli stati distinguibili solo dai timestamp vengono condensati in stati simbolici che conservano però le _molteplicità_ dei gettoni nei posti e le _relazioni_ tra i timestamp.
+
+Prima di fare ciò, però, è necessario rinnovare un'assunzione già fatta in precedenza: anche in questa analisi assumeremo che le funzioni temporali $$tf_{t}$$ associate alle transizioni siano esprimibili come __intervalli con estremi inclusi__ $$\bf{[tmin_t, tmax_t]}$$, dove questi ultimi possono dipendere ovviamente dai timestamp dei token in ingresso nonché da tempi assoluti.
+
+Fatte queste premesse, possiamo partire a costruire effettivamente l'albero di raggiungibilità temporale di una rete TB secondo il seguente algoritmo:
+
+1. __Inizializzazione__: si trasforma la marcatura iniziale della rete in uno stato simbolico, introducendo una serie di vincoli che descrivano le (pre-)condizioni iniziali della rete.
+  Tale stato viene poi trasformato in un nodo, diventando la radice dell'albero, e aggiunto alla lista dei nodi da esaminare;
+
+2. __Scelta del prossimo nodo__: tra i nodi dell'albero non ancora esaminati si seleziona il prossimo nodo da ispezionare;
+
+3. __Identificazione delle abilitazioni__: in base allo stato simbolico rappresentato dal nodo si individuano le transizioni abilitate al suo interno;
+
+4. __Aggiornamento di marcatura e vincoli__: ciascuna transizione abilitata trovata viene fatta scattare generando un nuovo stato simbolico, che viene rappresentato nell'albero come nodo figlio del nodo considerato e aggiunto alla lista dei nodi da esaminare;
+
+5. __Iterazione__: si ritorna al punto 2.
+
+Di questo semplice algoritmo approfondiamo dunque le due fasi più interessanti: l'aggiornamento di marcatura e vincoli e l'identificazione delle abilitazioni.
+
+#### Aggiornamento di marcatura e vincoli
+
+Come si fa a __generare un nuovo stato simbolico__ a partire dallo stato simbolico corrente quando scatta una transizione abilitata?
+Sostanzialmente il processo si divide in due fasi: la __creazione e distruzione di gettoni__ e l'__espansione dei vincoli__.
+
+Il primo step è abbastanza semplice: è sufficiente distruggere i gettoni e i relativi simboli nel preset della transizione e generare nuovi gettoni nel suo postset, questi ultimi identificati tutti dallo __stesso nuovo identificatore simbolico__.
+
+La generazione di nuovi vincoli è invece più complessa.
+Essa deve infatti tenere in considerazione quattro diversi aspetti:
+
+- I __vecchi vincoli__ devono continuare a valere: essi esprimono infatti relazioni tra gli identificatori temporali che non possono essere alterate dallo scatto di una transizione;
+
+- Il __nuovo timestamp__ deve avere il __valore massimo__ nella rete: esso rappresenta infatti il tempo di scatto dell'ultima transizione scattata, e per monotonicità del tempo esso dovrà essere maggiore di tutti gli altri;
+
+- Il __nuovo timestamp__ dev'essere __compreso nell'intervallo__ dei possibili tempi di scatto della transizione scattata;
+
+- Il __nuovo timestamp__ dev'essere __minore del massimo tempo di scatto__ di tutte le __transizioni forti abilitate__ il cui intervallo di scatto non sia nullo: per la semantica temporale forte, infatti, se così non fosse la transizione non potrebbe scattare prima che tale transizione forte scatti (cambiando anche potenzialmente l'insieme delle transizioni abilitate).
+
+Tutte queste considerazioni devono essere condensate in un'__unica espressione logica__.
+Si dimostra quindi che _dato uno stato simbolico precedente avente vincoli $$C_n$$, detto $$maxT$$ il timestamp massimo all'interno della rete e $$\tau_{n+1}$$ l'identificatore simbolico dei gettoni generati dalla transizione $$t$$ è possibile definire i vincoli dello stato simbolico prodotto con la seguente __formula___:
+
+$$
+\boxed{
+\begin{align*}
+C_{n+1} = \: & C_n \wedge \tau_{n+1} \geq maxT \: \wedge tmin_t \leq \tau_{n+1} \leq tmax_t \\
+& \bigcap\limits_{t_{STS}}(tmax_{t_{STS}} < tmin_{t_{STS}} \vee tmax_{t_{STS}} < maxT \vee tmax_{t_{STS}} \geq \tau_{n+1} )
+\end{align*}
+}
+$$
+
+dove per $$t_{STS}$$ si intende una qualunque __transizione forte__ diversa da $$t$$; per __ciascuna__ di esse bisognerà infatti aggiungere la condizione tra parentesi, relativa appunto alla semantica STS.
+
+Tale catena di condizioni può ben presto diventare soverchiante, ma fortunatamente essa può essere semplificata sfruttando le __implicazioni__ e le proprietà degli operatori logici.
+In particolare:
+
+- se una condizione $$A$$ implica un'altra condizione $$B$$ con cui è in __AND__ ($$\wedge$$), allora la condizione __implicata__ $$B$$ può essere cancellata;
+- se una condizione $$A$$ implica un'altra condizione $$B$$ con cui è in __OR__ ($$\vee$$), allora la condizione __implicante__ $$A$$ può essere cancellata.
+
+##### <big><u><b>Identificazione delle abilitazioni</b></u></big>
+
+Al contrario di quanto ci si potrebbe aspettare, però, la creazione di questo nuova catena di vincoli non è relegata alla sola creazione di un nuovo stato simbolico, ma è invece necessaria anche per __identificare le transizioni abilitate__.
+Avendo infatti introdotto degli identificatori simbolici che mascherano i timestamp dei gettoni, capire se una transizione sia abilitata o meno non è più così facile.
+
+Tuttavia, è possibile dimostrare che _la __soddisfacibilità__ del vincolo generato da un eventuale scatto della transizione __implica__ la sua __abilitazione___: se esiste cioè un assegnamento di timestamp agli identificatori simbolici che __rende vero__ il vincolo allora la transizione è abilitata e può scattare.
+Il motivo di ciò appare evidente quando ci si accorge che nella generazione del vincolo abbiamo già tenuto in conto di tutti gli aspetti che avremmo osservato per stabilire se la transizione fosse abilitata o meno.
 
 {% responsive_image path: assets/16_esempio_albero_raggiungibilita_reti_temporizzate-grafico.png %}
 
-notiamo che t2 non è abilitata , dunque non ha influenza sulle altra transizioni e qui t3 è molto piu' abilitata, t1 non ha influenza perchè è debole , dunque quello che accade è che dobbiamo dire che deve essere minore di τ0 + 4 oppure il suo tempo è vuoto ed ecco perchè il vincolo risulta molto piu complicato.
+Proprio riguardo la soddisfacibilità viene poi fatta una distinzione a livello grafico nell'albero: essendo gli stati simbolici _insiemi_ di marcature è possibile che una transizione sia abilitata in alcune di esse mentre è disabilitata in altre. \\
+Quando questo succede, lo stato generato dalla transizione __potrebbe essere uno stato finale__, in quanto potrebbe aver disabilitato tutte le transizioni: ciò si comunica graficamente con un __nodo circolare__, mentre i nodi (e quindi gli stati) i cui vincoli sono __sempre soddisfacibili__ si indicano con dei __nodo rettangolari__.
 
-allora lo scatto simbolico di una transizione t crea uno stato simbolico caratterizzato dal vincolo Cn : formula latex slide 15, la soddisfacibilità del vincolo stabilice anche la abilitazione delle transizione.
+{% responsive_image path: assets/16_esempio_albero_raggiungibilita_reti_temporizzate.png %}
 
-Dunque se andiamo a rivedere il calcolo
+Alcuni operano poi una distinzione sulle frecce che collegano i nodi dell'albero: una freccia con punta nera indica che la transizione è sempre possibile, mentre una freccia con alla base un pallino bianco indica che per rendere possibile la transizione è stato violato qualche parte del vincolo, per cui non è detto che la transizione sia possibile in nessuna delle marcature rappresentate dallo stato simbolico.
 
-nel caso s1 dobbiamo anche aggiungere ∧ (τ2 ≤ τ0 + 10 ∨…) ∧ (τ2 ≤ τ0 + 15 ∨…)  nel caso s2 dobbiamo aggiungere ∧ (τ3 ≤ τ0 + 15 ∨…), invece nel caso s3 dobbiamo aggiungere  ( τ4 ≤ τ0 + 10 ∨ τ1 + 8 > τ0 + 10 ∨ τ1 > τ0 + 10), andando a mutare la parte della dipendenza da t2 con τ4 ≥ τ1.
+#### Proprietà _bounded_
 
-dunque
+Eseguendo l'algoritmo a mano per un paio di iterazioni ci si rende ben presto conto di una cosa: il processo __non termina__!
 
-T1 aggiunge τ1 ≤ τn ∧ τn ≤ τ0 + 5 ∧ τn ≥ τ4 ∧ ( τn ≤ τ0 + 10 ∨ τ0 + 10 < τ1 + 8 ∨ τ0 + 10 < τ4 )
-T2 aggiunge τ1 + 8 ≤ τn ∧ τn ≤ τ0 + 10 ∧ τn ≥ τ4
+Questo è dovuto al fatto che __non avendo una forma normale__ per i vincoli che permetta di confrontare tra di loro gli stati simbolici non è possibile stabilire se si sia già visitato o meno uno stato: i vincoli si allungano così sempre di più, creando sempre stati simbolici nuovi (almeno sulla carta).
 
-dunque T1 è abilitata solo se T1 è abilitata se τ4 ≤ τ0 + 5  e T2 è abilitata se τ1 ≤ τ0 + 2, troviamo un caso è solo abilitato T1: τ0 = 6, τ1 = 9, τ4 = 10, un caso in cui è solo abilitata T2: τ0 = 6, τ1 = 7, τ4 = 15, un caso in cui sono entrambe abilitate : τ0 = 6, τ1 = 7, τ4 = 10, è un caso finale in cui non c'è nessuna evoluzione (deadlock) : τ0 = 6, τ1 = 9, τ4 = 17.
+Si ottiene cioè un __albero infinito__.
+Nonostante ciò, tale albero è comunque particolarmente utile perché permette di __verificare proprietà entro un certo limite di tempo__: si parla per esempio di __bounded liveness__ e __bounded invariance__, delle caratteristiche molto preziose sopratutto per lo studio dei sistemi Hard Real-Time.
 
-T1,T2,T3 verranno marcati in base ai loro livelli di abilitazione, non abbiamo una forma normale per rappresentare questi stati , dunque non possiamo confrontare stati e scoprire se li abbiamo già visitati come avevamo fatto con gli alberi di copertura precedenti, abbiamo un albero infinito, apparrentemente inutile , puo capitare che faccia simultaneamente la verifica mentre costruisce i vari stati , dunque costruire fino al punto che mi interessa. Possiamo verificare prorità entro un limite finito di tempo, bounded invariance : qualcosa che non cambia ed è sempre vera, bounded liveness: qualcosa che raggiungero con i miei stati e queste cose posso verificarle in un tempo limitato di tempo.
+### Dall'albero al grafo aciclico
+
+#### Semplificare i vincoli: l'algoritmo di Floyd
+
+#### Inclusione tra stati
+
+#### Tempi relativi
+
+#### Tempi anonimi
+
+### Albero di copertura temporale?
+
+## Fine esempio
 
 Vorremmo raggiungere dei grafi , dove il primo passo è arrivare a grafi aciclici per poi avvicinarci a quelli ciclici, se riusciamo a scordarci la sotria di come arriviamo a un nodo è possibile ritrovare degli stati , dunque come siamo arrivati ad arrivare ad una certe marcatura , facendo così riusciamo ad arrivare ad un grafo aciclico , perchè il terzo assioma proibisce di avere eventi infiti in un tempo finito in s0 dato che s0 è finito, pero' possiamo lo stesso muoverci verso i grafi aciclici semplificando dei constraints , esprimendo il costraint solo in termini della marcatura corrente, rimappando i costraint indiretti, dunque non dovrei associarli a nulla, dunque trasformare : µ (P4) = {τ7} µ (P6) = {τ4},C6 := 0 ≤ τ0 ∧ τ0 ≤ 10 ∧ τ0 ≤ τ1 ∧ τ1 ≤ τ0 + 15 ∧ τ4 ≤ τ0 + 15 ∧ τ1 ≤ τ4 ∧ τ4 ≥ τ0 + 3 ∧ (τ4 ≤ τ0 + 10 ∨ τ1 > τ0 + 2) ∧ τ7 ≤ τ0 + 5 ∧ τ4 ≤ τ7 , in µ (P4) = {τ2} µ (P6) = {τ1},C6 := τ1 ≥ 3 ∧ τ1 ≤ τ2 ∧ τ2 ≤ τ1+ 2 ∧ τ2 ≤ 15. rinnominando le mie marcature(τ4 è diventato τ1).
 
