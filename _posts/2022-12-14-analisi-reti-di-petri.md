@@ -175,15 +175,15 @@ A questo punto risulterà normale chiedersi se sia possibile creare una struttur
 _Una marcatura $$M$$ __copre__ una marcatura $$M'$$ se e solo se:_
 
 $$
-\forall p \in P (p) \quad  M(p) \geq M'(p).
+\forall p \in P \quad  M(p) \geq M'(p).
 $$
 
 Ovvero _se per ogni posto in $$P$$, la marcatura $$M(p)$$ è maggiore o uguale a $$M'(p)$$_.
 
-Al contrario, $$M$$ si dice __copribile__ da $$M'$$ se:
+Al contrario, $$M$$ si dice __copribile__ da $$M'$$ se e solo se:
 
 $$
-\exists M\smash{''} \! \in R(M') \quad M'' \! \textit{ copre } M.
+\exists M\smash{''} \! \in R(M') \: \vert \: M'' \! \textit{ copre } M.
 $$
 
 Grazie al concetto di _copertura_ è possibile ridefinire quello di **transizione morte**: \\
@@ -195,15 +195,11 @@ Si conclude quindi che se una marcatura ne copre un'altra, tutte le azioni possi
 Il **simbolo** $$\omega$$ rappresenta un numero __grande a piacere__ (e non _qualsiasi_), che può aumentare all'infinito: questo aspetto è da tenere in considerazione quando bisogna cercare quali transizioni sono abilitate da esso.
 Questo tipo di notazione ($$\omega$$) viene introdotta per limitare l'aumento spropositato di nodi nel diagramma, comprimendo marcature uguali se non per $$\omega$$.
 
-Se una marcatura copre la precedente, infatti, significa che è possibile ripetere gli scatti delle transizioni
+Se una marcatura $$M$$ copre una precedente $$M'$$, infatti, è possibile **ripetere gli scatti** delle transizioni in $$M'$$ per arrivare ad $$M$$; se al termine di questa operazione sono presenti più gettoni in un posto, allora è possibile crearne un numero grande a piacere.
 
-<!-- bo --->
-Infatti se una marcatura ne copre una precedente significa che è possibile ripetere gli scatti delle transizioni fatti per arrivare fino a quella marcatura, e di conseguenza se alla fine sono presenti più gettoni di prima in un posto significa ceh è possibile crearne un numero grande a piacere.
-<!-- fine bo -->
+È importante notare come le transizione che erano **abilitate** in una certa marcatura $$M'$$ lo saranno anche in una marcatura diversa che copre $$M'$$, a meno che non ci siano **archi inibitori**.
 
-È importante noatare come le transizione che erano **abilitate** in una certa marcatura $$M'$$ lo saranno anche in una marcatura diversa che copre $$M'$$, a meno che non ci siano archi inibitori.
-
-Ora è possibile definire l'algoritmo per la creazione di un albero di copertura, che però è molto sibile al precedente, a meno di qualche punto:
+È ora possibile definire l'**algoritmo** per la creazione di un albero di copertura, comunque simile in molti punti al precedente:
 
 <ol class="algorithm">
   <li markdown="1">
@@ -309,7 +305,7 @@ Tramite lo stesso procedimento attuato per gli alberi di raggiungibilità, è po
 
 È doveroso un ulteriore esempio particolare nel caso di reti **non vive**. \\
 Data una _rete non viva_ (come nella figura sotto) dall'albero di copertura **non è possibile** evincere se la rete è effettivamente viva o no: infatti se il nodo $$\node{01$\omega$}$$ è duplicato, quindi non verrà più espanso.
-A questo punto non è possibile aggiungere all'interno dell'albero il nodo 010, in cui la rete raggiunge un deadlock.
+A questo punto non è possibile aggiungere all'interno dell'albero il nodo $$\node{010}$$, in cui la rete raggiunge un deadlock.
 Questo però significa che questo albero di copertura è uguale a quello della stessa rete senza arco che collega $$p_3$$ a $$t_4$$, che in quel caso è una rete viva.
 Detto ciò si può affermare che tramite l'albero di copertura non è possibile dire se una rete è viva oppure no.
 
@@ -334,8 +330,8 @@ Essendo tutte rappresentazioni _formali_, _non ambigue_ e _complete_, data una q
 Il vantaggio principale della rappresentazione matriciale è la **maggiore semplicità** ed **efficienza** nel **trattamento matematico** delle reti.
 
 Le matrici che verranno utilizzate sono diverse, tra cui:
-- $$I$$: rappresenta gli **archi in ingresso**, ovvero le coppie di flussso che da un posto vanno nelle transizioni;
-- $$O$$: rappresenta gli **archi in uscita**, ovvero le coppie di flussso che da una transizione vanno nei posti;
+- $$I$$: rappresenta gli **archi in ingresso**, ovvero le coppie di flusso che da un posto vanno nelle transizioni;
+- $$O$$: rappresenta gli **archi in uscita**, ovvero le coppie di flusso che da una transizione vanno nei posti;
 - vettore $$m$$: rappresenta la **marcatura** dei posti.
 
 ## Definizione parte statica
@@ -378,7 +374,7 @@ Per indicare il vettore colonna $$k$$ da una matrice $$X$$ spesso verrà utilizz
 Per ogni posto, il vettore $$m$$ di dimensione $$\vert P \vert$$ indica la __marcatura corrente__.
 
 $$
-\forall i \in 1..\vert P \vert \: \Big \vert \: m[i] = M(p(i))
+\forall i \in 1..\vert P \vert \quad m[i] = M(p(i))
 $$
 
 Che **differenza** c'è tra il vettore $$m$$ e $$M$$? Entrambi logicamente indicano la **stessa cosa**, ma:
@@ -415,8 +411,8 @@ $$
 È importante notare come nell'operazione sopra due operandi su tre sono matrici costanti ($$I$$ e $$O$$): è quindi possibile **precalcolare** $$O - I$$ per efficienza.
 
 ### Matrice di incidenza $$C$$
-La matrice $$O - I$$ presentata sopra è infatti chiamata __matrice di incidenza__ e si indica con la lettera $$C$$: \\
-è utile per ottimizzare l'operazione _scatto_ di una rete in forma matriciale.
+La matrice $$O - I$$ presentata sopra è infatti chiamata __matrice di incidenza__ e si indica con la lettera $$C$$.
+È utile per ottimizzare l'operazione _scatto_ di una rete in forma matriciale.
 In formule:
 
 $$
@@ -480,7 +476,7 @@ Più nello specifico, esistono:
 
 Una $$P$$-invariante è una caratteristica relativa alla marcatura dei posti che **non cambia**; viene rappresentata da un **vettore di pesi** $$h$$ di dimensione $$\vert P \vert$$.
 
-Il vettore $$h$$ ricorda la funzione $$H: P \Rightarrow \mathbb N \setminus \{ 0 \}$$ dalla definizione di **rete conservativa**, con l'unica differenza che gli elementi di $$h$$ possono essere nulli. \\
+Il vettore $$h$$ ricorda la funzione $$H: P \rightarrow \mathbb N \setminus \{ 0 \}$$ dalla definizione di **rete conservativa**, con l'unica differenza che gli elementi di $$h$$ possono essere nulli o negativi. \\
 Nel caso in cui una $$P$$-invariante abbia tutti i pesi maggiori di zero allora $$h \equiv H$$: la rete sarebbe quindi conservativa e quindi anche **limitata**.
 
 Tramite l'analisi delle $$P$$-invarianti è quindi possibile stabilire se una rete è conservativa e quindi limitata, fornendo un'**alternativa** al metodo dell'albero di copertura.
@@ -488,7 +484,7 @@ Tramite l'analisi delle $$P$$-invarianti è quindi possibile stabilire se una re
 Per ogni marcatura $$m'$$ _raggiungibile_ da $$m$$, l'**invariante** è la somma pesata del numero di gettoni ($$m$$) per $$h$$.
 
 $$
-\forall m' \text{ raggiungibile da }m \: \vert \: hm = hm' \\
+\forall m' \text{ raggiungibile da }m \quad hm = hm' \\
 \textit{o se proprio vogliamo essere precisi...} \\
 \forall m' \text{ raggiungibile da }m \quad \sum_{i=1}^{\vert P \vert} h[i] m[i] = \sum_{i=1}^{\vert P \vert} h[i] m'[i].
 $$
@@ -690,7 +686,7 @@ $$
 
 #### Interpretazione dei risultati ottenuti
 
-Non ci sono elementi per determinare la **limitatezza** della rete.
+È facile notare come la rete sia **limitata**, in quanto per ogni posizione (_posto_) esiste almeno un $$P$$-invarianti semipositivi cui valore in tale posizione è **strettamente positivo**.
 
 Conoscendo ora possibili valori per $$h$$, nella relazione $$hm = hm_0$$ l'unica incognita al momento è $$m$$: la **marcatura generica** che è possibile raggiungere.
 
@@ -901,7 +897,7 @@ Da questi risultati è possibile ottenere anche la **marcatura iniziale** del po
 
 $$
 LM_{0s} + M_{0c} = b \\
-M_{0c} = b - LM_{0s}.
+\boxed{M_{0c} = b - LM_{0s}}.
 $$
 
 Essendo tutti termini noti, è facile rispondere che la **marcatura iniziale** di $$P_c$$ è uguale a 1.
@@ -925,7 +921,6 @@ $$
 \end{cases}
 $$
 
-<a id="anchor"></a>
 Il primo vincolo è incluso nel secondo, quindi possiamo ignorarlo. \\
 Date le **seguenti informazioni**, possiamo realizzare nella rete i vincoli sopra.
 
@@ -964,10 +959,10 @@ M_{0_c} = b - LM_{0_s} &= 4.
 $$
 
 # Reti con priorità
-Ad ogni transazione è associata una **priorità**: quando in una marcatura $$n$$ transazioni sono abilitate, la scelta della prossima da far scattare è **determinata** dalla sua priorità.
+Ad ogni transizione è associata una **priorità**: quando in una marcatura $$n$$ transizioni sono abilitate, la scelta della prossima da far scattare è **determinata** dalla sua priorità.
 
 Date le opportune priorità, è quindi possibile **guidare** la progressione della rete verso la soluzione richiesta.
 
 Ci sono due svantaggi principali a questo approccio: 
 - rischio di creare di __cicli infiniti__;
-- si perde la _località di decisione_ della abilitazione di una transazione: non è quindi più possibile fare analisi locale. 
+- si perde la _località di decisione_ della abilitazione di una transizione: non è quindi più possibile fare analisi locale. 
