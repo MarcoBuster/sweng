@@ -229,7 +229,7 @@ Riprendendo la rete già vista in precedenza e assumendo anche in questo caso de
 
 è facile vedere che la sequenza ammissibile in semantica monotonica debole:
 
-$$\text{T1 scatta al tempo 6} \rightarrow \text{T1 scatta al tempo 12} \rightarrow \text{T3 scatta al tempo 14}$$
+$$\text{T2 scatta al tempo 6} \rightarrow \text{T1 scatta al tempo 12} \rightarrow \text{T3 scatta al tempo 14}$$
 
 non è invece una sequenza ammissibile in semantica forte, in quanto lo scatto di T2 abilita la transizione T3, che dovrebbe quindi scattare entro il tempo 9 ($$enab = 6$$) ma non lo fa.
 
@@ -415,7 +415,7 @@ In particolare:
 - se una condizione $$A$$ implica un'altra condizione $$B$$ con cui è in __AND__ ($$\wedge$$), allora la condizione __implicata__ $$B$$ può essere cancellata;
 - se una condizione $$A$$ implica un'altra condizione $$B$$ con cui è in __OR__ ($$\vee$$), allora la condizione __implicante__ $$A$$ può essere cancellata.
 
-##### <big><u><b>Identificazione delle abilitazioni</b></u></big>
+#### Identificazione delle abilitazioni
 
 Al contrario di quanto ci si potrebbe aspettare, però, la creazione di questo nuova catena di vincoli non è relegata alla sola creazione di un nuovo stato simbolico, ma è invece necessaria anche per __identificare le transizioni abilitate__.
 Avendo infatti introdotto degli identificatori simbolici che mascherano i timestamp dei gettoni, capire se una transizione sia abilitata o meno non è più così facile.
