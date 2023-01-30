@@ -491,12 +491,10 @@ Nel caso in cui una $$P$$-invariante abbia tutti i pesi maggiori di zero allora 
 
 Tramite l'analisi delle $$P$$-invarianti è quindi possibile stabilire se una rete è conservativa e quindi limitata, fornendo un'**alternativa** al metodo dell'albero di copertura.
 
-Per ogni marcatura $$m'$$ _raggiungibile_ da $$m$$, l'**invariante** è la somma pesata del numero di gettoni ($$m$$) per $$h$$.
+Per ogni marcatura $$m'$$ _raggiungibile_ da $$m$$, l'**invariante** è il prodotto vettoriale della marcatura con $$h$$.
 
 $$
-\forall m' \text{ raggiungibile da }m \quad hm = hm' \\
-\textit{o se proprio vogliamo essere precisi...} \\
-\forall m' \text{ raggiungibile da }m \quad \sum_{i=1}^{\vert P \vert} h[i] m[i] = \sum_{i=1}^{\vert P \vert} h[i] m'[i].
+\forall m' \text{ raggiungibile da }m \quad hm = hm'
 $$
 
 Se $$m'$$ è raggiungibile da $$m$$, allora esiste una **sequenza di scatti** ammissibile $$s$$ tale per cui
@@ -505,9 +503,10 @@ $$
 m' = m + C s,
 $$
 
-ma allora, sapendo che $$hm' = hm$$ è possibile **sostituire** $$m'$$ e $$m$$ con $$hm$$ in modo da avere
+è quindi possibile moltiplicare entrambi i membri per $$h$$ in modo da avere
 
 $$
+hm = h(m + Cs) \\
 hm = hm + hCs
 $$
 
