@@ -107,7 +107,7 @@ $$
 \forall p \in \operatorname{Pre}(t) \setminus \operatorname{Post}(t) &\quad  M'(p) = M(p) - W(\langle p, \, t \rangle); \\
 \forall p \in \operatorname{Post}(t) \setminus \operatorname{Pre}(t) &\quad M'(p) = M(p) + W(\langle t, \, p \rangle); \\
 \forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t) &\quad M'(p) = M(p) - W(\langle p, \, t \rangle) + W(\langle t, \, p \rangle); \\
-\forall p \in P - \left ( \operatorname{Post}(t) \cap \operatorname{Pre}(t) \right ) &\quad M'(p) = M(p).
+\forall p \in P - \left ( \operatorname{Post}(t) \cup \operatorname{Pre}(t) \right ) &\quad M'(p) = M(p).
 \end{aligned}
 $$
 
