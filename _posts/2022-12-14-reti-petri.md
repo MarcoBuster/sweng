@@ -118,7 +118,7 @@ meno il peso dell'arco che collega $$p$$ a $$t$$;
 più il peso dell'arco che collega $$t$$ a $$p$$;
 - per ogni identificatore $$p$$ appartenente sia al preset sia al postset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ \\
 meno il peso dell'arco che collega $$p$$ a $$t$$ più il peso dell'arco che collega $$t$$ a $$p$$;
-- per ogni identificatore $$p$$ appartenente all'insieme dei posti meno l'intersezione tra preset e postset di $$p$$ la marcatura non cambia.
+- per ogni identificatore $$p$$ appartenente all'insieme dei posti meno l'unione tra preset e postset di $$p$$ la marcatura non cambia.
 
 In notazione, $$\boxed{\boxed{M \ [ \ t >} \, M'}$$ significa che lo scatto di $$t$$ in $$M$$ produce $$M'$$.
 
