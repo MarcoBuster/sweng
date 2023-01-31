@@ -107,7 +107,7 @@ $$
 \forall p \in \operatorname{Pre}(t) \setminus \operatorname{Post}(t) &\quad  M'(p) = M(p) - W(\langle p, \, t \rangle); \\
 \forall p \in \operatorname{Post}(t) \setminus \operatorname{Pre}(t) &\quad M'(p) = M(p) + W(\langle t, \, p \rangle); \\
 \forall p \in \operatorname{Post}(t) \cap \operatorname{Pre}(t) &\quad M'(p) = M(p) - W(\langle p, \, t \rangle) + W(\langle t, \, p \rangle); \\
-\forall p \in P - \left ( \operatorname{Post}(t) \cap \operatorname{Pre}(t) \right ) &\quad M'(p) = M(p).
+\forall p \in P - \left ( \operatorname{Post}(t) \cup \operatorname{Pre}(t) \right ) &\quad M'(p) = M(p).
 \end{aligned}
 $$
 
@@ -118,7 +118,7 @@ meno il peso dell'arco che collega $$p$$ a $$t$$;
 più il peso dell'arco che collega $$t$$ a $$p$$;
 - per ogni identificatore $$p$$ appartenente sia al preset sia al postset della transizione $$t$$, il numero di gettoni della nuova marcatura $$M'$$ sarà uguale al numero di gettoni della marcatura precedente $$M$$ \\
 meno il peso dell'arco che collega $$p$$ a $$t$$ più il peso dell'arco che collega $$t$$ a $$p$$;
-- per ogni identificatore $$p$$ appartenente all'insieme dei posti meno l'intersezione tra preset e postset di $$p$$ la marcatura non cambia.
+- per ogni identificatore $$p$$ appartenente all'insieme dei posti meno l'unione tra preset e postset di $$p$$ la marcatura non cambia.
 
 In notazione, $$\boxed{\boxed{M \ [ \ t >} \, M'}$$ significa che lo scatto di $$t$$ in $$M$$ produce $$M'$$.
 
