@@ -562,7 +562,7 @@ $$
 \end{align*}
 $$
 
-Si può anche dire che se esiste una **combinazione lineare** di $$P$$-invarianti tale per cui il $$P$$-invariante risultante è **strettamente positivo**, allora ci si riconduce alla **funzione di conservatività**.
+Si può anche dire che se esiste una **combinazione lineare** di $$P$$-invarianti tale per cui il $$P$$-invariante risultante è **strettamente positivo**, allora vuol dire che la funzione $$H : P \rightarrow \mathbb N^+$$ (che restituisce proprio quei pesi trovati) è una delle funzioni per cui la rete risulta **conservativa**.
 
 ### Esempio
 
