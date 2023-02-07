@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[15] Analisi di reti di Petri"
-date: 2022-12-14 14:40:00 +0200
+date: 2022-12-19 14:40:00 +0200
 toc: true
 ---
 # Analisi delle reti di Petri
@@ -547,7 +547,7 @@ $$P$$-invariante.
 Una $$P$$-invariante $$h$$ avente tutti i pesi $$\geq 0$$ è detta **semi-positiva**.
 Se un posto ha _peso positivo_ in una \\
 $$P$$-invariante semi-positiva, allora  è **limitato** nel numero di gettoni massimi che può contenere. \\
-Se così non fosse, infatti, il contributo nella sommatoria vista precedentemente di $$h[i]s[i]$$ (con $$h[i] \geq 0$$ e $$s[i] > 0$$) sarebbe **potenzialmente illimitato**. \\
+Se così non fosse, infatti, il contributo nella sommatoria vista precedentemente di $$h[i]m[i]$$ (con $$h[i] \geq 0$$ e $$m[i] > 0$$) sarebbe **potenzialmente illimitato**. \\
 Se un posto ha peso nullo, potrebbe quindi essere **illimitato**.
 
 Avere pesi dei posti **negativi** non fornisce nessuna informazione sulla limitatezza degli stessi nella rete.
@@ -562,7 +562,7 @@ $$
 \end{align*}
 $$
 
-Si può anche dire che se esiste una **combinazione lineare** di $$P$$-invarianti tale per cui il $$P$$-invariante risultante è **strettamente positivo**, allora ci si riconduce alla **funzione di conservatività**.
+Si può anche dire che se esiste una **combinazione lineare** di $$P$$-invarianti tale per cui il $$P$$-invariante risultante è **strettamente positivo**, allora vuol dire che la funzione $$H : P \rightarrow \mathbb N^+$$ (che restituisce proprio quei pesi trovati) è una delle funzioni per cui la rete risulta **conservativa**.
 
 ### Esempio
 
