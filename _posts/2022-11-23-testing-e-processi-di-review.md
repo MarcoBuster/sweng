@@ -963,12 +963,12 @@ Spesso questa mansione viene svolta da un __team di testing__ separato dal team 
 
 Anche per la review esistono una serie di tecniche: vediamone quindi le principali.
 
-## Beebugging
+## Bebugging
 
 Talvolta può capitare che il team di testing __non trovi errori__ nel programma sotto osservazione.
 Oltre ad essere scoraggiante per chi esegue la review questo è spesso indice del fatto che tale attività non viene svolta in maniera corretta, poiché raramente un programma è effettivamente corretto al 100% dopo la prima scrittura.
 
-Un metodo efficace per risolvere questo problema è il cosiddetto __beebugging__, una tecnica secondo la quale gli sviluppatori __inseriscono deliberatamente $$\bf{n}$$ errori__ nel codice prima di mandarlo in analisi al team di testing, a cui viene comunicato il numero $$n$$ di errori da trovare.
+Un metodo efficace per risolvere questo problema è il cosiddetto __bebugging__, una tecnica secondo la quale gli sviluppatori __inseriscono deliberatamente $$\bf{n}$$ errori__ nel codice prima di mandarlo in analisi al team di testing, a cui viene comunicato il numero $$n$$ di errori da trovare.
 L'ovvio vantaggio di questa tecnica è l'__incentivo__ per il team di testing a continuare a cercare errori, facendo sì che durante la ricerca ne vengano scovati molti altri non ancora noti.
 
 La metrica utilizzata per valutare l'efficacia del testing tramite questa tecnica è dunque la __percentuale di errori trovati__ tra quelli inseriti artificialmente, che può fornire un'indicazione della frazione di errori che il team di testing è in grado di trovare.
@@ -977,7 +977,7 @@ Bisogna però essere molto cauti nel fare considerazioni di questo tipo: è poss
 
 ## Analisi mutazionale
 
-Una evoluzione del beebugging è l'__analisi mutazionale__.
+Una evoluzione del bebugging è l'__analisi mutazionale__.
 Dato un programma $$P$$ e un test $$T$$ (_insieme di casi di test_), viene generato un insieme di programmi $$\Pi$$ _simili_ al programma $$P$$ in esame: tali programmi prendono il nome di __mutanti__. \\
 Si esegue poi il test $$T$$ su ciascun mutante: se $$P$$ era corretto i programmi in $$\Pi$$ __devono essere sbagliati__, ovvero devono produrre un __risultato diverso__ per almeno un caso di test $$t \in T$$.
 Se così non fosse, infatti, vorrebbe dire che il programma $$P$$ non viene opportunamente testato nell'aspetto in cui si discosta dal mutante che non ha sollevato errori, per cui non si può essere sicuri della sua correttezza.
