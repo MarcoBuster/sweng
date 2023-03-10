@@ -10,24 +10,27 @@ I _maintainer_ ufficiali sono:
 - Daniele Ceribelli
 - Matteo Mangioni
 
-e gli altri contributori sono:
-- Alessandro Mangili
-- Alessandro Tellarini
+e gli altri contributori sono stati:
+- Matteo Yon
+- Francesco Protospataro
+- Ilyaas Ouardi
 - Armani Islam
-- Mattia Oldani
-- Silvio Angelo Settembrese
+- Mattia Mendecino
+- Andrea Cambiaghi
 
 ma _chiunque_ può contribuire e proporre _Merge Request_. 
+
+Nel file [AUTHORS.md](./AUTHORS.md) sono presenti tutti i contributori per ogni lezione.
+
 Se utilizzi questi appunti per studiare, non solo è _galante_ contribuire ma è anche un modo per controllare e sistemare l'enormità di errori che prevediamo saranno presenti e per espandere o integrare nozioni e concetti.
 
 I docenti del corso sono a conoscenza di questo progetto e sembrano apprezzarlo.
 
-Tutti i contenuti saranno rilasciati sotto licenza [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) dopo gli esami.
+Tutti i contenuti sono rilasciati sotto licenza [Creative Commons BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/), consulta il file [LICENSE](./LICENSE) per ulteriori dettagli.
 
 ## Visualizzare
 
 Gli appunti sul branch `master` e sui branch `lezioni/*` sono [automaticamente compilati](https://gitlab.di.unimi.it/silab-gang/appunti-deploy) in HTML e disponibili su [https://appunti.studentiunimi.it/sweng/](https://appunti.studentiunimi.it/sweng/).
-L'accesso è protetto da un'**autenticazione HTTP**: username `sweng` / password `centralenucleare`.
 
 ## Contribuire
 
