@@ -1,0 +1,6 @@
+[book]
+authors = ["Marco Aceti", "Matteo Mangioni", "Daniele Ceribelli", "Matteo Yon", "Francesco Protospataro", "Ilyaas Ouardi", "Armani Islam", "Mattia Mendecino", "Andrea Cambiaghi"]
+language = "it"
+multilingual = false
+src = "src"
+title = "Ingegneria del Software"
