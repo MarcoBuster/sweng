@@ -35,6 +35,14 @@
     - [Documentazione](./03_extreme-programming/05_documentazione.md)
     - [Criticità](./03_extreme-programming/06_criticita.md)
 
+- [Open source](./04_open-source/00_index.md)
+    - [Letteratura](./04_open-source/01_letteratura/00_index.md)
+        - [The Cathedral and the Bazaar](./04_open-source/01_letteratura/01_cathedral-bazaar.md)
+        - [Care and Feeding of FOSS](./04_open-source/01_letteratura/02_care-feeding.md)
+        - [The Emerging Economic Paradigm Of Open Source](./04_open-source/01_letteratura/03_emerging-economic-paradigm.md)
+        - [An empirical study of open-source and closed-source software products](./04_open-source/01_letteratura/04_empirical-study.md)
+    - [Sfide](./04_open-source/02_sfide.md)
+
 # 2. Progettazione e implementazione
 
 # 3. Verifica e convalida
