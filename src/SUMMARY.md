@@ -43,6 +43,11 @@
         - [An empirical study of open-source and closed-source software products](./04_open-source/01_letteratura/04_empirical-study.md)
     - [Sfide](./04_open-source/02_sfide.md)
 
+- [Software Configuration Management](./05_scm/00_index.md)
+    - [Storia](./05_scm/01_storia.md)
+    - [Meccanismo di base](./05_scm/02_meccanismo.md)
+    - [git](./05_scm/03_git.md)
+
 # 2. Progettazione e implementazione
 
 # 3. Verifica e convalida
