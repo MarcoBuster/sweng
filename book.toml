@@ -4,3 +4,6 @@ language = "it"
 multilingual = false
 src = "src"
 title = "Ingegneria del software"
+
+[output.html]
+mathjax-support = true
