@@ -48,6 +48,14 @@
     - [Meccanismo di base](./05_scm/02_meccanismo.md)
     - [git](./05_scm/03_git.md)
 
+- [Git workflow e strumenti](./06_git-workflow/00_index.md)
+    - [GitFlow](./06_git-workflow/01_gitflow.md)
+    - [Hosting centralizzato](./06_git-workflow/02_hosting-centralizzato.md)
+    - [Gerrit](./06_git-workflow/03_gerrit.md)
+    - [Strumenti dell'opensource](./06_git-workflow/04_strumenti-opensource/00_index.md)
+        - [Build automation](./06_git-workflow/04_strumenti-opensource/01_build-automation.md)
+        - [Bug tracking](./06_git-workflow/04_strumenti-opensource/02_bug-tracking.md)
+
 # 2. Progettazione e implementazione
 
 # 3. Verifica e convalida
