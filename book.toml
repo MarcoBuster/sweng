@@ -11,3 +11,4 @@ clickable-img = true
 
 [output.html]
 mathjax-support = true
+additional-css = ["assets/custom.css"]
