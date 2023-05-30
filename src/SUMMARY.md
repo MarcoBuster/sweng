@@ -1,6 +1,6 @@
 # Summary
 
-# 1. Prodotto e processo
+# Prodotto e processo
 
 - [Ingegneria, qualità e processi](./01_introduzione/00_index.md)
     - [Informazioni logistiche](./01_introduzione/01_logistica.md)
@@ -56,8 +56,23 @@
         - [Build automation](./06_git-workflow/04_strumenti-opensource/01_build-automation.md)
         - [Bug tracking](./06_git-workflow/04_strumenti-opensource/02_bug-tracking.md)
 
-# 2. Progettazione e implementazione
+# Progettazione e implementazione
 
-# 3. Verifica e convalida
+- [Progettazione](./07_progettazione/00_index.md)
+    - [Refactoring](./07_progettazione/01_refactoring.md)
+    - [Design knowledge](./07_progettazione/02_design-knowledge.md)
+    - [Conoscenze preliminari](./07_progettazione/03_conoscenze-preliminari.md)
+    - [Principio Tell-Don't-Ask](./07_progettazione/04_tell-dont-ask.md)
+    - [Interface segregation](./07_progettazione/05_interface-segregation.md)
+    - [Esempio](./07_progettazione/06_esempio/00_index.md)
+        - [Interface segregation all'opera](./07_progettazione/06_esempio/01_interface-segregation.md)
+        - [Collegamento statico e dinamico](./07_progettazione/06_esempio/02_collegamento-statico-dinamico.md)
+        - [Loose coupling](./07_progettazione/06_esempio/03_loose-coupling.md)
+        - [Interfacce multiple](./07_progettazione/06_esempio/04_interfacce-multiple.md)
+        - [Contract-based design vs programmazione difensiva](./07_progettazione/06_esempio/05_contract-based.md)
+        - [Classi astratte](./07_progettazione/06_esempio/06_classi-astratte.md)
+    - [Analisi del testo naturale](./07_progettazione/07_analisi-testo-naturale.md)
 
-# 4. Reti di Petri
+# Verifica e convalida
+
+# Reti di Petri
