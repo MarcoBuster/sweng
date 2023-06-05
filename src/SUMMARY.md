@@ -73,6 +73,26 @@
         - [Classi astratte](./07_progettazione/06_esempio/06_classi-astratte.md)
     - [Analisi del testo naturale](./07_progettazione/07_analisi-testo-naturale.md)
 
+- [Patterns](./08_patterns/00_index.md)
+    - [Discutere di pattern: i meta-patterns](./08_patterns/01_meta-patterns.md)
+    - [Singleton](./08_patterns/02_singleton.md)
+    - [Iterator](./08_patterns/03_iterator.md)
+    - [Chain of responsibility](./08_patterns/04_chain-of-responsibility.md)
+    - [Flyweight](./08_patterns/05_flyweight.md)
+    - [NullObject](./08_patterns/06_nullobject.md)
+    - [Strategy](./08_patterns/07_strategy.md)
+    - [Observer](./08_patterns/08_observer.md)
+    - [Adapter](./08_patterns/09_adapter.md)
+    - [Facade](./08_patterns/10_facade.md)
+    - [Composite](./08_patterns/11_composite.md)
+    - [Decorator](./08_patterns/12_decorator.md)
+    - [State](./08_patterns/13_state.md)
+    - [Factory method](./08_patterns/14_factory.md)
+    - [Abstract factory](./08_patterns/15_abstract-factory.md)
+    - [Model view controller](./08_patterns/16_mvc.md)
+    - [Model view presenter](./08_patterns/17_mvp.md)
+    - [Builder](./08_patterns/18_builder.md)
+
 # Verifica e convalida
 
 # Reti di Petri
