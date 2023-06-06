@@ -115,4 +115,25 @@
         - [Riepilogo](./10_mocking/01_test-double/06_riepilogo.md)
     - [Mockito](./10_mocking/01_mockito.md)
 
+- [Testing e criteri di selezione](./11_testing/00_index.md)
+    - [Definizioni](./11_testing/01_definizioni.md)
+    - [Proprietà](./11_testing/02_proprieta.md)
+    - [Utilità di un test](./11_testing/03_utilita.md)
+    - [Criteri di selezione](./11_testing/04_criteri-noti/00_index.md)
+        - [Criterio di copertura dei comandi](./11_testing/04_criteri-noti/01_comandi.md)
+        - [Criterio di copertura delle decisioni](./11_testing/04_criteri-noti/02_decisioni.md)
+        - [Criterio di copertura delle condizioni](./11_testing/04_criteri-noti/03_condizioni.md)
+        - [Criterio di copertura delle decisioni e condizioni](./11_testing/04_criteri-noti/04_decisioni-condizioni.md)
+        - [Criterio di copertura delle condizioni composte](./11_testing/04_criteri-noti/05_condizioni-composte.md)
+        - [Criterio di copertura delle condizioni e decisioni modificate](./11_testing/04_criteri-noti/06_condizioni-decisioni-modificate.md)
+        - [Implicazioni tra criteri di copertura](./11_testing/04_criteri-noti/07_implicazioni.md)
+    - [Altri criteri](./11_testing/05_altri-criteri/00_index.md)
+        - [Criterio di copertura dei cammini](./11_testing/05_altri-criteri/01_cammini.md)
+        - [Criterio di \\(n\\)-copertura dei cicli](./11_testing/05_altri-criteri/02_cicli.md)
+    - [Mappa finale implicazioni tra criteri di copertura](./11_testing/06_mappa.md)
+
+- [Analisi statica]()
+
+- [Processi di review]()
+
 # Reti di Petri
