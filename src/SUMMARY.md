@@ -105,4 +105,14 @@
 
 # Verifica e convalida
 
+- [Mocking](./10_mocking/00_index.md)
+    - [Test Double](./10_mocking/01_test-double/00_index.md)
+        - [Dummy objects](./10_mocking/01_test-double/01_dummy-objects.md)
+        - [Stub objects](./10_mocking/01_test-double/02_stub-objects.md)
+        - [Mock objects](./10_mocking/01_test-double/03_mock-objects.md)
+        - [Spy objects](./10_mocking/01_test-double/04_spy-objects.md)
+        - [Fake objects](./10_mocking/01_test-double/05_fake-objects.md)
+        - [Riepilogo](./10_mocking/01_test-double/06_riepilogo.md)
+    - [Mockito](./10_mocking/01_mockito.md)
+
 # Reti di Petri
