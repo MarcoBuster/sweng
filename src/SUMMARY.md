@@ -93,6 +93,16 @@
     - [Model view presenter](./08_patterns/17_mvp.md)
     - [Builder](./08_patterns/18_builder.md)
 
+- [UML](./09_uml/00_index.md)
+    - [Class diagram](./09_uml/01_class-diagram.md)
+    - [Sequence diagram](./09_uml/02_sequence-diagram.md)
+    - [State diagram](./09_uml/03_state-diagram.md)
+    - [Superstate](./09_uml/04_superstate.md)
+    - [Use cases diagram](./09_uml/05_use-cases.md)
+    - [Activity diagram](./09_uml/06_activity-diagram.md)
+    - [Component diagram](./09_uml/07_component-diagram.md)
+    - [Deployment diagram](./09_uml/08_deployment-diagram.md)
+
 # Verifica e convalida
 
 # Reti di Petri
