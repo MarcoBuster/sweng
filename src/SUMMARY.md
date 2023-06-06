@@ -132,7 +132,17 @@
         - [Criterio di \\(n\\)-copertura dei cicli](./11_testing/05_altri-criteri/02_cicli.md)
     - [Mappa finale implicazioni tra criteri di copertura](./11_testing/06_mappa.md)
 
-- [Analisi statica]()
+- [Analisi statica](./12_analisi-statica/00_index.md)
+    - [Compilatori](./12_analisi-statica/01_compilatori.md)
+    - [Analisi Data Flow](./12_analisi-statica/02_data-flow/00_index.md)
+        - [Regole](./12_analisi-statica/02_data-flow/01_regole.md)
+        - [Sequenze](./12_analisi-statica/02_data-flow/02_sequenze.md)
+    - [Testing](./12_analisi-statica/03_testing.md)
+    - [Criteri di copertura](./12_analisi-statica/04_criteri/00_index.md)
+        - [Criterio di copertura delle definizioni](./12_analisi-statica/04_criteri/01_definizioni.md)
+        - [Criterio di copertura degli usi](./12_analisi-statica/04_criteri/02_usi.md)
+        - [Criterio di copertura dei cammini DU](./12_analisi-statica/04_criteri/03_cammini-du.md)
+    - [Oltre le variabili](./12_analisi-statica/05_oltre-variabili.md)
 
 - [Processi di review]()
 
