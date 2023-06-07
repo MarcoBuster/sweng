@@ -166,4 +166,8 @@
     - [Modelli statistici](./13_review/06_modelli-statistici.md)
     - [Debugging](./13_review/07_debugging.md)
 
+- [Verifica e convalida](./14_verifica-convalida/00_index.md)
+    - [Terminologia](./14_verifica-convalida/01_terminologia.md)
+    - [Tecniche](./14_verifica-convalida/02_tecniche.md)
+
 # Reti di Petri
