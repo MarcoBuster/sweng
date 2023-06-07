@@ -171,3 +171,19 @@
     - [Debugging](./14_review/07_debugging.md)
 
 # Reti di Petri
+
+- [Reti di Petri](./15_reti-petri/00_index.md)
+    - [Definizioni](./15_reti-petri/01_definizioni.md)
+    - [Macchine a stati finiti](./15_reti-petri/02_fsm.md)
+    - [Relazioni tra transizioni](./15_reti-petri/03_relazioni/00_index.md)
+        - [Sequenza](./15_reti-petri/03_relazioni/01_sequenza.md)
+        - [Conflitto](./15_reti-petri/03_relazioni/02_conflitto.md)
+        - [Concorrenza](./15_reti-petri/03_relazioni/03_concorrenza.md)
+    - [Insieme di raggiungibilità](./15_reti-petri/04_insieme-raggiungibilita.md)
+    - [Limitatezza](./15_reti-petri/05_limitatezza.md)
+    - [Vitalità di una transizione](./15_reti-petri/06_vitalita.md)
+    - [Capacità dei posti](./15_reti-petri/07_capacita.md)
+    - [Archi inibitori](./15_reti-petri/08_archi-inibitori.md)
+    - [Eliminazione pesi sugli archi](./15_reti-petri/09_pesi-archi.md)
+    - [Conservatività](./15_reti-petri/10_conservativita.md)
+    - [Stato base e rete revertibile](./15_reti-petri/11_stato-base.md)
