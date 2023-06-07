@@ -187,3 +187,13 @@
     - [Eliminazione pesi sugli archi](./15_reti-petri/09_pesi-archi.md)
     - [Conservatività](./15_reti-petri/10_conservativita.md)
     - [Stato base e rete revertibile](./15_reti-petri/11_stato-base.md)
+
+- [Analisi di reti di Petri](./16_reti-petri-analisi/00_index.md)
+    - [Albero di raggiungibilità](./16_reti-petri-analisi/01_albero-raggiungibilita.md)
+    - [Albero di copertura](./16_reti-petri-analisi/02_albero-copertura.md)
+    - [Rappresentazione matriciale](./16_reti-petri-analisi/03_rappresentazione-matriciale.md)
+    - [Analisi statica](./16_reti-petri-analisi/04_analisi-statica/00_index.md)
+        - [\\(P\\)-invarianti](./16_reti-petri-analisi/04_analisi-statica/01_p-invarianti.md)
+        - [\\(T\\)-invarianti](./16_reti-petri-analisi/04_analisi-statica/02_t-invarianti.md)
+    - [Controllori con specifica a stati proibiti](./16_reti-petri-analisi/05_controllori.md)
+    - [Reti con priorità](./16_reti-petri-analisi/06_reti-priorita.md)
