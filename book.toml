@@ -12,3 +12,14 @@ clickable-img = true
 [output.html]
 mathjax-support = true
 additional-css = ["assets/custom.css"]
+curly-quotes = true
+git-repository-url = "https://gitlab.di.unimi.it/silab-gang/sweng"
+git-repository-icon = "fa-gitlab"
+edit-url-template = "https://gitlab.di.unimi.it/silab-gang/sweng/edit/master/guide/{path}"
+
+[output.html.print]
+enable = true
+page-break = false
+
+[output.html.fold]
+enable = true
