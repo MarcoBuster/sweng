@@ -1,12 +1,9 @@
 .git/*
 .git*
-Dockerfile
-docker-run.sh
+.mdbook-plantuml-cache
 .dockerignore
 .idea/*
-.jekyll-cache/*
-**/.jekyll-cache/*
-_site/*
-assets/resized/*
-uml/*
+book/
+Dockerfile
+docker-run.sh
 README.md

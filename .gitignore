@@ -6,4 +6,8 @@ public/
 resized/
 .vscode/
 uml/
-?/
+book
+
+# PlantUML plugin
+mdbook-plantuml-img/
+.mdbook-plantuml-cache/
