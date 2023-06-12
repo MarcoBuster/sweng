@@ -23,3 +23,7 @@ Tutti i contenuti sono rilasciati sotto licenza [Creative Commons BY-NC-SA 4.0](
 ## Visualizzare
 
 Gli appunti sul branch `master` sono automaticamente compilati in HTML e disponibili su [https://marcobuster.github.io/sweng/](https://marcobuster.github.io/sweng/).
+
+## Compilare
+
+Nella documentazione è presente [una guida](https://marcobuster.github.io/sweng/00_informazioni/02_contribuire.html#consigliato-installazione-di-tutte-le-dipendenze-tramite-docker) per eseguire e compilare gli appunti tramite Docker.

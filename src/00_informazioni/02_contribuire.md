@@ -14,12 +14,7 @@ Per strutture complesse, è possibile embeddare dell'HTML (e del CSS) nel file M
 >       $ git pull
 >       ```
 > 
-> 2. costruisci l'immagine Docker: 
-> 
->       ```
->       $ docker build -t appunti_sweng .
->       ```
-> 3. crea un container ed eseguilo, ricondandoti di:
+> 2. crea un container ed eseguilo, ricondandoti di:
 >       - mappare le porte 3000/tcp sul tuo host;
 >       - mappare la cartella del progetto a `/usr/src/app` nel container;
 >       - mappare correttamente l'utente;

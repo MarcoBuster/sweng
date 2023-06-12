@@ -1,8 +1,8 @@
 # Sommario
 
 [Introduzione](./00_informazioni/00_index.md)
-[Autori](./00_informazioni/01_contributori.md)
-[Come contribuire](./00_informazioni/01_contribuire.md)
+[Autori](./00_informazioni/01_autori.md)
+[Come contribuire](./00_informazioni/02_contribuire.md)
 [Convenzioni di stile e contenuto](./00_informazioni/03_convenzioni.md)
 
 # Prodotto e processo
