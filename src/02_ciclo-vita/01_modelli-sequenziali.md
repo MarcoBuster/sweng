@@ -85,5 +85,5 @@ Nonostante sia ancora un modello sequenziale come il modello a cascata, nel mode
 
 Volendo formalizzare, le due nuove attività introdotte sono dunque:
 
-- __verifica__ (freccie grigie): controlla la correttezza rispetto alla descrizione formale delle specifiche;
-- __validazione__ (freccie bianche): controlla la compatabilità del sistema con le esigenze del cliente tramite feedback continuo.
+- __verifica__ (freccie bianche): controlla la correttezza rispetto alla descrizione formale delle specifiche;
+- __validazione__ (freccie grigie): controlla la compatabilità del sistema con le esigenze del cliente tramite feedback continuo.
