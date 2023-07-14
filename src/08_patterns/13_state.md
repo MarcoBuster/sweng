@@ -10,7 +10,7 @@ Un esempio di utilizzo di questo pattern potrebbe essere un software di editing 
 
 ```plantuml
 @startuml
-style 1024 width
+scale 1024 width
 
 class Context {
     - state: State
