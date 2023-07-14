@@ -16,7 +16,7 @@ class Client {
 }
 interface AbstractFactory {
     + createProductA()
-    + createProductA()
+    + createProductB()
 }
 interface AbstractProduct <<interface>> {
 }
@@ -24,7 +24,7 @@ Client --> AbstractFactory
 Client --> AbstractProduct
 class ConcreteFactory implements AbstractFactory {
     + createProductA()
-    + createProductA()
+    + createProductB()
 }
 class ConcreteProduct implements AbstractProduct {
 }
