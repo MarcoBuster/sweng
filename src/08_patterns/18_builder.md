@@ -72,7 +72,8 @@ Questo pattern creazionale prende il nome di __Builder__.
 
 ```plantuml
 @startuml
-style 500 width
+scale 500 width
+set namespaceSeparator none
 
 class MyClass {
     - OptionalField : T0
