@@ -1,11 +1,11 @@
 # \\(P\\)-invarianti
 
-Una \\(P\\)-invariante è una caratteristica relativa alla marcatura dei posti che **non cambia**; viene rappresentata da un **vettore di pesi** \\(h\\) di dimensione \\(\vert P \vert\\).
+Un \\(P\\)-invariante è una caratteristica relativa alla marcatura dei posti che **non cambia**; viene rappresentato da un **vettore di pesi** \\(h\\) di dimensione \\(\vert P \vert\\).
 
 Il vettore \\(h\\) ricorda la funzione \\(H: P \rightarrow \mathbb N \setminus \{ 0 \}\\) dalla definizione di **rete conservativa**, con l'unica differenza che gli elementi di \\(h\\) possono essere nulli o negativi. \
-Nel caso in cui una \\(P\\)-invariante abbia tutti i pesi maggiori di zero allora \\(h \equiv H\\): la rete sarebbe quindi conservativa e quindi anche **limitata**.
+Nel caso in cui un \\(P\\)-invariante abbia tutti i pesi maggiori di zero allora \\(h \equiv H\\): la rete sarebbe quindi conservativa e quindi anche **limitata**.
 
-Tramite l'analisi delle \\(P\\)-invarianti è quindi possibile stabilire se una rete è conservativa e quindi limitata, fornendo un'**alternativa** al metodo dell'albero di copertura.
+Tramite l'analisi dei \\(P\\)-invarianti è quindi possibile stabilire se una rete è conservativa e quindi limitata, fornendo un'**alternativa** al metodo dell'albero di copertura.
 
 Per ogni marcatura \\(m'\\) _raggiungibile_ da \\(m\\), l'**invariante** è il prodotto vettoriale della marcatura con \\(h\\).
 
@@ -19,10 +19,11 @@ $$
 m' = m + C s,
 $$
 
-è quindi possibile moltiplicare entrambi i membri per \\(h\\) in modo da avere
+Sostituisco \\(m'\\) con \\(m+Cs\\) in \\(hm=hm'\\) e ottengo \\(hm=h(m+Cs)\\).
+Di conseguenza:
 
 $$
-hm = h(m + Cs) \\
+hm = h(m + Cs) \\\\
 hm = hm + hCs
 $$
 
@@ -49,7 +50,7 @@ Analogamente, in una rete che possiede una **transizione morta** la corrisponden
 Non è quindi **necessario** che \\(hC = 0\\) per far sì che \\(hCs = 0\\), ma è sicuramente **sufficiente**.
 
 In conclusione, considerando solo \\(hC = 0\\) è possibile **escludere** la **componente dinamica** dalla proprietà ragionando solo in base alle informazioni topologiche (\\(C\\)) della rete.
-Trovare l'\\(h\\) che rende \\(hC = 0\\) è quindi **condizione sufficiente** ma non necessaria per cui \\(h\\) è una \\(P\\)-invariante, tenendo a mente che esistono comunque \\(h\\) che non rendono \\(hC = 0\\) ma potrebbero essere \\(P\\)-invarianti.
+Trovare l'\\(h\\) che rende \\(hC = 0\\) è quindi **condizione sufficiente** ma non necessaria per cui \\(h\\) è un \\(P\\)-invariante, tenendo a mente che esistono comunque \\(h\\) che non rendono \\(hC = 0\\) ma potrebbero essere \\(P\\)-invarianti.
 
 I \\(P\\)-invarianti determinati con l'espressione \\(hC = 0\\) non dipendono dalla marcatura iniziale ma solo dalla **topologia** della rete: se venisse considerato anche \\(s\\) sarebbero \\(P\\)-invarianti per qualunque evoluzione della rete _a partire dalla marcatura \\(m\\)_.
 
@@ -57,16 +58,16 @@ Il sistema \\(hC = 0\\) è un **sistema di equazioni lineare**, risolvibile con 
 
 ### Copertura di \\(P\\)-invarianti
 
-Una **combinazione lineare** di \\(P\\)-invarianti (e quindi di soluzioni del sistema) è anch'essa una \\(P\\)-invariante.
+Una **combinazione lineare** di \\(P\\)-invarianti (e quindi di soluzioni del sistema) è anch'essa un \\(P\\)-invariante.
 
-Una \\(P\\)-invariante \\(h\\) avente tutti i pesi \\(\geq 0\\) è detta **semi-positiva**.
-Se un posto ha _peso positivo_ in una \\(P\\)-invariante semi-positiva, allora  è **limitato** nel numero di gettoni massimi che può contenere. \
+Un \\(P\\)-invariante \\(h\\) avente tutti i pesi \\(\geq 0\\) è detta **semi-positivo**.
+Se un posto ha _peso positivo_ in un \\(P\\)-invariante semi-positivo, allora  è **limitato** nel numero di gettoni massimi che può contenere. \
 Se così non fosse, infatti, il contributo nella sommatoria vista precedentemente di \\(h[i]m[i]\\) (con \\(h[i] \geq 0\\) e \\(m[i] > 0\\)) sarebbe **potenzialmente illimitato**. \
 Se un posto ha peso nullo, potrebbe quindi essere **illimitato**.
 
 Avere pesi dei posti **negativi** non fornisce nessuna informazione sulla limitatezza degli stessi nella rete.
 
-Infine, se **per ogni posto** esiste una \\(P\\)-invariante semi-positiva il cui peso del posto è positivo, allora la rete è **limitata**.
+Infine, se **per ogni posto** esiste un \\(P\\)-invariante semi-positivo il cui peso del posto è positivo, allora la rete è **limitata**.
 Matematicamente:
 
 $$
@@ -80,7 +81,7 @@ Si può anche dire che se esiste una **combinazione lineare** di \\(P\\)-invaria
 
 ### Esempio
 
-Di seguito è illustrato un esempio sulle proprietà viste delle \\(P\\)-invarianti.
+Di seguito è illustrato un esempio sulle proprietà viste dei \\(P\\)-invarianti.
 
 ![](/assets/15_esempio-p-invarianti.png)
 
