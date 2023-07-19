@@ -31,8 +31,8 @@ Secondo le definizioni di conflitto che sono state date, in questa rete di Petri
 
 Aggiungendo una relazione tra \\(t_1\\) a \\(p_1\\) si può notare che dopo lo scatto di \\(t_1\\) quest'ultima è ancora abilitata e quindi non rientra più sotto la definizione rilassata di conflitto.
 
-Lasciando da parte la definizione rilassata, è facile osservare a questo punto che la definizione per il conflitto strutturale si basa solo sui preset, ignorando quindi qualsiasi arco in uscita, mentre la quella per il conflitto effettivo ragiona anche sugli effetti dello scatto delle transizioni. Si noti che la presenza di un conflitto strutturale __non implica__ obbligatoriamente la presenza di un conflitto effettivo in quanto quest'ultimo per esistere necessita che venga soddisfatta una condizione in più.
-Al contrario invece un conflitto effettivo __implica__ la presenza di un conflitto strutturale in qunato le condizioni di quest'ultimo sono comprese in quelle del conflitto effettivo. \
+Lasciando da parte la definizione rilassata, è facile osservare a questo punto che la definizione per il conflitto strutturale si basa solo sui preset, ignorando quindi qualsiasi arco in uscita, mentre quella per il conflitto effettivo ragiona anche sugli effetti dello scatto delle transizioni. Si noti che la presenza di un conflitto strutturale __non implica__ obbligatoriamente la presenza di un conflitto effettivo in quanto quest'ultimo per esistere necessita che venga soddisfatta una condizione in più.
+Al contrario invece un conflitto effettivo __implica__ la presenza di un conflitto strutturale in quanto le condizioni di quest'ultimo sono comprese in quelle del conflitto effettivo. \
 Di seguito viene mostrato un esempio di conflitto _effettivo_ e _strutturale_.
 
 ![Esempio conflitto effettivo e strutturale](/assets/14_conflitto-effettivo-e-strutturale.png)
