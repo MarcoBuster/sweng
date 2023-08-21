@@ -7,7 +7,7 @@ Essi adottano un linguaggio che verte alla risoluzione di esigenze comunicative 
 Tale natura "informale" li rende ottimi mezzi di comunicazione col *cliente*.
 
 Possono essere utilizzati, ad esempio, per:
-* eplicitare differenti modalità di fare un compito;
+* esplicitare differenti modalità di fare un compito;
 * stabilire quale dovrebbe essere la normale interazione nello scenario e le eccezioni che possono verificarsi.
 
 Infatti, ogni _scenario_ è corredato di:
