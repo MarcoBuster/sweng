@@ -1,7 +1,7 @@
 # Archi inibitori
 
 Esiste un'altra estenzione delle reti di petri in cui si utilizzano gli __archi inibitori__, ovvero degli archi che indicano la situazione in cui una transizione ha bisogno che **non siano presenti gettoni nel posto** in modo che possa essere abilitata.
-Un _arco inibitore di peso \\(n\\)_ indica che la transazione collegata è abilitata se nel posto collegato sono presenti **meno di** \\(n\\) gettoni.
+Un _arco inibitore di peso \\(n\\)_ indica che la transizione collegata è abilitata se nel posto collegato sono presenti **meno di** \\(n\\) gettoni.
 
 In caso di **rete limitata** la **potenza espressiva** di una rete che sfrutta gli archi inibitori **non cambia**, perché esistendo un limite massimo \\(k\\) di gettoni all'interno della rete sarà sufficiente creare un posto complementare contente un numero di gettoni tali per cui la somma tra quest'ultimi e i gettoni presenti nel posto considerato sia minore di \\(k\\). \
 A questo punto è necessario che siano presenti due archi (uno in ingresso e uno in uscita) di peso \\(k\\), in modo da permettere lo scatto della transizione solo nel caso in cui tutti i gettoni siano all'interno del posto complementare. \
