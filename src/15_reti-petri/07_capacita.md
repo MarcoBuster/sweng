@@ -54,7 +54,7 @@ $$
 \end{align*}
 $$
 
-Considerando l'immagine seguente, infatti, possiamo notare come la rete di sinistra abbia ancora una transazione abilitata, mentre quella di destra no.
+Considerando l'immagine seguente, infatti, possiamo notare come la rete di sinistra abbia ancora una transizione abilitata, mentre quella di destra no.
 Nella seconda rete è come se **lo scatto venisse spezzato in due fasi**: la prima in cui vengono generati i gettoni nel posto (in questo caso \\(p_3\\)), la seconda invece in cui vengono tolti tanti gettoni quanto è il peso dell flusso da \\(p_3\\) a \\(t_1\\). \
 Nella prima rete invece questo non accade, è come se si verificasse tutto nello stesso istante.
 
