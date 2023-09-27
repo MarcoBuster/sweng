@@ -3,7 +3,7 @@
 È in qualche modo intuitivo considerare la relazione di concorrenza come la relazione opposta alla relazione di conflitto: due transizioni \\((t_1, \\, t_2)\\) sono in:
 - __concorrenza strutturale__ \\(\Longleftrightarrow \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) = \varnothing\\);
 - __concorrenza effettiva__ in una marcatura \\(M \Longleftrightarrow\\)
-    - \\(\boxed{M \\ [ \\ t_1 >} \cap \boxed{M \\ [ \\ t_2 >}\\);
+    - \\(\boxed{M \\ [ \\ t_1 >} \land \boxed{M \\ [ \\ t_2 >}\\);
     - \\(\forall p \in \operatorname{Pre}(t_1) \cap \operatorname{Pre}(t_2) \quad M(p) \geq W(\langle p, \\, t_1 \rangle) + W(\langle  p, \\, t_2\rangle)\\).
 
 Quest'ultima formula indica che due identificatori delle transizioni sono in concorrenza effettiva se e solo se per tutti i posti che hanno in comune c'è un numero di gettoni sufficienti per farle scattare entrambe.
