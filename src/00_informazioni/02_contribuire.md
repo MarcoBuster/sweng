@@ -41,8 +41,8 @@ Come editor di testo, consigliamo VSCode (meglio ancora [VSCodium](https://vscod
 - Consigliamo di impostare e attivare la [firma dei commit](https://docs.gitlab.com/ee/user/project/repository/gpg_signed_commits/) tramite GPG.
 
 ## The _"Silab Gang" Notes Engineering Development Process_
-Per ogni __argomento__ (spesso corrispondente a una _lezione_) N...
-![](https://i.imgur.com/tJhGSaN.png)
+Per ogni __argomento__ corrispondente all'issue `N`...
+![](https://imgur.com/XsoRQAc.png)
 
 Ad ogni argomento corrisponde una directory sotto la directory di mdbook `src/`. 
 
@@ -51,26 +51,26 @@ Ad ogni argomento corrisponde una directory sotto la directory di mdbook `src/`.
 La gestione dei branch è simile a GitFlow, ma non è uguale.
 Osserviamo le tipologie di branch:
 - `master`: contiene l'ultima versione stabile di tutti gli appunti. Ad ogni commit viene azionata una GitLab CI che aggiorna la pagina su GitLab Pages. Solo i maintainer possono mergiare su questo branch. 
-- `lezioni/N` (ma forse avremmo dovuto chiamarli `argomenti/N`): contiene l'ultima versione _instabile_ di uno specifico argomento. 
-I contributori della lezione `N` pulleranno dal branch `lezioni/N` per sincronizzare i contributi degli altri nel proprio branch, e mergieranno (o chiederanno di mergiare) i propri contributi nel branch `lezioni/N`. Nel nome c'è un _leading zero_: `lezioni/04`, `lezioni/12`.
+- `argomenti/N`: contiene l'ultima versione _instabile_ relativa all'issue `N`. (ad ogni issue viene associato in automatico un numero progressivo, ed `N` è proprio quel numero). 
+I contributori che lavorano all'issue `N` pulleranno dal branch `argomenti/N` per sincronizzare i contributi degli altri nel proprio branch, e mergieranno (o chiederanno di mergiare) i propri contributi nel branch `argomenti/N`. Nel nome c'è un _leading zero_: `argomenti/04`, `argomenti/12`.
 - __branch utente__: iniziano con il nome dell'utente (lower case e breve) e sono utilizzati come _"sandbox"_ personale. 
 
 Tutti i branch devono essere creati partendo da `master`.
 È consentito e apprezzato il fast forward in caso di merge banali. 
 
-Essendo i branch `lezioni/N` condivisi, è __NECESSARIO__ aggiornare il branch con il remoto facendo `git pull`. Prima di mergiare in `lezioni/N`, quindi:
-1. entra nel branch `lezioni/N`: `git switch lezioni/N`;
+Essendo i branch `argomenti/N` condivisi, è __NECESSARIO__ aggiornare il branch con il remoto facendo `git pull`. Prima di mergiare in `argomenti/N`, quindi:
+1. entra nel branch `argomenti/N`: `git switch argomenti/N`;
 2. scarica le ultime modifiche: `git pull`;
 3. entra nel tuo branch: `git switch mio/branch`;
-4. mergia il branch `lezioni/N`: `git merge lezioni/N`;
+4. mergia il branch `argomenti/N`: `git merge argomenti/N`;
 5. risolvi gli eventuali conflitti;
-6. entra nel branch `lezioni/N`;
-7. mergia il tuo branch: `git merge lezioni/N`;
-8. carica le tue modifiche: `git push lezioni/N`.
+6. entra nel branch `argomenti/N`;
+7. mergia il tuo branch: `git merge argomenti/N`;
+8. carica le tue modifiche: `git push argomenti/N`.
 
-> `lezioni/N` contiene sempre l'___ultima versione instabile___ e tutti i contributori la utilizzano come riferimento per quell'argomento.
-> I contributi non mergiati in `lezioni/N` non saranno considerati da nessuno e sono quindi inutili.
-> In ogni caso, non si committa mai direttamente a `lezioni/N` ma prima si passa sempre per un _branch utente_.
+> `argomenti/N` contiene sempre l'___ultima versione instabile___ e tutti i contributori la utilizzano come riferimento per quell'argomento.
+> I contributi non mergiati in `argomenti/N` non saranno considerati da nessuno e sono quindi inutili.
+> In ogni caso, non si committa mai direttamente a `argomenti/N` ma prima si passa sempre per un _branch utente_.
 
 ### Esempio
 Lo studente Carlo Bellettini prende appunti durante la (sua?) lezione 5 e crea un branch `carlo/05-appunti`. Anche lo studente Mattia Monga prende appunti e pubblica le modifiche su `mattia/05-appunti`. 
@@ -79,23 +79,23 @@ Carlo, da bravo contributore, si impegna a integrare gli appunti; crea il branch
 Il secondo merge da parte di Carlo degli appunti di Mattia causerà sicuramente dei conflitti, che Carlo dovrà risolvere: non è codice, è testo, e due studenti prenderanno gli appunti in modo completamente diverso!
 Il concetto stesso di _integrazione_ è proprio questo. 
 
-Una volta terminato il lavoro, Carlo mergierà il suo branch `carlo/05-integrazione` in `lezioni/05`, quindi aprirà una Merge Request da `lezioni/05` verso il branch `master`.
+Una volta terminato il lavoro, Carlo mergierà il suo branch `carlo/05-integrazione` in `argomenti/05`, quindi aprirà una Merge Request da `argomenti/05` verso il branch `master`.
 
 Inizia il processo di _review_: altri contributori (ovvero tutti a parte Carlo) controlleranno la correttezza e la __completezza__ (!) degli appunti proposti. 
-Se (ancora, per esempio) Marco trova dei problemi, può creare un proprio branch `marco/05-review` partendo dal branch `lezioni/05`, committare le proprie proposte e quindi rimegiarle in `lezioni/05`.
+Se (ancora, per esempio) Marco trova dei problemi, può creare un proprio branch `marco/05-review` partendo dal branch `argomenti/05`, committare le proprie proposte e quindi rimegiarle in `argomenti/05`.
 
 Infine, una volta che tutti i reviewer sono contenti, la Merge Request viene mergiata in master e gli appunti vengono aggiunti in GitLab Pages.
 
 ## Issues e Merge Requests
 
 Per coordinare il lavoro tra di noi, utilizziamo principalmente la funzione "Issue" di GitLab. 
-Tutte le issues sono elencate [qui](https://gitlab.com/silab-gang/sweng/-/issues).
+Tutte le issues sono elencate [qui](https://gitlab.di.unimi.it/silab-gang/sweng/-/issues).
 
 C'è una issue per ogni argomento. Ogni issue...
 - ha un titolo con il numero (corrispondente all'`N` nei nomi di branch) e al nome dell'argomento;
-- ha una descrizione, contentente i riferimenti alle lezioni relative all'argomento (come la data) e altre note opportune (_"il prof. ha spiegato il pattern Observer in questa lezione"_, ...);
+- ha una descrizione, contentente i riferimenti alle lezioni relative all'argomento (come le date) e altre note opportune (_"il prof. ha spiegato il pattern Observer in questa lezione"_, ...);
 - ha un label per tracciare lo stato nel processo (Da Fare / In esecuzione / In attesa di review / Fatto); 
-- ha un epico per tracciare il progresso dei [4 macro argomenti](https://gitlab.com/silab-gang/sweng/-/milestones/) del corso.
+- ha un epico per tracciare il progresso dei [4 macro argomenti](https://gitlab.di.unimi.it/silab-gang/sweng/-/milestones) del corso.
 - ha un utente assegnato: solitamente è l'integratore principale della issue.
 
 Nelle issue si può discutere e coordinare il lavoro, ma le review si fanno nelle merge request.
