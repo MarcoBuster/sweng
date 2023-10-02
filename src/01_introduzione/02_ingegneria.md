@@ -6,7 +6,7 @@ Negli anni '70, si inizia dunque a pensare a dei metodi, dei processi e a degli 
 
 ## Approccio ingegneristico
 1. __Target__: ci si prefigge un obiettivo da raggiungere.
-2. __Metric__: si definisce una metrica per misurare la qualità del software, ovvero quanto esso si avvicina al target prefissato.
+2. __Metric__: si definisce una metrica per misurare la qualità del software, ovvero quanto esso si avvicina al target prefissato *(la metrica non va scelta a posteriori).
 3. __Method, Process, Tool__: si provano una serie di metodi, processi e strumenti per avvicinarsi all'obiettivo.
 4. __Measurements__: Tramite la metrica stabilita si misura se le strategie implementate sono state utili e quanto ci hanno avvicinato (o allontanato) all'obiettivo.
 A seconda dei risultati ottenuti vi sono due possibili strade:
@@ -25,3 +25,6 @@ Vediamo allora a questo punto alcuni dei problemi che possono insorgere durante 
 Un'altra fonte di problemi sono le __dimensioni__ del software, che possono raggiungere valori molto elevati in termini di milioni di righe di codice e migliaia di _"anni uomo"_ di lavoro (solitamente vengono usati anche i _mesi uomo_). Lo sviluppo software non è più piccolo e domestico, e questo crea chiaramente problemi di manutenzione e gestione della codebase.
 
 Il software è infine __facilmente malleabile__, ovvero modificabile nel tempo: il moltiplicarsi di versioni, evoluzioni e variazioni di target può creare non poche difficoltà.
+
+La misurazione in _"anni uomo"_ è una misura che deve essere fatta a posteriori, e non prima per capire come affrontare un lavoro.
+Inoltre questa non è una buona unità di misura, in quanto lascia intendere che maggiore è il numero di uomni impegnati nel lavoro e minore sarà il tempo impiegato, ma ovviamente non è così.
