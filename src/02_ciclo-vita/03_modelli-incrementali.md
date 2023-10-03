@@ -5,33 +5,28 @@ Un modello incrementale è un particolare modello iterativo in cui nelle iterazi
 Si noti la differenza tra incrementale e iterativo; si può parlare infatti di:
 
 - __implementazione iterativa__: dopo aver raccolto le specifiche e aver progettato il sistema, _iterativamente_ sviluppo i componenti, li integro nel prodotto finale, quindi consegno.
-- __sviluppo incrementale__: l'iteratività interessa tutte le fasi, comprese quelle di specifiche e realizzazione.  
+- __sviluppo incrementale__: l'iteratività interessa tutte le fasi, comprese quelle di specifica e realizzazione.  
 
 Lo sviluppo incrementale riconosce la criticità della variabilità delle richieste e la integra nel processo. 
 La manutenzione non è quindi più una particolarità ma è vista come normale e perfettamente integrata nel modello: in tal senso, la richiesta di una nuova feature o la correzione di un errore generano gli stessi step di sviluppo.
 
-## Modello prototipale
+## Modello a fontana
 
-Un particolare modello incrementale è quello protitipale: in questo modello viene introdotto il concetto di __protitipi usa e getta__ (_throw away_), interi programmi che vengono costruiti e poi vengono buttati via.
+![Modello a fontana](/assets/02_fountain-model.png)
 
-Lo scopo del prototipo __non è consegnare__ un prodotto finito, ma __ricevere feedback__ dal cliente per essere sicuri di aver compreso a pieno i suoi requisiti, oppure testare internamente un'idea o uno strumento. Per questo motivo tali prototipi vengono costruiti fregandosene di correttezza, pulizia del codice, leggibilità eccetera.
-I protitipi possono dunque essere:
+Nel 1993 nasce, in contrapposizione al modello a cascata, il cosiddetto __modello a fontana__, che amplia il concetto di iterazione permettendo in qualunque momento di __tornare alla fase iniziale__: se ci si accorge della presenza di errori si torna indietro all'inizio (_software pool_) e si ricontrollano tutte le fasi precedenti. Ovviamente questo non implica buttare tutto il lavoro già fatto, quanto piuttosto risolvere l'errore con un approccio che parta innanzitutto dalla modifica dei requisiti (se possibile), delle specifiche e solo dopo del codice, evitando di rattoppare solo quest'ultimo alla bell'e meglio come nel modello _code-and-fix_.
 
-- __pubblici__: per capire meglio i requisiti del cliente (vd. <a href="#b3">L3</a>);
-- __privati__: per esplorare nuovi strumenti, linguaggi, scelte per problemi difficili; inoltre, molto spesso una volta programmata una soluzione si capisce anche meglio il problema (_"do it twice"_).
+Il modello a fontana è inoltre il primo in cui sono previste delle azioni dopo la consegna; dopo l'ultima fase (_programma in uso_), infatti, si aprono ancora due strade: __manutenzione ed evoluzione__. La consegna del prodotto non è quindi più l'atto finale, ma solo un altro step del processo: ecco quindi che si aprono le porte ad una __visione incrementale__ dello sviluppo software.
+Sta proprio in questo la definizione di modello incrementale, ovvero nell'includere la consegna del progetto all'interno delle iterazioni.
 
-La tentazione coi prototipi pubblici può essere quella di consegnarli come prodotto finito, ma c'è il __rischio__ enorme di dover mantenere poi in futuro software non mantenibile, illeggibile e con altissimo debito tecnico.
-
-<a id="b3"></a>
-__Legge di Bohem (L3)__
-> La propotipizzazione riduce gli errori di analisi dei requisiti e di design, specialmente per le interfacce utente.
+Anche qui si perdono purtroppo le garanzie sui tempi di sviluppo: una volta ritornati all'inizio per sistemare un errore non c'è la certezzo di riuscire a raggiungere alla fase da cui si è partiti, ma potrei imbattermi in altri errori durante le fasi intermedie costringendomi a iterare su di esse più di una volta.
 
 ## I problemi dei modelli incrementali
 
 Come già detto nessun modello è perfetto, e anche i modelli incrementali soffrono di alcuni problemi.
 
 Viene innanzitutto __complicato il lavoro di planning__: bisogna pianificare tutte le iterazioni e lo stato di avanzamento è meno visibile; inoltre, la ripetizione di alcune fasi richiede di avere sempre sul posto gli esperti in grado di eseguirle.
-Ad ogni iterazione, poi, dobbiamo rimettere mano a ciò che è stato fatto, in un processo che potrebbe non convergere mai a una versione finale.
+Ad ogni iterazione, poi, dobbiamo rimettere mano a ciò che è stato fatto, in un processo che potrebbe non convergere mai a una versione finale, infatti è possibile che in una iterazione venga tolta una parte perchè complica l'avanzamento del progetto oppure perchè il cliente ha cambiato le sue richieste.
 
 Ma cosa è un'iterazione, e quanto dura? Tagliare verticalmente sulle funzionalità non è infatti facile, soprattutto considerando che quando si consegna il prodotto esso dev'essere funzionante con tutti i layer necessari ed essere al contempo pensato per poter crescere con successivi attaccamenti. Ci sono dunque diversi rischi:
 
@@ -68,7 +63,7 @@ Viene quindi introdotto il concetto di __prova formale di correttezza__ delle tr
 
 Introduciamo ora un metamodello, ovvero un modello che ci permette di rappresentare e discutere di altri modelli (una sorta di framework).
 
-Nel metamodello a spirale l'attenzione è posto sui __rischi__, ovvero sulla possibilità che qualcosa vada male (decisamente probabile nell'ambiente di sviluppo software).
+Nel metamodello a spirale l'attenzione è posto sui __rischi__ (_risk_based_), ovvero sulla possibilità che qualcosa vada male (decisamente probabile nell'ambiente di sviluppo software).
 Per questo motivo il modello è di tipo incrementale e pone l'accento sul fatto che non abbia senso fare lo studio di fattibilità una sola volta, ma ad ogni iterazione serva una decisione. Le fasi generali sono dunque:
 
 - Determinazione di obiettivi, alternative e vincoli
@@ -80,7 +75,9 @@ Nella figura il raggio della spirale indica i __costi__, che ad ogni iterazione 
 
 ### Variante _"win-win"_
 
-Esiste una variante al modello a spirale che fa notare come i rischi ad ogni fase non sono solo rischi tecnologici ma anche __contrattuali__ con il cliente. Ad ogni iterazione bisogna dunque trovare con esso un punto di equilibrio _win-win_ in entrambi le parti "vincono" (o hanno l'illusione di aver vinto), così da far convergere tutti su un obiettivo comune.
+Esiste una variante al modello a spirale che fa notare come i rischi ad ogni fase non sono solo rischi tecnologici ma anche __contrattuali__ con il cliente. Ad ogni iterazione bisogna dunque trovare con esso un punto di equilibrio (_win-win_) in cui entrambi le parti "vincono" (o hanno l'illusione di aver vinto), così da far convergere tutti su un obiettivo comune.
+
+![Modello Win Win](/assets/02_win_win.png)
 
 ## Modello COTS (Component Off The Shelf)
 
@@ -98,3 +95,6 @@ Si tratta tuttavia di un modello di sviluppo diverso perché richiede attività 
 - ___Progetto del sistema col riuso di componenti___: occorre progettare il sistema per far interagire componenti che non necessariamente sono stati originariamente progettati per interagire;
 - _Sviluppo e integrazione_;
 - _Verifica del sistema_.
+
+I lati positivi di questo approccio risiedono nel fatto che non bisogna sviluppare tutto da zero ma vengono utilizzate delle componenti già esistenti.
+D'altra parte, nel caso in cui il numero di componenti sia troppo elevato, il lavoro di adattamento sarà molto complesso, e le funzionalità non necessarie di quest'ultime andranno ad inficiare sul risultato finale del progetto, diminuendone ad esempio l'efficienza (se in un software vengono importate molte librerie di cui si utilizzano solo poche funzione si avrà una perdita di efficienza in termini di tempo e spazio occupato).

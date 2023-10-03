@@ -18,7 +18,7 @@ Sebbene varino molto da processo a processo, la maggior parte dei processi che s
 4. Testing
 5. Prodotto
 
-Ognuno di tali step produce un output, detto __semilavorato__, che è dato come input allo step successivo. In virtù dell'affidamento su tali semilavorati intermedi il modello a cascata si dice __document-based__: tra una fase e l'altra si crea infatti un documento che è il mezzo di trasmissione dell'informazione. Questo aspetto permette una __buona separazione dei compiti__ tra i vari dipendenti che lavorano al progetto: ognuno è infatti specializzato in una singola fase e una volta prodotto il documento utile ad avviare la fase successiva il suo coinvolgimento nel progetto non è più necessario ed esso può essere assegnato ad altri lavori.
+Ognuno di tali step produce un output, detto __semilavorato__, che è dato come input allo step successivo. In virtù dell'affidamento su tali semilavorati intermedi il modello a cascata si dice __document-based__: tra una fase e l'altra si crea infatti un documento che è il mezzo di trasmissione dell'informazione. Questo aspetto permette una __buona separazione dei compiti__ tra i vari dipendenti che lavorano al progetto: ognuno è infatti specializzato in una singola fase e una volta prodotto il documento utile ad avviare la fase successiva il suo coinvolgimento nel progetto non è più necessario ed esso può essere assegnato ad altri lavori. Da tutto ciò è facile evincere che questo modello ha introdotto un certo rigore che fino allora non si era ancora visto nel mondo dello sviluppo software, dando importanza anche alla documentazione del lavoro.
 
 La linearità del modello rende inoltre possibile __pianificare i tempi__ accuratamente e monitorare semplicemente lo stato di avanzamento in ogni fase: è infatti sufficiente stimare la durata di ogni fase per ottenere una stima del tempo di completamento dell'intero progetto. Si tratta però di una stima a senso unico: una volta finita una fase non è possibile ridurre il tempo speso, e in caso di inconvenienti l'unica opzione è cercare di assorbire il ritardo.
 
@@ -82,8 +82,9 @@ Tutti i modelli visti per ora ricadono perlopiù nell'ambito descrittivo, mentre
 Dal modello a cascata nascono poi numerose varianti che cercano di risolverne i vari problemi: tra queste spicca per rilevanza il __modello a V__, che introduce fondamentalmente una __più estesa fase di testing__.
 
 Nonostante sia ancora un modello sequenziale come il modello a cascata, nel modello a V vengono infatti evidenziati nuovi legami tra le fasi di sviluppo, che corrispondono alle attività di __verifica__ e __convalida__: alla fine di ogni fase si _verifica_ che il semilavorato ottenuto rispetti la specifica espressa dalla fase precedente, e inoltre si richiede la _convalida_ del fatto che esso sia in linea con i veri vincoli e necessità del cliente. Come si vede, questo modello pone l'accento sul rapporto con il cliente, che viene continuamente coinvolto con la richiesta di feedback su ciascun sottoprodotto generato.
+Inoltre, ogni fase comporta delle 'frecce implicite' dirette verso se stessa, indicando la necessità di una verifica per garantire la coerenza e la logica del risultato prodotto.
 
 Volendo formalizzare, le due nuove attività introdotte sono dunque:
 
-- __verifica__ (freccie bianche): controlla la correttezza rispetto alla descrizione formale delle specifiche;
+- __verifica__ (freccie bianche): controlla la correttezza rispetto alla descrizione formale delle specifiche, (in queste verifiche non è coinvolto il cliente);
 - __validazione__ (freccie grigie): controlla la compatabilità del sistema con le esigenze del cliente tramite feedback continuo.
