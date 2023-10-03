@@ -98,3 +98,6 @@ Si tratta tuttavia di un modello di sviluppo diverso perché richiede attività 
 
 I lati positivi di questo approccio risiedono nel fatto che non bisogna sviluppare tutto da zero ma vengono utilizzate delle componenti già esistenti.
 D'altra parte, nel caso in cui il numero di componenti sia troppo elevato, il lavoro di adattamento sarà molto complesso, e le funzionalità non necessarie di quest'ultime andranno ad inficiare sul risultato finale del progetto, diminuendone ad esempio l'efficienza (se in un software vengono importate molte librerie di cui si utilizzano solo poche funzione si avrà una perdita di efficienza in termini di tempo e spazio occupato).
+
+## Sviluppi futuri
+Oggi lo sviluppo delle intelligenze artificiali sta facendo enormi passi in avanti, basti vedere lo sviluppo di strumenti come ChatGPT o Copilot, che stanno rivoluzionando il mondo dell'informatica.Negli anni a venire sicuramente giocheranno un ruolo importante anche nella gestione del processo produttivo di un software, ma ad oggi non sono ancora in uso in ambito aziendale.
