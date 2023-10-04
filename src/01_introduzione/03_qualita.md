@@ -43,7 +43,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         </td>
     </tr>
     <tr>
-        <th rowspan="4"><i>Essere bello</i></th>
+        <th rowspan="3"><i>Essere bello</i></th>
         <th>Usabilità</th>
         <td>
             Un software è usabile (o <i>user-friendly</i>) se i suoi utenti lo ritengono facile e intuitivo da utilizzare.
