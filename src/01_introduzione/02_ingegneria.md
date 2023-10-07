@@ -6,14 +6,14 @@ Negli anni '70, si inizia dunque a pensare a dei metodi, dei processi e a degli 
 
 ## Approccio ingegneristico
 1. __Target__: ci si prefigge un obiettivo da raggiungere.
-2. __Metric__: si definisce una metrica per misurare la qualità del software, ovvero quanto esso si avvicina al target prefissato *(la metrica non va scelta a posteriori).
+2. __Metric__: si definisce una metrica per misurare la qualità del software, ovvero quanto esso si avvicina al target prefissato (la metrica non va scelta a posteriori).
 3. __Method, Process, Tool__: si provano una serie di metodi, processi e strumenti per avvicinarsi all'obiettivo.
 4. __Measurements__: Tramite la metrica stabilita si misura se le strategie implementate sono state utili e quanto ci hanno avvicinato (o allontanato) all'obiettivo.
 A seconda dei risultati ottenuti vi sono due possibili strade:
-    - __risultati soddisfacenti__ (_aumento delle metrica_) - accettiamo come buoni metodi e processi utilizzati.
+    - __risultati soddisfacenti__ (_aumento delle metrica_) - accettiamo come buoni i metodi e processi utilizzati.
     - __risultati insoddisfacenti__ (_diminuzione della metrica_) - ci sono dei peggioramenti o dei forti effetti collaterali, di conseguenza bisogna modificare qualcosa: si possono cambiare target o metrica se ci si rende conto di non aver ben definito l'obiettivo, ma più comunemente bisogna rivedere i processi e metodi usati.
 
-Ma __che cosa si intede per target__? Gli obiettivi da raggiungere possono essere di due tipi: la risoluzione dei __problemi nella progettazione del software__ e l'assicurazione di una qualche __qualità che il software dovrà avere__. È dunque necessario chiedersi le seguenti domande:
+Ma __che cosa si intede per target__? Gli obiettivi da raggiungere possono essere di due tipi: la risoluzione dei __problemi nella progettazione del software__ e l'assicurazione di una qualche __qualità che il software dovrà avere__. È dunque necessario porsi le seguenti domande:
 - Quali problemi ci sono?
 - Quali qualità deve avere il software?
 
@@ -27,4 +27,4 @@ Un'altra fonte di problemi sono le __dimensioni__ del software, che possono ragg
 Il software è infine __facilmente malleabile__, ovvero modificabile nel tempo: il moltiplicarsi di versioni, evoluzioni e variazioni di target può creare non poche difficoltà.
 
 La misurazione in _"anni uomo"_ è una misura che deve essere fatta a posteriori, e non prima per capire come affrontare un lavoro.
-Inoltre questa non è una buona unità di misura, in quanto lascia intendere che maggiore è il numero di uomni impegnati nel lavoro e minore sarà il tempo impiegato, ma ovviamente non è così.
+Inoltre questa non è una buona unità di misura, in quanto lascia intendere che maggiore è il numero di uomini impegnati nel lavoro e minore sarà il tempo impiegato, ma ovviamente non è così.

@@ -73,7 +73,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         <td>
             Le componenti del software che costruiamo dovrebbero essere il più riutilizzabili possibile così da risparmiare tempo in futuro: per farlo bisogna aumentare l'adattabilità, ciò può essere fatto evitando di legare troppo il software allo specifico contesto applicativo.
             È possibile avere anche un aumento dell'affidabilità e della verificabilità, perchè il codice riutilizzato è stato già testato e verificato al momento della sua creazione.
-            Con la proprietà di riusabilità, utilizziamo un prodotto per costruire - anche con modifiche minori - un altro prodotto, anche se non sempre è sicuro a causa di contesti diversi (es: hardware diverso). (vd. <a href="#mi15">MI15</a>).
+            Con la proprietà di riusabilità, utilizziamo un prodotto per costruirne - anche con modifiche minori - un altro, anche se non sempre è un'operazione sicura a causa dei contesti diversi in cui il software può essere utilizzato (es: architettura hardware sottostante) (vd. <a href="#mi15">MI15</a>).
             Un esempio di software riutilizzato che ha causato il fallimento di un progetto è quello del sistema di controllo dell'Ariane 5, ereditato dall'Ariane 4 ma senza essere stato testato correttamente, infatti questo ha portato al fallimento del primo lancio del razzo. 
         </td>
     </tr>
@@ -92,7 +92,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         <th> Perfettibilità </th>
         <td>
             Migliorare le qualità del software in modo da aumentare la qualità sia degli aspetti esterni che di quelli interni, senza però alterare le funzionalità richieste dalle specifiche.
-            Questo aspetto quindi non va ad aggiungere o rimuovere fratures, ma al massimo cerca di perfezionarle.
+            Questo aspetto quindi non va ad aggiungere o rimuovere features, ma al massimo cerca di perfezionarle.
         </td>
     </tr>
 </tbody>

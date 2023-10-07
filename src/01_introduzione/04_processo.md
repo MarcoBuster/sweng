@@ -6,12 +6,12 @@ Innanzitutto occorre riconoscere diverse problematiche.
 - Produrre software __non è _solo_ scrivere codice__ (alla Programmazione I).
 - Bisogna risolvere i __problemi di comunicazione__ tra tutte le diverse figure in gioco (tra sviluppatori, tra progettista e sviluppatori, ecc).
 - Bisogna essere __rigorosi__, anche se può risultare difficile. Ci sono lati positivi e negativi: la rigorisità può facilitare la comprensione di ciò che bisogna fare ma implica  al contempo molta fatica extra, e viceversa.
-    > __Ipotesi di Bauer-Zemanek (BZh3)__: _Metodi formali riducono in maniera __significativa__ gli errori di progettazione, oppure permettono di eliminarli e risolverli prima._
+    > __Ipotesi di Bauer-Zemanek (BZh3)__: _Metodi formali riducono in maniera <ins>significativa</ins> gli errori di progettazione, oppure permettono di eliminarli e risolverli prima._
 
     Questa affermazione resta un'ipotesi perchè non è possibile dimostrare che sfruttando dei metodi formali ci sia una diminuzione degli errori, anche se nella pratica ciò avviene costantemente.
 
     Trovare gli errori prima della fase di sviluppo permette di facilitarne la risoluzione e di risparmiare sia tempo che soldi: tanto prima si individua un errore, tanto più facile sarà risolverlo.
-    Tuttavia è importante sottolineare che utilizzare metodi formali non è necessario in ogni caso, perchè queste operazioni richiedono molto tempo, che deve essere sottratto ad altre fasi, ma spesso a causa delle consegne imminenti non è possibile permettersi di investire troppo tempo nella formalizzazione.
+    Tuttavia è importante sottolineare che utilizzare metodi formali non è necessario in ogni caso, perchè queste operazioni richiedono molto tempo, che deve essere sottratto ad altre fasi, ma spesso a causa delle consegne imminenti non è possibile permettersi di investire troppo tempo nella formalità.
 - Ci sono __tanti aspetti__ da considerare, che andranno affrontati uno alla volta. Per parlare di aspetti diversi ho bisogno di metodi comunicazione diversi, che interessano ruoli diversi in tempi diversi (_Aspect Oriented Programming_).
 
 Tenendo a mente tutto queste problematiche è necessario decidere come organizzare l'attività di sviluppo software in modo da mitgarle. Per modellare un ciclo di vita del software, occorre dunque in primo luogo __identificare le varie attività necessarie__ e quindi:
@@ -70,7 +70,7 @@ Il documento di specifica è un documento scritto in modo formale, perchè è la
 - __Modelli descrittivi__: I modelli descrittivi rappresentano il sistema logicamente in modo da poter verificare le sue proprietà.
 - __Modelli operazionali__: I modelli operazionali forniscono una rappresentazione del sistema tramite un modello eseguibile capace di mostrare le proprietà del sistema (in questo caso è facile cadere nella tentazione di pensare subito al _come_ realizzare una funzioalità).
 
-> __Legge di David__: Il valore dei modelli che rappresentano il software da diversi punti di vista dipendono dal punto di vista preso (assunto), ma non c'è nessuna vista che è la migliore per ogni scopo.
+> __Legge di David__: _Il valore dei modelli che rappresentano il software da diversi punti di vista dipendono dal punto di vista preso (assunto), ma non c'è nessuna vista che è la migliore per ogni scopo._
 
 ### Progettazione (design)
 Il _design_ è l'attività attraverso la quale gli sviluppatori software strutturano l'applicazione a diversi livelli di dettaglio.
