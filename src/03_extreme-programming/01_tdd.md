@@ -10,7 +10,8 @@ Il significato di questa espressione è che per scrivere del codice che esalti l
 
 Per applicare questo approccio _test-driven_ allo sviluppo effettivo di software, il TDD ha sviluppato il seguente "mantra": __rosso__, __verde__, __refactoring__. Quando si scrive codice bisogna infatti seguire le seguenti tre fasi:
 
-- Ogni volta che si deve aggiungere una feature __si scrive prima il test__ che la provi; non essendo ancora stata sviluppata, tale test dovrà fallire (<span style="Color: red">rosso</span>).
+- Ogni volta che si deve aggiungere una feature __si scrive prima il test__ che la provi; non essendo ancora stata sviluppata, tale test dovrà fallire (<span style="Color: red">rosso</span>). In questa fase si crea già una parte di specifica, perchè descrive l'utilità la nuova feature o della parte di codice che si sta creando.
+L'eccessivo tempo impiegato in questa fase sta a significare che il problema è troppo complesso, ed è quindi necessario scomporlo per renderlo più semplice.
 
 - Si cerca poi di __soddisfare il test il più velocemente possibile__, facendolo diventare <span style="color: green">verde</span>. Si ottiene così del codice corretto ma probabilmente molto brutto, quasi come fosse una bozza: tale codice serve però come feedback del fatto che l'algoritmo scelto funziona.
 
