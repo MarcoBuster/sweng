@@ -8,9 +8,9 @@ Ognuno di tali modelli avrà i propri pro e i propri contro, ed è bene da subit
     - modello a V
 - [**Modelli iterativi**](./02_modelli-iterativi.md)
     - modello a cascata con singola retroazione
-    - modello a fontana
-- [**Modelli incrementali**](./03_modelli-incrementali.md)
     - modello prototipale
+- [**Modelli incrementali**](./03_modelli-incrementali.md)
+    - modello a fontana
     - pinball life-cycle
     - metamodello a spirale
     - modelli trasformazionali
