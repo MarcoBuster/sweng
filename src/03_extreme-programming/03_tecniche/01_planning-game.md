@@ -1,6 +1,7 @@
 # Planning game
 
 È l'attività di pianificazione che viene fatta all'inizio di ogni iterazione e serve per "congelare" il sottoinsieme di requisiti sul quale il team lavorerà per le prossime ~2 settimane.
+Questa procedura è posta ai membri del team come un gioco, in modo da alleggerire, almeno apparentemente, la riunione da fare ad inizio iterazione.
 
 Si parte dalle richieste del cliente espresse tramite _user stories_, una versione semplificata degli _use case_ degli UML; esse hanno come soggetto sempre un ruolo specifico nell'azienda del cliente e descrivono una funzionalità. Ogni _user story_ è dunque composta da tre parti:
 
@@ -19,13 +20,13 @@ Lo scopo del planning game è dunque quello di determinare quali funzionalità s
 
 Quest'attività di pianificazione si divide fondamentalmente in tre fasi:
 
-1. All'inizio il cliente compila le __carte__, nient'altro che pezzetti di carta volutamente piccoli per impedire di scriverci troppo. Su ogni carta è presente:
+1. All'inizio il cliente compila le __carte__ (prima dell'inizio del planning game), nient'altro che pezzetti di carta volutamente piccoli per impedire di scriverci troppo. Su ogni carta è presente:
     - un identificativo numerico;
     - una breve frase che descrive uno scenario d'uso;
     - un caso di test che funge da test d'accettazione della funzionalità: si tratta in sostanza di un paio di esempi, di solito uno positivo e uno negativo, che devono essere soddisfatti per ritenere completa la feature;
     - il valore di business che la funzionalità ha per il cliente.
 
-2. Per ogni carta il team di sviluppatori fa dunque una __stima__ del tempo necessario a realizzarla: raggiunta una stima comune questa viene scritta sulla carta e servirà per confrontare tale previsione con il tempo effettivamente impiegato, di cui si tiene conto sul suo retro. Per ciascuna carta uno sviluppatore assume infatti il ruolo di _tracker_, impegnandosi cioè a tracciare lo stato di avanzamento della relativa funzionalità durante le due settimane (_es. quante feature fatte, quanti bug segnalati, etc._).
+2. Per ogni carta il team di sviluppatori fa dunque una __stima__ del tempo necessario a realizzarla: raggiunta una stima comune questa viene scritta sulla carta e servirà per confrontare tale previsione con il tempo effettivamente impiegato, di cui si tiene conto sul suo retro. Per ciascuna carta uno sviluppatore assume infatti il ruolo di _tracker_, impegnandosi cioè a tracciare lo stato di avanzamento della relativa funzionalità durante le due settimane (_es. quante feature fatte, quanti bug segnalati, etc._). <!-- il tracker non era quella figura descritta al capitolo 3.2 nella sezione "figure e responsabilità? chiedi a lezione"  -->
 
 3. Il manager decide quindi sulla base di queste informazioni __quali carte verranno implementate__ durante prossima iterazione: per questa operazione prende in considerazione il valore delle feature, le dipendenze tra l'una e l'altra e una serie di altri fattori. Se, come dovrebbe essere, le varie funzionalità rappresentate nelle carte sono indipendenti, il manager può compiere questa scelta calcolando il rapporto tra il valore e il tempo stimato e usarlo per ordinare le carte: tuttavia l'operazione richiede una certa dose di ragionamento e non è mai così meccanica.
 
