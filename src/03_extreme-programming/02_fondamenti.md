@@ -8,7 +8,7 @@ Secondo Beck, durante lo sviluppo di software le principali variabili sono:
 
 - __portata__: la quantità di funzionalità da implementare, una variabile delicata dal valore _mutevole_ poiché il numero di funzionalità richieste può cambiare nel corso dello sviluppo;
 - __tempo__: il tempo che si può dedicare al progetto;
-- __qualità__: la qualità del progetto che si vuole ottenere, principalmente relativa a correttezza e affidabilità. Di fatto è una costante perchè quando si realizza un progetto si cerca di avere la qualità migliore possibile (sappiamo non essere sempre così nella pratica a causa dei compromessi che a volte bisogna fare);
+- __qualità__: la qualità del progetto che si vuole ottenere, principalmente relativa a correttezza e affidabilità. Di fatto è una costante perchè quando si realizza un progetto si cerca di avere la qualità migliore possibile (sappiamo non essere sempre così nella pratica a causa dei compromessi che a volte bisogna accettare);
 - __costo__: le risorse (finanziare o in termini di personale) che si possono impegnare per il progetto.
 
 Queste 4 variabili __non sono indipendenti__ tra di loro, in quanto cambiare una influenza automaticamente le altre, in positivo o in negativo. Ponendo quindi che la qualità non sia negoziabile (il software deve funzionare) bisognerà lavorare sulle altre, specialmente bilanciando costo e tempo.

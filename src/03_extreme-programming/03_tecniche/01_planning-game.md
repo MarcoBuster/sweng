@@ -66,7 +66,7 @@ Dopodiché ogni componente del team sceglie una carta dal proprio mazzo personal
 Fatta questa prima stima _blind_ le carte vengono girate contemporaneamente: idealmente vi dovrebbe essere l'unanimità sulla stima. Se così non è chi ha espresso le stime più basse e più alte ha ~1 minuto per motivare la propria scelta in modo da cercare di convincere gli altri; si noti che agli altri componenti del team non è concesso parlare per evitare di perdere troppo tempo! \
 Finito questo momento di consultazione tutti i membri del team fanno una nuova stima e si continua così finché non si raggiunge l'unanimità; solitamente le votazioni convergono dopo un paio di round.
 
-Ma qual'è l'unità di misura su cui si fanno le stime? Dipende: essa può essere scelta prima o dopo aver trovato un accordo; possono essere ore, giorni o pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni,e dopo c'è una pausa). Ovviamente non si può pretendere di lavorare delle ore senza alcuna distrazione, per cui in queste stime si considera anche un certo __slack time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
+Ma qual'è l'unità di misura su cui si fanno le stime? Dipende: essa può essere scelta prima o dopo aver trovato un accordo; possono essere ore, giorni o pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni, e dopo c'è una pausa). Ovviamente non si può pretendere di lavorare delle ore senza alcuna distrazione, per cui in queste stime si considera anche un certo __slack time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
 
 ## [Team Estimation Game](https://agilelearninglabs.com/2012/05/how-to-play-the-team-estimation-game/)
 
@@ -104,6 +104,7 @@ Quindi:
     - __passare__ il turno, nel caso in cui non ci siano più carte nella pila e non si vogliono spostare altre carte.
 
 È possibile avere delle carte in cui sopra non c'è nessun numero, queste saranno assimilate alla colonna alla loro sinistra. 
+Esiste anche la possibilità di avere dei numeri senza alcuna carta sotto, questo significa che non esistono carte a cui è stato attribuito quel valore di difficoltà. 
 
 Al termine di questa fase, la situazione sarà simile alla seguente:
 
