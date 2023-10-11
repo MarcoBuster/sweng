@@ -8,6 +8,6 @@ Nell'XP ogni aspetto viene massimizzato, ma in particolare il testing viene esas
 Ha il ruolo di __rete di protezione__ in tutte le fasi: ogni cambiamento è verificabile tramite i test.
 
 Il testing aiuta molto anche quando non si parte da zero con il programma, ma quando si deve modificare un programma proprietario precedentemente sviluppato anche in modalità non agile.
-Prima di apportare modifiche al codice scrivo i test e solo successivamente procedo, in modo da non causare problemi.
+Prima di apportare modifiche al codice scrivo i test e solo successivamente procedo, in modo da non causare problemi (solitamente non si fanno test su cose che non modifico).
 
 Un altro concetto importante è che i test dovrebbero __coprire tutte le righe di codice__.
