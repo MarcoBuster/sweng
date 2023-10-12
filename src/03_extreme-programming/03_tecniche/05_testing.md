@@ -13,6 +13,6 @@ Prima di apportare modifiche al codice scrivo i test e solo successivamente proc
 Il testing solitamente viene lasciato alla fine, dopo lo sviluppo del progetto, ma facendo in questo modo è facile trascurare la fase di testing non identificando possibili errori.
 Infatti è preferibile anticipare la scrittura del test al momento precedente della scrittura del codice, in modo tale da guidare lo sviluppo e garantire una migliore correttezza.
 
-Infine il testing facilita la fase di refactoring, questo perchè se il test non fallisce anche dopo aver modificato il codice della feature abbiamo la sicurezza di non aver alterato la feature.
+Infine il testing facilita la fase di refactoring, questo perchè se il test non fallisce anche dopo aver modificato il codice della feature abbiamo la sicurezza di non aver alterato quest'ultima.
 
 Un altro concetto importante è che i test dovrebbero __coprire tutte le righe di codice__, infatti non possiamo provare la correttezza del codice se non testandolo in ogni sua possibile forma o esecuzione.

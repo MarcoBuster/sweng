@@ -1,10 +1,10 @@
 # Criticità
 
 ## Quando non utilizzare XP
-Back non esclude mai la possibilità di utilizzare l'XP: secondo lui diceva può provare ad utilizzare questo approccio sempre (anche se in realtà non è sempre possibile "provare"), a patto che vengano rispettati i 12 punti elencati sopra.
+Back non esclude mai la possibilità di utilizzare l'XP: lui sostiene che è possibile provare ad utilizzare questo approccio sempre (anche se in realtà non è sempre possibile "provare"), a patto che vengano rispettati i 12 punti elencati sopra.
 
 Da questo possiamo concludere che Agile non si può usare quando:
-- l'__ambiente__ non permette l'applicazione dei 12 punti, come per esempio succede con i team dislocati in luoghi diversi;
+- l'__ambiente__ non permette l'applicazione dei 12 punti, come per esempio quando i team sono dislocati in luoghi diversi;
 - ci sono __barriere managieriali__, come team troppo numerosi;
 - ci sono __barriere tecnologiche__, come quando per esempio non è possibile utilizzare una macchina specifica condivisa da tutte le coppie per i test, ostacolando l'integrazione continua.
 - ci sono __troppi stakeholders__ diversi e in contrasto tra loro;

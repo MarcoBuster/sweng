@@ -119,4 +119,6 @@ Questo valore viene sfruttato per decidere in che ordine dedicarsi le diverse fe
 Come si vede, per migliorare la fiducia tra sviluppatore e cliente sono necessari due requisiti: un certo grado di _trasparenza_ da parte di chi sviluppa, ottenuta dall'uso delle contiene release incrementali per mostrare come sta evolvendo il sistema, e una certa dose di _pazienza_ da parte del cliente, che deve accettare di lasciare allo sviluppatore la facoltà di decidere come si realizzano le funzionalità e di cambiare le prospettive temporali di sviluppo qualora fosse necessario.
 
 Inoltre all'interno del team vi è anche la figura del __tracker__, ovvero una persona del team (non è fissa, può cambiare ad ogni iterazione) incaricata di tenere traccia delle problematiche incontrate durante l'iterazione.
+Per fare ciò il tracker definisce una metrica (ad esempio numero di issue aperti) ragionevole per misurare lo stato del problema preso in esame. 
+Solitamente vi è un luogo fisico all'interno dell'ufficio in cui ogni giorno viene segnata la nuova misurazione (ad esempio una lavagna che è visibile da ogni membro del team). 
 Grazie a questa figura tutto il team viene a conoscenza dei problemi principali che sono stati riscontrati durante il progetto, e ad ogni iterazione si cerca di capire in che modo risolverli in modo da migliorare il processo di sviluppo.

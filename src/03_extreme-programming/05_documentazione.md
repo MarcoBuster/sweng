@@ -1,6 +1,6 @@
 # Documentazione
 La __documentazione__ cartacea __non è necessaria__: 
-il cliente, il compagno di peer programming e il codice _sono la documentazione_.
+il cliente, il compagno di peer programming, le stories e il codice _sono la documentazione_.
 
 La documentazione è sostituita dal codice in quanto:
 - i __test di unità__ che sono delle _specifiche eseguibili_, infatti li scrivo prima di fare il codice (prima dico cosa voglio tramite il test);

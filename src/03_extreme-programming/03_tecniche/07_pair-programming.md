@@ -14,7 +14,7 @@ __No__, è stimato invece che la produttività aumenti circa del 50% - quindi la
 
 
 Diversi studi si chiedono se la produttività calcolata puntualmente sia una metrica sensata. 
-Secondo molti no, perché al termine di un'iterazione ciò che sembra poco produttivo in realtà lo è di più: il tempo non successivamente speso in verifica, convalida e refactoring è largamente assorbito dall'__ispezione continua del codice__ svoltasi durante le sessioni di pair programming. È una tecnica volta al minimizzare i danni possibili.
+Secondo molti no, perché al termine di un'iterazione ciò che sembra poco produttivo in realtà lo è di più: il tempo non impiegato in verifica, convalida e refactoring è largamente assorbito dall'__ispezione continua del codice__ svoltasi durante le sessioni di pair programming. È una tecnica volta al minimizzare i danni possibili.
 
 ## Critiche
 Betrand Meyer, nel suo libro _"Agile! The Good, the Hype and the Ugly"_, scrive:
