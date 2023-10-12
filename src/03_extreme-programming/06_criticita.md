@@ -22,15 +22,20 @@ Le _user stories_ dovrebbero essere indipendenti tra loro, ma questo non è quas
 
 I punti di cui sopra cercano di evidenziare la mancanza di approfondimento e chiarezza dell'XP su alcuni aspetti dell'approccio ad un lavoro fornito da un cliente.
 
-È consigliata la lettura del libro di Meyer.
+__È consigliata la lettura del libro di Meyer.__
 
 ## Mesi uomo
 È diffuso tra i manager pensare che la stima in tempo in mesi uomo sia graficata come un ramo di un iperbole, ovvero che il tempo diminuisca simil-esponenzialmente all'aumentare dei mesi uomo; tale stima non considera i tempi di _overhead_, ovvero il tempo impiegato per la comunicazione e tutto ciò che non è l'implementazione.
 I mesi uomo __non quindi sono una metrica valida__, ma sono utili solo a posteriori per valutare se un approccio ad un problema si è dimostrato valido.
 
-Nella realtà, __all'aumentare delle persone aumenta il bisogno di comunicare__.
+Nella realtà, __all'aumentare delle persone aumenta il bisogno di comunicare__, quindi non sempre porta ad un aumento lineare della produttività.
 
-Quando il lavoro è strettamente sequenziale e non parallelizzabile (come la _gravidanza_) anche all'aumentare delle persone il tempo non cambia.
+Quando il lavoro è strettamente sequenziale e non parallelizzabile (come la _gravidanza_) anche all'aumentare delle persone il tempo non cambia, anzi si rischia di rallentarlo.
+
+In caso di ritardi nell'avanzamento del progetto invece che aggiungere personale rischiando di peggiorare la situazione posso:
+-   Discutere la dead-line con il cliente, se possibile.
+-   Diminuire la portata del progetto.
+-   Diminuire la qualità del progetto, diminuendo il testing (__fortemente sconsigliato ma accade spesso__).
 
 Nel mondo dello sviluppatore software spesso c'è un __numero ideale di persone__ per un progetto; dopodiché, persone in più causano solo confusione e rallentano i tempi a causa della comunicazione.
 Il numero può anche essere grande, dipende dall'entità del progetto (esempio: space shuttle).

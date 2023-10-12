@@ -21,3 +21,5 @@
 In XP è inoltre presente la nozione di _prototipo_ sotto il nome di ___spike___, ovvero programmi molto semplici creati per esplorare soluzioni potenziali.
 Sono utili per capire se ho compreso le specifiche, la tecnologia da utilizzare e l'approccio da avere con i componenti esterni con cui bisogna dialogare. 
 Questi prototipi vengono creati, mostrati al cliente e quindi scartati.
+
+More at:  http://www.extremeprogramming.org/rules.html 
