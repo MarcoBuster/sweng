@@ -122,10 +122,10 @@ Nella prossima sezione parliamo di come la nozione di __velocity__ risolve quest
 In fisica la velocità è data dal rapporto tra la distanza percorsa e il tempo per percorrerla. 
 Questa proprietà può essere usata anche nella gestione dello sviluppo agile: il numeratore è il punteggio delle storie mentre il denominatore è la lunghezza dell'iterazione (assimilabile in un'unità di tempo).
 
-La ___velocity___ nel mondo agile è quindi il __numero di story point__ guadagnati nell'arco dell'iterazione corrente.
+La ___velocity___ nel mondo agile è quindi il __numero di story point__ guadagnati nell'arco dell'iterazione corrente, proprio per questo motivo è poco oggettiva e molto variabile. Story point stimati in maniera non efficace (sovra o sotto stimati) possono portare a pensare che un team sia molto veloce o lento quando effettivamente non è così. Si tratta infatti di un metro di valutazione facilmente taroccabile che quindi non deve essere imposto ma deve essere stimato e migliorato nel tempo per raggiungere un metro di paragone sempre più preciso.
 
 Essa riesce quindi a dare un'idea di quanto si è riusciti a fare in termini di complessità astratta.
-Se per esempio il team è riuscito a fare 50 punti nella iterazione appena finita, è ragionevole prefissarsi di fare almento 50 punti nell'iterazione successiva.
+Se per esempio il team è riuscito a fare 50 punti nella iterazione appena finita, è ragionevole prefissarsi di fare almento 50 punti nell'iterazione successiva, ma non certo.
 
 La velocity __non può essere usata__ per dare __premi__, per __confrontare__ team diversi o __punire__ in caso di diminuzione, però si adatta al modo diverso degli sviluppatori di gestire le stime e dal fatto che si tende a sottostimare o sovrastimare carte diverse.
 
@@ -135,4 +135,4 @@ La velocity __non deve considerare le storie lasciate incompiute__, quindi anche
 Inoltre, __non deve essere__ imposta: la velocity di un team è fissa e non può essere aumentata.
 
 Esiste un movimento chiamato ___no estimates___, che evita al team tutta la parte delle stime. 
-Dall'esperienza del prof. Bellettini, però, questa metodologia funziona in team molto maturi che sono in grado di guidare il ciente a formulare storie simili in termini di difficoltà, avendo tutti una misura standard per le storie.
+Dall'esperienza del prof. Bellettini, però, questa metodologia funziona in team molto maturi che sono in grado di guidare il cliente a formulare storie simili in termini di difficoltà, avendo tutti una misura standard per le storie.

@@ -15,4 +15,4 @@ Infatti è preferibile anticipare la scrittura del test al momento precedente de
 
 Infine il testing facilita la fase di refactoring, questo perchè se il test non fallisce anche dopo aver modificato il codice della feature abbiamo la sicurezza di non aver alterato la feature.
 
-Un altro concetto importante è che i test dovrebbero __coprire tutte le righe di codice__.
+Un altro concetto importante è che i test dovrebbero __coprire tutte le righe di codice__, infatti non possiamo provare la correttezza del codice se non testandolo in ogni sua possibile forma o esecuzione.
