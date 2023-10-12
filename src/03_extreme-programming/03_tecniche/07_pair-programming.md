@@ -7,13 +7,14 @@ Ci sono diversi __vantaggi__:
 - mentre il _pilota_ attua le idee, il _navigatore_ pensa cosa fare subito dopo: forma di __refactoring__;
 - favorisce l'__inserimento di nuovo personale__: piuttosto che lasciare i novizi da soli a studiare libroni, vengono affiancati e incitati a osservare e interagire con persone esperte che stanno lavorando;
 - fa ottenere una __proprietà collettiva__ (conoscenza osmotica), come descritta da Crystal. 
-Un altro punto importante sono i commenti _naive_ (ovvero fatti da programmatori junior) per permettere di chiarire concetti basilari date spesso per scontato. 
+Un altro punto importante sono i commenti _naive_ (ovvero fatti da programmatori junior) per permettere di chiarire concetti basilari dati spesso per scontati e offrire nuovi punti di vista. 
 
-Raddoppiare il numero di persone raddoppia la produttività?
-__No__, è stimato invece che la produttività aumenti circa del 50% - quindi non abbastanza per giustificare il costo.
+Si potrebbe pensare che sia uno spreco di personale, ma raddoppiare il numero di persone raddoppia davvero la produttività?
+__No__, è stimato invece che la produttività aumenti circa del 50% - quindi la programmazione a coppie a fronte di un piccola perdita di produttività offre tutti i vantaggi, sopra citati.
+
 
 Diversi studi si chiedono se la produttività calcolata puntualmente sia una metrica sensata. 
-Secondo molti no, perché al termine di un'iterazione ciò che sembra poco produttivo in realtà lo è di più: il tempo non successivamente speso in verifica, convalida e refactoring è largamente assorbito dall'__ispezione continua del codice__ svoltasi durante le sessioni di pair programming.
+Secondo molti no, perché al termine di un'iterazione ciò che sembra poco produttivo in realtà lo è di più: il tempo non successivamente speso in verifica, convalida e refactoring è largamente assorbito dall'__ispezione continua del codice__ svoltasi durante le sessioni di pair programming. È una tecnica volta al minimizzare i danni possibili.
 
 ## Critiche
 Betrand Meyer, nel suo libro _"Agile! The Good, the Hype and the Ugly"_, scrive:

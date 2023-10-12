@@ -2,7 +2,7 @@
 Nell'ottica di ricevere feedback rapidi dal cliente è necessario __integrare spesso__, anche __più volte al giorno__. 
 Questo non significa far passare i test d'unità per integrare tutto in un'unica operazione, ma essere graduali: è frequente scoprire che parti testate e funzionanti singolarmente una volta integrate nel prodotto finale non funzionano. 
 
-L'integrazione continua e graduale è una tecnica largamente utilizzata in tutti i campi, non solo nello sviluppo software.
+L'integrazione continua e graduale è una tecnica largamente utilizzata in tutti i campi, non solo nello sviluppo software. Se effettuata spesso dovrebbe risultare in un azione semplice e veloce, date le poche modifiche dalla versione precedente.
 
 Al termine dello sviluppo di una _feature_, è compito della coppia integrarla nella __macchina di riferimento__.
 L'accesso a tale macchina deve essere regolato in maniera __esclusiva__: in situazioni di lavoro da remoto si può utilizzare un token.
