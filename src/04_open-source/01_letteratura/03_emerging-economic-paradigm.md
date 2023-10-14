@@ -9,7 +9,7 @@ Dal punto di vista economico è poi importante stabilire se la tecnologia dà un
 - __Il cliente si accorge degli effetti del software?__ Per esempio, le persone si accorgono dell'esistenza del sistema di raccomandazione dei libri di Amazon?
 - __I competitor non hanno accesso allo stesso software?__ Se Amazon usasse il sistema di raccomandazione venduto anche a Feltrinelli allora non avrebbe senso mantenerlo privato.
 
-Se la risposta a una delle due domande è no, avere un software proprietario non apporta alcun vantaggio: un modello di sviluppo open-source sparpaglia invece i costi e genera valore, motivo per cui sempre più aziende lo scelgono.
+Se la risposta a una delle due domande è no, avere un software proprietario non apporta alcun vantaggio: un modello di sviluppo open-source sparpaglia invece i costi e genera valore, questo perchè le persone contribuiscono allo sviluppo e al miglioramento del software in modo gratuito, per cui sempre più aziende lo scelgono.
 
 Perens conclude il suo articolo riportando una matrice in cui confronta 4 diversi modelli di sviluppo, ognuno con le sue caratteristiche che ne determinano l'applicabilità in diverse situazioni:
 
