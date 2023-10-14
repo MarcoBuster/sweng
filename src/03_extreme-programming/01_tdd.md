@@ -10,9 +10,10 @@ Il significato di questa espressione è che per scrivere del codice che esalti l
 
 Per applicare questo approccio _test-driven_ allo sviluppo effettivo di software, il TDD ha sviluppato il seguente "mantra": __rosso__, __verde__, __refactoring__. Quando si scrive codice bisogna infatti seguire le seguenti tre fasi:
 
-- Ogni volta che si deve aggiungere una feature __si scrive prima il test__ che la provi; non essendo ancora stata sviluppata, tale test dovrà fallire (<span style="Color: red">rosso</span>).
+- Ogni volta che si deve aggiungere una feature __si scrive prima il test__ che la provi; non essendo ancora stata sviluppata, tale test dovrà fallire (<span style="Color: red">rosso</span>). In questa fase si crea già una parte di specifica, perchè descrive l'utilità la nuova feature o della parte di codice che si sta creando.
+L'eccessivo tempo impiegato in questa fase sta a significare che il problema è troppo complesso, ed è quindi necessario scomporlo per renderlo più semplice. In questa fase cerco di mettermi nei panni del cliente, per capire esattamente come voglia che il software funzioni e come debba rispondere a determinati input.
 
-- Si cerca poi di __soddisfare il test il più velocemente possibile__, facendolo diventare <span style="color: green">verde</span>. Si ottiene così del codice corretto ma probabilmente molto brutto, quasi come fosse una bozza: tale codice serve però come feedback del fatto che l'algoritmo scelto funziona.
+- Si cerca poi di __soddisfare il test il più velocemente possibile__, facendolo diventare <span style="color: green">verde</span>. Si ottiene così del codice corretto ma probabilmente molto brutto, quasi come fosse una bozza: tale codice serve però come feedback del fatto che l'algoritmo scelto funziona. Nonostante la rapidità nello sviluppo di questa soluzione, si deve comunque tenere conto, almeno minimamente, delle proprie scelte implementative, in quanto fungeranno da fondamenta per il prossimo step.
 
 - Si compie infine un'azione di __refactoring__ (_fattorizzazione_), ovvero si riorganizza e si riscrive il codice in modo da renderlo migliore assicurandosi però che il test continui ad essere soddisfatto (in questa fase dobbiamo rimanere in uno stato di <span style="color: green">verde</span>).
 
@@ -25,5 +26,3 @@ In virtù di quanto appena detto, l'uso del TDD come tecnica di progettazione ga
 - Spesso capita di scrivere codice difficilmente testabile: scrivere il test prima e il codice dopo aiuta invece a progettare prodotti la cui correttezza può essere provata.
 
 - Scrivere prima i test aiuta a definire chiaramente le interfacce del programma e come queste comunicano tra di loro, mentre se non dovessimo farlo potremmo avere delle dipendenze complicate da rimuovere.
-
-Durante il testing ci si pone dal __punto di vista del cliente__: la tecnica TDD ci permette dunque di osservare il codice da molteplici prospettive (sviluppatore e cliente), cosa che contribuisce ovviamente alla creazione di un prodotto migliore.

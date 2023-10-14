@@ -1,6 +1,7 @@
 # Planning game
 
 È l'attività di pianificazione che viene fatta all'inizio di ogni iterazione e serve per "congelare" il sottoinsieme di requisiti sul quale il team lavorerà per le prossime ~2 settimane.
+Questa procedura è posta ai membri del team come un gioco, in modo da alleggerire, almeno apparentemente, la riunione da fare ad inizio iterazione.
 
 Si parte dalle richieste del cliente espresse tramite _user stories_, una versione semplificata degli _use case_ degli UML; esse hanno come soggetto sempre un ruolo specifico nell'azienda del cliente e descrivono una funzionalità. Ogni _user story_ è dunque composta da tre parti:
 
@@ -19,13 +20,13 @@ Lo scopo del planning game è dunque quello di determinare quali funzionalità s
 
 Quest'attività di pianificazione si divide fondamentalmente in tre fasi:
 
-1. All'inizio il cliente compila le __carte__, nient'altro che pezzetti di carta volutamente piccoli per impedire di scriverci troppo. Su ogni carta è presente:
+1. All'inizio il cliente compila le __carte__ (prima dell'inizio del planning game), nient'altro che pezzetti di carta volutamente piccoli per impedire di scriverci troppo. Su ogni carta è presente:
     - un identificativo numerico;
     - una breve frase che descrive uno scenario d'uso;
     - un caso di test che funge da test d'accettazione della funzionalità: si tratta in sostanza di un paio di esempi, di solito uno positivo e uno negativo, che devono essere soddisfatti per ritenere completa la feature;
     - il valore di business che la funzionalità ha per il cliente.
 
-2. Per ogni carta il team di sviluppatori fa dunque una __stima__ del tempo necessario a realizzarla: raggiunta una stima comune questa viene scritta sulla carta e servirà per confrontare tale previsione con il tempo effettivamente impiegato, di cui si tiene conto sul suo retro. Per ciascuna carta uno sviluppatore assume infatti il ruolo di _tracker_, impegnandosi cioè a tracciare lo stato di avanzamento della relativa funzionalità durante le due settimane (_es. quante feature fatte, quanti bug segnalati, etc._).
+2. Per ogni carta il team di sviluppatori fa dunque una __stima__ del tempo necessario a realizzarla: raggiunta una stima comune questa viene scritta sulla carta e servirà per confrontare tale previsione con il tempo effettivamente impiegato, di cui si tiene conto sul suo retro.
 
 3. Il manager decide quindi sulla base di queste informazioni __quali carte verranno implementate__ durante prossima iterazione: per questa operazione prende in considerazione il valore delle feature, le dipendenze tra l'una e l'altra e una serie di altri fattori. Se, come dovrebbe essere, le varie funzionalità rappresentate nelle carte sono indipendenti, il manager può compiere questa scelta calcolando il rapporto tra il valore e il tempo stimato e usarlo per ordinare le carte: tuttavia l'operazione richiede una certa dose di ragionamento e non è mai così meccanica.
 
@@ -65,7 +66,7 @@ Dopodiché ogni componente del team sceglie una carta dal proprio mazzo personal
 Fatta questa prima stima _blind_ le carte vengono girate contemporaneamente: idealmente vi dovrebbe essere l'unanimità sulla stima. Se così non è chi ha espresso le stime più basse e più alte ha ~1 minuto per motivare la propria scelta in modo da cercare di convincere gli altri; si noti che agli altri componenti del team non è concesso parlare per evitare di perdere troppo tempo! \
 Finito questo momento di consultazione tutti i membri del team fanno una nuova stima e si continua così finché non si raggiunge l'unanimità; solitamente le votazioni convergono dopo un paio di round.
 
-Ma qual'è l'unità di misura su cui si fanno le stime? Dipende: essa può essere scelta prima o dopo aver trovato un accordo; possono essere ore, giorni o pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni,e dopo c'è una pausa). Ovviamente non si può pretendere di lavorare delle ore senza alcuna distrazione, per cui in queste stime si considera anche un certo __slack time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
+Ma qual'è l'unità di misura su cui si fanno le stime? Dipende: essa può essere scelta prima o dopo aver trovato un accordo; possono essere ore, giorni o pomodori (un pomodoro è formato da 25 minuti senza alcuna distrazioni, e dopo c'è una pausa). Ovviamente non si può pretendere di lavorare delle ore senza alcuna distrazione, per cui in queste stime si considera anche un certo __slack time__, ovvero un tempo cuscinetto per che comprende il "tempo perso" a causa di distrazioni.
 
 ## [Team Estimation Game](https://agilelearninglabs.com/2012/05/how-to-play-the-team-estimation-game/)
 
@@ -103,6 +104,7 @@ Quindi:
     - __passare__ il turno, nel caso in cui non ci siano più carte nella pila e non si vogliono spostare altre carte.
 
 È possibile avere delle carte in cui sopra non c'è nessun numero, queste saranno assimilate alla colonna alla loro sinistra. 
+Esiste anche la possibilità di avere dei numeri senza alcuna carta sotto, questo significa che non esistono carte a cui è stato attribuito quel valore di difficoltà. 
 
 Al termine di questa fase, la situazione sarà simile alla seguente:
 
@@ -120,10 +122,10 @@ Nella prossima sezione parliamo di come la nozione di __velocity__ risolve quest
 In fisica la velocità è data dal rapporto tra la distanza percorsa e il tempo per percorrerla. 
 Questa proprietà può essere usata anche nella gestione dello sviluppo agile: il numeratore è il punteggio delle storie mentre il denominatore è la lunghezza dell'iterazione (assimilabile in un'unità di tempo).
 
-La ___velocity___ nel mondo agile è quindi il __numero di story point__ guadagnati nell'arco dell'iterazione corrente.
+La ___velocity___ nel mondo agile è quindi il __numero di story point__ guadagnati nell'arco dell'iterazione corrente, proprio per questo motivo è poco oggettiva e molto variabile. Story point stimati in maniera non efficace (sovra o sotto stimati) possono portare a pensare che un team sia molto veloce o lento quando effettivamente non è così. Si tratta infatti di un metro di valutazione facilmente taroccabile che quindi non deve essere imposto ma deve essere stimato e migliorato nel tempo per raggiungere un metro di paragone sempre più preciso.
 
 Essa riesce quindi a dare un'idea di quanto si è riusciti a fare in termini di complessità astratta.
-Se per esempio il team è riuscito a fare 50 punti nella iterazione appena finita, è ragionevole prefissarsi di fare almento 50 punti nell'iterazione successiva.
+Se per esempio il team è riuscito a fare 50 punti nella iterazione appena finita, è ragionevole prefissarsi di fare almento 50 punti nell'iterazione successiva, ma non certo.
 
 La velocity __non può essere usata__ per dare __premi__, per __confrontare__ team diversi o __punire__ in caso di diminuzione, però si adatta al modo diverso degli sviluppatori di gestire le stime e dal fatto che si tende a sottostimare o sovrastimare carte diverse.
 
@@ -133,4 +135,4 @@ La velocity __non deve considerare le storie lasciate incompiute__, quindi anche
 Inoltre, __non deve essere__ imposta: la velocity di un team è fissa e non può essere aumentata.
 
 Esiste un movimento chiamato ___no estimates___, che evita al team tutta la parte delle stime. 
-Dall'esperienza del prof. Bellettini, però, questa metodologia funziona in team molto maturi che sono in grado di guidare il ciente a formulare storie simili in termini di difficoltà, avendo tutti una misura standard per le storie.
+Dall'esperienza del prof. Bellettini, però, questa metodologia funziona in team molto maturi che sono in grado di guidare il cliente a formulare storie simili in termini di difficoltà, avendo tutti una misura standard per le storie.

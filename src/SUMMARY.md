@@ -36,7 +36,7 @@
         - [Cliente sul posto](./03_extreme-programming/03_tecniche/11_cliente-posto.md)
         - [Standard di codifica](./03_extreme-programming/03_tecniche/12_standard-codifica.md)
         - [They're just rules](./03_extreme-programming/03_tecniche/13_just-rules.md)
-    - [Relazione con il modello a cascata](./03_extreme-programming/04_cascata.md)
+    - [Raggruppamento in fasi](./03_extreme-programming/04_raggruppamento-in-fasi.md)
     - [Documentazione](./03_extreme-programming/05_documentazione.md)
     - [Criticità](./03_extreme-programming/06_criticita.md)
 
