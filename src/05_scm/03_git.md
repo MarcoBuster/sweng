@@ -67,6 +67,9 @@ Una volta risolti tutti i conflitti è sufficiente commitare le modifiche conclu
 
 ![git merge](/assets/05_git-merge.png)
 
+La tecnica utilizzata per implementare la fusione di due rami è chiamata _3-way merge_, inizialmente vengono considerati i commit HEAD dei due branch da unire e il primo commit comune a questi due (ovvero il commit da dove è iniziata la diramazione).
+A questo punto git cercherà di identificare le parti dei file modificate nelle diverse diramazioni sfruttando i commit considerati, se viene riscontrato un cambiamento della stessa porzione di file in entrambe le diramazioni significa che si è verificato un conflitto, e quindi verrà richiesto l'intervento manuale dell'utente, altrimenti verranno uniti automaticamente i due rami in un commit di merge.
+
 ### `git reset` &mdash; _reset current HEAD to the specified state_
 
 Il comando git reset reimposta il contenuto dei file nell'_index_ (e, opzionalmente con l'opzione `--hard` nella WD) all'ultimo commit puntato da HEAD o ad un altro commit.
