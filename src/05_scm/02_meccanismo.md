@@ -25,11 +25,12 @@ Per confrontare storie diverse si utilizzano gli hash dei file e delle directory
 ### Cosa tracciare?
 Ma in un progetto cosa è necessario tracciare? Sicuramente devono essere tracciati tutti i file relativi al codice sorgente o file di configurazione, ma per quanto riguarda il resto non c'è una risposta precisa, questo perchè dipende dalle necessità, in linea di massima però occorre prendere due decisioni importanti che influenzano la __replicabilità__ della produzione, ovvero:
 - Si traccia l'evoluzione dei componenti fuori dal nostro controllo (come ad esempio compilatori o librerie)?
-- Si archiviano i file che costituiscono il prodotto (ovvero i binari del software)?
+- Si archiviano i file che costituiscono il prodotto (ovvero file generati come i file i binari)?
 
 Solitamente la risposta a queste due domande è __no__, questo perchè tracciare le librerie o i binari del software è costoso e poco pratico, ma così facendo la perfetta replicabilità va perduta.
 Infatti è possibile che alcuni software con il passare del tempon non possano essere eseguiti perchè le tecnologie necessarie al loro funzionamento non sono più disponibili (compilatori con una versione molto vecchia ad esempio). c'è da dire però che se un progetto viene mantenuto costantemente la sua vita viene allungata di conseguenza.
-Per ovviare a questi problemi è possibile fornire una versione già compilata del software, infatti oggi su alcuni siti come github ci sono delle sezioni (diverse da quelle dove viene messo il codice) dove è possibile pubblicare il binario del software.
+A volte può avere senso versionare dei file generati, infatti è possibile distribuire le diverse versione tramite _'package'_.
+Su alcuni siti come github o gitlab ci sono delle sezioni (diverse da quelle dove viene messo il codice) dedicate alla pubblicazione di questi package, ma questo non è un vero e proprio versioning come viene fatto per il codice tramite git (non vi è una storia modificabile, ma solo una serie di versioni del software).
 
 ## Accesso concorrente
 
