@@ -16,7 +16,7 @@ I branch e i tipi di branch previsti da GitFlow sono:
 
 ![GitFlow develop e master](/assets/06_gitflow-develop-master.png)
 
-In GitFlow, ci sono due branch che hanno una durata più lunga rispetto ai branch temporanei utilizzati per lavorare su specifiche funzionalità o correzioni di bug:
+In GitFlow, ci sono due branch che hanno una durata più lunga (teoricamente non hanno fine) rispetto ai branch temporanei utilizzati per lavorare su specifiche funzionalità o correzioni di bug:
 - __`master`__: contiene le versioni stabili del codice sorgente, pronte per essere consegnate o rilasciate al cliente o al pubblico. Queste versioni sono considerate _affidabili_ e _testate_, quindi possono essere utilizzate in produzione;
 - __`develop`__: è il ramo di integrazione in cui vengono integrati i contribuiti di tutti i gruppi; è anche il punto di partenza degli altri tipi di branch.
 
@@ -35,15 +35,24 @@ Un modo semplice di fare il merge è utilizzare il comando `git merge` dalla rig
 Se il merge non è possibile a causa di conflitti, sarà necessario risolverli manualmente prima di poter completare l'operazione. 
 Una volta risolti i conflitti, sarà necessario creare un nuovo commit per finalizzare il merge.
 
-Per iniziare una feature...
+Per iniziare una feature il comando è:
+```bash
+$ git flow feature start [nome]
+```
+
+Che si può riassumere nei seguenti comandi
 ```bash
 $ git checkout develop                  # entra nel branch develop
 $ git branch feature/myFeature          # crea un branch di feature
 $ git checkout feature/myFeature        # entra nel branch appena creato
 ```
 
-Al termine della feature, integro:
+Al termine della feature, integro tramite il comando:
+```bash
+$ git flow feature finish [nome]
+```
 
+Che riassume i seguenti comandi:
 ```bash
 $ git checkout develop                  # entra nel branch develop
 $ git merge --no-ff feature/myFeature   # mergia il branch di feature
@@ -66,22 +75,33 @@ Questa operazione è utile per migliorare la leggibilità della history dei comm
 
 ![GitFlow release](/assets/06_gitflow-release.png)
 
-Lo scopo di creare una release è __cristalizzare l'insieme delle funzionalità__ presente sul branch `develop` all'inizio di essa dedicandosi solo alla sistemazione degli errori o alle attività necessarie per il deploy (modifica del numero di versione, ...). 
+Lo scopo di creare una release è __cristalizzare l'insieme delle funzionalità__ presente sul branch `develop` all'inizio di essa dedicandosi solo alla sistemazione degli errori o alle attività necessarie per il deploy (modifica del numero di versione, ...).
+Il ramo release ha un inizio ed una fine, che coincide con la pubblicazione della release.
 L'insieme delle funzionalità rilasciate è quello presente sul branch `develop` al momento di inizio di una release. 
 
 I bug fix possono essere ri-mergiati in `develop`, anche utilizzando la funzionalità __cherry-pick__ di git; essa permette di selezionare un commit specifico da un ramo e applicarlo in un altro ramo. 
 Ad esempio, se si ha un ramo di sviluppo ("`develop`") e un ramo di release ("`release`"), è possibile utilizzare il cherry-pick per selezionare solo i commit che contengono bugfix e applicarli al ramo di release, senza dover fare un merge di tutto il ramo di sviluppo. 
 Ciò può essere utile in casi in cui si vuole mantenere la stabilità del ramo di release, includendo solo i bugfix considerati essenziali per la release.
 
-Per iniziare una nuova release è sufficiente creare un nuovo branch da `develop`:
+Per iniziare una nuova release è sufficiente usare il comando:
+```bash
+$ git flow release start [nome]
+```
+
+Che coincide con la creazione di un nuovo branch da `develop`:
 ```bash
 $ git checkout -b release/v1.2.3 develop
 ```
 
-Al termine della creazione della release, è necessario fare il merge della release nel branch `master` e nel branch `develop`. 
+Al termine della creazione della release, è necessario fare il merge di quest'ultima nel branch `master` e nel branch `develop`. 
 Il merge in `master` rappresenta il rilascio della nuova versione del codice, che diventa disponibile per il pubblico o per il cliente. 
 Il merge in `develop`, invece, integra le modifiche apportate durante la creazione della release nel branch di sviluppo, in modo che siano disponibili per le release future. 
 In questo modo, è possibile gestire in modo organizzato il ciclo di vita del codice e il flusso di lavoro.
+```bash
+$ git flow release finish [nome]
+```
+
+Che si traduce in:
 ```bash
 $ git checkout master               # entra nel branch master
 $ git merge --no-ff release/v1.2.3  # mergia la feature
@@ -103,11 +123,25 @@ Al contrario, le feature sono branch temporanei utilizzati per sviluppare nuove 
 Un _hotfix_ è una riparazione veloce di difetti urgenti senza dover aspettare la prossima release.
 È l'unico caso per cui non si parte da `develop`, ma dall'ultima - o una particolare - versione rilasciata su `master`.
 
+![GitFlow hotfix](/assets/06_gitflow-hotfix.png)
+
+Il comando per creare un hotfix è:
+
+```bash
+$ git flow hotfix start [nome]
+```
+E corrisponde a:
+
 ```bash
 $ git checkout -b hotfix/CVE-123 master # crea un branch di hotfix
 ```
 
 Quando lo chiudo:
+```bash
+$ git flow hotfix finish [nome]
+```
+
+Che si traduce in:
 ```bash
 $ git checkout master                   # entra nel branch master
 $ git merge --no-ff hotfix/CVE-123      # mergia l'hotfix
