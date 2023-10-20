@@ -35,3 +35,14 @@ L'approvatore, che dovrà avere una certa esperienza, dato che non si tratta pi�
 - _introduce rischi per la sicurezza o la stabilità?_
 
 Se l'approver ritiene che la proposta di modifiche sia valida, può approvarla scrivendo "LGTM" (acronimo di _"Looks Good To Me"_) nei commenti della pull request.
+
+Esiste poi una gerarchia di approver, data dalla loro esperienza e contributo, i cui voti avranno valori diversi, in questo modo è possibile fare una review distribuita migliore,
+
+## Aggiungere parte sul funzionamento di Gerrit (con le due repo, slide non ancora caricate)
+
+- gerrit è come se fosse composto da due repo
+- su una solo fetch, solo lettura
+- sulla seconda push
+- i reviewer usano la seconda, e la prima viene aggioranta dopo la review
+- posso automattizare build e testing
+- test non dimostrano la correttezza assoluta, mostrano solo quando malfunziona, è un approccio ottimistico
