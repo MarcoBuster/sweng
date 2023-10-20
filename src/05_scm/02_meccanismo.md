@@ -11,7 +11,7 @@ Ogni _cambiamento_ è regolato da:
 Queste operazioni vengono attivate rispetto a un _repository_.
 Scambio di dati tra il repository (che contiene tutte le configurazioni) e il workspace (l'ambiente in cui si trova nel filesystem).
 
-Solitamente ho un repository e \\( n \\) workspace, uno per ogni ambiente dove sto lavorando.
+Solitamente ho un repository e __n__ workspace, uno per ogni ambiente dove sto lavorando.
 
 ## Repository
 La repository mantiene date, etichette, versioni, diramazioni (branches) e altri dati.
@@ -30,7 +30,7 @@ Ma in un progetto cosa è necessario tracciare? Sicuramente devono essere tracci
 Solitamente la risposta a queste due domande è __no__, questo perchè tracciare le librerie o i binari del software è costoso e poco pratico, ma così facendo la perfetta replicabilità va perduta.
 Infatti è possibile che alcuni software con il passare del tempon non possano essere eseguiti perchè le tecnologie necessarie al loro funzionamento non sono più disponibili (compilatori con una versione molto vecchia ad esempio). c'è da dire però che se un progetto viene mantenuto costantemente la sua vita viene allungata di conseguenza.
 A volte può avere senso versionare dei file generati, infatti è possibile distribuire le diverse versione tramite _'package'_.
-Su alcuni siti come github o gitlab ci sono delle sezioni (diverse da quelle dove viene messo il codice) dedicate alla pubblicazione di questi package, ma questo non è un vero e proprio versioning come viene fatto per il codice tramite git (non vi è una storia modificabile, ma solo una serie di versioni del software).
+Su alcuni siti come GitHub o GitLab ci sono delle sezioni (diverse da quelle dove viene messo il codice) dedicate alla pubblicazione di questi package, ma questo non è un vero e proprio versioning come viene fatto per il codice tramite git (non vi è una storia modificabile, ma solo una serie di versioni del software).
 
 ## Accesso concorrente
 
