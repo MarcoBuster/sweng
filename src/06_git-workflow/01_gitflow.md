@@ -1,6 +1,8 @@
 # GitFlow
 
-GitFlow è una tecnica di organizzazione dei branch e delle repository che prevede la creazione sia di diversi tipi di branch a vita limitata che il loro _merge_ guidato.
+GitFlow è una tecnica di organizzazione dei branch e delle repository che prevede la creazione sia di diversi tipi di branch a vita limitata che il loro _merge_ guidato, anche da remoto.
+
+Si tratta di una serie di comandi _shell_ che vengono uniti in uno script e percepiti da Git come un comando interno, data la sua natura. Infatti ogni Git non è altro che un wrapper di una serie di altri programmi che eseguono diverse funzioni.
 
 È disponibile online una [cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) che fornisce una panoramica veloce delle principali operazioni e dei comandi di GitFlow. 
 Si tratta di uno strumento utile per chi è alle prime armi con questa tecnica di organizzazione dei branch, ma non esaustivo: per una comprensione più approfondita del metodo, è meglio integrarlo con altre risorse.
@@ -18,7 +20,7 @@ I branch e i tipi di branch previsti da GitFlow sono:
 
 In GitFlow, ci sono due branch che hanno una durata più lunga (teoricamente non hanno fine) rispetto ai branch temporanei utilizzati per lavorare su specifiche funzionalità o correzioni di bug:
 - __`master`__: contiene le versioni stabili del codice sorgente, pronte per essere consegnate o rilasciate al cliente o al pubblico. Queste versioni sono considerate _affidabili_ e _testate_, quindi possono essere utilizzate in produzione;
-- __`develop`__: è il ramo di integrazione in cui vengono integrati i contribuiti di tutti i gruppi; è anche il punto di partenza degli altri tipi di branch.
+- __`develop`__: è il ramo di __integrazione__, e non di sviluppo! Qui vengono integrati i contribuiti di tutti i gruppi ed è il punto di partenza degli altri tipi di branch su cui accadrà effetivamente il lavoro.
 
 Al termine di ogni rilascio, il contenuto del branch `develop` viene integrato nel branch `master`, che rappresenta la versione stabile del codice. Le _versioni notturne_, invece, sono versioni di sviluppo che vengono rilasciate periodicamente e contengono le ultime modifiche apportate al codice. Esse vengono create partendo dal branch `develop`, che rappresenta il punto di integrazione di tutti i contributi dei gruppi di lavoro.
 
@@ -26,9 +28,9 @@ Al termine di ogni rilascio, il contenuto del branch `develop` viene integrato n
 
 ![GitFlow feature](/assets/06_gitflow-feature.png)
 
-I __*feature branch*__ sono branch temporanei utilizzati per sviluppare nuove funzionalità o per correggere bug. __Possono essere creati solo a partire dal branch `develop`__ e vengono utilizzati per isolare il lavoro su una specifica funzionalità o problema dal resto del codice. 
+I __*feature branch*__ sono branch temporanei utilizzati per sviluppare nuove __user stories__ o per correggere bug. __Possono essere creati solo a partire dal branch `develop`__ e vengono utilizzati per isolare il lavoro su una specifica funzionalità o problema dal resto del codice. 
 Quando il lavoro è completato, il feature branch viene integrato di nuovo nel `develop` tramite un merge. 
-In questo modo, è possibile lavorare in modo organizzato su diverse funzionalità o problemi senza interferire tra loro.
+In questo modo, è possibile lavorare in modo organizzato e parallelo su diverse funzionalità o problemi senza interferire tra loro.
 Per integrare il lavoro svolto in un feature branch nel branch `develop`, è necessario eseguire un merge del feature branch nel `develop`. 
 Ci sono diversi modi di fare ciò, a seconda delle preferenze e delle esigenze specifiche.
 Un modo semplice di fare il merge è utilizzare il comando `git merge` dalla riga di comando. 
@@ -116,12 +118,12 @@ In git, i tag sono etichette che possono essere applicate a un commit per segnal
 In GitFlow, le release sono versioni stabili del codice che vengono rilasciate al pubblico o al cliente. 
 Ogni release viene creata partendo dal branch `develop` e viene gestita come un branch a sé stante, che viene chiuso una volta che tutte le modifiche previste sono state integrate. 
 Al contrario, le feature sono branch temporanei utilizzati per sviluppare nuove funzionalità o per correggere bug. 
-È possibile avere più feature aperte contemporaneamente, ma solo una release rimanere aperta in un dato istante.
+È possibile avere più feature aperte contemporaneamente, ma solo una relase rimane aperta in un dato istante.
 
 ## Hotfix
 
-Un _hotfix_ è una riparazione veloce di difetti urgenti senza dover aspettare la prossima release.
-È l'unico caso per cui non si parte da `develop`, ma dall'ultima - o una particolare - versione rilasciata su `master`.
+Un _hotfix_ è una riparazione veloce di difetti __urgenti__ senza dover aspettare la prossima release.
+È l'unico caso per cui non si parte da `develop`, ma dall'ultima - o una particolare - versione rilasciata su `master` e in `develop`.
 
 ![GitFlow hotfix](/assets/06_gitflow-hotfix.png)
 
@@ -155,13 +157,15 @@ $ git branch -d hotfix/CVE-123          # elimina il branch di hotfix
 
 Quali sono i limiti di git presentato così?
 
-git e GitFlow come sono stati esposti presentano numerosi vincoli, tra cui:
+git e GitFlow come sono stati esposti presentano numerosi vincoli, soprattuto se utilizzati in grandi team, tra cui:
 - la __mancanza di un sistema di autorizzazione granulare__, ovvero la possibilità di assegnare permessi in modo specifico e mirato a diverse funzionalità o risorse. Inoltre, non esiste una distinzione tra diversi livelli di accesso, quindi o si ha accesso completo a tutte le funzionalità o non si ha accesso a niente;
 - l'__assenza di code review__, ovvero il processo di revisione del codice sorgente da parte di altri sviluppatori prima che venga integrato nel codice base.
 
+Questi limiti vengono risolti da sovrastrutture che si basano su Git, come GitHub e le istanze di GitLab.
+
 ## `git request-pull` &mdash; _generates a summary of pending changes_
 
-Il tool `git request-pull` è un comando di git che serve per formattare e inviare una proposta di modifiche a un repository tramite una mailing list. 
+Il tool `git request-pull` è un comando di git che serve per formattare e inviare una proposta di modifiche a un repository tramite una mailing list dopo aver reso pubblici i propri commit su un proprio server. 
 Il comando crea un messaggio di posta elettronica che chiede al maintainer del repository di "pullare" le modifiche, ovvero di integrarle nel codice base. 
 Oggi, questa pratica è stata in molti progetti sostituita dalle pull request, che sono richieste di integrazione delle modifiche presentate attraverso un'interfaccia web. 
 Le pull request offrono una serie di vantaggi rispetto alle richieste via email, come una maggiore trasparenza del processo di integrazione, una maggiore efficienza e una maggiore facilità di utilizzo.
@@ -247,4 +251,4 @@ Matteo Mangioni (18):
  create mode 100644 assets/09_nullObject-valori-non-assenti.png
 ```
 
-Questo modello è molto più _peer to peer_ delle pull request proposte dai sistemi semi-centralizzati spiegati in seguito.
+Questo modello è un metodo basilare per risolvere i problemi di integrazione ma troppo basilare ancora. È un sistema molto più _peer to peer_, quindi troppo limitato nei grossi progetti _Open Source_ rispetto alle pull request proposte dai sistemi semi-centralizzati spiegati in seguito.

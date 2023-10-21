@@ -6,7 +6,7 @@ Inoltre, la build automation garantisce una maggiore qualità e coerenza del sof
 
 ## `make`
 
-`make` è uno strumento di build automation che viene utilizzato per automatizzare il processo di compilazione di un progetto. 
+`make` è uno strumento di build automation che viene utilizzato per automatizzare il processo di compilazione di un progetto, infatti non è altro che uno script di comandi _shell_. 
 In particolare, `make` viene utilizzato per specificare come ottenere determinati _targets_ (obiettivi), ovvero file o azioni che devono essere eseguite, partendo dal codice sorgente. 
 Ad esempio, in un progetto di sviluppo software, un _target_ potrebbe essere il file eseguibile del programma, che viene ottenuto compilando il codice sorgente. 
 `make` segue la filosofia _pipeline_, ovvero prevede l'utilizzo di singoli comandi semplici concatenati per svolgere compiti più complessi.
@@ -28,9 +28,9 @@ hellomake: hellomake.c hellofunc.o
 
 Nell'esempio, se il _target_ hellomake (definito dai file `hellomake.c` e `hellofunc.o`) è stato aggiornato, occorre ricompilarlo utilizzando i comandi sotto.
 
-Tuttavia, make lavora a un livello molto basso, il che può rendere facile commettere errori durante la sua configurazione e utilizzo.
+Tuttavia, make lavora a un livello molto basso, il che può rendere facile commettere errori durante la sua configurazione e utilizzo, quindi deve essere reso il più __parametrico__ possibile.
 
-Non c'è portabilità tra macchine (ambienti) diverse.
+Nonostante la paremetrizzazione _non c'è portabilità_ tra macchine diverse, sia per architettura che per sistema operativo.
 
 ### `Makefile`
 
@@ -93,6 +93,8 @@ Esempio di un build file:
 </project>
 ```
 
+Ovviamente è un progetto scritto in Java pensato per compilare codice Java che poi girerà sulla JVM, quindi ottimo in questo caso specifico perchè risolve i problemi dovuti ad avere macchine con diversi ambienti. Ma è anche estremamente limitante, infatti è complesso utilizzarlo con altri linguaggi.
+
 ## Gradle
 
 Gradle è uno strumento di build automation che utilizza le repository Maven come punto di accesso alle librerie di terze parti. 
@@ -100,7 +102,7 @@ Maven è una piattaforma di gestione delle dipendenze e della build automation p
 Le repository Maven sono archivi online che contengono librerie Java, plugin e altri componenti utilizzati nella build di progetti Java. 
 Gradle utilizza queste repository per cercare e scaricare le librerie di cui ha bisogno per eseguire la build del progetto.
 
-Gradle, che supporta Groovy o Kotlin come linguaggi di scripting, adotta un approccio dichiarativo e fortemente basato su convenzioni. 
+Gradle è pur sempre java oriented, ma meno di ANT, infatti supporta Groovy o Kotlin come linguaggi di scripting, che non sono precompilati a bytecode e adotta un approccio dichiarativo e fortemente basato su convenzioni. 
 Ciò significa che tutto ciò che è già stato definito come standard non deve essere ridichiarato. 
 Inoltre, Gradle definisce un linguaggio specifico per la gestione delle dipendenze e permette di creare build multi-progetto.
 
@@ -109,7 +111,7 @@ Gradle scala bene in complessità: permette di fare cose semplici senza usare le
 
 ### Plugin
 
-I plugin servono per trattare tool, situazioni, linguaggi definendo task e regole per lavorare più facilmente.
+I plugin servono per trattare tool, situazioni, linguaggi definendo task e regole per lavorare più facilmente, ci permettono di creare catene di task legate tra di loro e vedere le dipendenze del caso specifico, oppure di far girare solo determinati gruppi di test che mi interessano.
 
 Il plugin _Java_ definisce:
 - una serie di __sourceSet__, ovvero dove è presente il codice e le risorse. Principalmente sono:

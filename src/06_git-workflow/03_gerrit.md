@@ -1,14 +1,16 @@
 # Gerrit
 
-Gerrit è un __sistema di review__ del codice sviluppato internamente da Google per gestire i progetti interni; si basa sul concetto di "peer review": tutti gli sviluppatori sono autorizzati a fare review delle proposte di modifica di qualsiasi zona di codice.
+Gerrit, prima conosciuto come Mondrian, è un __sistema di review__ del codice sviluppato internamente da Google per gestire i suoi progetti _Open Source_ ormai diventati troppo grandi, come __Android__. Nasce dal numero troppo elevato di pull-request, data la dimensione la grande partecipazione al progetto si basa sul concetto di "peer review": tutti gli sviluppatori sono autorizzati a fare review delle proposte di modifica di qualsiasi zona di codice.
 
 Nel processo di review di Gerrit, i __developer__ possono sottoporre proposte di cambiamento utilizzando un sistema di "patch" che descrive le modifiche apportate al codice. 
 I __reviewer__, ovvero gli altri sviluppatori del progetto, possono quindi esaminare le patch e decidere se accettarle o rifiutarle. 
-Una volta che una patch ha ricevuto un numero sufficiente di review positivi, viene automaticamente integrata nel __repository principale autoritativo__   in cui tutti hanno accesso in sola lettura.
+Una volta che una patch ha ricevuto un numero sufficiente di review positivi, viene automaticamente integrata nel __repository principale autoritativo__ in cui tutti hanno accesso in sola lettura.
 
 Gerrit obbliga a strutturare le modifiche (_changeset_) in un unico commit (tecnica _squash_) al momento dell'accettazione. 
-Ciò significa che tutte le modifiche apportate devono essere fuse in un unico commit, in modo da rendere più facile la gestione del repository. 
+Ciò significa che tutte le modifiche apportate devono essere fuse in un unico commit, in modo da rendere più facile la gestione del repository e per evitare la nascita di troppi rami. 
 Al momento della review, invece, le modifiche rimangono separate in versioni singole, ovvero ogni modifica viene presentata come un commit separato, in modo che i reviewer possano esaminarle più facilmente.
+
+Due figure importanti devono fare parte di questo processo:
 
 ## Verifier
 
@@ -16,13 +18,15 @@ Il verifier è uno strumento o un processo che viene utilizzato in Gerrit per ve
 In particolare, il verifier scarica la patch, la compila, esegue i test e controlla che ci siano tutte le funzioni necessarie. 
 Se il verifier rileva dei problemi, può segnalarli al team di sviluppo perché vengano corretti prima che la patch venga accettata.
 
+È un processo semplice quindi può essere anche automatizzato o eseguito da utenti poco esperti o riconosciuti.
+
 Una volta terminato il proprio processo, approva le modifiche votandole positivamente.
 Solitamente sono necessari 1 o 2 voti per procedere.
 
 ## Approver
 
 Una volta verificata, una proposta di modifiche deve essere anche approvata. 
-L'approvatore deve determinare la risposta alle seguenti domande riguardo la proposta di modifiche:
+L'approvatore, che dovrà avere una certa esperienza, dato che non si tratta più di un lavoro meccanico ma "_filosofico_" deve determinare la risposta alle seguenti domande riguardo la proposta di modifiche:
 - _è valida per lo scopo del progetto?_
 - _è valida per l'architettura del progetto?_
 - _introduce nuove falle nel design che potrebbero causare problemi in futuro?_
@@ -31,3 +35,14 @@ L'approvatore deve determinare la risposta alle seguenti domande riguardo la pro
 - _introduce rischi per la sicurezza o la stabilità?_
 
 Se l'approver ritiene che la proposta di modifiche sia valida, può approvarla scrivendo "LGTM" (acronimo di _"Looks Good To Me"_) nei commenti della pull request.
+
+Esiste poi una gerarchia di approver, data dalla loro esperienza e contributo, i cui voti avranno valori diversi, in questo modo è possibile fare una review distribuita migliore,
+
+## Aggiungere parte sul funzionamento di Gerrit (con le due repo, slide non ancora caricate)
+
+- gerrit è come se fosse composto da due repo
+- su una solo fetch, solo lettura
+- sulla seconda push
+- i reviewer usano la seconda, e la prima viene aggioranta dopo la review
+- posso automattizare build e testing
+- test non dimostrano la correttezza assoluta, mostrano solo quando malfunziona, è un approccio ottimistico
