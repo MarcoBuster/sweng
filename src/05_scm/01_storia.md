@@ -1,9 +1,10 @@
 # Storia
-Il Configuration Management negli anni '50 nell'ambito dell'industria aerospaziale. 
+Il Configuration Management nasce negli anni '50 nell'ambito dell'industria aerospaziale. 
 Alla fine degli anni '70 inizia ad essere applicato all'ingegneria del software.
 
-Gli oggetti di cui si controlla l'evoluzione sono detti _configuration item_ o _artifact_ (manufatti, solitamente file).
-Dunque l'SMC ci permette di controllare le revisioni degli _artifact_ e il risultato di tali revisioni,questo processo è molto utile per la generazione di un prodotto a partire da una configurazione ben determinata.
+L'SCM consiste in delle pratiche che hanno l'obiettivo di rendere sistematico il processo di sviluppo __tenendo traccia dei cambiamenti__ in modo che il podotto sia in ogni istante in uno stato (configurazione) ben definito.
+
+Dunque l'SMC ci permette di controllare le revisioni degli _artifact_ e il risultato di tali revisioni, questo processo è molto utile per la generazione di un prodotto a partire da una configurazione ben determinata.
 
 ## Manufatti
 Gli _"oggetti"_ di cui si controlla l'evoluzione sono detti _configuration item_ o manufatti; generalmente sono file.
