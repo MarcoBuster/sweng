@@ -18,9 +18,9 @@ I branch e i tipi di branch previsti da GitFlow sono:
 
 ![GitFlow develop e master](/assets/06_gitflow-develop-master.png)
 
-In GitFlow, ci sono due branch che hanno una durata più lunga (teoricamente non hanno fine) rispetto ai branch temporanei utilizzati per lavorare su specifiche funzionalità o correzioni di bug:
+In GitFlow, ci sono due branch che non hanno una durata effettiva (teoricamente non hanno fine) rispetto ai branch temporanei utilizzati per lavorare su specifiche funzionalità o correzioni di bug:
 - __`master`__: contiene le versioni stabili del codice sorgente, pronte per essere consegnate o rilasciate al cliente o al pubblico. Queste versioni sono considerate _affidabili_ e _testate_, quindi possono essere utilizzate in produzione;
-- __`develop`__: è il ramo di __integrazione__, e non di sviluppo! Qui vengono integrati i contribuiti di tutti i gruppi ed è il punto di partenza degli altri tipi di branch su cui accadrà effetivamente il lavoro.
+- __`develop`__: è il ramo di __integrazione__, e non di sviluppo! Qui vengono integrati i contribuiti di tutti i gruppi ed è il punto di partenza degli altri tipi di branch su cui si svolgerà effetivamente il lavoro.
 
 Al termine di ogni rilascio, il contenuto del branch `develop` viene integrato nel branch `master`, che rappresenta la versione stabile del codice. Le _versioni notturne_, invece, sono versioni di sviluppo che vengono rilasciate periodicamente e contengono le ultime modifiche apportate al codice. Esse vengono create partendo dal branch `develop`, che rappresenta il punto di integrazione di tutti i contributi dei gruppi di lavoro.
 
@@ -28,7 +28,7 @@ Al termine di ogni rilascio, il contenuto del branch `develop` viene integrato n
 
 ![GitFlow feature](/assets/06_gitflow-feature.png)
 
-I __*feature branch*__ sono branch temporanei utilizzati per sviluppare nuove __user stories__ o per correggere bug. __Possono essere creati solo a partire dal branch `develop`__ e vengono utilizzati per isolare il lavoro su una specifica funzionalità o problema dal resto del codice. 
+I __*feature branch*__ sono branch temporanei utilizzati per sviluppare nuove funzionalità (__user stories__) o per correggere bug. __Possono essere creati solo a partire dal branch `develop`__ e vengono utilizzati per isolare il lavoro su una specifica funzionalità o problema dal resto del codice. 
 Quando il lavoro è completato, il feature branch viene integrato di nuovo nel `develop` tramite un merge. 
 In questo modo, è possibile lavorare in modo organizzato e parallelo su diverse funzionalità o problemi senza interferire tra loro.
 Per integrare il lavoro svolto in un feature branch nel branch `develop`, è necessario eseguire un merge del feature branch nel `develop`. 
@@ -159,14 +159,15 @@ Quali sono i limiti di git presentato così?
 
 git e GitFlow come sono stati esposti presentano numerosi vincoli, soprattuto se utilizzati in grandi team, tra cui:
 - la __mancanza di un sistema di autorizzazione granulare__, ovvero la possibilità di assegnare permessi in modo specifico e mirato a diverse funzionalità o risorse. Inoltre, non esiste una distinzione tra diversi livelli di accesso, quindi o si ha accesso completo a tutte le funzionalità o non si ha accesso a niente;
-- l'__assenza di code review__, ovvero il processo di revisione del codice sorgente da parte di altri sviluppatori prima che venga integrato nel codice base.
+- l'__assenza di code review__, ovvero il processo di revisione del codice sorgente da parte di altri sviluppatori prima che venga integrato nel codice base;
+- la __mancanza di un sistema di comunicazione tra chi propone una modifica e i reviewer__, git di per se non mette a disposizione un sistema per agevolare la comunicazione tra chi sviluppa una feature o una modifica e chi si dovrà occupare di revisionarla.
 
 Questi limiti vengono risolti da sovrastrutture che si basano su Git, come GitHub e le istanze di GitLab.
 
 ## `git request-pull` &mdash; _generates a summary of pending changes_
 
-Il tool `git request-pull` è un comando di git che serve per formattare e inviare una proposta di modifiche a un repository tramite una mailing list dopo aver reso pubblici i propri commit su un proprio server. 
-Il comando crea un messaggio di posta elettronica che chiede al maintainer del repository di "pullare" le modifiche, ovvero di integrarle nel codice base. 
+Il tool `git request-pull` è un comando di git che serve per generare una una proposta di modifiche a un repository tramite una mailing list dopo aver reso pubblici i propri commit su un server. 
+Il comando crea un messaggio di posta elettronica che chiede al maintainer del repository di "pullare" le modifiche, ovvero di integrarle nel codice base.
 Oggi, questa pratica è stata in molti progetti sostituita dalle pull request, che sono richieste di integrazione delle modifiche presentate attraverso un'interfaccia web. 
 Le pull request offrono una serie di vantaggi rispetto alle richieste via email, come una maggiore trasparenza del processo di integrazione, una maggiore efficienza e una maggiore facilità di utilizzo.
 
@@ -251,4 +252,4 @@ Matteo Mangioni (18):
  create mode 100644 assets/09_nullObject-valori-non-assenti.png
 ```
 
-Questo modello è un metodo basilare per risolvere i problemi di integrazione ma troppo basilare ancora. È un sistema molto più _peer to peer_, quindi troppo limitato nei grossi progetti _Open Source_ rispetto alle pull request proposte dai sistemi semi-centralizzati spiegati in seguito.
+Questo modello è un metodo basilare per risolvere i problemi di integrazione. È un sistema _peer to peer_, quindi troppo limitato nei grossi progetti _Open Source_ rispetto alle pull request proposte dai sistemi semi-centralizzati spiegati in seguito.
