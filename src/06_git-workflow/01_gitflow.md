@@ -166,7 +166,7 @@ Questi limiti vengono risolti da sovrastrutture che si basano su Git, come GitHu
 
 ## `git request-pull` &mdash; _generates a summary of pending changes_
 
-Il tool `git request-pull` è un comando di git che serve per generare una una proposta di modifiche a un repository tramite una mailing list dopo aver reso pubblici i propri commit su un server. 
+Il tool `git request-pull` è un comando di git che serve per generare una proposta di modifiche a un repository tramite una mailing list dopo aver reso pubblici i propri commit su un server. 
 Il comando crea un messaggio di posta elettronica che chiede al maintainer del repository di "pullare" le modifiche, ovvero di integrarle nel codice base.
 Oggi, questa pratica è stata in molti progetti sostituita dalle pull request, che sono richieste di integrazione delle modifiche presentate attraverso un'interfaccia web. 
 Le pull request offrono una serie di vantaggi rispetto alle richieste via email, come una maggiore trasparenza del processo di integrazione, una maggiore efficienza e una maggiore facilità di utilizzo.

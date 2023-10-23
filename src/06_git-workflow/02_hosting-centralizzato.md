@@ -16,7 +16,7 @@ La maggioranza delle piattaforme di hosting centralizzato __ottimizza la condivi
 Tuttavia, questo può comportare alcune problematiche di sicurezza, come ad esempio la difficoltà per la piattaforma di stabilire in quale fork si trova un determinato oggetto in caso di conflitto o la possibilità che un utente malintenzionato possa modificare o eliminare accidentalmente oggetti di altri fork. 
 Per questo motivo, è importante che le piattaforme implementino __misure di sicurezza adeguate__ per proteggere i dati dei fork e garantire la tracciabilità delle modifiche ([esempio sul kernel Linux](https://github.com/torvalds/linux/commit/b4061a10fc29010a610ff2b5b20160d7335e69bf)).
 
-I vari fork poi non sono tutti legati tra di loro ma lo sono solo al loro "_padre_" iniziale, quindi va tenuto conto di questo aspetto durante la condivisione delle varie modifiche effettuate e le possibili evoluzioni diverse dei progetti.
+I vari fork poi non sono tutti legati tra di loro ma lo sono solo al loro "_padre_" iniziale, quindi va tenuto conto di questo aspetto durante la condivisione delle varie modifiche effettuate e le possibili evoluzioni diverse dello stesso progetto.
 
 ## Review / Pull request
 
