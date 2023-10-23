@@ -41,8 +41,8 @@ Esiste poi una gerarchia di approver, data dalla loro esperienza e contributo, i
 ## Architettura
 ![Gerrit](/assets/06_gerrit.png)
 
-L'architettura di gerrit è composta da due reposirtory:
-- __Authoritative repository__: repository in cui vi è solo il diritto di lettura dall'esterno, mentre è presente il diritto di scrittura solo dall'interno da parte dell'altro repository (submit);
+L'architettura di gerrit è composta da due repository:
+- __Authoritative repository__: repository in cui vi è solo il diritto di lettura dall'esterno (_fetch_), mentre è presente il diritto di scrittura solo dall'interno da parte dell'altro repository (submit);
 - __Pending Changes__: repository in cui i developer hanno solo diritto in scrittura, mentre i reviewer hanno dei diritti speciali che gli permettono di scaricare le modifiche, valutarle e commentarle.
 
 I developer inviano delle modifiche al repository di pending Changes, da cui i reviewer faranno tutte le verifiche e valuteranno il lavoro proposto.
