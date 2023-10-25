@@ -6,6 +6,8 @@ Proprio per risolvere questo tipo di problematiche nasce il pattern Iterator: es
 
 Java supporta largamente il pattern Iterator, a tal punto che nella libreria standard esiste un'interfaccia generica per gli iteratori, `Iterator<E>`: all'interno di tale interfaccia sono definiti, oltre ai metodi di cui sopra, il metodo `remove()`, normalmente non supportato in quanto permetterebbe di modificare la collezione contenuta dalla classe, e il metodo `forEachRemaining()`, che esegue una data azione su tutti gli elementi ancora non estratti dell'iteratore.
 
+Per questioni di chiarezza e semplicità sarebbe meglio non incluedere il metodo _remove()_ nell'interfaccia dell'iteratore poichè non ogni iteratore necessita di tale metodo, potremmo volerne uno immutabile. Sarebbe il caso di avere due interfacce diverse, magari una figlia dell'altra o addirittura un interfaccia `Removable<E>` che accoppiata ad `Iterator<E>` permette sia di iterare che di eliminare un elemento, ma sfortunatamente questo non accade in Java.
+
 ```java
 public interface Iterator<E> {
     boolean hasNext();
