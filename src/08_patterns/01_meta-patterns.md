@@ -53,7 +53,7 @@ TemplateClass o--> HookClass
 ```
 
 Vedremo a quale meta-pattern aderiranno i pattern che vediamo. 
-A tal proposito,i pattern che vedremo fanno parte dei cosiddetti "__Gang Of Four patterns__", una serie di 23 pattern definiti da Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides; oltre ad averli definiti, questi signori hanno diviso i pattern in tre categorie:
+A tal proposito,i pattern che vedremo fanno parte dei cosiddetti "__Gang Of Four patterns__", una serie di 23 pattern definiti da Erich Gamma, Richard Helm, Ralph Johnson e John Vlissides, ormai molti anni fa ma ancora attuali. Oltre ad averli definiti li hanno divisi in tre categorie:
 
 - __Creazionali__: legati alla creazione di oggetti
 - __Comportamentali__: legati all'interazione tra oggetti

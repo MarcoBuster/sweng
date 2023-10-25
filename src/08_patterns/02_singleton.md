@@ -1,11 +1,13 @@
 # <big>S</big>INGLETON
 
 Talvolta vorremmo che di un certo oggetto esistesse __una sola istanza__ perché logicamente di tale oggetto non ha senso esistano diverse copie all'interno dell'applicazione (es. diverse istanze della classe Gioco in un sistema che gestisce un solo gioco alla volta).
-Tuttavia i linguaggi Object-Oriented gestiscono solo classi con istanze multiple, per cui la realizzazione di questa unicità può rivelarsi più complessa del previsto.
+Tuttavia i linguaggi Object-Oriented forniscono solo classi che poi possono essere istanziate senza limiti, per cui la realizzazione di questa unicità può rivelarsi più complessa del previsto.
 
 La soluzione consiste nel rendere la classe stessa responsabile del fatto che non può esistere più di una sua istanza: per fare ciò il primo passo è ovviamente quello di _rendere privato il costruttore_, o se non privato comunque non pubblico (conviene metterlo protected in modo da poter creare sottotipi). \
 Bisogna però garantire comunque un modo per recuperare l'unica istanza disponibile della classe: si crea dunque il _metodo statico_ `getInstance` che restituisce a chi lo chiama l'unica istanza della classe, creandola tramite il costruttore privato se questa non è già presente.
 Tale istanza è infatti memorizzata in un _attributo statico_ della classe stessa, in modo così da poterla restituire a chiunque ne abbia bisogno.
+
+La creazione dell'istanza avviene solo alla prima chiamata del metodo statico che restituisce l'istanza per evitare di _appesantire_ inutilmente il carico di lavoro sulla macchina virtuale. Se per caso questa instanza ci servirà solo per un breve momento in un momento avanzato del processo, non ha senso appesantire il _boot_ della macchina istanziando qualcosa di cui non necessito.
 
 ```plantuml
 @startuml
@@ -43,7 +45,7 @@ public class Singleton {
 ```
 
 Tuttavia, per come lo abbiamo scritto questa classe non assicura di non creare più di un'istanza di sé stessa, in quanto non prende in considerazione la __concorrenza__.
-Se due processi accedono in modo concorrente al metodo `getInstance`, entrambi potrebbero eseguire il controllo sul valore nullo dell'istanza ed ottenere un successo in quanto l'istanza non è ancora stata assegnata al relativo attributo statico nell'altro processo: si ottiene dunque che uno dei due processi ha accesso ad una propria istanza privata, cosa che distrugge completamente il nostro pattern!
+Se due processi accedono in modo concorrente al metodo `getInstance`, per problemi di scheduling, entrambi potrebbero eseguire il controllo sul valore nullo dell'istanza nello stesso momento o prima che l'altro processo l'abbia effettivamente istanziato e quindi rischiare di crearne più di una o restituire NULL poichè non ancora istanziata effettivente! Questa cosa distrugge completamente il nostro pattern!
 
 Una prima soluzione sarebbe di mettere un lock sull'esecuzione del metodo anteponendovi la direttiva `@Synchronized`: tuttavia, tale approccio comporterebbe un notevole calo di prestazioni del sistema portando vantaggi unicamente alla prima chiamata. \
 Una soluzione molto più efficiente (non possibile però fino a Java 5) è invece quella che prevede di avere un _blocco sincronizzato_ di istruzioni posto all'interno del ramo in cui si pensa che l'istanza sia nulla in cui ci si chiede se effettivamente l'istanza è nulla e solo allora si esegue il costruttore; la presenza del doppio controllo assicura che non vi siano squilibri dovuti alla concorrenza, mentre sincronizzare solamente un blocco e non l'intero metodo fa sì che il calo di prestazioni sia sentito solamente durante le prime chiamate concorrenti.
