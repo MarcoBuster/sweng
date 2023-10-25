@@ -20,9 +20,4 @@ Per condividere tali scelte di design (il _know how_) è possibile sfruttare:
 0) __metodi__: con pratiche (come Agile) o addirittura l'Object Orientation stessa, che può essere un metodo astratto per condividere scelte di design.
 1) __design pattern__: fondamentali per condividere scelte di design, sono utili anche per generare un vocabolario comune (sfruttiamo dei nomi riconosciuti da tutti per descrivere i ruoli dei componenti) e aiutano l'implementazione (i pattern hanno delle metodologie note per essere implementati). 
 I pattern non si concentrano sulle prestazioni di un particolare sistema ma sulla generalità e la riusabilità di soluzioni a problemi comuni;
-2) __principi__: per esempio i principi __SOLID__, ovvero i seguenti:
-    - Single responsibility
-    - Open-closed
-    - Liskov substitution 
-    - Interface segregation
-    - Dependency inversion
+2) __principi__: per esempio i principi __SOLID__, spiegati nella sezione successiva.
