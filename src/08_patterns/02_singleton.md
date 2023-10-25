@@ -68,3 +68,5 @@ MySingleton.INSTANCE.sampleOp();
 ```
 
 Si tratta inoltre di un approccio "thread safe", ovvero che lavora già bene con la concorrenza; l'unico svantaggio è che, se non si conosce l'idioma, a prima vista questa soluzione risulta molto meno chiara rispetto all'approccio precedente.
+
+Il Singleton per quanto sia un patter interessante non deve essere usato impropriamente visto che va contro alcuni dei principi SOLID e può essere sostituito da altri elementi in base alla circostanza, come le variabili globali, più informazioni a riguardo qui: https://www.davidtanzer.net/david%27s%20blog/2016/03/14/6-reasons-why-you-should-avoid-singletons.html
