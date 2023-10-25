@@ -13,6 +13,7 @@ Tale collegamento può essere fatto in tre modi differenti:
 
 - __Unification__: _hook_ e _template_ si trovano nella stessa classe astratta, classe da cui erediteranno le classi concrete per implementare i metodi _hook_ e, di conseguenza, il pattern; i metodi _template_ sono invece già implementati in quanto la loro struttura non si deve adattare alla specifica applicazione.
 
+
 ```plantuml
 @startuml
 class TemplateHookClass {
