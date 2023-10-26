@@ -7,7 +7,7 @@ Prima di proseguire è bene richiamare concetti e termini fondamentali presumibi
 Per essere definito _object oriented_, un linguaggio di programmazione deve soddisfare tre proprietà:
 - __Ereditarietà__: ovvero la possibilità di poter definire una classe ereditando proprietà e comportamenti di un'altra classe.
 - __Polimorfismo__: quando una classe può assumere diverse forme in base alle interfacce che implementa. 
-Il prof fa l'esempio del _tennista scacchista_: in un torneo di tennis è poco utile sostituire una persona che gioca a tennis ed è brava con gli scacchi (quindi una classe che implementa entrambe le interfacce) con una che gioca a sia a tennis che a scacchi, basta che sappia giocare tennis.
+Il prof fa l'esempio del _tennista scacchista_: in un torneo di tennis è poco utile sostituire una persona che gioca a tennis ed è brava con gli scacchi (quindi una classe che implementa entrambe le interfacce) con una che gioca sia a tennis che a scacchi, basta che sappia giocare tennis.
 Il collegamento tra capacità e oggetto è fatto __a tempo di compilazione__: non è importante quindi se la capacità non è ancora definita;
 - __Collegamento dinamico__: in Java il tipo concreto degli oggetti può non essere specificato staticamente e quindi il problema di stabilire _quale metodo chiamare_ viene risolto durante l'esecuzione. 
 In C++ occorre esplicitare questo comportamento utilizzando la keyword `virtual`.
@@ -37,9 +37,9 @@ In conclusione, le classi concrete devono tendenzialmente dipendere da classi as
 
 ## Reference escaping
 
-Il _reference escaping_ è una violazione dell'incapsulamento, __compiere questo errore equivale ad una bocciatura diretta all'esame.__
+Il _reference escaping_ è una violazione dell'incapsulamento (_compiere questo errore equivale ad una bocciatura diretta all'esame_).
 
-Può capitare, per esempio quando stiamo gestendo un mazzo di carte che vogliamo sia __segreto__, quindi non rivelare la sua implementazione o composizione, ecco i possibili _errori_:
+Basandoci sull'esempio del mazzo di carte, vogliamo che la sua implementazione rimanga __segreta__, quindi ecco i possibili _errori_ per non rispettare questa condizione:
 
 - quando un getter ritorna un riferimento a un segreto;
 ```java
@@ -84,14 +84,18 @@ Questo principio serve per __facilitare la comprensione del codice__ e renderne 
 
 ## Legacy o Deprecated
 
-Una classe o una funzionalità, dopo diverse modifiche nel tempo, possono arrivare un punto di non ritorno, dove l'evoluzione si ferma per diversi motivi, come un design iniziale troppo limitante o l'arrivo di un innovazione tecnologica. In questo caso può avere due possibili fini:
+Una classe o una funzionalità, dopo diverse modifiche nel tempo, può arrivare un punto di non ritorno, dove l'evoluzione si ferma per diversi motivi, come un design iniziale troppo limitante o l'arrivo di un innovazione tecnologica. 
 
-- __Legacy__: Una classe di questo genere continuerà a funzionare e sarà supportata, però verrà consigliato l'utilizzo di un altra classa più recente.
-- __Deprecated__: In questo caso la classe resterà comunque funzionante ma non sarà più supportata. Il suo utilizzo sarà fortemente sconsigliato e si spingerà verso la sua sostituzione con classi più recenti quando già utilizzata poichè dopo un certo lasso di tempo verrà rimossa o la sua funzionalità non sarà più garantita.
+In questi casi la funzione può essere chiamata:
+
+- __Legacy__: Una classe di questo genere continuerà a funzionare e sarà supportata, però verrà consigliato l'utilizzo di un altra classe più recente.
+- __Deprecated__: In questo caso la classe resterà comunque funzionante ma non sarà più supportata. Il suo utilizzo sarà fortemente sconsigliato e si spingerà il programmatore a fare un refactoring del codice laddove è presente la funzione deprecata.
+Essa deve essere sostituita con la nuova classe standard, poichè dopo un certo lasso di tempo verrà rimossa o la sua funzionalità non sarà più garantita.
 
 ## Immutabilità
 
-Una classe è immutabile quando non c'è modo di modificare lo stato di ogni suo oggetto dopo la creazione. Questo ci permette grandi vantaggi e quindi sarà fondamentale _massimizzare_ le classi con questa caratteristica
+Una classe è immutabile quando non c'è modo di modificare lo stato di ogni suo oggetto dopo la creazione. 
+Questo ci garantisce grandi vantaggi e quindi sarà fondamentale _massimizzare_ l'utilizzo di questo tipo di classi.
 
 Per assicurare tale proprietà è necessario:
 - __non fornire metodi di modifica__ allo stato;
@@ -101,17 +105,19 @@ Per assicurare tale proprietà è necessario:
 
 ## Code smell
 
-I _code smell_ sono dei segnali, della _"puzza"_, che suggeriscono problemi nella progettazione del codice. 
+I _code smell_ sono dei segnali, che suggeriscono problemi nella progettazione del codice. 
 Di seguito ne sono elencati alcuni:
 - __codice duplicato__: si può fare per arrivare velocemente al verde ma è da togliere con il refactoring. Rischia di portarsi dietro degli errori o particolarità legate al applicazione originale di questo codice. È dunque importante cercare di fattorizzare il più possibile.
 - __metodi troppo lunghi__: non è un vincolo "_hard_" dato che dipende dai casi ma  solitamente sono poco leggibili e poco riusabili;
-- __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice, invece che avere una serie di if e for _innestati_ che portano a cofunsione e quind possibili errori è meglio creare dei metodi con nomi chiari.
+- __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice invece che avere una serie di if e for _innestati_ che lo rendono confusionario, quindi è meglio creare dei metodi con nomi chiaris per evitare ciò.
 - __troppi attributi__: suggerisce che la classe non rispetta la single responsability, ovvero fa troppe cose;
 - __lunghe sequenze di _if-else_ o _switch___;
 - __classe troppo grande__;
 - __lista parametri troppo lunga__: se proprio ne ho bisogno meglio raggrupparli in una struttura e passarli come unico parametro;
-- __numeri _magici___: è importante assegnare alle costanti numeriche all'interno del codice un nome per comprendere meglio il loro scopo, infatti dei semplici numeri possono avere significati diversi in base al loro contesto, ad esempio uno zero puù indicare il suo valore numerico, l'assenza di valori o NULL;
+- __numeri magici__: è importante assegnare alle costanti numeriche all'interno del codice un nome per comprendere meglio il loro scopo, infatti dei semplici numeri possono avere significati diversi in base al loro contesto, ad esempio uno zero può indicare il suo valore numerico, l'assenza di valori o NULL;
 - __commenti che spiegano cosa fa il codice__: indica/ammette che il codice non è abbastanza chiaro;
 - __nomi oscuri o inconsistenti__;
-- __codice morto__: nel programma non deve essere presente del codice irraggiungibile o commentato o non testato. Questo mi appesantisce il progetto o porta possibili rischi. È quindi meglio eliminarlo, se mai dovesse tornarmi utile potrò recuperarlo utilizzando strumenti di versioning, accedendo a commit precedenti alla sua cancellazione.
-- __getter e setter__: Sono utili ma bisogna capire se ne ho davvero necessità o posso fornire piuttosto dei metodi che facciano ciò che poi l'utente farà con il dato ottenuto, vedi principio di __tell don't ask__ nella prossima sezione.
+- __codice morto__: nel programma non deve essere presente del codice irraggiungibile, commentato o non testato. 
+Questo appesantisce il progetto o porta a possibili rischi, è quindi preferibile eliminarlo.
+Nel caso in cui dovesse tornare utile è possibile recuperarlo utilizzando strumenti di versioning, accedendo a commit precedenti alla sua cancellazione.
+- __getter e setter__: Sono utili nella fase preliminare della stesura del codice, è importante rimuoverli per far spazio a dei metodi che permettano all'utente di eseguire una specifica operazione da lui richiesta, piuttosto che fornirgli il dato e permettergli di elaborarlo come meglio crede (vedi principio di __tell don't ask__ nella prossima sezione).
