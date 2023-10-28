@@ -95,7 +95,7 @@ Essa deve essere sostituita con la nuova classe standard, poichè dopo un certo 
 ## Immutabilità
 
 Una classe è immutabile quando non c'è modo di modificare lo stato di ogni suo oggetto dopo la creazione. 
-Questo ci garantisce grandi vantaggi e quindi sarà fondamentale _massimizzare_ l'utilizzo di questo tipo di classi.
+Questo ci garantisce grandi vantaggi, come ad esempio condividere oggetti senza il rischio che il suo stato venga modificato (in questo modo l'encapsulation potrebbe non essere rispettata), quindi sarà fondamentale _massimizzare_ l'utilizzo di questo tipo di classi.
 
 Per assicurare tale proprietà è necessario:
 - __non fornire metodi di modifica__ allo stato;
@@ -105,13 +105,13 @@ Per assicurare tale proprietà è necessario:
 
 ## Code smell
 
-I _code smell_ sono dei segnali, che suggeriscono problemi nella progettazione del codice. 
+I _code smell_ sono dei segnali, che suggeriscono problemi nella progettazione del codice, mantenere questi problemi nel codice significa aumentare il debito tecnico. 
 Di seguito ne sono elencati alcuni:
-- __codice duplicato__: si può fare per arrivare velocemente al verde ma è da togliere con il refactoring. Rischia di portarsi dietro degli errori o particolarità legate al applicazione originale di questo codice. È dunque importante cercare di fattorizzare il più possibile.
+- __codice duplicato__: si può fare per arrivare velocemente al verde quando si usa la tecnica TDD, ma è da rimuovere con il refactoring. Rischia di portarsi dietro degli errori o particolarità legate al applicazione originale di questo codice. È dunque importante cercare di fattorizzare il più possibile.
 - __metodi troppo lunghi__: non è un vincolo "_hard_" dato che dipende dai casi ma  solitamente sono poco leggibili e poco riusabili;
-- __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice invece che avere una serie di if e for _innestati_ che lo rendono confusionario, quindi è meglio creare dei metodi con nomi chiaris per evitare ciò.
+- __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice invece che avere una serie di if e for _innestati_ che lo rendono confusionario, quindi è meglio creare dei metodi con nomi chiari per evitare ciò.
 - __troppi attributi__: suggerisce che la classe non rispetta la single responsability, ovvero fa troppe cose;
-- __lunghe sequenze di _if-else_ o _switch___;
+- __lunghe sequenze di _if-else_ o _switch___: possono essere sostituiti da strutture basate su polimorfismo e collegamento dinamico;
 - __classe troppo grande__;
 - __lista parametri troppo lunga__: se proprio ne ho bisogno meglio raggrupparli in una struttura e passarli come unico parametro;
 - __numeri magici__: è importante assegnare alle costanti numeriche all'interno del codice un nome per comprendere meglio il loro scopo, infatti dei semplici numeri possono avere significati diversi in base al loro contesto, ad esempio uno zero può indicare il suo valore numerico, l'assenza di valori o NULL;
@@ -120,4 +120,8 @@ Di seguito ne sono elencati alcuni:
 - __codice morto__: nel programma non deve essere presente del codice irraggiungibile, commentato o non testato. 
 Questo appesantisce il progetto o porta a possibili rischi, è quindi preferibile eliminarlo.
 Nel caso in cui dovesse tornare utile è possibile recuperarlo utilizzando strumenti di versioning, accedendo a commit precedenti alla sua cancellazione.
-- __getter e setter__: Sono utili nella fase preliminare della stesura del codice, è importante rimuoverli per far spazio a dei metodi che permettano all'utente di eseguire una specifica operazione da lui richiesta, piuttosto che fornirgli il dato e permettergli di elaborarlo come meglio crede (vedi principio di __tell don't ask__ nella prossima sezione).
+- __getter e setter__: Questi metodi causano la perdita dell'incapsulation e dell'information hiding, perchè esportano esternamente il segreto contenuto nella classe. 
+Sono utili nella fase preliminare della stesura del codice, è importante rimuoverli per far spazio a dei metodi che permettano all'utente di eseguire una specifica operazione da lui richiesta, piuttosto che fornirgli il dato e permettergli di elaborarlo come meglio crede (vedi principio di [__tell don't ask__](./04_tell-dont-ask.md) nella prossima sezione).
+
+ecco alucni link utili per approfondire i code smell:
+- [Refactoring guru](https://refactoring.guru/refactoring/smells)
