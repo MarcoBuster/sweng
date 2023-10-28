@@ -2,7 +2,7 @@
 Durante il refactoring è opportuno rispettare le seguenti regole:
 - le __modifiche al codice non devono modificare le funzionalità__:
 il refactoring DEVE essere invisibile al cliente;
-- __non possono essere aggiunti test aggiuntivi__ rispetto alla fase verde appena raggiunta.
+- __non possono essere inseriti test aggiuntivi__ rispetto alla fase verde appena raggiunta.
 
 Se la fase di refactoring sta richiedendo troppo tempo allora è possibile fare rollback all'ultima versione verde e __pianificare meglio__ l'attività di refactoring, per esempio scomponendolo in più step.
 Vale la regola del _"do it twice"_: il secondo approccio a un problema è solitamente più veloce e migliore.
