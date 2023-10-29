@@ -10,7 +10,7 @@ Un'altra tecnica che vedremo è l'__estrazione dei nomi__ (noun extraction), per
 
 ## Noun extraction
 
-Basandosi sulle specifiche &mdash; come i commenti esplicativi delle User Stories &mdash; si parte dai sostantivi (o frasi sostantivizzate), si _sfolsticono_ con dei criteri, si cercano le relazioni tra loro e quindi si produce la gerarchia delle classi.
+Basandosi sulle specifiche &mdash; come i commenti esplicativi delle User Stories &mdash; si parte dai sostantivi (o frasi sostantivizzate), si _sfoltiscono_ con dei criteri, si cercano le relazioni tra loro e quindi si produce la gerarchia delle classi.
 
 Per spiegare il procedimento considereremo il seguente esempio:
 
