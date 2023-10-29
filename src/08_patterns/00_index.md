@@ -5,7 +5,7 @@ Parlando di progettazione del software e di buone pratiche è impossibile non pa
 Ad ogni pattern sono associati una serie di __idiomi__, implementazioni del pattern specifiche per un certo linguaggio di programmazione che sfruttano i costrutti del linguaggio per realizzare l'architettura dettata dal pattern.
 Durante questa discussione vedremo alcuni idiomi per Java, che talvolta si discosteranno fortemente dalla struttura descritta dai diagrammi UML dei pattern.
 
-Ma attenzione, esistono anche degli __anti-pattern__, spesso mostrati assieme al pattern come dimostrazione della sua correttezza, soluzioni che _inizialemente sembrano_ buone ma sono dimostratamente problematiche con l'avanzare del progetto: dovremo assicurarci di tenerci lontani da questi design truffaldini!
+Ma attenzione, esistono anche degli __anti-pattern__, spesso mostrati assieme al pattern come dimostrazione della sua correttezza, soluzioni che _inizialemente sembrano_ buone ma sono dimostratamente problematiche: dovremo assicurarci di tenerci lontani da questi design truffaldini!
 
 - [**Discutere di pattern: i meta-patterns**](./01_meta-patterns.md)
 - [**Singleton**](./02_singleton.md)
