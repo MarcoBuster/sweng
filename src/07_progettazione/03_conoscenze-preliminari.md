@@ -125,3 +125,5 @@ Sono utili nella fase preliminare della stesura del codice, è importante rimuov
 
 ecco alucni link utili per approfondire i code smell:
 - [Refactoring guru](https://refactoring.guru/refactoring/smells)
+- [Wikipedia](https://en.wikipedia.org/wiki/Code_smell)
+- [Luzkan](https://luzkan.github.io/smells/)
