@@ -153,7 +153,7 @@ Nel caso in cui dovesse tornare utile è possibile recuperarlo utilizzando strum
 - __getter e setter__: Questi metodi causano la perdita dell'incapsulation e dell'information hiding, perchè esportano esternamente il segreto contenuto nella classe. 
 Sono utili nella fase preliminare della stesura del codice, è importante rimuoverli per far spazio a dei metodi che permettano all'utente di eseguire una specifica operazione da lui richiesta, piuttosto che fornirgli il dato e permettergli di elaborarlo come meglio crede (vedi principio di [__tell don't ask__](./04_tell-dont-ask.md) nella prossima sezione).
 
-ecco alucni link utili per approfondire i code smell:
+Ecco alucni link utili per approfondire i code smell:
 - [Refactoring guru](https://refactoring.guru/refactoring/smells)
 - [Wikipedia](https://en.wikipedia.org/wiki/Code_smell)
 - [Luzkan](https://luzkan.github.io/smells/)
