@@ -39,6 +39,36 @@ In conclusione, le classi concrete devono tendenzialmente dipendere da classi as
 
 Il _reference escaping_ è una violazione dell'incapsulamento (_compiere questo errore equivale ad una bocciatura diretta all'esame_).
 
+```plantuml
+@startuml
+scale 300 width
+
+class main {
+    -deck
+    -myCards
+}
+main::deck --> Deck
+main::myCards --> "List<Card>"
+
+class Deck {
+    -secretCards
+}
+
+
+Deck::secretCards -r-> "List<Card>"
+class "List<Card>" {}
+
+
+hide "main" methods
+hide Deck methods
+hide "List<Card>" methods
+hide "main" circle
+hide Deck circle
+hide "List<Card>" circle
+show <<Serializable>> fields
+@enduml
+```
+
 Basandoci sull'esempio del mazzo di carte, vogliamo che la sua implementazione rimanga __segreta__, quindi ecco i possibili _errori_ per non rispettare questa condizione:
 
 - quando un getter ritorna un riferimento a un segreto;
