@@ -155,7 +155,8 @@ deactivate A
 Può risultare assai difficile testare un SUT che dipende da componenti software non utilizzabili per un motivo o per l'altro.
 Questi componenti prendono il nome di **depended-on component** (DOC) e i problemi che questi possono far emergere durante la stesura di un test sono molteplici.
 Ad esempio, i DOC potrebbero non essere disponibili in quel momento, non restituire i risultati che servono a un determinato test (o restituirli solo tramite artifici troppo complessi) oppure perché la loro esecuzione avrebbe effetti collaterali indesiderati.
-In altri casi ancora, la strategia di testing adottata richiede un maggiore controllo o più visibilità sul comportamento interno del SUT e l'utilizzo di un DOC reale rende l'operazione complessa.
+In altri casi ancora, la strategia di testing adottata richiede un maggiore controllo o più visibilità sul comportamento interno del SUT e l'utilizzo di un DOC reale rende l'operazione complessa. \
+Un altro esempio comune è la necessità di testare che all'avvenire di un evento _randomico_ accada qualcosa in particolare ci porterebbe a rieseguire lo stesso test fino a che quell'evento non avvenga, che in base ai casi potrebbe avverine dopo molto tempo, quindi potremmo voler forzare che questo evento accada per poterlo testare.
 
 Quando si scrive un test in cui non si può (o si sceglie di non) usare il vero componente da cui si è dipendenti, si può sostituire quest'ultimo con un Test Double, durante la fase di set up.
 
