@@ -56,6 +56,8 @@ hide empty fields
 
 Come si vede, qui non c'è scritto da nessuna parte che una `Duck` deve volare, ma solo che deve definire la sua "politica di volo" incorporando un `FlyBehaviour`.
 
+Ovviamente la modifica della classe padre resta sempre rischiosa e va fatta studiando le circostanze e gli effetti del cambiamento. Se ci si trova in un team che lavora in __XP__ non dovrebbe essere un problema dato che il team condividendosi le informazione dovrebbe essere a conoscenza di tutte le classi che erediteranno e degli effetti che avrebbe una modifica. Nel caso di un progetto __open-source__ invece bisogna trovare un modo per notificare tutti coloro che hanno ereditato dalla classe modificata della possibile nascita di problemi.
+
 La differenziazione dei comportamenti si fa dunque _a livello d'istanza_ e non di classe: il pattern definisce una famiglia algoritmi e li rende tra di loro intercambiabili tramite _encapsulation_.
 Per questo motivo tale pattern è usato in situazioni anche molto diversa da quella con cui l'abbiamo introdotto: un altro esempio presente in Java è l'interfaccia `Comparator`.
 
