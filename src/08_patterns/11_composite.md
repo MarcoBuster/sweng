@@ -40,9 +40,9 @@ Esse indicano che:
 Nella maggior parte dei casi un'istanza Composite utilizzerà gli oggetti aggregati per implementare effettivamente i metodi descritti dall'interfaccia comune, delegando a loro l'esecuzione effettiva e limitandosi ad elaborare i risultati.
 Riprendendo l'esempio di prima, per conoscere la dimensione di una Directory sarà sufficiente sommare le dimensioni dei File e delle altre Directory in essa contenuti.
 
-Il patter Composite presenta numerosi vantaggi, ma non è nemmeno esente da criticità.
+Il pattern Composite presenta numerosi vantaggi, ma non è nemmeno esente da criticità.
 L'uso di un'interfaccia comune per Leaf e Composite permette al client di non preoccuparsi del tipo dell'oggetto con cui sta interagendo, in quanto ogni Component è in grado di eseguire le operazioni descritte nell'interfaccia in modo indistinguibile; tuttavia, questo implica che non è possibile distinguere tra oggetti singoli e composti. \
-Inoltre, l'uso dell'interfaccia per l'aggregazione nei Composite rende impossibile imporre dei controlli su cosa possa contenere un certo tipo di Composite: non si può per esempio forzare che raggruppi solo certi tipi di elementi, o che l'albero di composizione abbia profondità al più pari a tre.
+Inoltre, l'uso dell'interfaccia per l'aggregazione nei Composite rende impossibile imporre dei controlli su cosa possa contenere un certo tipo di Composite: non si può per esempio forzare che raggruppi solo certi tipi di elementi, o che l'albero di composizione abbia profondità al più pari a tre. Riguardo a questo è ancora consigliabile evitare di fare dei _casting_ poichè andrebbero a bypassare i controlli fatti dal compilatore.
 
 Un "dialetto" del pattern tenta di risolvere il problema dell'indistinguibilità tra Leaf e Composite introducendo nell'interfaccia Component un metodo `getComposite` che in un Composite restituisca `this` e in una Leaf restituisca `null`.
 L'uso di valori nulli e la necessità di strani casting rende però pericolosa l'adozione di questa versione del pattern.

@@ -35,7 +35,7 @@ public class BaseNormaleSalamePeperoni extends BaseNormaleSalame {
 ...
 ```
 
-Come è subito ovvio, però, questo approccio risulta assolutamente da evitare per una serie di motivi: in primo luogo l'esplosione combinatoria dovuta all'accoppiamento di ogni possibile base e insieme di decorazioni, e in secondo luogo l'estrema difficoltà che comporterebbe una futura aggiunta di decorazioni.
+Come è subito ovvio si tratta di un __anti-pattern__, è assolutamente da evitare per una serie di motivi: in primo luogo l'esplosione combinatoria dovuta all'accoppiamento di ogni possibile base e insieme di decorazioni, e in secondo luogo l'estrema difficoltà che comporterebbe una futura aggiunta di decorazioni.
 
 L'ideale sarebbe invece poter __aggiungere funzionalità e caratteristiche dinamicamente__, restringendo la gerarchia ad un'unica classe le cui istanze possano essere "decorate" su richiesta al momento dell'esecuzione. \
 La soluzione più semplice a questo nuovo problema parrebbe quella che viene definita una <big>G</big>OD CLASS (o _fat class_), ovvero un'unica classe in cui tramite attributi booleani e `switch` vengono attivate o disattivate diverse decorazioni.
@@ -77,7 +77,7 @@ public class GodPizza {
 }
 ```
 
-Si tratta però questo di un chiaro anti-pattern, una soluzione che sebbene invitante e semplice in un primo momento da realizzare nasconde delle criticità non trascurabili.
+Si tratta pure questo di un chiaro __anti-pattern__, una soluzione che sebbene invitante e semplice in un primo momento da realizzare nasconde delle criticità non trascurabili.
 Si tratta infatti di una chiara violazione dell'Open-Close Principle, in quanto per aggiungere un decoratore è necessario modificare la God Class; inoltre, tale classe diventa molto velocemente gigantesca, zeppa di funzionalità tra loro molto diverse (_scarsa separazione delle responsabilità_) e decisamente infernale da leggere, gestire e debuggare in caso di errori.
 
 Introduciamo dunque il pattern __Decorator__, la soluzione più universalmente riconosciuta per questo tipo di situazioni.
@@ -110,7 +110,7 @@ hide empty fields
 A prima vista lo schema UML ricorda molto quello del pattern Composite: abbiamo un'interfaccia _Component_ implementata sia da un _ConcreteComponent_, ovvero una base della pizza nel nostro esempio, sia da una __classe astratta Decorator__, la quale è poi estesa da una serie di _ConcreteDecorator_.
 A differenza del Composite, tuttavia, qui ciascun Decorator aggrega __una e una sola istanza di Component__: tali decoratori sono infatti dei "wrapper", degli oggetti che _ricoprono_ altri per aumentarne dinamicamente le funzionalità. \
 È importante notare che i Decorator ricevono come oggetto da ricoprire al momento della costruzione un _generico Component_, in quanto questo permette ai decoratori di decorare oggetti già decorati.
-Questo approccio "ricorsivo" permette di creare una catena di decoratori che definisca a runtime in modo semplice e pulito oggetti dotati di moltissime funzionalità aggiunte.
+Questo approccio "ricorsivo" permette di creare una catena di decoratori che definisca a _runtime_ in modo semplice e pulito oggetti dotati di moltissime funzionalità aggiunte, così facendo alleggeriremo la fase di compiling, aggiungendo determinate funzionalità dinamicamente. \
 I decoratori esporranno infatti i metodi definiti dall'interfaccia __delegando__ al Component contenuto l'esecuzione del comportamento principale e aggiungendo la propria funzionalità a posteriori: in questo modo la "base" concreta eseguirà il proprio metodo che verrà successivamente arricchito dai decoratori in maniera del tutto trasparente al Client.
 
 ```java
@@ -168,7 +168,7 @@ public class Client {
 
 ```
 
-Vista la somiglianza, inoltre, pattern Decorator e Composite sono facilmente combinabili: si può per esempio immaginare di creare gruppi di oggetti decorati o decorare in un solo colpo gruppi di oggetti semplicemente facendo in modo che Composite, Decorator e classi concrete condividano la stessa interfaccia Component.
+Vista la somiglianza, inoltre, pattern Decorator e Composite sono facilmente combinabili: si può per esempio immaginare di creare gruppi di oggetti decorati o decorare in un solo colpo gruppi di oggetti semplicemente facendo in modo che Composite, Decorator e classi concrete condividano la stessa interfaccia Component. Un esempio comune ne sono i programmi di photo-editing dove possiamo unire diversi elementi tra loro e applicare a tutti lo stesso effetto.
 
 Possiamo poi notare una cosa: al momento della costruzione un Decorator salva al proprio interno l'istanza del Component da decorare.
 Come sappiamo questo darebbe luogo ad un'_escaping reference_, ma in questo caso il comportamento è assolutamente voluto: dovendo decorare un oggetto è infatti sensato pensare che a quest'ultimo debba essere lasciata la possibilità di cambiare e che debba essere il decoratore ad adattarsi a tale cambiamento.

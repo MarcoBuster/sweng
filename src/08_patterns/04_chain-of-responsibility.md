@@ -3,7 +3,11 @@
 Talvolta nei nostri programmi vorremmo definire una gestione "a cascata" di una certa richiesta. Pensiamo per esempio a una serie di regole anti-spam: all'arrivo di una mail la prima regola la esamina e si chiede se sia applicabile o meno; in caso affermativo contrassegna la mail come spam, altrimenti _la passa alla prossima regola_, che a sua volta farà lo stesso test passando il controllo alla terza in caso negativo, e così via.
 Abbiamo cioè un _client_ in grado di fare una richiesta, e una __catena di potenziali gestori__ di cui non sappiamo a priori chi sarà in grado di gestirla effettivamente.
 
-Il pattern Chain of Responsibility risolve il disaccoppiamento tra client e gestore _concatenando i gestori_.
+Un __anti-pattern__ che immediatamente va scardato e quello di creare una serie di _if-clauses_ per gestire ogni caso in successione. Questo ci porterebbe ad avere un codice estremamente illeggibile, confusionario e non mantenibile o aggiornabile nel caso dovessimo aggiungere nuove _regole_ di controllo. 
+
+L'obiettivo è quello di __separare__ ognugno di questi casi, in maniera da renderli più leggibili e facilmente mantenibili, e di semplificare la trasmissione della responsabilità da un caso al successivo.
+
+Il pattern __Chain of Responsibility__ risolve il disaccoppiamento tra client e gestore _concatenando i gestori_.
 Esso prescrive la creazione di un'interfaccia a cui tutti i gestori devono aderire, contenente solo la dichiarazione di un metodo `evaluate` che implementa la logica descritta prima: si stabilisce se si può gestire la richiesta, e se non si può si chiama lo stesso metodo su _un altro gestore_ ottenuto come parametro al momento della creazione.
 
 ```plantuml
@@ -55,4 +59,29 @@ public class Client {
     }
 
 }
+
+public class GestoreConcreto {
+
+    private evaluator next;
+
+    public GestoreConcreto(evaluator next) {
+        this.next = next; //next potrebbe anche essere null
+    }
+
+    public GestoreConcreto() {
+        this.next = null;
+    }
+
+
+    public ??? evaluate() {
+        if thisIsTheCase() return "Questo evaluatore gestisce il caso";
+        else  
+            if next != null return next.evaluate(); //provo con il successivo
+            else return "Non sono in grado di gestire questo caso";
+            //sono arrivato all'ultimo caso e non sono stato in grado di gestirlo
+    }
+
+}
+
 ```
+Gli evalutatori dovranno pure avere un costruttore in grado di ricevere __null__ oppure non ricere niente affatto. Infatti l'ultimo evaluatore della nostra catena dovrà gestire il caso in cui nemmeno lui sia in grado di gestire la richiesta e ritornare un valore di _default_ o specificare il caso.
