@@ -9,4 +9,4 @@ La conformazione del diagramma è quindi molto simile a quella del diagramma dei
 
 ![Esempio deployment diagram](/assets/11_deployment-diagram-example.png)
 
-Il Deployment diagram risulta di particolare utilità per il _deployer_, _i.e._ la figura che si occupa dell'installazione fisica del sistema. 
+Il Deployment diagram risulta di particolare utilità per il _deployer_, _i.e._ la figura che si occupa dell'installazione fisica del sistema. Così si potranno evitare ripetizioni inutili delle stesse risorse ma ottimizzare il loro utilizzo trasversale tra le varie componenti del sistema.
