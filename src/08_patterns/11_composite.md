@@ -30,7 +30,7 @@ Abbiamo quindi gli oggetti singoli, rappresentati dalla classe _Leaf_, e gli ogg
 Per realizzare l'uniformità di gestione dobbiamo introdurre un livello di astrazione, quindi Leaf e Composite implementano una stessa __interfaccia Component__ contenente la definizione delle operazioni comuni. \
 L'uso dell'interfaccia comune permette di definire all'interno di Composite le operazioni di aggiunta e rimozione di oggetti al gruppo in modo generale, permettendo cioè che un _Composite aggreghi sia Leaf che altri Composite_.
 
-A proposito di tale aggregazione, dallo schema UML possiamo notare le relative cardinalità: "0..n" dal lato del Composite e "0..1" da quello del Component.
+A proposito di tale aggregazione, dallo schema UML possiamo notare le relative cardinalità (questo è un esempio di _recursive connection_ definito nei metapattern): "0..n" dal lato del Composite e "0..1" da quello del Component.
 Esse indicano che:
 
 - Un'istanza di Composite aggrega 0 più istanze di Component al suo interno: in questo modo si permette che al momento della creazione il Composite sia totalmente vuoto; se questo non ha alcun senso logico nell'applicazione si può invece modificare la cardinalità in "1..n" imponendo che al costruttore di Composite venga passato un Component iniziale da contenere;
