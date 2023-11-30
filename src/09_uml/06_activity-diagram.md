@@ -47,5 +47,5 @@ Le decisioni devono rispettare due proprietà:
 
 ![Swim lane esempio](/assets/11_activity-swim-lane-example.png)
 
-Si può partizionare il diagramma al fine di rappresentare, sulle singole _activity_, delle particolari responsibilità.
+Si può partizionare il diagramma al fine di rappresentare, sulle singole _activity_, delle particolari responsibilità che è bene dividere dalle altre.
 Queste vengono visualizzate tramite delle _"corsie"_ verticali che identificano _chi_ svolge una determinata attività.
