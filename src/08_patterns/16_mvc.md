@@ -1,6 +1,9 @@
 # <big>M</big>ODEL VIEW CONTROLLER
 
-Spesso nelle applicazioni capita che uno stesso dato sia riportato tramite diverse __viste__ all'interno dell'interfaccia utente: il colore di un testo, per esempio, potrebbe essere rappresentato contemporaneamente da una terna di valori RGB, dal suo valore esadecimale e da uno slider di colori.
+Spesso nelle applicazioni capita che uno stesso dato sia riportato tramite diverse __viste__ all'interno dell'interfaccia utente: il colore di un testo, per esempio, potrebbe essere rappresentato contemporaneamente da una terna di valori RGB, dal suo valore esadecimale e da uno slider di colori. 
+
+Si tratta di un problema simile a quello dell'observer pattern, ora però non si tratta più di un semplice dato ma di possibili metodi di interazioni diversi, molto più complesso. 
+
 Si tratta di modi differenti di rappresentare la medesima __informazione condivisa__, che viene replicata più volte per dare all'utente diversi modi in cui visualizzarla. \
 La condivisione di un medesimo valore porta però con sé un problema: se tale dato viene modificato dall'utente interagendo con una delle viste è necessario che tale _modifica venga propagata a tutte le altre viste_ in modo da mantenere l'informazione __coerente__.
 
@@ -42,5 +45,7 @@ In conclusione, il Model è in grado di interagire con tutte le viste che l'osse
 Questo permette allo stesso dato di avere interfacce disomogenee senza alcun tipo di problema riguardante la coerenza dello stesso.
 
 Tuttavia, il problema principale del pattern Model View Controller è la _dipendenza circolare_ tra le tre componenti: le view comunicano ai rispettivi controller gli eventi, questi li elaborano e aggiornano il modello il quale a sua volta avvisa le view dei cambiamenti di stato.
-Questa struttura fortemente interconnessa rende difficoltoso lo sviluppo e il testing in quanto non esiste un chiaro punto da cui partire a costruire: si potrebbe pensare di fare mocking delle view e iniziare a sviluppare il resto, ma questo approccio porta comunque a una serie di inutili complicazioni; bisogna inoltre considerare che il testing delle view è spesso particolarmente complesso coinvolgendo varie funzioni di libreria o funzioni grafiche. \
+Questa struttura fortemente interconnessa rende difficoltoso lo sviluppo e il testing in quanto non esiste un chiaro punto da cui partire a costruire: si potrebbe pensare di fare mocking delle view e iniziare a sviluppare il resto, ma questo approccio porta comunque a una serie di inutili complicazioni; bisogna inoltre considerare che il testing delle view è spesso particolarmente complesso dato che coinvolge varie funzioni di librerie diverse. 
+In particolare questo modello è molto utilizzato per lo sviluppo di GUIs (interfacce utente grafiche) quindi la quantità di aspetti da testare e funzionalità interconnese è davvero elevata.
+
 Come vedremo nel prossimo paragrafo, per ovviare a questo problema si decide spesso di spezzare il circolo vizioso di Model, View e Controller modificando lievemente le rispettive dipendenze.
