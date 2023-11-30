@@ -61,7 +61,8 @@ In Java, ad esempio, si può usare il <span style="color:green">verde</span> per
 
 Valgono anche due regole sintattiche generali:
 - se una scritta è in _corsivo_ vuol dire che all'elemento corrispondente manca qualche definizione ed è dunque da considerarsi __astratto__;
-- se una scritta è <u>sottolineata</u> vuol dire che l'elemento corrispondente (tipicamente metodo o attributo) è __statico__, ovvero ha una visibilità a livello di classe e non a livello di istanza (_i.e_ è possibile riferircisi ad esso anche senza avere precedentemente istanziato la classe).
+- se una scritta è <u>sottolineata</u> vuol dire che l'elemento corrispondente (tipicamente metodo o attributo) è __statico__, ovvero ha una visibilità a livello di classe e non a livello di istanza (_i.e_ è possibile riferirsi ad esso anche senza avere precedentemente istanziato la classe);
+- se è incluso tra << >> allora si tratta di uno __stereotipo__, ovvero un nuovo elemento introdotto, può essere un attributo o un interfaccia ad esempio, per questo specifico _use-case_ che permette di estendere UML.
 
 ### Relazioni
 
