@@ -2,7 +2,7 @@
 
 __UML__ (_Unified Modeling Language_) è un linguaggio di _modeling_ il cui scopo è determinare uno standard comune nella rappresentazione visuale del software.
 
-UML rappresenta in realtà una famiglia di formalismi, che si concretizzano nei concetti di __diagrammi__.
+UML rappresenta in realtà una famiglia di formalismi, quindi non esiste un vero stnadard ma solo delle pratiche comino, che si concretizzano nei concetti di __diagrammi__.
 
 - [**Class diagram**](./01_class-diagram.md)
 - [**Sequence diagram**](./02_sequence-diagram.md)
