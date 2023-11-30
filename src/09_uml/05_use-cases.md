@@ -4,11 +4,12 @@
 
 I **diagrammi dei casi d'uso** rappresentano l'astrazione di un insieme di scenari tra loro correlati. \
 Essi adottano un linguaggio che verte alla risoluzione di esigenze comunicative tramite un lessico potenzialmente meno tecnico.
-Tale natura "informale" li rende ottimi mezzi di comunicazione col *cliente*.
+Tale natura "informale" e più semplice li rende ottimi mezzi di comunicazione col *cliente*.
 
 Possono essere utilizzati, ad esempio, per:
 * esplicitare differenti modalità di fare un compito;
-* stabilire quale dovrebbe essere la normale interazione nello scenario e le eccezioni che possono verificarsi.
+* stabilire quale dovrebbe essere la normale interazione nello scenario e le eccezioni che possono verificarsi;
+* spiegare il funzionamento delle varie componenti del sistema.
 
 Infatti, ogni _scenario_ è corredato di:
 * __pre e post condizioni__ da rispettare;
@@ -39,15 +40,14 @@ Sono contemplati anche collegamenti fra un caso d'uso e un altro (vedi [paragraf
 
 ## Identificazione degli attori
 
-Gli _attori_ non sono necessariamente persone fisiche.
-Possono corrispondere anche a dei **ruoli** o addirittura ad un **sistema esterno**.
+Gli _attori_ non sono necessariamente persone fisiche,ma possono corrispondere anche a dei **ruoli** o addirittura ad un **sistema esterno**. È importante notare quindi che una persona può ricoprire diversi ruoli contemporaneamente e quindi rappresentare più di un attore alla volta.
 
 Ogni attore è un'entità esterna al sistema ed interagisce direttamente con esso, fungendo allo stesso tempo da *fonte* e *destinatario* di informazione.
 
 Ci sono due attori particolari:
 
 * **attore beneficiario**: colui che trae beneficio dall'interazione con lo use case, *i.e.* chi è **interessato** a quella funzionalità. \
-Gli altri attori possono cambiare, ma il beneficiario rimmarrà probabilmente lo stesso;
+Gli altri attori possono cambiare, ma il beneficiario rimarrà probabilmente lo stesso;
 * **attore primario**: colui che avvia l'interazione con lo use case.
 
 ## Identificazione use case
@@ -57,6 +57,8 @@ Il miglior modo di identificare i casi d'uso è interrogarsi su due fronti:
 * **attori beneficiari**: _"cosa vogliono?"_, _"come agiscono?"_, _"perchè si interfacciano col sistema?"_ e _"cosa si aspettano?"_.
 
 ## Associazioni
+
+Successivamente è fondamentale creare le associazioni tra le figure individuate facendo molta attenzione, poichè da essere dipenederà la compresione e lo sviluppo del progetto. I diagrammi UML possono essere usati per basare la struttura del codice di sviluppo o addirittura creare il software in maniera automatica partedo da essi. 
 
 Ogni diagramma dei casi d'uso deve seguire due convenzioni per quanto riguarda le associazioni.
 
