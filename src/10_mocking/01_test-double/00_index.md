@@ -178,4 +178,5 @@ Come si può osservare dall'immagine sottostante, vi sono diversi tipi di Test D
 - [**Mock objects**](./03_mock-objects.md)
 - [**Spy objects**](./04_spy-objects.md)
 - [**Fake objects**](./05_fake-objects.md)
-- [**Riepilogo**](./06_riepilogo.md)
+- [**Mocked construction**](./06_mocked-construction.md)
+- [**Riepilogo**](./07_riepilogo.md)
