@@ -16,4 +16,4 @@ Per aumentare ulteriormente la leggibilità dei nostri test è desiderabile anch
 Ciò non significa che un metodo di test che verifica più funzionalità sia scorretto, ma fornirà sicuramente una minore localizzazione delle anomalie rispetto a un gruppo di test che testano singole  funzionalità; in altre parole, sarà meno leggibile e contraddistinto da una logica più complessa.
 
 - [**Test Double**](./01_test-double/00_index.md)
-- [**Mockito**](./01_mockito.md)
+- [**Mockito**](./02_mockito/00_index.md)
