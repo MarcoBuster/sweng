@@ -108,7 +108,13 @@ hide empty fields
 ```
 
 A prima vista lo schema UML ricorda molto quello del pattern Composite: abbiamo un'interfaccia _Component_ implementata sia da un _ConcreteComponent_, ovvero una base della pizza nel nostro esempio, sia da una __classe astratta Decorator__, la quale è poi estesa da una serie di _ConcreteDecorator_.
-A differenza del Composite, tuttavia, qui ciascun Decorator aggrega __una e una sola istanza di Component__: tali decoratori sono infatti dei "wrapper", degli oggetti che _ricoprono_ altri per aumentarne dinamicamente le funzionalità. \
+A differenza del Composite, tuttavia, qui ciascun Decorator aggrega __una e una sola istanza di Component__: tali decoratori sono infatti dei "wrapper", degli oggetti che _ricoprono_ altri per aumentarne dinamicamente le funzionalità.
+
+Come abbiamo detto i due diagrammi UML sono molto simili, ma la differenza sta nel livello di astrazione in cui ci si pone, infatti le seguenti differenze non si possono cogliere a partire dal solo diagramma UML.
+Ricordiamo le differenze:
+- nel caso del Composite è possibile creare oggetti composti;
+- nel caso del Decorator si possono fornire nuove funzionalità dinamicamente. 
+
 È importante notare che i Decorator ricevono come oggetto da ricoprire al momento della costruzione un _generico Component_, in quanto questo permette ai decoratori di decorare oggetti già decorati.
 Questo approccio "ricorsivo" permette di creare una catena di decoratori che definisca a _runtime_ in modo semplice e pulito oggetti dotati di moltissime funzionalità aggiunte, così facendo alleggeriremo la fase di compiling, aggiungendo determinate funzionalità dinamicamente. \
 I decoratori esporranno infatti i metodi definiti dall'interfaccia __delegando__ al Component contenuto l'esecuzione del comportamento principale e aggiungendo la propria funzionalità a posteriori: in questo modo la "base" concreta eseguirà il proprio metodo che verrà successivamente arricchito dai decoratori in maniera del tutto trasparente al Client.

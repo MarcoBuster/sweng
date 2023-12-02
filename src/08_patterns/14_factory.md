@@ -1,6 +1,6 @@
 # <big>F</big>ACTORY METHOD
 
-Talvolta capita che un certo Client sia interessato a creare un oggetto non in base al suo tipo quanto all'_interfaccia_ che esso implementa: ad esso non importa conoscere la classe di cui l'oggetto è un'istanza perché essa non ha alcuna rilevanza nel suo contesto.
+Talvolta capita che un certo Client sia interessato a creare un oggetto non in base al suo tipo quanto all'_interfaccia_ che esso implementa: ad esso non importa conoscere la classe di cui l'oggetto è istanza perché questo non ha alcuna rilevanza nel suo contesto.
 Tuttavia, la normale creazione di un oggetto tramite la keyword `new` richiede di esplicitare la classe a cui esso appartiene, costringendo così il Client ad approfondire inutilmente la sua conoscenza sui tipi che implementano l'interfaccia a cui è interessato.
 
 Per evitare questo tipo di situazione introduciamo uno dei cosiddetti __pattern creazionali__, ovvero legati alla creazione di oggetti: stiamo parlando del pattern dei __Factory methods__.
@@ -22,7 +22,9 @@ class ConcreteCreator implements Creator {
 class ConcreteProduct implements Product {
 }
 ConcreteProduct <. ConcreteCreator
+
 hide empty fields
+hide empty methods
 @enduml
 ```
 
@@ -67,5 +69,6 @@ note right of MyApplication::"CreateDocument()"
 return new MyDocument
 end note
 hide empty fields
+hide empty methods
 @enduml
 ```
