@@ -1,9 +1,11 @@
 # <big>O</big>BSERVER
 
-Molto spesso capita di avere nei nostri programmi una serie di elementi che vanno tenuti sincronizzati: pensiamo per esempio ad una ruota dei colori che deve aggiornare i valori RGB quando l'utente seleziona un punto con il mouse. Abbiamo cioè uno __stato comune__ che va mantenuto coerente in tutti gli elementi che lo manipolano.
+Molto spesso capita di avere nei nostri programmi una serie di elementi che vanno tenuti sincronizzati: pensiamo per esempio ad una ruota dei colori che deve aggiornare i valori RGB quando l'utente seleziona un punto con il mouse.
+Abbiamo cioè uno __stato comune__ che va mantenuto coerente in tutti gli elementi che lo manipolano.
 
-Nella realizzazione di questa funzionalità si rischia di cadere nell'__anti-pattern__ delle _pairwise dependencies_ in cui ogni vista dello stato deve conoscere tutte le altre: si ha cioè un forte accoppiamento e una bassissima espandibilità, in quanto per aggiungere una vista dobbiamo modificare tutte le altre.
-Ovviamente basta avere poco più di due diverse viste perché il numero di dipendenze (e dunque di errori) cresca esponenzialmente: questo anti-pattern è proprio tutto il contrario del principio di separazione, che predicava forte coesione interna e pochi accoppiamenti esterni.
+Nella realizzazione di questa struttura si rischia di cadere nell'__anti-pattern delle _pairwise dependencies___ in cui ogni vista dello stato deve conoscere tutte le altre.
+Questo significa che tra le varie classi vi è un forte accoppiamento e una bassissima espandibilità, in quanto per aggiungere una vista dobbiamo modificare tutte le altre.
+Ovviamente basta avere poco più di due viste diverse perché il numero di dipendenze (e dunque di errori) cresca esponenzialmente; questo anti-pattern viola totalmente il principio di separazione, che predicava forte coesione interna e pochi accoppiamenti esterni.
 
 ```plantuml
 @startuml
@@ -21,8 +23,8 @@ hide members
 ```
 
 La __soluzione__ proposta dal pattern Observer è dunque quella di estrarre la parte comune (lo _stato_) e isolarlo in un oggetto a parte, detto __Subject__: tale oggetto verrà osservato da tutte le viste, le cui classi prendono ora il nome di __Observer__.
-Si sta cioè __centralizzando__ la gestione dello stato: abbiamo cioè \\( n \\) classi che osservano una classe centrale e reagiscono ad ogni cambiamento di stato di quest'ultima.
-Si tratta una situazione talmente comune che in Java erano presenti delle classi (ora deprecate in quanto non _thread-safe_) per realizzare questo pattern: `java.util.Observer` e `java.util.Observable`.
+Si sta cioè __centralizzando__ la gestione dello stato, quindi saranno presenti \\( n \\) classi che osserveranno una classe centrale e reagiranno ad ogni cambiamento di stato di quest'ultima.
+Si tratta una situazione talmente comune che in Java sono presenti delle classi (ora deprecate in quanto non _thread-safe_) per realizzare questo pattern: `java.util.Observer` e `java.util.Observable`.
 
 ```plantuml
 @startuml
@@ -44,11 +46,13 @@ hide members
 ```
 
 Ma come fanno gli Observer a sapere che il Subject è cambiato?
-L'idea di fare un continuo _polling_ (chiedo "Sei cambiato?" al Subject), non è ovviamente sensata, in quanto sarebbe dipendente dal tempo che passa tra una richiesta e l'altra infatti rischio che sia troppo lenta o troppo intensa a livello di risorse.
-Invertiamo invece la responsabilità con un'architettura __event-driven__: gli Observer si _registrano_ al Subject, che li informerà quando avvengono cambiamenti di stato.
+L'idea di fare un continuo _polling_ (chiedo "Sei cambiato?" al Subject), non è ovviamente sensata, in quanto sarebbe dipendente dal tempo che passa tra una richiesta e l'altra, di conseguenza esiste il rischio di una risposta troppo lenta oppure un eccessivo utilizzo di risorse.
+La soluzione è invece quella di invertire la responsabilità con un'architettura __event-driven__: gli Observer si _registrano_ al Subject, che li informerà al cambiamento di stato.
 
 ```plantuml
 @startuml
+scale 500 width
+
 class Observable {
     + addObserver(Observer)
     + removeObserver(Observer)
@@ -57,7 +61,6 @@ class Observable {
 interface Observer << interface >> {
     + {abstract} update(Observable, Object)
 }
-Observable o-> Observer
 class ConcreteObserver implements Observer {
     + update(Observable, Object)
 }
@@ -65,7 +68,8 @@ class ConcreteObservable extends Observable {
     + getState() : State
     + setState(State)
 }
-ConcreteObservable <. ConcreteObserver
+Observable "1   " o---r---> "0..N" Observer
+ConcreteObservable <-. ConcreteObserver
 hide empty fields
 @enduml
 ```
