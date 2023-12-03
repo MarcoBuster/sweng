@@ -1,13 +1,14 @@
 # <big>M</big>ODEL VIEW CONTROLLER
 
-Spesso nelle applicazioni capita che uno stesso dato sia riportato tramite diverse __viste__ all'interno dell'interfaccia utente: il colore di un testo, per esempio, potrebbe essere rappresentato contemporaneamente da una terna di valori RGB, dal suo valore esadecimale e da uno slider di colori. 
+Spesso nelle applicazioni capita che uno stesso dato sia riportato tramite diverse __viste__ all'interno dell'interfaccia utente, ad esempio il colore di un testo potrebbe essere rappresentato contemporaneamente da una terna di valori RGB, dal suo valore esadecimale e da uno slider di colori. 
 
-Si tratta di un problema simile a quello dell'observer pattern, ora però non si tratta più di un semplice dato ma di possibili metodi di interazioni diversi, molto più complesso. 
+Si tratta di un problema simile a quello dell'observer pattern, però non riguarda più un semplice dato ma possibili metodi di interazione tra dati e viste, di conseguenza è una situazione più complessa. 
 
-Si tratta di modi differenti di rappresentare la medesima __informazione condivisa__, che viene replicata più volte per dare all'utente diversi modi in cui visualizzarla. \
+In generale il problema da risolvere è quello di avere modi differenti di rappresentare la medesima __informazione condivisa__, che viene replicata più volte per dare all'utente diversi modi con cui visualizzarla. \
 La condivisione di un medesimo valore porta però con sé un problema: se tale dato viene modificato dall'utente interagendo con una delle viste è necessario che tale _modifica venga propagata a tutte le altre viste_ in modo da mantenere l'informazione __coerente__.
 
-Abbiamo dunque bisogno di un framework che ci permetta di mantenere un'informazione condivisa in modo efficiente e pulito e che permetta di rappresentarla facilmente sotto diversi punti di vista: l'invitante soluzione di fare semplicemente sì che le viste comunichino direttamente i cambiamenti del dato l'una con l'altra si rivela infatti velocemente impraticabile.
+Abbiamo dunque bisogno di un framework che ci permetta di mantenere un'informazione condivisa in modo efficiente e pulito e che permetta di rappresentarla facilmente sotto diversi punti di vista.
+La soluzione più banale potrebbe essere quella di fare in modo che le viste comunichino direttamente i cambiamenti del dato l'una con l'altra, ma questo approccio si rivela immediatamente impraticabile.
 Il pattern __Model View Controller__ (MVC) propone invece di suddividere la gestione del dato e dell'interazione con l'utente in tre tipologie di classi:
 
 - __Model__: un'unica classe contenente lo __stato condiviso__; si tratta dell'unico depositario dell'informazione con cui tutte le viste dovranno comunicare per aggiornare i dati mostrati.
@@ -33,11 +34,11 @@ Similmente, se i dati inseriti sono già presenti nel Model (cosa che il Control
 Portiamo ora attenzione su un altro aspetto: nell'insieme dei meccanismi che realizzano il pattern Model View Controller si possono riscontrare una serie di altri pattern che abbiamo già trattato.
 Per agevolare la comprensione del funzionamento di questo nuovo "mega-pattern", vediamo quindi quali sono i pattern utilizzati al suo interno:
 
-- __Observer__, poiché _le View sono Observer del Model_: ogni vista si registra come Observer del modello in modo che il Model, in pieno stile Observable, le notifichi dei suoi cambiamenti di stato.
-Spesso la strategia di aggiornamento delle viste è qui quella __pull__, ovvero quella secondo cui agli Observer viene passato un riferimento all'oggetto Observable in modo che siano loro stessi a recuperare i dati di cui hanno bisogno tramite opportuni metodi getter: questo permette infatti di memorizzare nello stesso Model i dati di diverse View. \
+- __Observer__, poiché _le View sono Observer del Model_: ogni vista si registra come Observer del Model in modo che quest'ultimo, in pieno stile Observable, le notifichi dei suoi cambiamenti di stato.
+Spesso la strategia di aggiornamento delle viste è qui quella __pull__, ovvero quella secondo cui agli Observer viene passato un riferimento all'oggetto Observable in modo che siano loro stessi a recuperare i dati di cui hanno bisogno tramite opportuni metodi getter; questo permette infatti di memorizzare nello stesso Model i dati di diverse View. \
 Va inoltre fatto notare che se l'interfaccia esposta dalle View è un'_interfaccia a eventi_, come per esempio un'interfaccia grafica (es. un click sullo schermo genera un evento), _anche la comunicazione tra View e Controller può avvenire tramite il pattern Observer_: ciascun Controller si registra infatti come Observer degli eventi che avvengono sulla View.
-- __Strategy__, poiché _i Controller sono Strategy per le View_: poiché ad ogni vista è collegato uno e un solo Controller che regola come la vista reagisca agli input dell'utente, i Controller possono essere visti come strategie di gestione degli eventi generati dalle viste.
-Poiché le viste sono componenti sostanzialmente "stupidi" che risolvono le interazioni dell'utente delegando al proprio Controller la loro gestione, questo approccio permette per esempio di gestire viste identiche in modi diversi semplicemente cambiando il Controller ad esse associato: così, per esempio, è possibile rendere una casella di testo read-only oppure modificabile senza modificare in alcun modo la classe della relativa vista e rispettando così l'Open-Close Principle.
+- __Strategy__, poiché _i Controller sono Strategy per le View_: Ad ogni vista è collegato uno e un solo Controller che regola come la vista reagisca agli input dell'utente, i Controller possono essere visti come strategie di gestione degli eventi generati dalle viste.
+Poiché le viste sono componenti sostanzialmente "stupidi" che risolvono le interazioni dell'utente delegando al proprio Controller la loro gestione, questo approccio permette di gestire viste identiche in modi diversi semplicemente cambiando il Controller ad esse associato, in questo modo è possibile, per esempio, rendere una casella di testo read-only oppure modificabile senza modificare in alcun modo la classe della relativa vista e rispettando così l'Open-Close Principle.
 - __Composite__, poiché _le View sono spesso composte da più Component_: quando le View rappresentano interfacce grafiche (GUI) esse sono spesso realizzate componendo diversi elementi tra di loro (es. aree di testo, bottoni, etc...).
 Per questo motivo è spesso prevalente il pattern Composite nella loro implementazione, utile specialmente per quanto riguarda la creazione su schermo dell'interfaccia, che viene disegnata pezzo per pezzo.
 
@@ -47,5 +48,7 @@ Questo permette allo stesso dato di avere interfacce disomogenee senza alcun tip
 Tuttavia, il problema principale del pattern Model View Controller è la _dipendenza circolare_ tra le tre componenti: le view comunicano ai rispettivi controller gli eventi, questi li elaborano e aggiornano il modello il quale a sua volta avvisa le view dei cambiamenti di stato.
 Questa struttura fortemente interconnessa rende difficoltoso lo sviluppo e il testing in quanto non esiste un chiaro punto da cui partire a costruire: si potrebbe pensare di fare mocking delle view e iniziare a sviluppare il resto, ma questo approccio porta comunque a una serie di inutili complicazioni; bisogna inoltre considerare che il testing delle view è spesso particolarmente complesso dato che coinvolge varie funzioni di librerie diverse. 
 In particolare questo modello è molto utilizzato per lo sviluppo di GUIs (interfacce utente grafiche) quindi la quantità di aspetti da testare e funzionalità interconnese è davvero elevata.
+
+Un altro problema di questo pattern è che la View e il Controller dipendono dall'interfaccia, ad esempio nel caso in cui si sfrutti la libreria JavaFX sia View che Controller dipenderanno da essa, e quindi nel momento in cui la libreria venga sostituita con un altra sarà necessario mettere mano alla maggior parte delle classi dell'applicazione. 
 
 Come vedremo nel prossimo paragrafo, per ovviare a questo problema si decide spesso di spezzare il circolo vizioso di Model, View e Controller modificando lievemente le rispettive dipendenze.
