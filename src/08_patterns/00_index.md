@@ -1,11 +1,11 @@
 # [Patterns](https://refactoring.guru/)
 
-Parlando di progettazione del software e di buone pratiche è impossibile non parlare di __design patterns__, soluzioni universalmente riconosciute valide a problemi di design ricorrenti: si tratta cioè di strumenti concettuali di progettazione che esprimono un'architettura vincente del software catturando la soluzione ad una famiglia di problemi.
+Parlando di progettazione del software e di buone pratiche è impossibile non parlare di __design patterns__, soluzioni universalmente riconosciute valide a problemi di design ricorrenti: si tratta cioè di strumenti concettuali di progettazione (non codice) che esprimono un'architettura vincente del software catturando la soluzione ad una famiglia di problemi. Ogni pattern deve avere un nome il più possibile evocativo, in modo da favorirne la memorizzazione (ovvero che permetta di riconoscere subito i casi in cui adottarlo). 
 
-Ad ogni pattern sono associati una serie di __idiomi__, implementazioni del pattern specifiche per un certo linguaggio di programmazione che sfruttano i costrutti del linguaggio per realizzare l'architettura dettata dal pattern.
+Ad ogni pattern sono associati una serie di __idiomi__, implementazioni del pattern specifiche per un certo linguaggio di programmazione che sfruttano i costrutti del linguaggio per realizzare l'architettura dettata dal pattern (questo significa che non sono utilizzabili in tutti i linguaggi).
 Durante questa discussione vedremo alcuni idiomi per Java, che talvolta si discosteranno fortemente dalla struttura descritta dai diagrammi UML dei pattern.
 
-Ma attenzione, esistono anche degli __anti-pattern__, soluzioni che _sembrano_ buone ma sono dimostratamente problematiche: dovremo assicurarci di tenerci lontani da questi design truffaldini!
+Ma attenzione, esistono anche degli __anti-pattern__, spesso mostrati assieme al pattern come dimostrazione della sua correttezza, soluzioni che _inizialemente sembrano_ buone ma sono dimostratamente problematiche: dovremo assicurarci di tenerci lontani da questi design truffaldini!
 
 - [**Discutere di pattern: i meta-patterns**](./01_meta-patterns.md)
 - [**Singleton**](./02_singleton.md)
