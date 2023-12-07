@@ -9,3 +9,4 @@ Ecco alcune delle possibilità che ci offre:
 - [**Test Double**](./01_test-double.md)
 - [**Injection**](./02_injection.md)
 - [**Mocked Construction**](./03_mocked-construction.md)
+- [**Mocked Iterable**](./04_mocked-iterable.md)
