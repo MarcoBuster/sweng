@@ -137,3 +137,6 @@ void observerTest {
     assertThat(val).isCloseTo(42.42, Offset.offset(.01));
 }
 ```
+
+In questo caso è necessario avere un nome citabile che aderisca sia all'interfaccia Model che alla classe Observable, che al momento non esiste, quindi creo appositamente una classe _astratta_ che verrà successivamente mockata.
+Per questo motivo che la si crea astratta, perchè non è necessario avere delle implementazioni funzionanti, ma basta l'implementazione vuota perchè definiremo noi i diversi comportamenti tramite il mocking.
