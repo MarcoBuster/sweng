@@ -195,3 +195,96 @@ public class ConcreteObserver {
     }
 }
 ```
+
+## Versione generica del pattern Observer
+È possibile sfruttare i __generici__ per evitare l'utilizzo dell'`instanceof`, evitando cosi l'utilizzo del casting (l'instanceof è un casting implicito di fatto), che di norma è una brutta pratica.
+Utilizzando i generici è possibile fare in modo che il tipo venga dichiarato al momento della creazione, in modo che i controlli statici verranno fatti su quel tipo, e quindi non verranno più eseguiti a runtime tramite l'instanceof; in questo modo il problema della dipendenza visto fino ad ora non si presenta più.
+
+Ecco quindi la parte fredda del pattern Observer sfruttando i generici:
+
+```plantuml
+@startuml
+scale 500 width
+
+interface Observable<T> << interface >> {
+    + addObserver(Observer)
+    + removeObserver(Observer)
+    + notifyObservers()
+    + getState() : T
+    + setState(T)
+}
+interface Observer << interface >> {
+    + {abstract} update(Observable<T>, T)
+}
+Observable "1" --> "0..N" Observer
+hide empty fields
+@enduml
+```
+
+Utilizzando due interfacce è possibile rendere questo pattern il più possibile generico e implementabile in ogni situazione.
+
+```Java
+interface Observer<T> {
+    void update(Observable<T> model, T state);
+}
+
+interface Observable<T> {
+    void addObserver(Observer<T> observer);
+    void removeObserver(Observer<T> observer);
+    void notifyObservers();
+    T getState();
+}
+```
+
+### Esempio di utilizzo:
+
+Stato che rappresenta una temperatura
+
+```Java
+public class State {
+    private double temp;
+    
+    public State(double temp) {
+        this.temp = temp;
+    }
+    
+    public double getTemp() {
+        return temp;
+    }
+    
+    public void setTemp(double temp) {
+        this.temp = temp;
+    }
+}
+```
+
+Lo stato viene reso osservabile tramite l'interfaccia appena mostrata (viene sfruttato anche il pattern Adapter perchè vengono mappate alcuni metodi dello stato sui metodi dell'interfaccia Observable)
+
+```Java
+public class Model extends State implements Observable<Double> {
+    private final List<Observer<Double>> observers = new ArrayList<>();
+    @Override public void addObserver(Observer<Double> observer) {
+        observers.add(observer);
+    }
+    
+    @Override public void removeObserver(Observer<Double> observer) {
+        observers.remove(observer);
+    }
+
+    @Override public void notifyObservers() {
+        for (Observer<State> observer : observers)
+            observer.update(this, getState());
+    }
+
+    @Override public Double getState() {
+        return getTemp();
+    }
+    
+    @Override public void setTemp(Double state) {
+        super.setTemp(state);
+        notifyObservers();
+    }
+}
+```
+
+L'unico difetto di questa implementazione è che all'esecuzione di `notifyObservers` nel metodo `setTemp` non vi è la certezza che il valore sia cambiato.
