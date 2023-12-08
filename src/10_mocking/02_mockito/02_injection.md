@@ -32,7 +32,7 @@ public class TestPartita {
 
 La notazione `@Mock` permette di specificare l'oggetto mockato che verrà iniettato nell'oggetto reale marcato dalla notazione `@InjectMocks`.
 
-In questo esempio `Partita` contiene nel suo stato un riferimento ad un oggetto di tipo `Tavolo`, quindi mockito per prima cosa cerca dei costruttori che accettino un parametro di tipo `Tavolo`, se non ne trova proverà a sfruttare dei setter, ma se anche in questo caso non trova niente cercherà se nella classe `Partita` è presente un campo privato in cui iniettare il valore mockato.
+In questo esempio `Partita` contiene nel suo stato un riferimento a un oggetto di tipo `Tavolo`, quindi mockito per prima cosa cerca dei costruttori che accettino un parametro di tipo `Tavolo`, se non ne trova proverà a sfruttare dei setter, ma se anche in questo caso non trova niente cercherà se nella classe `Partita` è presente un campo privato in cui iniettare il valore mockato.
 
-In questo caso però è necessario che l'attributo non sia `final`, questo perchè se lo fosse e nel costruttore venisse assegnato un valore all'attributo, quest'ultimo non potrebbe più essere modificato, e di conseguenza mockito non riuscirebbe ad iniettare il valore.
+In questo caso però è necessario che l'attributo non sia `final`, questo perché se lo fosse e nel costruttore venisse assegnato un valore all'attributo, quest'ultimo non potrebbe più essere modificato, e di conseguenza mockito non riuscirebbe a iniettare il valore.
 Per mantene anche il `final` sarà necessario sfruttare un'altra funzionalità di mockito che vedremo in seguito.

@@ -78,7 +78,7 @@ assertEquals("John", arg.getValue().getName());
 ## Argument Matchers
 
 Quando si esegue un'operazione di stubbing oppure quando si verifica la chiamata a un metodo, al posto di specificare i valori precisi (values) si può utilizzare quello che è un **argument matcher**. \\
-Questo agisce come un segnaposto che corrisponde a qualsiasi valore corretto (_i.e._ che soddisfa la condizione di match), consentendo di specificare il comportamento senza dover conoscere il valore esatto dell'argomento che sarà passato al metodo.
+Questo agisce come un segnaposto che corrisponde a qualsiasi valore corretto (ad esempio soddisfa la condizione di match), consentendo di specificare il comportamento senza dover conoscere il valore esatto dell'argomento che sarà passato al metodo.
 Alcuni possibili matcher sono:
 
 * `any()`, `anyInt()`, `anyString()`, etc.: questi metodi sono usati per creare degli argument matcher, che permettono di specificare che un particolare argomento del metodo può essere qualsiasi valore di un particolare tipo.
@@ -139,4 +139,4 @@ void observerTest {
 ```
 
 In questo caso è necessario avere un nome citabile che aderisca sia all'interfaccia Model che alla classe Observable, che al momento non esiste, quindi creo appositamente una classe _astratta_ che verrà successivamente mockata.
-Per questo motivo che la si crea astratta, perchè non è necessario avere delle implementazioni funzionanti, ma basta l'implementazione vuota perchè definiremo noi i diversi comportamenti tramite il mocking.
+Per questo motivo che la si crea astratta, perché non è necessario avere delle implementazioni funzionanti, ma basta l'implementazione vuota perché definiremo noi i diversi comportamenti tramite il mocking.

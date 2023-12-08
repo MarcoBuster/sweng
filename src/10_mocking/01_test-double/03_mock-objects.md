@@ -9,9 +9,9 @@ Gli output indiretti possono includere chiamate a metodi di un altro componente,
 Testare il comportamento del SUT può voler dire anche verificare che gli output indiretti siano quelli corretti e a tale scopo servono punti di osservazione appropriati.
 Un **punto di osservazione** è un modo con cui il test può ispezionare lo stato post-exercise del SUT. 
 I punti di osservazione utili a verificare gli output indiretti sono costituiti da Test Double che prendono il nome di **mock object**.
-Questi intercettano gli output indiretti del SUT nella fase di exercise e permettono di confrontarli con gli output attesi in un momento successivo (_i.e._ la fase di verifying).
+Questi intercettano gli output indiretti del SUT nella fase di exercise e permettono di confrontarli con gli output attesi in un momento successivo (ad esempio la fase di verifying).
 
-Un mock object è dunque utilizzato per instrumentare e controllare le chiamate fatte dal SUT.
+Un mock object è dunque utilizzato per organizzare e controllare le chiamate fatte dal SUT.
 In genere, l'oggetto Mock include anche la funzionalità di uno Stub; deve infatti essere in grado di restituire valori al SUT, anche se l'enfasi è posta sulla _verifica_ delle chiamate effettuate e non dal loro risultato.
 
 <table>

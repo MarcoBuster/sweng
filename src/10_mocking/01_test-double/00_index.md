@@ -177,8 +177,8 @@ Quando si utilizza il mocking ci sono delle regole da rispettare, tra cui:
 Ci sono poi delle situazioni in cui è possibile mockare alcune parti dell'oggetto sotto esame per rendere più facile e veloce il testing.
 In alcune situazioni infatti può risultare utile creare un oggetto reale per poi eseguire lo spy e sovrascrivere alcuni metodi, come per esempio se si dovesse testare il software di un server SMTP potrebbe essere utile creare un oggetto vero (SUT) e, tramite uno spy, mockare il metodo che spedisce effettivamente la mail, in modo da evitare di inviare mail durante il testing.
 In altri casi invece è utile iniettare un oggetto mockato in un attributo della classe sotto esame, e questo si può fare in diversi casi:
-- Se la classe fornisce un costruttore che permetta di inserire il riferimento all'oggetto, oppure se è presente un setter;
-- Se invece non si hanno a disposizione gli strumenti del punto precedente è possibile sfruttare la __reflection__ tramite il meccanismo di __DependencyInjection__.
+- La classe fornisce un costruttore che permetta di inserire il riferimento all'oggetto, oppure se è presente un setter;
+- Nel caso in cui non si hanno a disposizione gli strumenti del punto precedente è possibile sfruttare la __reflection__ tramite il meccanismo di __DependencyInjection__.
 
 Come si può osservare dall'immagine sottostante, vi sono diversi tipi di Test Double:  
 

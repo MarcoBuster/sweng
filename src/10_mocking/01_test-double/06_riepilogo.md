@@ -37,7 +37,7 @@ La tabella sottostante fornisce un riepilogo di ciò che rappresenta ciascuna va
     </tr>
     <tr>
         <td>Spy Object</td>
-        <td>Instrumentare e controllare le chiamate ad oggetti reali</td>
+        <td>Instrumentare e controllare le chiamate a oggetti reali</td>
         <td>SI</td>
         <td>Opzionale</td>
         <td>Li cattura per una verifica successiva</td>

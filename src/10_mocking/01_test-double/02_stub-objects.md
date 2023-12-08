@@ -64,4 +64,5 @@ public void testConStub() {
 </tbody>
 </table>
 
-È importante ricordardare che, in linea generale, i test non dovrebbero mai essere più complicati della funzione che stanno testando. Quindi se ci si trova di fronte alla necessità di creare un test estremamente dispendioso per una funziona banale potrebbe essere il caso di fermarsi e non creare un test specifico per questa funzione, ma "appoggiarsi" ad altri test più generali che comprendono pure quella sezione particolare.
+È importante ricordardare che, in linea generale, i test non dovrebbero mai essere più complicati della funzione che stanno testando.
+Nel caso in cui ci si trovasse di fronte alla necessità di creare un test estremamente dispendioso per una funzionalità banale, la soluzione migliore potrebbe essere quella di non creare un test specifico, ma "appoggiarsi" ad altri test più generali che sfruttano quella funzionalità particolare.
