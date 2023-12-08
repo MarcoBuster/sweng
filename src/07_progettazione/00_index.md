@@ -65,4 +65,3 @@ Tale misura si sposa bene con il __TDD__, che richiede __brevi iterazioni__ di c
 - [**Principio Tell-Don't-Ask**](./04_tell-dont-ask.md)
 - [**Interface segregation**](./05_interface-segregation.md)
 - [**Esempio**](./06_esempio/00_index.md) applicando i principi precedenti
-- [**Analisi del testo naturale**](./07_analisi-testo-naturale.md) con _noun extraction_
