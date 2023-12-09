@@ -117,7 +117,11 @@
         - [Spy objects](./10_mocking/01_test-double/04_spy-objects.md)
         - [Fake objects](./10_mocking/01_test-double/05_fake-objects.md)
         - [Riepilogo](./10_mocking/01_test-double/06_riepilogo.md)
-    - [Mockito](./10_mocking/01_mockito.md)
+    - [Mockito](./10_mocking/02_mockito/00_index.md)
+        - [Implementazione test-double](./10_mocking/02_mockito/01_test-double.md)
+        - [Injection](./10_mocking/02_mockito/02_injection.md)
+        - [Mocked constructors](./10_mocking/02_mockito/03_mocked-construction.md)
+        - [Mocking di Iterable](./10_mocking/02_mockito/04_mocked-iterable.md)
 
 # Verifica e convalida
 
