@@ -56,7 +56,7 @@ Vediamo dunque quali sono i pro e i contro di questo approccio. È utile innanzi
 Inoltre, un'istanza della classe Adapter può essere utilizzata attraverso __entrambe le interfacce__ in quanto implementa quella nuova ed eredita quella vecchia; questo aspetto può essere considerato sia un vantaggio che uno svantaggio: se infatti da un lato ciò è molto utile in sistemi che evolvono incrementalmente e in cui dunque alcune componenti potrebbero volersi riferire ancora alla vecchia interfaccia, d'altro canto questo aspetto impedisce di imporre tassativamente che l'oggetto sia utilizzato solo tramite l'interfaccia nuova.
 
 Va poi notato che questo approccio perde un po' di senso nel caso in cui si debba adattare un'_interfaccia_ e non una classe, in quanto implementare entrambe le interfacce non permette di ereditare codice o funzionalità da quella vecchia.
-Inoltre, il Class Adapter potrebbe presentare problemi relativi all'ereditarietà multipla, non supportata da alcuni linguaggi a oggetti (es. Java).
+Inoltre, il Class Adapter potrebbe presentare altri due problemi, il primo relativo all'ereditarietà multipla, che non è supportata da tutti i linguaggi a oggetti (es. Java), e il secondo si ha quando Target e Adaptee possiedono lo stesso nome ma hanno comportamenti differenti, in quel caso la gestione risulta essere particolarmente scomoda.
 
 ### Object Adapter
 
@@ -105,9 +105,9 @@ Rispetto al Class Adapter l'Object Adapter presenta differenti punti di forza e 
 Inoltre, aver sostituito l'ereditarietà con la composizione ha lo sgradevole effetto di non permettere all'Adapter di vedere in alcun modo la rappresentazione protetta dell'Adaptee, che esso dovrà invece manipolare unicamente tramite la sua interfaccia pubblica.
 Si è poi costretti a _reimplementare ogni metodo_ anche se questo non è cambiato dall'interfaccia vecchia a quella nuova, in quanto è comunque necessario operare la delega all'Adaptee.
 
-Tuttavia, l'Object Adapter si rivela particolarmente utile nel caso ad essere adattata debba essere un'_interfaccia_: non soffrendo di problemi di ereditarietà, un Object Adapter ha la peculiarità di poter adattare chiunque implementi la vecchia interfaccia, ovvero un'intera _gerarchia_ di classi potenzialmente non ancora esistenti!
+Tuttavia, l'Object Adapter si rivela particolarmente utile nel caso in cui ad essere adattata debba essere un'_interfaccia_: non soffrendo di problemi di ereditarietà, un Object Adapter ha la peculiarità di poter adattare chiunque implementi la vecchia interfaccia, ovvero un'intera _gerarchia_ di classi potenzialmente non ancora esistenti!
 
-#### Class Adapter vs Object Adapter
+### Class Adapter vs Object Adapter
 
 Class Adapter e Object Adapter hanno ciascuno i propri vantaggi e svantaggi che li rendono più adatti ad essere utilizzati in diverse situazioni.
 Volendo fare un confronto tra i due approcci proponiamo dunque la seguente tabella:

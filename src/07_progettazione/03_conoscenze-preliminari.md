@@ -5,11 +5,11 @@ Prima di proseguire è bene richiamare concetti e termini fondamentali presumibi
 ## Object orientation
 
 Per essere definito _object oriented_, un linguaggio di programmazione deve soddisfare tre proprietà:
-- __ereditarietà__: ovvero la possibilità di poter definire una classe ereditando proprietà e comportamenti di un'altra classe.
-- __polimorfismo__: quando una classe può assumere diverse forme in base alle interfacce che implementa. 
-Il prof fa l'esempio del _tennista scacchista_: in un torneo di tennis è poco utile sostituire una persona che gioca a tennis ed è brava con gli scacchi (quindi una classe che implementa entrambe le interfacce) con una che gioca a scacchi.
+- __Ereditarietà__: ovvero la possibilità di poter definire una classe ereditando proprietà e comportamenti di un'altra classe.
+- __Polimorfismo__: quando una classe può assumere diverse forme in base alle interfacce che implementa. 
+Il prof fa l'esempio del _tennista scacchista_: in un torneo di tennis è poco utile sostituire una persona che gioca a tennis ed è brava con gli scacchi (quindi una classe che implementa entrambe le interfacce) con una che gioca sia a tennis che a scacchi, basta che sappia giocare tennis.
 Il collegamento tra capacità e oggetto è fatto __a tempo di compilazione__: non è importante quindi se la capacità non è ancora definita;
-- __collegamento dinamico__: in Java il tipo concreto degli oggetti e quindi il problema di stabilire _quale metodo chiamare_ viene risolto durante l'esecuzione. 
+- __Collegamento dinamico__: in Java il tipo concreto degli oggetti può non essere specificato staticamente e quindi il problema di stabilire _quale metodo chiamare_ viene risolto durante l'esecuzione. 
 In C++ occorre esplicitare questo comportamento utilizzando la keyword `virtual`.
 
 ## <a style="color: darkgreen">SOLID</a> principles
@@ -33,13 +33,44 @@ Meglio quindi avere __tante interfacce specifiche__ e piccole (composte da pochi
 il codice dal quale una classe dipende non deve essere più __concreto__ di tale classe.
 Per esempio, se il _telaio della FIAT 500_ dipende da uno specifico motore, è possibile utilizzarlo solo per quel specifico motore.
 Se invece il telaio dipende da _un_ concetto di motore, non c'è questa limitazione.
-In conlusione, le classi concrete devono tendenzialmente dipendere da classi astratte e non da altre classi concrete.
+In conclusione, le classi concrete devono tendenzialmente dipendere da classi astratte e non da altre classi concrete.
 
 ## Reference escaping
 
-Il _reference escaping_ è una violazione dell'incapsulamento. 
+Il _reference escaping_ è una violazione dell'incapsulamento (_compiere questo errore equivale ad una bocciatura diretta all'esame_).
 
-Può capitare, per esempio: 
+```plantuml
+@startuml
+scale 300 width
+
+class main {
+    -deck
+    -myCards
+}
+main::deck --> Deck
+main::myCards --> "List<Card>"
+
+class Deck {
+    -secretCards
+}
+
+
+Deck::secretCards -r-> "List<Card>"
+class "List<Card>" {}
+
+
+hide "main" methods
+hide Deck methods
+hide "List<Card>" methods
+hide "main" circle
+hide Deck circle
+hide "List<Card>" circle
+show <<Serializable>> fields
+@enduml
+```
+
+Basandoci sull'esempio del mazzo di carte, vogliamo che la sua implementazione rimanga __segreta__, quindi ecco i possibili _errori_ per non rispettare questa condizione:
+
 - quando un getter ritorna un riferimento a un segreto;
 ```java
 public Deck {
@@ -79,32 +110,50 @@ __Legge di Parnas (L8)__.
 
 Lo stato mostrato all'esterno non può essere modificato, mentre quello nascosto sì.
 
-Questo principio serve per __facilitare la comprensione del codice__ e renderne più facile la modifica parziale senza fare danni.
+Questo principio serve per __facilitare la comprensione del codice__ e renderne più facile la modifica parziale senza fare danni. Dovrà essere quindi chiarito prima dell'implementazione ciò che sarà pubblico e ciò che invece sarà privato.
+
+## Legacy o Deprecated
+
+Una classe o una funzionalità, dopo diverse modifiche nel tempo, può arrivare un punto di non ritorno, dove l'evoluzione si ferma per diversi motivi, come un design iniziale troppo limitante o l'arrivo di un innovazione tecnologica. 
+
+In questi casi la funzione può essere chiamata:
+
+- __Legacy__: Una classe di questo genere continuerà a funzionare e sarà supportata, però verrà consigliato l'utilizzo di un altra classe più recente.
+- __Deprecated__: In questo caso la classe resterà comunque funzionante ma non sarà più supportata. Il suo utilizzo sarà fortemente sconsigliato e si spingerà il programmatore a fare un refactoring del codice laddove è presente la funzione deprecata.
+Essa deve essere sostituita con la nuova classe standard, poichè dopo un certo lasso di tempo verrà rimossa o la sua funzionalità non sarà più garantita.
 
 ## Immutabilità
 
-Una classe è immutabile quando non c'è modo di modificare lo stato di ogni suo oggetto dopo la creazione.
+Una classe è immutabile quando non c'è modo di modificare lo stato di ogni suo oggetto dopo la creazione. 
+Questo ci garantisce grandi vantaggi, come ad esempio condividere oggetti senza il rischio che il suo stato venga modificato (in questo modo l'encapsulation potrebbe non essere rispettata), quindi sarà fondamentale _massimizzare_ l'utilizzo di questo tipo di classi.
 
 Per assicurare tale proprietà è necessario:
 - __non fornire metodi di modifica__ allo stato;
-- avere tutti gli __attributi privati__ per i tipi potenzialmente mutabili (come `List<T>`);
+- avere tutti gli __attributi privati__ per i tipi potenzialmente mutabili (come `List<T>`) e fornire solo il valore tramite i _getter_ e non la referenza;
 - avere tutti gli __attributi final__ se non già privati;
 - assicurare l'__accesso esclusivo__ a tutte le parti non mutabili, ovvero non avere reference escaping.
 
 ## Code smell
 
-I _code smell_ sono dei segnali che suggeriscono problemi nella progettazione del codice. 
+I _code smell_ sono dei segnali, che suggeriscono problemi nella progettazione del codice, mantenere questi problemi nel codice significa aumentare il debito tecnico. 
 Di seguito ne sono elencati alcuni:
-- __codice duplicato__: si può fare per arrivare velocemente al verde ma è da togliere con il refactoring. 
-Le parti di codice in comune possono quindi essere fattorizzate.
-- __metodi troppo lunghi__: sono poco leggibili e poco riusabili;
-- __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice;
+- __codice duplicato__: si può fare per arrivare velocemente al verde quando si usa la tecnica TDD, ma è da rimuovere con il refactoring. Rischia di portarsi dietro degli errori o particolarità legate al applicazione originale di questo codice. È dunque importante cercare di fattorizzare il più possibile.
+- __metodi troppo lunghi__: non è un vincolo "_hard_" dato che dipende dai casi ma  solitamente sono poco leggibili e poco riusabili;
+- __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice invece che avere una serie di if e for _innestati_ che lo rendono confusionario, quindi è meglio creare dei metodi con nomi chiari per evitare ciò.
 - __troppi attributi__: suggerisce che la classe non rispetta la single responsability, ovvero fa troppe cose;
-- __lunghe sequenze di _if-else_ o _switch___;
+- __lunghe sequenze di _if-else_ o _switch___: possono essere sostituiti da strutture basate su polimorfismo e collegamento dinamico;
 - __classe troppo grande__;
-- __lista parametri troppo lunga__;
-- __numeri _magici___: è importante assegnare alle costanti numeriche all'interno del codice un nome per comprendere meglio il loro scopo;
-- __commenti che spiegano cosa fa il codice__: indicazione che il codice non è abbastanza chiaro;
+- __lista parametri troppo lunga__: se proprio ne ho bisogno meglio raggrupparli in una struttura e passarli come unico parametro;
+- __numeri magici__: è importante assegnare alle costanti numeriche all'interno del codice un nome per comprendere meglio il loro scopo, infatti dei semplici numeri possono avere significati diversi in base al loro contesto, ad esempio uno zero può indicare il suo valore numerico, l'assenza di valori o NULL;
+- __commenti che spiegano cosa fa il codice__: indica/ammette che il codice non è abbastanza chiaro;
 - __nomi oscuri o inconsistenti__;
-- __codice morto__: nel programma non deve essere presente del codice irraggiungibile o commentato. Utilizzando strumenti di versioning è possibile riaccedere a codice precedentemente scritto con facilità.
-- __getter e setter__: vedi principio di __tell don't ask__.
+- __codice morto__: nel programma non deve essere presente del codice irraggiungibile, commentato o non testato. 
+Questo appesantisce il progetto o porta a possibili rischi, è quindi preferibile eliminarlo.
+Nel caso in cui dovesse tornare utile è possibile recuperarlo utilizzando strumenti di versioning, accedendo a commit precedenti alla sua cancellazione.
+- __getter e setter__: Questi metodi causano la perdita dell'incapsulation e dell'information hiding, perchè esportano esternamente il segreto contenuto nella classe. 
+Sono utili nella fase preliminare della stesura del codice, è importante rimuoverli per far spazio a dei metodi che permettano all'utente di eseguire una specifica operazione da lui richiesta, piuttosto che fornirgli il dato e permettergli di elaborarlo come meglio crede (vedi principio di [__tell don't ask__](./04_tell-dont-ask.md) nella prossima sezione).
+
+Ecco alucni link utili per approfondire i code smell:
+- [Refactoring guru](https://refactoring.guru/refactoring/smells)
+- [Wikipedia](https://en.wikipedia.org/wiki/Code_smell)
+- [Luzkan](https://luzkan.github.io/smells/)

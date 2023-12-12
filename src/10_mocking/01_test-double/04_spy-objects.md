@@ -6,6 +6,8 @@ Un altro modo per implementare punti di osservazione che controllino e instrumen
 A differenza dei mock, questi sono costruiti a partire da oggetti reali.  
 Successivamente alla fase d'interazione con il SUT (exercise), durante la fase di verifica dei risultati (verify), il test confronta le chiamate effettuate dal SUT sul Test Spy con il comportamento desiderato (expected).
 
+Questi si rende utile quando non sarà possibile trattare la nostra funzione come una "__black-box__" di cui dobbiamo testare solo i metodi pubblici ma avremo necessità di toccare pure le sue implementazione _private_ interne. Questo di base è un segno che ci fa capire che la classe in questione è troppo grande e "potente", sarebbe meglio prendere in considerazione di spostare parte delle funzioni in altre classi e implementare un testing migliore. Per questa ragione l'utilizzo degli __Spy Objects__ è sconsigliato pure dal professore.
+
 <table>
 <tbody>
 <tr>

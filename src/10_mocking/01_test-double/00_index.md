@@ -155,7 +155,9 @@ deactivate A
 Può risultare assai difficile testare un SUT che dipende da componenti software non utilizzabili per un motivo o per l'altro.
 Questi componenti prendono il nome di **depended-on component** (DOC) e i problemi che questi possono far emergere durante la stesura di un test sono molteplici.
 Ad esempio, i DOC potrebbero non essere disponibili in quel momento, non restituire i risultati che servono a un determinato test (o restituirli solo tramite artifici troppo complessi) oppure perché la loro esecuzione avrebbe effetti collaterali indesiderati.
-In altri casi ancora, la strategia di testing adottata richiede un maggiore controllo o più visibilità sul comportamento interno del SUT e l'utilizzo di un DOC reale rende l'operazione complessa.
+In altri casi ancora, la strategia di testing adottata richiede un maggiore controllo o più visibilità sul comportamento interno del SUT e l'utilizzo di un DOC reale rende l'operazione complessa. \
+Un altro caso comune è quello di testare il verificarsi di una certa situazione al compimento di un evento _randomico_; questa situazione comporterebbe la riesecuzione del test fino a che quell'evento non si manifesta.
+Questo però potrebbe succedere dopo molti tentativi, quindi può risultare utile forzare l'occorrenza di questo evento per poterlo testare.
 
 Quando si scrive un test in cui non si può (o si sceglie di non) usare il vero componente da cui si è dipendenti, si può sostituire quest'ultimo con un Test Double, durante la fase di set up.
 
@@ -167,6 +169,16 @@ L'utilizzo di Test Double rende possibile la scrittura di test che precedentemen
 
 Il **mocking** è la tecnica di testing che ci permette di sostituire i DOC reali con i vari Test Double.
 Effettuare mocking permette di ottenere test più efficienti, affidabili e puliti, consentendo agli sviluppatori di isolare il SUT in un ambiente più controllato.
+
+Quando si utilizza il mocking ci sono delle regole da rispettare, tra cui:
+- Un test di unità deve contenere un unico _componente reale_, ovvero un unico oggetto sotto test (quindi avremo una sola `new`);
+- Tutti i DOC devono essere implementati tramite il mockiang, facendo attenzione a non mockare le classi di librerie standard (ad esempio List);
+
+Ci sono poi delle situazioni in cui è possibile mockare alcune parti dell'oggetto sotto esame per rendere più facile e veloce il testing.
+In alcune situazioni infatti può risultare utile creare un oggetto reale per poi eseguire lo spy e sovrascrivere alcuni metodi, come per esempio se si dovesse testare il software di un server SMTP potrebbe essere utile creare un oggetto vero (SUT) e, tramite uno spy, mockare il metodo che spedisce effettivamente la mail, in modo da evitare di inviare mail durante il testing.
+In altri casi invece è utile iniettare un oggetto mockato in un attributo della classe sotto esame, e questo si può fare in diversi casi:
+- La classe fornisce un costruttore che permetta di inserire il riferimento all'oggetto, oppure se è presente un setter;
+- Nel caso in cui non si hanno a disposizione gli strumenti del punto precedente è possibile sfruttare la __reflection__ tramite il meccanismo di __DependencyInjection__.
 
 Come si può osservare dall'immagine sottostante, vi sono diversi tipi di Test Double:  
 

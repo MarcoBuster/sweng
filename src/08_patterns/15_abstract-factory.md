@@ -29,6 +29,7 @@ class ConcreteFactory implements AbstractFactory {
 class ConcreteProduct implements AbstractProduct {
 }
 hide empty fields
+hide empty methods
 @enduml
 ```
 
