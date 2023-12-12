@@ -29,8 +29,19 @@ Si possono utilizzare i diagrammi delle attività per:
 
 ## Sincronizzazione
 
-![Esempio activity diagram](/assets/11_activity-example.png)
-
+```plantuml
+@startuml
+scale 500 width
+start
+    :Activity1;
+fork
+  :Activity2;
+fork again
+  :Activity3;
+end fork
+stop
+@enduml
+```
 Attraverso l'uso di barre si possono stabilire dei punti di sincronizzazione (JOIN). \
 I JOIN, se non diversamente specificato, vengono considerati in ___AND___.
 
@@ -39,7 +50,20 @@ I JOIN, se non diversamente specificato, vengono considerati in ___AND___.
 
 ## Decisioni
 
-![Esempio activity decision diagram](/assets/11_activity-decision-example.png)
+```plantuml
+@startuml
+scale 500 width
+start
+skinparam ConditionEndStyle hline
+if () is ([cond]) then
+    :Activity1;
+    ->
+else ([not cond])
+    :Activity2;
+endif
+stop
+@enduml
+```
 
 È possibile specificare nel flusso di esecuzione dei momenti di __decisione__.
 I corsi d'azione intraprendibili in questi frangenti sono rappresentati tramite degli archi.
