@@ -29,7 +29,8 @@ approfondito il flusso.
 
 ## Scenari
 
-I componenti di ogni scenario si dividono in **Attori** e **Casi d'Uso**, e utili sopratutto nella raccolta dei requisiti.
+I componenti di ogni scenario si dividono in **Attori** e **Casi d'Uso**, e utili sopratutto nella raccolta dei
+requisiti.
 
 ```plantuml
 @startuml
@@ -51,9 +52,9 @@ Sono contemplati anche collegamenti fra un caso d'uso e un altro (vedi [paragraf
 ## Identificazione degli attori
 
 Gli _attori_ sono delle entità **esterne al sistema** ma con cui **interagiscono** fungendo da *fonte* o
-*destinatario* di informazioni, inoltre quando si parla di attori non ci si riferisce a persone fisiche, ma a **ruoli** 
+*destinatario* di informazioni, inoltre quando si parla di attori non ci si riferisce a persone fisiche, ma a **ruoli**
 da essi compiuti, un altro sistema o anche una periferica hardware.
-È importante notare quindi che una persona può ricoprire diversi ruoli contemporaneamente e quindi rappresentare più 
+È importante notare quindi che una persona può ricoprire diversi ruoli contemporaneamente e quindi rappresentare più
 di un attore alla volta.
 
 Ci sono due attori particolari:
@@ -108,7 +109,7 @@ scale 500 width
 ```
 
 **Estensione (*extend*)**: relazione che viene utilizzata per rappresentare casi eccezionali che specificano
-  comportamenti particolari in alcuni use case.
+comportamenti particolari in alcuni use case.
 
 ```plantuml
 @startuml
@@ -130,7 +131,8 @@ La sua semantica dipende dal contesto a cui viene applicata:
 * **tra attori**: permette di esplicitare eventuali relazioni tra ruoli. \
   Ad esempio un ruolo potrebbe includerne un altro.
 * **tra use case**: la semantica è simile all'*extend*, ma senza punti d'estensione. Infatti, alcune parti della
-  descrizione vengono *ereditate* e altre vengono *sostituite*. Non si applica il secondo principio della Liskov (questa generalizzazione è deprecata da UML 2.0).
+  descrizione vengono *ereditate* e altre vengono *sostituite*. Non si applica il secondo principio della Liskov (questa
+  generalizzazione è deprecata da UML 2.0).
 
 ## Esempi di utilizzo
 

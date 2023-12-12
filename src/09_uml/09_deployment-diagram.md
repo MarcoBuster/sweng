@@ -7,8 +7,9 @@ Il _Deployment diagram_ è una vista statica della configurazione a run-time, ov
 componenti utilizzati sono posizionati sulle macchine e come comunicano tra loro
 
 La conformazione del diagramma è quindi molto simile a quella del diagramma dei componenti, ma con qualche differenza:
+
 * i __nodi__ del sistema indicano macchine fisiche;
-* i __collegamenti__ tra nodi eplicitano le modalità di comunicazione tra gli stessi (_e.g._ RMI, HTTP).
+* i __collegamenti__ tra nodi esplicitano le modalità di comunicazione tra gli stessi (_e.g._ RMI, HTTP).
 
 ```plantuml
 @startuml
@@ -28,4 +29,6 @@ node2 -- node1 : <<RMI>>
 @enduml
 ```
 
-Il Deployment diagram risulta di particolare utilità per il _deployer_, _i.e._ la figura che si occupa dell'installazione fisica del sistema. Così si potranno evitare ripetizioni inutili delle stesse risorse ma ottimizzare il loro utilizzo trasversale tra le varie componenti del sistema.
+Il Deployment diagram risulta di particolare utilità per il _deployer_, ovvero la figura che si occupa
+dell'installazione fisica del sistema.
+In questo modo sarà possibile ottimizzare l'utilizzo trasversale delle risorse tra le varie componenti del sistema.
