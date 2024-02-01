@@ -56,7 +56,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         <th>Prestazioni e Efficienza</th>
         <td>
             Ad ogni software è richiesto un certo livello di prestazioni. L'efficienza è una qualità interna e misura come il software utilizza le risorse del computer; la performance, d'altro canto, è invece una qualità esterna ed è basata sui requisiti dell'utente. Essa ha effetto sull'usabilità, e spesso viene considerata alla fine dello sviluppo software visto che vari avanzamenti tecnologici possono efficientare algoritmi e processi prima troppo costosi.
-            Questo però in maniera relativa perchè un avanzamento tecnologico non permette la diminuzione della complessità di un algoritmo (se un algoritmo lavora in tempo esponenziale,  un miglioramento hardware non causerà un'alterazione in positivo della complessità).
+            Questo però in maniera relativa perché un avanzamento tecnologico non permette la diminuzione della complessità di un algoritmo (se un algoritmo lavora in tempo esponenziale,  un miglioramento hardware non causerà un'alterazione in positivo della complessità).
         </td>
     </tr>
     <tr>
@@ -72,7 +72,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         <th>Riusabilità</th>
         <td>
             Le componenti del software che costruiamo dovrebbero essere il più riutilizzabili possibile così da risparmiare tempo in futuro: per farlo bisogna aumentare l'adattabilità, ciò può essere fatto evitando di legare troppo il software allo specifico contesto applicativo.
-            È possibile avere anche un aumento dell'affidabilità e della verificabilità, perchè il codice riutilizzato è stato già testato e verificato al momento della sua creazione.
+            È possibile avere anche un aumento dell'affidabilità e della verificabilità, perché il codice riutilizzato è stato già testato e verificato al momento della sua creazione.
             Con la proprietà di riusabilità, utilizziamo un prodotto per costruirne - anche con modifiche minori - un altro, anche se non sempre è un'operazione sicura a causa dei contesti diversi in cui il software può essere utilizzato (es: architettura hardware sottostante) (vd. <a href="#mi15">MI15</a>).
             Un esempio di software riutilizzato che ha causato il fallimento di un progetto è quello del sistema di controllo dell'Ariane 5, ereditato dall'Ariane 4 ma senza essere stato testato correttamente, infatti questo ha portato al fallimento del primo lancio del razzo. 
         </td>
@@ -121,16 +121,16 @@ __Leggi di M. Lehman (L27-28)__.
 ## Debito tecnico
 
 Durante lo sviluppo di un software è facile incontrare dei problemi, che possono essere risolti subito oppure in un secondo momento.
-In quest'ultimo caso però maggiore è il numero di problemi non risolti, maggiore sarà il debito tecnico accumulato, che sarà più difficile da sanare con il passare del tempo; questo perchè il codice diventerà sempre maggiore e più complesso man mano che il software viene sviluppato.
+In quest'ultimo caso però maggiore è il numero di problemi non risolti, maggiore sarà il debito tecnico accumulato, che sarà più difficile da sanare con il passare del tempo; questo perché il codice diventerà sempre maggiore e più complesso man mano che il software viene sviluppato.
 
 ## Qualità del processo
 > _Un progetto è di qualità se segue un buon processo._
 
 Sappiamo che il prodotto è influenzato dal processo che viene utilizzato per svilupparlo, di conseguenza possiamo parlare anche di  __qualità del processo__.
 
-Anche un processo deve funzionare, essere essere bello e farmi diventare ricco, ma dobbiamo interpretare queste parole in maniera differente.
+Anche un processo deve funzionare, essere bello e farmi diventare ricco, ma dobbiamo interpretare queste parole in maniera differente.
 
-Quali caretteristiche ha un processo di qualità?
+Quali caratteristiche ha un processo di qualità?
 
 <table style="margin-bottom: 20px">
 <thead>
