@@ -89,61 +89,89 @@ Ogni relazione viene rappresentata tramite una specifica forma di freccia:
   Ciò che c'è scritto nella classe da cui parte la freccia dipende dal codice che c'è nella classe a cui arriva la
   freccia (_e.g._ `Deck` dipende da `Collections`);
 
-```plantuml
-@startuml
-hide fields
-hide methods
-class Deck
-class Collections
-Deck .> Collections
-@enduml
-```
+  La dipendenza può essere un qualcosa di negativo che alle volte si vuole evitare, questo perché può portare a diverse complicazioni, perciò vanno gestite correttamente.
+
+  Quando si verifica un cambiamento nella classe "destinazione" (nell'immagine, Collections) è necessario cambiare anche il contenuto di Deck, ad esempio se cambia il nome di un metodo in Collections sarà necessario cambiare la chiamata di quel metodo anche in Deck.
+
+  ```plantuml
+  @startuml
+  hide fields
+  hide methods
+  class Deck
+  class Collections
+  Deck .> Collections
+  @enduml
+  ```
+
+- __frecce continue__ (___associazione___):
+  Questo tipo di legame indica un certo legame con altre _istanze_ di una classe.
+  Associazione, aggregazione e composizione rappresentano tutte lo stesso concetto ma con gradi differenti, l'associazione rappresenta il legame base tra due classi, ovvero conosce una o più istanze di una classe, ma quest'ultime non vanno a definirne la classe.
+
+  Un esempio che rende più comprensibile il concetto è l'associazione che c'è tra professore e studenti, un professore conosce $n$ studenti ma loro non vanno a definire il professore stesso; D'altra parte però il professore può eseguire delle operazioni sugli studenti (ad esempio valutarli).  
+
+  È importante notare come l'associazione sia bidirezionale quando non è presente la freccia alla fine della linea tratteggiata, mentre è monodirezionale quando è presente (nel caso di studenti e professore possiamo dire sia bidirezionale, perché anche gli alunni possono interagire con il professore, di conseguenza questa associazione è __navigabile__ in entrambi i sensi).
+
+  ```plantuml
+  @startuml
+  hide fields
+  hide methods
+  class Professore
+  class Studente
+  Professore - Studente
+  @enduml
+  ```
 
 - __frecce con rombo bianco__ (___aggregazione___): indica che all'interno della classe (_e.g._ `Deck`) è presente una
   collezione (in questo caso una lista) di \(n\) oggetti (`Card` nell'esempio). \
   Questa relazione non è più tra classi, bensì tra _istanze_ delle classi (_e.g._ un'istanza di `Deck` aggrega da 0 a 52
   carte);
 
-```plantuml
-@startuml
-hide fields
-hide methods
-class Deck
-class Card
-Deck .o Card
-@enduml
-```
+  In questo caso si indica una relazione più forte rispetto ad un'associazione, infatti nell'esempio del professore, sia gli studenti che il professore rimangono tali anche se non sono associati l'uno all'altro, in questo caso invece c'è una relazione più stretta, possiamo dire che un mazzo senza carte non sarebbe utilizzabile (anche se esiste il concetto di mazzo vuoto, ma non è possibile giocare a nessun gioco con un mazzo sempre vuoto).
+
+  Notiamo come in questo caso vale lo stesso discorso della monodirezionalità o bidirezionalità, infatti in questo caso abbiamo una freccia perché il mazzo conosce le carte ma una carta non sa in che mazzo si trova.
+
+  Un'ultima particolarità è la cardinalità, a destra viene indicato che un mazzo può contenere da 0 a 52 carte, ma a sinistra non vi è alcuna indicazione, questo significa che un mazzo può appartenere idealmente a infiniti mazzi (nella realtà non è ovviamente possibile, ma nel nostro programma non abbiamo bisogno di $n$ istanze identiche di una carte, che tra l'altro è immutabile, ne basta una). La cardinalità è applicabile alle associazioni, alle composizioni e alle aggregazioni.
+
+  ```plantuml
+  @startuml
+  hide fields
+  hide methods
+  class Deck
+  class Card
+  Deck o---r-> "0..52  " Card : \t \t
+  @enduml
+  ```
 
 - __frecce con rombo nero__ (___composizione___): è utilizzata quando si hanno degli elementi che sono _fisicamente_
   collegati tra loro (non solo virtualmente come nel caso delle carte). \
-  Senza l'uno l'altro non può vivere e viceversa. \
+  L'oggetto contenuto non può nascere prima che nasca il contenitore e non può morire dopo che muore il contenitore. Possiamo quindi dire che non possono vivere l'uno senza l'altro (a parte rari casi come nell'esempio successivo).
+  Un ultima differenza è che l'oggetto contenuto non può essere acceduto direttamente, ma tramite un interfaccia fornita dal contenitore. \
   Un esempio può essere la rappresentazione del concetto di _aereo_: senza il _motore_ l'aereo non può esistere, poiché
   il primo è un oggetto indispensabile per funzionamento del secondo. Specularmente, non accadrà mai che il motore passi
   a un altro aereo (a differenza delle carte che possono passare a più mani).
+  Possiamo notare però che se un motore cada dall'aereo, quest'ultimo continuerà a funzionare perché ce ne sono altri, questo però e un caso particolare.
 
-```plantuml
-@startuml
-hide fields
-hide methods
-class Aereo
-class Motore
-Aereo .* Motore
-@enduml
-```
+  ```plantuml
+  @startuml
+  hide fields
+  hide methods
+  class Aereo
+  class Motore
+  Aereo *-> "1" Motore : \t 
+  @enduml
+  ```
+
+Viene fatta la distinzione tra associazione, aggregazione e composizione, ma quasi nella totalità dei casi a livello di codice si sfrutterà un attributo per rappresentarle tutte. È importante capire la cardinalità per poter implementare al meglio la situazione.
 
 - __frecce con la punta a triangolo__ (___implementazione___): una classe può _implementare_ una classe astratta o
   un'interfaccia.
 
-```plantuml
-@startuml
-hide fields
-hide methods
-class Card
-interface Comparable
-Card .|> Comparable
-@enduml
-```
-
-La direzione delle frecce è importante perché indica il _senso_ della relazione. \
-Per esempio, il mazzo _conosce_ le carte che contiene, ma le carte _non conoscono_ i mazzi di cui fanno parte &#8211; è
-per questo che la direzione della freccia va da `Deck` a `Card` e non viceversa.
+  ```plantuml
+  @startuml
+  hide fields
+  hide methods
+  class Card
+  interface Comparable
+  Card .|> Comparable
+  @enduml
+  ```
