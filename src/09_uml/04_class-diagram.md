@@ -85,7 +85,7 @@ Valgono anche due regole sintattiche generali:
 Nel diagramma delle classi UML esistono relazioni di diversi tipi.
 Ogni relazione viene rappresentata tramite una specifica forma di freccia:
 
-- __frecce tratteggiate__ (___associazione___): sono le più generiche e indicano una relazione "gerarchica" tra classi.
+- __frecce tratteggiate__ (___dipendenza___): sono le più generiche e indicano una relazione "gerarchica" tra classi.
   Ciò che c'è scritto nella classe da cui parte la freccia dipende dal codice che c'è nella classe a cui arriva la
   freccia (_e.g._ `Deck` dipende da `Collections`);
 
