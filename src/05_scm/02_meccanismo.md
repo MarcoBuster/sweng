@@ -44,7 +44,7 @@ CVS/Subversion scoraggiava i branch, ma Git li rende facili e li incoraggia.
 In Git, l'uso dei branch è talmente comune che a volte è necessario introdurre delle politiche (come GitFlow) sul loro utilizzo.
 
 ## SCM distribuito
-Sfruttando i sistemi Sofware Configuration Management in modo distribuito può portare diversi vantaggi a fronte di alcune problematiche.
+Sfruttando i sistemi Software Configuration Management in modo distribuito può portare diversi vantaggi a fronte di alcune problematiche.
 I vantaggi sono diversi, tra cui:
 - La possibilità di lavorare offline, e una volta che si ha a disposizione una connesione internet sarà possibile aggiornare il repository remoto;
 - Maggiore velocità;

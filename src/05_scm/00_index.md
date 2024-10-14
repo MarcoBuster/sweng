@@ -1,4 +1,4 @@
-# Sofware Configuration Management
+# Software Configuration Management
 
 Le soluzioni di Software Configuration Management nascono da problemi complessi purtroppo molto comuni nel mondo dello sviluppo software, come:
 - pubblicare un _hotfix_ su una versione precedente a quella in cui si sta sviluppando. Può essere difficile localizzare le versioni vecchie, modificarle e rimappare le modifiche sulle versioni nuove;
