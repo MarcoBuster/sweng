@@ -1,6 +1,6 @@
 # Criterio di \\(n\\)-copertura dei cicli
 
-_Un test \\(\ T\\) soddisfa il __criterio di \\(\bf{\it{n}}\\)-copertura__ se e solo se ogni cammino del grafo contenente al massimo un numero d'iterazioni di ogni ciclo non superiore a \\(n\\) viene percorso per almeno un caso di test \\(\ t \in T\\)._
+_Un test \\(\ T\\) soddisfa il __criterio di \\(\bf{\it{n}}\\)-copertura__ se e solo se per ogni ciclo abbiamo che viene eseguito 0,1,...,n volte per almeno un caso di test \\(\ t \in T\\)._
 
 La definizione sopra non significa che il test deve eseguire \\(n\\) volte un ciclo, ma che per ogni numero \\(k\\) compreso tra 0 e \\(n\\) deve esistere un caso di test che esegue tale ciclo \\(k\\) volte.
 Si sta quindi __limitando il numero massimo di percorrenze__ dei cicli. \

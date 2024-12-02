@@ -50,7 +50,7 @@ Tuttavia, lo stesso non si può dire di un qualunque programma \\(P\\) in quanto
 L'obiettivo sarebbe quindi quello di trovare un _criterio valido e affidabile_ sempre.
 Tuttavia ciò è purtroppo impossibile in quanto un criterio di questo tipo selezionerebbe test ideali, che sappiamo non esistere.
 
-Immaginiamo infatti di avere un _criterio valido e affidabile_ e che un test selezionato da esso __non abbia successo__.
+Immaginiamo infatti di avere un _criterio valido e affidabile_ e che esista un test selezionato da esso che __non ha successo__.
 Sapendo che:
 
 - non avendo successo allora non sono stati trovati errori,
@@ -62,7 +62,7 @@ Esiste quindi un altro modo per implicare la correttezza di un programma:
 
 $$
 \boxed{
-    \operatorname{affidabile}(C, \\, P) \land \operatorname{valido}(C, \\, P) \land T \in C \land \lnot\operatorname{successo}(T, \\, P)
+    \operatorname{affidabile}(C, \\, P) \land \operatorname{valido}(C, \\, P) \land \exists T \in C \land \lnot\operatorname{successo}(T, \\, P)
     \Longrightarrow
     \operatorname{ok}(P, \\, D)
 }
