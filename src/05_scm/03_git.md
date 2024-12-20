@@ -75,3 +75,8 @@ A questo punto git cercherà di identificare le parti dei file modificate nelle 
 Il comando git reset reimposta il contenuto dei file nell'_index_ (e, opzionalmente con l'opzione `--hard` nella WD) all'ultimo commit puntato da HEAD o ad un altro commit.
 
 ![git reset](/assets/05_git-reset.png)
+
+L'opzione `--soft` si limita invece a spostare l'HEAD del branch corrente ad un commit specificato, senza modificare l'_index_ o la WD.
+Cambia dunque solamente dove il branch corrente sta puntando.
+Questo comando è utile quando si vogliono annullare i commit mantenendo però tutti i file e le modifiche.
+Viene ad esempio utilizzato per effettuare lo _squash_ ("appiattimento") di più commit in uno unico.
