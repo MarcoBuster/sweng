@@ -1,5 +1,5 @@
 # Qualità
-Sono _proprietà desiderabili_ del prodotto che costituiscono un "valore per le persone" (e quindi ), si dividono innanzitutto in due tipi:
+Sono _proprietà desiderabili_ del prodotto che costituiscono un "valore per le persone", si dividono innanzitutto in due tipi:
 - __qualità esterne__: qualità che vengono colte dai clienti;
 - __qualità interne__: qualità che vengono esclusivamente colte dallo sviluppatore.
 
@@ -74,7 +74,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         <th>Riusabilità</th>
         <td>
             Le componenti del software che costruiamo dovrebbero essere il più riutilizzabili possibile così da risparmiare tempo in futuro: per farlo bisogna aumentare l'adattabilità, ciò può essere fatto evitando di legare troppo il software allo specifico contesto applicativo.
-            È possibile avere anche un aumento dell'affidabilità e della verificabilità, perché il codice riutilizzato è stato già testato e verificato al momento della sua creazione e soprattutto durante il suo periodo si uso.
+            È possibile avere anche un aumento dell'affidabilità e della verificabilità, perché il codice riutilizzato è stato già testato e verificato al momento della sua creazione e soprattutto durante il suo periodo di uso.
             Con la proprietà di riusabilità, utilizziamo un prodotto (o più spesso un componente) per costruirne - anche con modifiche minori - un altro, anche se non sempre è un'operazione sicura a causa dei contesti diversi in cui il software può essere utilizzato (es: architettura hardware sottostante) (vd. <a href="#mi15">MI15</a>).
             Attenzione che come sempre deve essere adottato in maniera corretta. Ad esempio si cita spesso il fallimento del viaggio inaugurale (esplosione) del razzo Ariane 5, causato dal riuso di un componente software ereditato dall'Ariane 4 ma senza averne controllato correttamente le condizioni di uso assunte nel vecchio progetto. 
         </td>
