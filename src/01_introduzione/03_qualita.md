@@ -1,9 +1,9 @@
 # Qualità
-Sono _proprietà desiderabili_ del prodotto che costituiscono un "valore per le persone" (e quindi ), si dividono innanzitutto in due tipi:
+Sono _proprietà desiderabili_ del prodotto che costituiscono un "valore per le persone", si dividono innanzitutto in due tipi:
 - __qualità esterne__: qualità che vengono colte dai clienti;
 - __qualità interne__: qualità che vengono esclusivamente colte dallo sviluppatore.
 
-Le qualità interne non sono solo di interesse degli sviluppatori, ma  influenzano spesso anche le qualità esterne (per esempio se ho un codice facimente _verificabile_, è più facile che il mio software  risulti anche _corretto_). 
+Le qualità interne non sono solo di interesse degli sviluppatori, ma  influenzano spesso anche le qualità esterne (per esempio se ho un codice facilmente _verificabile_, è più facile che il mio software  risulti anche _corretto_). 
 
 Prima di vedere quali siano alcune proprietà auspicabili in un software, però, facciamo un'importante distinzione a livello terminologico tra __requisiti e specifiche__:
 - I __requisiti__ esprimono quello che il cliente vuole che il software faccia. Hanno la caratteristica di essere mutevoli, volatili. Sono cioè spesso cambiati in corso d'opera: il cliente cambia idea, priorità mano a mano che vede il progetto crescere. Alcuni modelli di vita del software moderni sono nati proprio per fronteggiare questa mutabilità. 
@@ -74,7 +74,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
         <th>Riusabilità</th>
         <td>
             Le componenti del software che costruiamo dovrebbero essere il più riutilizzabili possibile così da risparmiare tempo in futuro: per farlo bisogna aumentare l'adattabilità, ciò può essere fatto evitando di legare troppo il software allo specifico contesto applicativo.
-            È possibile avere anche un aumento dell'affidabilità e della verificabilità, perché il codice riutilizzato è stato già testato e verificato al momento della sua creazione e soprattutto durante il suo periodo si uso.
+            È possibile avere anche un aumento dell'affidabilità e della verificabilità, perché il codice riutilizzato è stato già testato e verificato al momento della sua creazione e soprattutto durante il suo periodo di uso.
             Con la proprietà di riusabilità, utilizziamo un prodotto (o più spesso un componente) per costruirne - anche con modifiche minori - un altro, anche se non sempre è un'operazione sicura a causa dei contesti diversi in cui il software può essere utilizzato (es: architettura hardware sottostante) (vd. <a href="#mi15">MI15</a>).
             Attenzione che come sempre deve essere adottato in maniera corretta. Ad esempio si cita spesso il fallimento del viaggio inaugurale (esplosione) del razzo Ariane 5, causato dal riuso di un componente software ereditato dall'Ariane 4 ma senza averne controllato correttamente le condizioni di uso assunte nel vecchio progetto. 
         </td>
@@ -86,7 +86,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
             Questa proprietà può essere vista come due proprietà separate:
             <ul style="margin-bottom: 0;">
                 <li><b>Riparabilità</b>: un software è riparabile se i suoi difetti possono essere corretti con una quantità di lavoro ragionevole.</li>
-                <li><b>Evolvibilità</b>: indica la capacità del software di poter evolvere aggiugendo funzionalità. È importante considerare questo aspetto fin dall'inizio: studi rilevano come l'evolvibilità decresce con il passare delle release a meno che non vengano svolte atività mirate proprio a questo aspetto (vd. <a href="#l27-28">L27-28</a>).</li>
+                <li><b>Evolvibilità</b>: indica la capacità del software di poter evolvere aggiungendo funzionalità. È importante considerare questo aspetto fin dall'inizio: studi rilevano come l'evolvibilità decresce con il passare delle release a meno che non vengano svolte attività mirate proprio a questo aspetto (vd. <a href="#l27-28">L27-28</a>).</li>
             </ul>
         </td>
     </tr>
@@ -127,7 +127,7 @@ Questo modo di operare viene spesso chiamato "accendere un debito tecnico", cio�
 
 ## Qualità del processo
 
-È generalmente condiviso che le qualità del prodotto sono influenzate dalla bontà del processo che viene utilizzato per svilupparlo, di conseguenza diventa importante ragoinare e parlare anche di  __qualità del processo__.
+È generalmente condiviso che le qualità del prodotto sono influenzate dalla bontà del processo che viene utilizzato per svilupparlo, di conseguenza diventa importante ragionare e parlare anche di  __qualità del processo__.
 
 Anche un processo deve _funzionare_, _essere bello_ e _farmi diventare ricco_, ma dobbiamo interpretare queste parole in maniera differente.
 
