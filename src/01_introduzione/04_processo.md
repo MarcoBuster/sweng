@@ -5,7 +5,7 @@ Innanzitutto occorre riconoscere diverse problematiche.
 - I __requisiti__ imposti dal cliente possono cambiare spesso.
 - Produrre software __non è _solo_ scrivere codice__ (alla Programmazione I).
 - Bisogna risolvere i __problemi di comunicazione__ tra tutte le diverse figure in gioco (tra sviluppatori, tra progettista e sviluppatori, ecc).
-- Bisogna essere __rigorosi__, anche se può risultare difficile. Ci sono lati positivi e negativi: la rigorisità può facilitare la comprensione di ciò che bisogna fare ma implica  al contempo molta fatica extra, e viceversa.
+- Bisogna essere __rigorosi__, anche se può risultare difficile. Ci sono lati positivi e negativi: la rigorosità può facilitare la comprensione di ciò che bisogna fare ma implica  al contempo molta fatica extra, e viceversa.
     > __Ipotesi di Bauer-Zemanek (BZh3)__: _Metodi formali riducono in maniera <ins>significativa</ins> gli errori di progettazione, oppure permettono di eliminarli e risolverli prima._
 
     Questa affermazione resta un'ipotesi perchè non è possibile dimostrare che sfruttando dei metodi formali ci sia una diminuzione degli errori, anche se nella pratica ciò avviene costantemente.
@@ -14,7 +14,7 @@ Innanzitutto occorre riconoscere diverse problematiche.
     Tuttavia è importante sottolineare che utilizzare metodi formali non è necessario in ogni caso, perchè queste operazioni richiedono molto tempo, che deve essere sottratto ad altre fasi, ma spesso a causa delle consegne imminenti non è possibile permettersi di investire troppo tempo nella formalità.
 - Ci sono __tanti aspetti__ da considerare, che andranno affrontati uno alla volta. Per parlare di aspetti diversi ho bisogno di metodi comunicazione diversi, che interessano ruoli diversi in tempi diversi (_Aspect Oriented Programming_).
 
-Tenendo a mente tutto queste problematiche è necessario decidere come organizzare l'attività di sviluppo software in modo da mitgarle. Per modellare un ciclo di vita del software, occorre dunque in primo luogo __identificare le varie attività necessarie__ e quindi:
+Tenendo a mente tutto queste problematiche è necessario decidere come organizzare l'attività di sviluppo software in modo da mitigarle. Per modellare un ciclo di vita del software, occorre dunque in primo luogo __identificare le varie attività necessarie__ e quindi:
 - deciderne le precedenze temporali;
 - decidere chi le debba fare.
 
@@ -28,7 +28,7 @@ Inizialmente, infatti, nell'ambito dello sviluppo software è stato adottato il 
 1. scrivi il codice;
 2. sistemalo per eliminare errori, migliorare funzionalità o aggiungere nuove funzionalità.
 
-Ben presto però questo modello si è dimostrato pesantemente inefficace in gruppi di lavoro complessi, specialmente quando il cliente non era più lo sviluppatore stesso ma utenti con poca dimestichezza con i computer, generando codice estremamente poco leggibile e manutenibile.
+Ben presto però questo modello si è dimostrato pesantemente inefficace in gruppi di lavoro complessi, specialmente quando il cliente non era più lo sviluppatore stesso ma utenti con poca dimestichezza con i computer, generando codice estremamente poco leggibile e mantenibile.
 
 Per organizzare meglio l'attività di sviluppo e non ricadere negli errori del passato gli ingegneri del software hanno dunque individuato diverse __fasi__ del ciclo di vita di un software che, combinate, permettessero di produrre del software di qualità. Diamo dunque un'occhiata a quelle principali.
 
@@ -43,7 +43,7 @@ Più specificatamente, il documento include:
 - uno studio di diversi scenari di realizzazione, scegliendo:
     - le architetture e l'hardware necessario;
     - se sviluppare in proprio oppure subappaltare ad altri.
-- stima dei costi, tempi di sviluppo, risorse necessarie, benfici delle varie soluzioni e valutazione del _return on investment_.
+- stima dei costi, tempi di sviluppo, risorse necessarie, benefici delle varie soluzioni e valutazione del _return on investment_.
 
 È spesso difficile fare un'analisi approfondita, a causa del poco tempo disponibile o di costi troppo elevati, di conseguenza non è raro che questa fase venga commissionata esternamente, in modo da poterla affidare a del personale esperto e investire il tempo risparmiato per altre attività.
 
@@ -66,7 +66,7 @@ Deve essere presente anche un __piano di test__, ovvero una collezione di collau
 
 Un altro output di questa fase può essere anche il __manuale utente__ o  __maschere di interazione__, ovvero la _"vista esterna"_ (ciò che il cliente vuole vedere, evitando i dettagli implementativi) del sistema da progettare.
 
-Il documento di specifica è un documento scritto in modo formale, perchè è la base da cui partire per iniziare lo sviluppo. è possibile sfruttare due tipi di modelli per produrre il documento di specifica:
+Il documento di specifica è un documento scritto in modo formale, perchè è la base da cui partire per iniziare lo sviluppo. È possibile sfruttare due tipi di modelli per produrre il documento di specifica:
 - __Modelli descrittivi__: I modelli descrittivi rappresentano il sistema logicamente in modo da poter verificare le sue proprietà.
 - __Modelli operazionali__: I modelli operazionali forniscono una rappresentazione del sistema tramite un modello eseguibile capace di mostrare le proprietà del sistema (in questo caso è facile cadere nella tentazione di pensare subito al _come_ realizzare una funzioalità).
 
@@ -79,13 +79,13 @@ Lo scopo di questa fase è quello di scrivere un __documento di specifica di pro
 Durante questa fase occorre quindi:
 - scegliere un'__architettura software di riferimento__;
 - __scomporre__ in moduli o oggetti gli incarichi e i ruoli: si tratta del cosiddetto _object oriented design_, non necessariamente accompagnato da object oriented programming;
-- __identificare i patterns__, ovvero problemi comuni a cui è già stata trovata una soluzione generale giudicata come _"bella"_ dalla comunità degli sviluppatori (ne vedremo un paio più avanti nel corso). I pattern favoriscono alcune qualità, come il design.
+- __identificare i patterns__, ovvero problemi comuni a cui è già stata trovata una soluzione generale giudicata come _"bella"_ dalla comunità degli sviluppatori (ne vedremo alcuni più avanti nel corso). I pattern favoriscono alcune qualità, come il design.
 
 ### Programmazione e test di unità
 In questa fase le _"scatole nere"_ - i moduli o oggetti definiti al punto precedente - vengono realizzate e per ognuna di esse vengono definiti dei __test unitari__ che ne mostrano la correttezza.
 Vi è infatti spesso la brutta abitudine di non fare il testing durante lo sviluppo di ciascun componente, ma solamente alla fine di tutto: questa usanza è molto pericolosa perché un problema scoperto solo alla fine è molto più oneroso da risolvere.
 
-I singoli moduli vengono testati indipendentemente, anche se alcune funzioni da cui dipendono non sono ancora sono state implementate: per risolvere tale dipendenza si utilizzano allora moduli fittizzi (___stub___) che emulino le funzionalità di quelli mancanti.
+I singoli moduli vengono testati indipendentemente, anche se alcune funzioni da cui dipendono non sono ancora sono state implementate: per risolvere tale dipendenza si utilizzano allora moduli fittizi (___stub___) che emulino le funzionalità di quelli mancanti.
 Altri moduli, detti ___driver___, forniscono invece una situazione su cui applicare il modulo che sto testando.
 Nei linguaggi più utilizzati esistono framework che facilitano le suddette operazioni al programmatore.
 
