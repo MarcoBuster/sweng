@@ -3,7 +3,7 @@ Sono _proprietà desiderabili_ del prodotto che costituiscono un "valore per le 
 - __qualità esterne__: qualità che vengono colte dai clienti;
 - __qualità interne__: qualità che vengono esclusivamente colte dallo sviluppatore.
 
-Le qualità interne non sono solo di interesse degli sviluppatori, ma  influenzano spesso anche le qualità esterne (per esempio se ho un codice facimente _verificabile_, è più facile che il mio software  risulti anche _corretto_). 
+Le qualità interne non sono solo di interesse degli sviluppatori, ma  influenzano spesso anche le qualità esterne (per esempio se ho un codice facilmente _verificabile_, è più facile che il mio software  risulti anche _corretto_). 
 
 Prima di vedere quali siano alcune proprietà auspicabili in un software, però, facciamo un'importante distinzione a livello terminologico tra __requisiti e specifiche__:
 - I __requisiti__ esprimono quello che il cliente vuole che il software faccia. Hanno la caratteristica di essere mutevoli, volatili. Sono cioè spesso cambiati in corso d'opera: il cliente cambia idea, priorità mano a mano che vede il progetto crescere. Alcuni modelli di vita del software moderni sono nati proprio per fronteggiare questa mutabilità. 
@@ -86,7 +86,7 @@ Un software di qualità deve <b><i>funzionare</i></b>, <b><i>essere bello</i></b
             Questa proprietà può essere vista come due proprietà separate:
             <ul style="margin-bottom: 0;">
                 <li><b>Riparabilità</b>: un software è riparabile se i suoi difetti possono essere corretti con una quantità di lavoro ragionevole.</li>
-                <li><b>Evolvibilità</b>: indica la capacità del software di poter evolvere aggiugendo funzionalità. È importante considerare questo aspetto fin dall'inizio: studi rilevano come l'evolvibilità decresce con il passare delle release a meno che non vengano svolte atività mirate proprio a questo aspetto (vd. <a href="#l27-28">L27-28</a>).</li>
+                <li><b>Evolvibilità</b>: indica la capacità del software di poter evolvere aggiungendo funzionalità. È importante considerare questo aspetto fin dall'inizio: studi rilevano come l'evolvibilità decresce con il passare delle release a meno che non vengano svolte attività mirate proprio a questo aspetto (vd. <a href="#l27-28">L27-28</a>).</li>
             </ul>
         </td>
     </tr>
@@ -127,7 +127,7 @@ Questo modo di operare viene spesso chiamato "accendere un debito tecnico", cio�
 
 ## Qualità del processo
 
-È generalmente condiviso che le qualità del prodotto sono influenzate dalla bontà del processo che viene utilizzato per svilupparlo, di conseguenza diventa importante ragoinare e parlare anche di  __qualità del processo__.
+È generalmente condiviso che le qualità del prodotto sono influenzate dalla bontà del processo che viene utilizzato per svilupparlo, di conseguenza diventa importante ragionare e parlare anche di  __qualità del processo__.
 
 Anche un processo deve _funzionare_, _essere bello_ e _farmi diventare ricco_, ma dobbiamo interpretare queste parole in maniera differente.
 
