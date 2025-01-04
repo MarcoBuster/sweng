@@ -15,15 +15,15 @@ La manutenzione non è quindi più una particolarità ma è vista come normale e
 ![Modello a fontana](/assets/02_fountain-model.png)
 
 Nel 1993 nasce, in contrapposizione al modello a cascata, il cosiddetto __modello a fontana__, che amplia il concetto di iterazione permettendo in qualunque momento di __tornare alla fase iniziale__.
-Se ci si accorge della presenza di errori si torna all'inizio (_software pool_) e vengono ricontrollate tutte le fasi precedenti. Ovviamente questo non implica l'eliminazione tutto il lavoro fatto fino a quel momento, quanto piuttosto risolvere l'errore con un approccio che parta innanzitutto dalla modifica dei requisiti (se possibile), delle specifiche e solo dopo del codice, evitando di rattoppare solo quest'ultimo alla bell'e meglio come nel modello _code-and-fix_.Una volta risolto il problema alla radice si può risalire velocemente attraverso le altre fasi, mantenendo il lavoro già svolto ma controllando che non si siano creati nuovi problemi nel mentre.
+Se ci si accorge della presenza di errori si torna all'inizio (_software pool_) e vengono ricontrollate tutte le fasi precedenti. Ovviamente questo non implica l'eliminazione tutto il lavoro fatto fino a quel momento, quanto piuttosto risolvere l'errore con un approccio che parta innanzitutto dalla modifica dei requisiti (se possibile), delle specifiche e solo dopo del codice, evitando di rattoppare solo quest'ultimo alla bell'e meglio come nel modello _code-and-fix_. Una volta risolto il problema alla radice si può risalire velocemente attraverso le altre fasi, mantenendo il lavoro già svolto ma controllando che non si siano creati nuovi problemi nel mentre.
 
 Così facendo si mantiene una pulizia del progetto in ogni sua fase, grazie alla continua iterazione di esse ogni volta che si incontra un problema.
 
 Il modello a fontana è inoltre il primo in cui sono previste delle azioni dopo la consegna; dopo l'ultima fase (_programma in uso_), infatti, si aprono ancora due strade, __manutenzione ed evoluzione__. La consegna del prodotto non è quindi più l'atto finale, ma solo un altro step del processo, ecco quindi che si aprono le porte ad una __visione incrementale__ dello sviluppo software.
 Sta proprio in questo la definizione di modello incrementale, ovvero nell'includere la consegna del progetto all'interno delle iterazioni.
 
-Anche qui vengono perdute le garanzie sui tempi di sviluppo; una volta ritornati alla fase iniziale per risolvere un problema non c'è la certezza di riuscire a raggiungere il punto da cui si è partiti, questo perchè è possibile imbattersi in altri errori nelle le fasi intermedie, costringendo un'ietazione continua per risolvere i diversi problemi.
-In questo modo il software perde completamente il concetto di linearità e sarà impossibile prevederne i tempi di sviluppo, data la continua possiblità di evoluzione e manutenzione.
+Anche qui vengono perdute le garanzie sui tempi di sviluppo; una volta ritornati alla fase iniziale per risolvere un problema non c'è la certezza di riuscire a raggiungere il punto da cui si è partiti, questo perchè è possibile imbattersi in altri errori nelle le fasi intermedie, costringendo un'iterazione continua per risolvere i diversi problemi.
+In questo modo il software perde completamente il concetto di linearità e sarà impossibile prevederne i tempi di sviluppo, data la continua possibilità di evoluzione e manutenzione.
 
 ## I problemi dei modelli incrementali
 
@@ -46,7 +46,7 @@ Challenging Transition for Project Managers_](https://bit.ly/3SYYs8y)
 
 ![Pinball Life-Cycle](/assets/02_pinball-life-cycle.png)
 
-Il _"modello meme"_ del Pinball Life-Cycle, creato da Ambler come critica ai modelli incrementali, evidenziando come l'ordine in cui faccio le attività è casuale, incoltrollabile. Qualunque passo è possibile dopo qualunque altro, e non si possono imporre vincoli temporal, di conseguenza il processo è __non misurabile__.
+Il _"modello meme"_ del Pinball Life-Cycle, creato da Ambler come critica ai modelli incrementali, evidenziando come l'ordine in cui faccio le attività è casuale, incontrollabile. Qualunque passo è possibile dopo qualunque altro, e non si possono imporre vincoli temporal, di conseguenza il processo è __non misurabile__.
 
 Si tratta ovviamente di una visione eccessivamente pessimistica, ma spesso nelle aziende non specializzate l'iter di sviluppo assomiglia effettivamente a questo.
 
@@ -79,7 +79,7 @@ Per questo motivo il modello è di tipo incrementale e pone l'accento sul fatto 
 - Sviluppo e verifica
 - Pianificazione della prossima iterazione
 
-Nella figura il raggio della spirale indica i __costi__, che ad ogni iterazione aumentano fisiologicamente. Questo metamodello porterà alla possiblità di scegliere la via iterativa o quella incrementale, in base alle esigenze del progetto.
+Nella figura il raggio della spirale indica i __costi__, che ad ogni iterazione aumentano fisiologicamente. Questo metamodello porterà alla possibilità di scegliere la via iterativa o quella incrementale, in base alle esigenze del progetto.
 
 ### Variante _"win-win"_
 

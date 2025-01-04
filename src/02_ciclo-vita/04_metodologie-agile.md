@@ -2,7 +2,7 @@
 
 Finora i modelli visti erano di tipo prettamente descrittivo; vediamo ora dei modelli più prescrittivi, che dicano cioè che cosa fare effettivamente durante lo sviluppo.
 
-Le metodologie agili _"nascono dal basso"_, ovvero solitamente da chi sviluppa, per colmare un disagio prevalente nell'usare i metodi tradizionali. Si tratta di un mix di buone pratiche o deduzioni che già esisitono nell'ingegneria del software classica. Per tale motivo, di queste metodologie esiste un...
+Le metodologie agili _"nascono dal basso"_, ovvero solitamente da chi sviluppa, per colmare un disagio prevalente nell'usare i metodi tradizionali. Si tratta di un mix di buone pratiche o deduzioni che già esistono nell'ingegneria del software classica. Per tale motivo, di queste metodologie esiste un...
 
 ## [Manifesto](https://agilemanifesto.org/iso/it/manifesto.html)
 
@@ -16,12 +16,12 @@ Nelle parole di Fowler e i suoi collaboratori, per migliorare il modo in cui vie
 > LIBRO: __Agile!__ di Bertrand Meyer
 
 Come si vede, si tratta di un drastico cambio di rotta rispetto allo sviluppo tradizionale, che si evolve anche in un business model diverso.
-Piuttosto che farsi pagare a programma finito, gli sviluppatori vengono pagati a tempo di sviluppo, dando però la garanzia al cliente di lavorare durante tale periodo esclusivamente per lui e al massimo delle proprie capacità. Al rapporto confluttuale con il cliente, in cui ciascuno cerca di fregare l'altro, si sostituisce dunque una collaborazione più estesa in cui, come vedremo, anche il cliente diventa parte del team di sviluppo.
+Piuttosto che farsi pagare a programma finito, gli sviluppatori vengono pagati a tempo di sviluppo, dando però la garanzia al cliente di lavorare durante tale periodo esclusivamente per lui e al massimo delle proprie capacità. Al rapporto conflittuale con il cliente, in cui ciascuno cerca di fregare l'altro, si sostituisce dunque una collaborazione più estesa in cui, come vedremo, anche il cliente diventa parte del team di sviluppo.
 
 Vediamo dunque alcune delle più famose metodologie agili, mettendone in evidenza gli aspetti peculiari.
 
 ## Lean Software
-L'azienda Toyota, per migliorare la propria qualità, investì risorse per migliorare il suo processo produttivo. In questo modo nacque il progetto di _Lean Manufactioring_, che mirava ad una mass production in stile americano, ma cercando di ridurre gli sprechi al massimo, data la scarsità di risorse del paese.
+L'azienda Toyota, per migliorare la propria qualità, investì risorse per migliorare il suo processo produttivo. In questo modo nacque il progetto di _Lean Manufacturing_, che mirava ad una mass production in stile americano, ma cercando di ridurre gli sprechi al massimo, data la scarsità di risorse del paese.
 Da questo evento presero ispirazione anche alcuni sviluppatori agile, che idearono il concetto di _lean software_, che ha l'obiettivo di __ridurre gli sprechi__, ovvero rimuovere tutti quei prodotti e sottoprodotti che non vengono consegnati al cliente  (es. testing, prototipi...) e dunque non generano valore: essi possono essere ignorati.
 L'azienda Toyota dovette cercare di evitare sprechi di materiali e incentivò il riutilizzo per più tempo possibile degli stessi strumenti; parallelamente gli sviluppatori dovranno cercare di evitare di produrre funzionalità (o più in generale codice) inutili, ma puntare a riutilizzare codice già esistente o framework per semplificare il lavoro.
 
