@@ -34,7 +34,7 @@ Infine, il modello a cascata adotta un approccio volto alla __monoliticità__: t
 
 ### _Who's Afraid of The Big Bad Waterfall?_
 
-> LIBRO: __The Leprechauns of Software Engineeering__ di Laurent Bossavit.
+> LIBRO: __The Leprechauns of Software Engineering__ di Laurent Bossavit.
 
 In realtà, il modello a cascata non è mai stato veramente elogiato, ma è sempre stato utilizzato come paragone negativo per proporre altri modelli o variazioni.
 Nel corso del tempo la sua presentazione è stata erroneamente attribuita al paper [_"Managing the development of large software systems: concepts and techniques"_](https://dl.acm.org/doi/10.5555/41765.41801) di W.W. Royce, di cui veniva citata solo la prima figura: Royce stava a dire il vero presentando quel modello per descrivere la sua esperienza nello sviluppo software, per poi proporre altri concetti più moderni (come lo sviluppo incrementale) che non sono però mai stati colti dalla comunità scientifica.
@@ -86,5 +86,5 @@ Inoltre, ogni fase include delle 'frecce implicite' dirette verso se stessa, ind
 
 Volendo formalizzare, le due nuove attività introdotte sono dunque:
 
-- __verifica__ (freccie bianche): controlla la correttezza rispetto alla descrizione formale delle specifiche, (in queste verifiche non è coinvolto il cliente);
-- __validazione__ (freccie grigie): controlla la compatabilità del sistema con le esigenze del cliente tramite feedback continuo.
+- __verifica__ (frecce bianche): controlla la correttezza rispetto alla descrizione formale delle specifiche, (in queste verifiche non è coinvolto il cliente);
+- __validazione__ (frecce grigie): controlla la compatibilità del sistema con le esigenze del cliente tramite feedback continuo.

@@ -13,7 +13,7 @@ Anche in questo modello non si può però tornare indietro dalla consegna per es
 
 ## Modello prototipale
 
-Un particolare modello incrementale è quello protitipale, in questo modello viene introdotto il concetto di __protitipi usa e getta__ (_throw away_), interi programmi che vengono costruiti e poi vengono buttati via.
+Un particolare modello incrementale è quello prototipale, in questo modello viene introdotto il concetto di __prototipi usa e getta__ (_throw away_), interi programmi che vengono costruiti e poi vengono buttati via.
 
 Lo scopo del prototipo __non è consegnare__ un prodotto finito, ma __ricevere feedback__ dal cliente per essere sicuri di aver compreso a pieno i suoi requisiti, oppure testare internamente un'idea o uno strumento. Per questo motivo tali prototipi vengono costruiti fregandosene di correttezza, pulizia del codice e leggibilità.
 I protitipi possono dunque essere:
@@ -25,6 +25,6 @@ I prototipi pubblici possono generare la tentazione di consegnarli come prodotto
 
 <a id="b3"></a>
 __Legge di Bohem (L3)__
-> La propotipizzazione riduce significativamente gli errori di analisi dei requisiti e di design, specialmente per le interfacce utente.
+> La prototipizzazione riduce significativamente gli errori di analisi dei requisiti e di design, specialmente per le interfacce utente.
 
 Il modello prototipale è iterativo perchè ogni volta viene buttato il lavoro fatto e rieseguito da capo, questo fino ad avere una versione definitiva senza le problematiche incontrate che hanno causato l'eliminazione dei lavori precedenti.
