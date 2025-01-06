@@ -34,7 +34,7 @@ Anche il contenuto dell'index equivale al contenuto del commit.
 
 #### `--amend`
 
-Con l'opzione -\-amend è possibile rimpiazziare facilmente l'ultimo commit con uno nuovo. 
+Con l'opzione -\-amend è possibile rimpiazzare facilmente l'ultimo commit con uno nuovo. 
 
 ![git commit --amend](/assets/05_git-commit-amend.png)
 
@@ -63,7 +63,7 @@ Per risolverli, git ci proporrà un'interfaccia simile alla seguente.
     git makes conflict resolution easy.
     >>>>>>> theirs:sample.txt
 
-Una volta risolti tutti i conflitti è sufficiente commitare le modifiche concludendo quindi il merge.
+Una volta risolti tutti i conflitti è sufficiente committare le modifiche concludendo quindi il merge.
 
 ![git merge](/assets/05_git-merge.png)
 

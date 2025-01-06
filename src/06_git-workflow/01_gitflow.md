@@ -77,7 +77,7 @@ Questa operazione è utile per migliorare la leggibilità della history dei comm
 
 ![GitFlow release](/assets/06_gitflow-release.png)
 
-Lo scopo di creare una release è __cristalizzare l'insieme delle funzionalità__ presente sul branch `develop` all'inizio di essa dedicandosi solo alla sistemazione degli errori o alle attività necessarie per il deploy (modifica del numero di versione, ...).
+Lo scopo di creare una release è __cristallizzare l'insieme delle funzionalità__ presente sul branch `develop` all'inizio di essa dedicandosi solo alla sistemazione degli errori o alle attività necessarie per il deploy (modifica del numero di versione, ...).
 Il ramo release ha un inizio ed una fine, che coincide con la pubblicazione della release.
 L'insieme delle funzionalità rilasciate è quello presente sul branch `develop` al momento di inizio di una release. 
 
@@ -118,7 +118,7 @@ In git, i tag sono etichette che possono essere applicate a un commit per segnal
 In GitFlow, le release sono versioni stabili del codice che vengono rilasciate al pubblico o al cliente. 
 Ogni release viene creata partendo dal branch `develop` e viene gestita come un branch a sé stante, che viene chiuso una volta che tutte le modifiche previste sono state integrate. 
 Al contrario, le feature sono branch temporanei utilizzati per sviluppare nuove funzionalità o per correggere bug. 
-È possibile avere più feature aperte contemporaneamente, ma solo una relase rimane aperta in un dato istante.
+È possibile avere più feature aperte contemporaneamente, ma solo una release rimane aperta in un dato istante.
 
 ## Hotfix
 
@@ -157,7 +157,7 @@ $ git branch -d hotfix/CVE-123          # elimina il branch di hotfix
 
 Quali sono i limiti di git presentato così?
 
-git e GitFlow come sono stati esposti presentano numerosi vincoli, soprattuto se utilizzati in grandi team, tra cui:
+git e GitFlow come sono stati esposti presentano numerosi vincoli, soprattutto se utilizzati in grandi team, tra cui:
 - la __mancanza di un sistema di autorizzazione granulare__, ovvero la possibilità di assegnare permessi in modo specifico e mirato a diverse funzionalità o risorse. Inoltre, non esiste una distinzione tra diversi livelli di accesso, quindi o si ha accesso completo a tutte le funzionalità o non si ha accesso a niente;
 - l'__assenza di code review__, ovvero il processo di revisione del codice sorgente da parte di altri sviluppatori prima che venga integrato nel codice base;
 - la __mancanza di un sistema di comunicazione tra chi propone una modifica e i reviewer__, git di per se non mette a disposizione un sistema per agevolare la comunicazione tra chi sviluppa una feature o una modifica e chi si dovrà occupare di revisionarla.

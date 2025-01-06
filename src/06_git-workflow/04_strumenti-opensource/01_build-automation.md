@@ -30,7 +30,7 @@ Nell'esempio, se il _target_ hellomake (definito dai file `hellomake.c` e `hello
 
 Tuttavia, make lavora a un livello molto basso, il che può rendere facile commettere errori durante la sua configurazione e utilizzo, quindi deve essere reso il più __parametrico__ possibile.
 
-Nonostante la paremetrizzazione _non c'è portabilità_ tra macchine diverse, sia per architettura che per sistema operativo.
+Nonostante la parametrizzazione _non c'è portabilità_ tra macchine diverse, sia per architettura che per sistema operativo.
 
 ### `Makefile`
 
