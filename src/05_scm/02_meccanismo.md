@@ -28,7 +28,7 @@ Ma in un progetto cosa è necessario tracciare? Sicuramente devono essere tracci
 - Si archiviano i file che costituiscono il prodotto (ovvero file generati come i file i binari)?
 
 Solitamente la risposta a queste due domande è __no__, questo perchè tracciare le librerie o i binari del software è costoso e poco pratico, ma così facendo la perfetta replicabilità va perduta.
-Infatti è possibile che alcuni software con il passare del tempon non possano essere eseguiti perchè le tecnologie necessarie al loro funzionamento non sono più disponibili (compilatori con una versione molto vecchia ad esempio). c'è da dire però che se un progetto viene mantenuto costantemente la sua vita viene allungata di conseguenza.
+Infatti è possibile che alcuni software con il passare del tempo non possano essere eseguiti perchè le tecnologie necessarie al loro funzionamento non sono più disponibili (compilatori con una versione molto vecchia ad esempio). C'è da dire però che se un progetto viene mantenuto costantemente la sua vita viene allungata di conseguenza.
 A volte può avere senso versionare dei file generati, infatti è possibile distribuire le diverse versione tramite _'package'_.
 Su alcuni siti come GitHub o GitLab ci sono delle sezioni (diverse da quelle dove viene messo il codice) dedicate alla pubblicazione di questi package, ma questo non è un vero e proprio versioning come viene fatto per il codice tramite git (non vi è una storia modificabile, ma solo una serie di versioni del software).
 
@@ -46,7 +46,7 @@ In Git, l'uso dei branch è talmente comune che a volte è necessario introdurre
 ## SCM distribuito
 Sfruttando i sistemi Software Configuration Management in modo distribuito può portare diversi vantaggi a fronte di alcune problematiche.
 I vantaggi sono diversi, tra cui:
-- La possibilità di lavorare offline, e una volta che si ha a disposizione una connesione internet sarà possibile aggiornare il repository remoto;
+- La possibilità di lavorare offline, e una volta che si ha a disposizione una connessione internet sarà possibile aggiornare il repository remoto;
 - Maggiore velocità;
 - Vengono supportati diversi modi di lavorare, ovvero:
     - Due peer collaborano direttamente condividendo tra loro il proprio lavoro;
