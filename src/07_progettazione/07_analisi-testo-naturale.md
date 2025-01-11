@@ -44,7 +44,7 @@ Esempio: _library_, _week_ (una settimana ha 7 giorni).
 Esempio: _name of the member_ (se ci fosse stato).
 
 Al termine di questa fase, si avrà una lista di classi _"certe"_ e _"incerte"_.
-In questo esempio, sono soppravvisuti i termini _journal_, _book_, _copy_ (of _book_), _library member_ e _member of staff_. 
+In questo esempio, sono sopravvissuti i termini _journal_, _book_, _copy_ (of _book_), _library member_ e _member of staff_. 
 
 ### Relazioni tra classi
 
@@ -143,6 +143,6 @@ hide empty methods
 @enduml
 ```
 
-È imporante però preoccuparsi delle __cardinalità__ delle relazioni: è sì vero che un `BorrowableItem` può non _essere una copia di_ un `Book` e di un `Journal`, ma deve essere copia di _esattamente_ una delle due opzioni.
-UML prevede un __linguaggio OCL__ ([Object Constraint Language](https://en.wikipedia.org/wiki/Object_Constraint_Language)) per esprimere vincoli divesamente impossibili da esprimere in un diagramma.
+È importante però preoccuparsi delle __cardinalità__ delle relazioni: è sì vero che un `BorrowableItem` può non _essere una copia di_ un `Book` e di un `Journal`, ma deve essere copia di _esattamente_ una delle due opzioni.
+UML prevede un __linguaggio OCL__ ([Object Constraint Language](https://en.wikipedia.org/wiki/Object_Constraint_Language)) per esprimere vincoli diversamente impossibili da esprimere in un diagramma.
 È anche possibile scrivere il _constraint_ in linguaggio naturale come __nota__.

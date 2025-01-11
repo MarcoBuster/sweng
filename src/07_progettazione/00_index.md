@@ -1,7 +1,7 @@
 # Progettazione
 
 Durante le lezioni, per discutere di progettazione siamo partiti da un esempio di programma in C che stampa una canzone.
-Il codice considerato è completamente illegibile:
+Il codice considerato è completamente illeggibile:
 
 ```c
 #include <stdio.h>
