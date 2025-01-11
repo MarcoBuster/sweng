@@ -21,7 +21,7 @@ Così facendo, le classi rimangono semplici e si agevola la riusabilità.
 le classi devono essere aperte ai cambiamenti (_opened_) ma senza modificare le parti già consegnate e in produzione (_closed_).
 Il refactoring è comunque possibile, ma deve essere preferibile estendere la classe attuale.
 3. __<span style="color: darkgreen"><big>L</big></span>ISKOV SUBSTITUTION PRINCIPLE__:
-c'è la garanzia che le caratteristiche eredidate dalla classe padre continuinino ad esistere nelle classi figlie.
+c'è la garanzia che le caratteristiche ereditate dalla classe padre continuino ad esistere nelle classi figlie.
 Questo concetto si collega all'aspetto __contract-based__ del metodo Agile: le _precondizioni_ di un metodo di una classe figlia devono essere ugualmente o meno restrittive del metodo della classe padre.
 Al contrario, le _postcondizioni_ di un metodo della classe figlia non possono garantire più di quello che garantiva il metodo nella classe padre.
 Fare _casting_ bypassa queste regole.
@@ -140,7 +140,7 @@ Di seguito ne sono elencati alcuni:
 - __codice duplicato__: si può fare per arrivare velocemente al verde quando si usa la tecnica TDD, ma è da rimuovere con il refactoring. Rischia di portarsi dietro degli errori o particolarità legate al applicazione originale di questo codice. È dunque importante cercare di fattorizzare il più possibile.
 - __metodi troppo lunghi__: non è un vincolo "_hard_" dato che dipende dai casi ma  solitamente sono poco leggibili e poco riusabili;
 - __troppi livelli di indentazione__: scarsa leggibilità e riusabilità, è bene fattorizzare il codice invece che avere una serie di if e for _innestati_ che lo rendono confusionario, quindi è meglio creare dei metodi con nomi chiari per evitare ciò.
-- __troppi attributi__: suggerisce che la classe non rispetta la single responsability, ovvero fa troppe cose;
+- __troppi attributi__: suggerisce che la classe non rispetta la single responsibility, ovvero fa troppe cose;
 - __lunghe sequenze di _if-else_ o _switch___: possono essere sostituiti da strutture basate su polimorfismo e collegamento dinamico;
 - __classe troppo grande__;
 - __lista parametri troppo lunga__: se proprio ne ho bisogno meglio raggrupparli in una struttura e passarli come unico parametro;
@@ -150,10 +150,10 @@ Di seguito ne sono elencati alcuni:
 - __codice morto__: nel programma non deve essere presente del codice irraggiungibile, commentato o non testato. 
 Questo appesantisce il progetto o porta a possibili rischi, è quindi preferibile eliminarlo.
 Nel caso in cui dovesse tornare utile è possibile recuperarlo utilizzando strumenti di versioning, accedendo a commit precedenti alla sua cancellazione.
-- __getter e setter__: Questi metodi causano la perdita dell'incapsulation e dell'information hiding, perchè esportano esternamente il segreto contenuto nella classe. 
+- __getter e setter__: Questi metodi causano la perdita dell'encapsulation e dell'information hiding, perchè esportano esternamente il segreto contenuto nella classe. 
 Sono utili nella fase preliminare della stesura del codice, è importante rimuoverli per far spazio a dei metodi che permettano all'utente di eseguire una specifica operazione da lui richiesta, piuttosto che fornirgli il dato e permettergli di elaborarlo come meglio crede (vedi principio di [__tell don't ask__](./04_tell-dont-ask.md) nella prossima sezione).
 
-Ecco alucni link utili per approfondire i code smell:
+Ecco alcuni link utili per approfondire i code smell:
 - [Refactoring guru](https://refactoring.guru/refactoring/smells)
 - [Wikipedia](https://en.wikipedia.org/wiki/Code_smell)
 - [Luzkan](https://luzkan.github.io/smells/)
