@@ -9,7 +9,7 @@ RUN mv plantuml /usr/bin/plantuml
 RUN chmod +x /usr/bin/plantuml
 
 # main image
-FROM rust:slim-buster
+FROM rust:slim-bookworm
 
 RUN apt-get update && \
     apt-get install --no-install-recommends -y \
