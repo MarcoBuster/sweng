@@ -9,7 +9,6 @@ Una transizione \\(t\\) in una marcatura \\(M\\) si può dire _viva_ con un cert
 In questo caso si dice che la transizione è __viva__ _in maniera assoluta_.
 
 Si noti come il concetto di _\\(n\\) grande a piacere_ presente nel grado 2 sia differente dal concetto di _infinite volte_ nel grado.
-
 Gli esempi seguenti rappresentano delle situazioni verosimili riguardanti la vitalità delle transizioni:
 - __grado 0__: qualunque cosa accada _la centrale nucleare non può esplodere_;
 - __grado 1__: in un certo momento se si assume il controllo di tutto ciò che avverrà _è possibile portare la centrale nucleare allo spegnimento_;
@@ -19,9 +18,16 @@ Gli esempi seguenti rappresentano delle situazioni verosimili riguardanti la vit
 
 Una rete viene chiamata __viva__ quando tutte le sue transizioni sono vive.
 
-## Esempio
+## Esempio Interattivo
 
-![Esempio vitalità tranisizioni](/assets/14_esempio-vitalita-transizioni.png)
+
+<div style="width:700px; height: 440px; overflow: hidden;">
+    <iframe src="https://homes.di.unimi.it/bellettini/pnexec/?pn=(P0)%20200,0%0A(P1)%20200,400%0A(P2)%200,200%0A_T0_%20400,0%0A_T1_%20200,200%0A_T2_%200,400%0A_T3_%200,0%0A_T4_%20400,400%0AP0%20-%3E%20T0%0AP1%20-%3E%20T0%0AP0%20-%3E%20T1%0AT1%20-%3E%20P1%0AP0%20-%3E%20T3%0AT3%20-%3E%20P0%0AT3%20-%3E%20P2%0AP2%20-%3E%20T2%0AT2%20-%3E%20P1%0AP1%20-%3E%20T2%0AT4%20-%3E%20P1%0AP1%20-%3E%20T4%0A@P0:1" 
+    width="1600" height="850" 
+    style="transform: translate(0px, 0); border=none;">
+    </iframe>
+</div>
+<br>
 
 - Da questo esempio pratico è possibile notare come la transizione \\(t_0\\) è di **grado 0** in quanto non potrà mai scattare, perchè è impossibile che abbia i gettoni necessari nel preset per scattare (al massimo o in \\(p_0\\) o in \\(p_1\\)).
 - La transizione \\(t_1\\) è di **grado 1** perchè esiste almeno una marcatura raggiungibile per cui essa scatti, infatti la marcatura corrente è quella che ne _permette_ lo scatto (ricordando ancora che se una transizione è abilitata allo scatto non significa che debba scattare).
