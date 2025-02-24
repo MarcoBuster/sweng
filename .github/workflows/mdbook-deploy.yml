@@ -86,7 +86,7 @@ jobs:
         run: grep -rl 'src="/assets/' book/ | xargs sed -i 's/src="\/assets\//src="\/sweng\/assets\//g'
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./book
 
