@@ -19,12 +19,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v3
-
             - name: Install apt requirements
               run: |
                   sudo apt-get update -y
                   sudo apt-get install -y wget default-jre default-jdk graphviz libssl-dev pkg-config
-
             - name: Restore from cache
               uses: actions/cache/restore@v3
               id: cache-restore
@@ -36,7 +34,6 @@ jobs:
                       ~/.cargo/registry/cache/
                       ~/.cargo/git/db/
                   key: ${{ runner.os }}
-
             - name: Install mdBook
               if: steps.cache-restore.outputs.cache-hit != 'true'
               run: |
@@ -44,19 +41,16 @@ jobs:
                   rustup update
                   cargo install mdbook
                   cargo install mdbook-plantuml
-
             - name: Download PlantUML
               if: steps.cache-restore.outputs.cache-hit != 'true'
               run: |
                   wget https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml-1.2022.13.jar -O plantuml.jar
-
             - name: Install PlantUML
               run: |
                   echo "#!/bin/bash" > plantuml
                   echo "java -jar $PWD/plantuml.jar \"\$@\"" >> plantuml
                   sudo mv plantuml /usr/bin/plantuml
                   sudo chmod +x /usr/bin/plantuml
-
             - name: Save PlantUML to cache
               id: cache-save
               uses: actions/cache/save@v3
@@ -68,37 +62,31 @@ jobs:
                       ~/.cargo/registry/cache/
                       ~/.cargo/git/db/
                   key: ${{ steps.cache-restore.outputs.cache-primary-key }}
-
             - name: Setup Pages
               id: pages
               uses: actions/configure-pages@v3
-
             - name: Build with mdBook
               run: mdbook build
-
             - name: Fix assets path
               run: grep -rl 'src="/assets/' book/ | xargs sed -i 's/src="\/assets\//src="\/sweng\/assets\//g'
-
-            - name: Upload mdBook artifact
+            - name: Upload artifact
               uses: actions/upload-artifact@v4
               with:
-                  name: mdbook
+                  name: github-pages
                   path: ./book
 
     deploy:
         needs: build
         runs-on: ubuntu-latest
         steps:
-            - name: Download mdBook artifact
+            - name: Download artifact
               uses: actions/download-artifact@v4
               with:
-                  pattern: mdbook
+                  pattern: github-pages
                   merge-multiple: true
                   path: ./book
-
             - name: Prepare deployment directory
               run: mv ./book/* .
-
             - name: Deploy to GitHub Pages
               id: deployment
               uses: actions/deploy-pages@v2
