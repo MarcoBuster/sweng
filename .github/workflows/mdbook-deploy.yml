@@ -1,115 +1,104 @@
 name: Deploy mdBook site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: [ master ]
+    push:
+        branches: [ master ]
+    workflow_dispatch:
 
-  # Permette di avviare manualmente il workflow da Actions tab
-  workflow_dispatch:
-
-# Permessi necessari al GITHUB_TOKEN per scrivere su GitHub Pages
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+    contents: read
+    pages: write
+    id-token: write
 
-# Consente un solo deployment concorrente
 concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    group: "pages"
+    cancel-in-progress: false
 
 jobs:
-  # ------------------------------------------
-  # 1) BUILD JOB
-  # ------------------------------------------
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
 
-      - name: Install apt requirements
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y wget default-jre default-jdk graphviz libssl-dev pkg-config
+            - name: Install apt requirements
+              run: |
+                  sudo apt-get update -y
+                  sudo apt-get install -y wget default-jre default-jdk graphviz libssl-dev pkg-config
 
-      - name: Restore from cache
-        id: cache-restore
-        uses: actions/cache/restore@v3
-        with:
-          path: |
-            plantuml.jar
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-          key: ${{ runner.os }}
+            - name: Restore from cache
+              uses: actions/cache/restore@v3
+              id: cache-restore
+              with:
+                  path: |
+                      plantuml.jar
+                      ~/.cargo/bin/
+                      ~/.cargo/registry/index/
+                      ~/.cargo/registry/cache/
+                      ~/.cargo/git/db/
+                  key: ${{ runner.os }}
 
-      - name: Install mdBook
-        if: steps.cache-restore.outputs.cache-hit != 'true'
-        run: |
-          curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
-          rustup update
-          cargo install mdbook
-          cargo install mdbook-plantuml
+            - name: Install mdBook
+              if: steps.cache-restore.outputs.cache-hit != 'true'
+              run: |
+                  curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf -y | sh
+                  rustup update
+                  cargo install mdbook
+                  cargo install mdbook-plantuml
 
-      - name: Download PlantUML
-        if: steps.cache-restore.outputs.cache-hit != 'true'
-        run: |
-          wget https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml-1.2022.13.jar -O plantuml.jar
+            - name: Download PlantUML
+              if: steps.cache-restore.outputs.cache-hit != 'true'
+              run: |
+                  wget https://github.com/plantuml/plantuml/releases/download/v1.2022.13/plantuml-1.2022.13.jar -O plantuml.jar
 
-      - name: Install PlantUML
-        run: |
-          echo "#!/bin/bash" > plantuml
-          echo "java -jar $PWD/plantuml.jar \"\$@\"" >> plantuml
-          sudo mv plantuml /usr/bin/plantuml
-          sudo chmod +x /usr/bin/plantuml
+            - name: Install PlantUML
+              run: |
+                  echo "#!/bin/bash" > plantuml
+                  echo "java -jar $PWD/plantuml.jar \"\$@\"" >> plantuml
+                  sudo mv plantuml /usr/bin/plantuml
+                  sudo chmod +x /usr/bin/plantuml
 
-      - name: Save PlantUML to cache
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            plantuml.jar
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-          key: ${{ steps.cache-restore.outputs.cache-primary-key }}
+            - name: Save PlantUML to cache
+              id: cache-save
+              uses: actions/cache/save@v3
+              with:
+                  path: |
+                      plantuml.jar
+                      ~/.cargo/bin/
+                      ~/.cargo/registry/index/
+                      ~/.cargo/registry/cache/
+                      ~/.cargo/git/db/
+                  key: ${{ steps.cache-restore.outputs.cache-primary-key }}
 
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v3
+            - name: Setup Pages
+              id: pages
+              uses: actions/configure-pages@v3
 
-      - name: Build with mdBook
-        run: mdbook build
+            - name: Build with mdBook
+              run: mdbook build
 
-      - name: Fix assets path
-        run: grep -rl 'src="/assets/' book/ | xargs sed -i 's/src="\/assets\//src="\/sweng\/assets\//g'
+            - name: Fix assets path
+              run: grep -rl 'src="/assets/' book/ | xargs sed -i 's/src="\/assets\//src="\/sweng\/assets\//g'
 
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: pages-artifact
-          path: ./book
+            - name: Upload mdBook artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  name: mdbook
+                  path: ./book
 
-  # ------------------------------------------
-  # 2) DEPLOY JOB
-  # ------------------------------------------
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
+    deploy:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - name: Download mdBook artifact
+              uses: actions/download-artifact@v4
+              with:
+                  pattern: mdbook
+                  merge-multiple: true
+                  path: ./book
 
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+            - name: Prepare deployment directory
+              run: mv ./book/* .
 
-    steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: pages-artifact
-
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v2
-
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v2
